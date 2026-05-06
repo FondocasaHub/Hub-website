@@ -696,6 +696,34 @@ const FAQS = [
   {
     q: "Cosa fa un'agenzia immobiliare per vendere casa?",
     a: "Un'agenzia immobiliare qualificata si occupa di: valutazione dell'immobile, verifica della documentazione, realizzazione di foto e materiali di marketing, pubblicazione degli annunci sui portali, selezione e gestione delle visite, negoziazione con gli acquirenti, assistenza nel compromesso e coordinamento fino al rogito notarile. HUB aggiunge a questo percorso la consulenza su mutuo e assicurazione, chiudendo il cerchio in un unico punto di riferimento."
+  },
+  {
+    q: "Cos'è il metodo dei 7 Pilastri di HUB?",
+    a: "Il metodo dei 7 Pilastri è l'approccio strutturato che HUB applica a ogni compravendita immobiliare: 1) analisi documentale e due diligence, 2) valutazione di mercato precisa, 3) piano di marketing dedicato, 4) qualificazione degli acquirenti, 5) negoziazione protetta, 6) gestione di mutuo e assicurazione in parallelo, 7) assistenza fino al rogito e oltre. Un metodo costruito in 26 anni che riduce i tempi di vendita e protegge venditore e acquirente in ogni fase."
+  },
+  {
+    q: "Perché scegliere HUB rispetto a un'agenzia immobiliare tradizionale?",
+    a: "HUB non è una semplice agenzia immobiliare: è l'unico punto di Napoli dove trovare sotto lo stesso tetto la consulenza immobiliare (Fondocasa), la mediazione creditizia per il mutuo (WeUnit) e la consulenza assicurativa (Henia). Questo significa che l'acquirente può trovare casa e ottenere il mutuo nello stesso posto, e il venditore ha un team che gestisce anche l'aspetto finanziario dell'acquirente — riducendo drasticamente i rischi di trattative saltate per mancanza di finanziamento."
+  },
+  {
+    q: "Cosa significa avere immobiliare, mutuo e assicurazione in un unico posto?",
+    a: "Significa che quando vendi o compri casa con HUB non devi coordinare da solo tre professionisti diversi — agente immobiliare, consulente del credito e broker assicurativo. Tutto avviene internamente, con team che si parlano in tempo reale. L'acquirente ottiene la pre-valutazione del mutuo prima ancora di fare un'offerta, e il venditore sa già se l'acquirente è finanziariamente qualificato. Il risultato sono trattative più veloci, meno rischi e meno stress."
+  },
+  {
+    q: "Come funziona il mandato in esclusiva con HUB?",
+    a: "Il mandato in esclusiva con HUB significa che il tuo immobile viene gestito con priorità assoluta: piano di marketing dedicato, pubblicazione su tutti i principali portali immobiliari, reportistica periodica sull'andamento delle visite e feedback da ogni acquirente. A differenza del mandato non esclusivo, l'agenzia investe davvero nel promuovere il tuo immobile perché ha la certezza di rappresentarti. HUB offre trasparenza totale: sai sempre cosa sta succedendo con la tua casa."
+  },
+  {
+    q: "Quanto tempo impiega HUB per vendere un immobile a Napoli?",
+    a: "I tempi di vendita dipendono dal quartiere, dal prezzo e dalle condizioni dell'immobile. Con il metodo HUB, grazie alla corretta valutazione iniziale e alla qualificazione degli acquirenti, i tempi medi si accorciano significativamente rispetto al mercato. Gli immobili correttamente prezzati e con documentazione in ordine trovano acquirente entro 60-90 giorni. Contattaci per una stima personalizzata basata sul tuo specifico immobile."
+  },
+  {
+    q: "HUB opera solo al Vomero o anche in altri quartieri di Napoli?",
+    a: "HUB ha sede al Vomero (Via Pietro Mascagni 35) ma opera in tutta Napoli: Chiaia, Posillipo, Mergellina, Centro Storico, Toledo, Quartieri Spagnoli, Fuorigrotta, Bagnoli, Soccavo, Arenella e Vomero Alto. La conoscenza profonda del mercato napoletano permette al team di valutare correttamente immobili in ogni zona e trovare gli acquirenti giusti per ogni tipologia di proprietà."
+  },
+  {
+    q: "HUB offre valutazioni immobiliari gratuite?",
+    a: "Sì, HUB offre valutazioni immobiliari gratuite e senza impegno per immobili a Napoli. La valutazione viene effettuata da un consulente specializzato che analizza: i prezzi di mercato della zona, le vendite recenti comparabili, le caratteristiche specifiche dell'immobile (piano, esposizione, condizioni, classe energetica) e la domanda attuale per quella tipologia. Per richiedere una valutazione gratuita, compila il form sul sito o scrivici su WhatsApp."
   }
 ];
 

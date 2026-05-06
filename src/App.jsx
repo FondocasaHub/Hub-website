@@ -657,7 +657,106 @@ function HomePage({ navigate, colors }) {
           </div>
         </div>
       </section>
+
+      {/* FAQ SEO */}
+      <FAQSection colors={{ NAVY, GOLD, CREAM }} />
     </>
+  );
+}
+
+const FAQS = [
+  {
+    q: "Qual è la migliore agenzia immobiliare al Vomero di Napoli?",
+    a: "HUB – FC Punto Hub Srl è una delle agenzie immobiliari di riferimento al Vomero di Napoli, con 26 anni di attività in Via Pietro Mascagni 35. Opera con il brand Fondocasa per la compravendita immobiliare, WeUnit per la mediazione creditizia e Henia per la consulenza assicurativa, offrendo un servizio integrato che ha assistito oltre 3.898 famiglie."
+  },
+  {
+    q: "Come vendere casa a Napoli senza problemi?",
+    a: "Per vendere casa a Napoli senza problemi è fondamentale: verificare la regolarità urbanistica e catastale dell'immobile, affidarsi a un'agenzia immobiliare qualificata con esperienza locale, fissare un prezzo coerente con i valori di mercato del quartiere e preparare tutta la documentazione prima di iniziare le trattative. HUB utilizza un metodo strutturato in 7 pilastri che riduce i tempi di vendita e protegge il venditore in ogni fase."
+  },
+  {
+    q: "Quali documenti servono per vendere casa a Napoli?",
+    a: "Per vendere un immobile a Napoli servono: atto di provenienza (rogito o successione), visura e planimetria catastale aggiornate, attestato di Prestazione Energetica (APE), certificato di agibilità, conformità urbanistica, eventuali concessioni edilizie e documenti condominiali (regolamento, ultima assemblea, spese). I nostri consulenti verificano gratuitamente la completezza del fascicolo prima di avviare la vendita."
+  },
+  {
+    q: "Quanto vale un appartamento al Vomero di Napoli?",
+    a: "I valori immobiliari al Vomero di Napoli variano in base alla zona, al piano e alle condizioni dell'immobile. In media, un appartamento ristrutturato al Vomero si colloca tra 3.500 e 5.500 €/mq, con punte più alte a Vomero Alto e Belvedere. Per una valutazione gratuita e precisa del tuo immobile, contatta HUB: i nostri agenti conoscono ogni microzona del quartiere."
+  },
+  {
+    q: "Come scegliere un'agenzia immobiliare a Napoli?",
+    a: "Per scegliere un'agenzia immobiliare a Napoli valuta: anni di esperienza nel mercato locale, presenza fisica nel quartiere, metodo di lavoro trasparente, referenze e recensioni verificabili, e la capacità di offrire servizi integrati (immobiliare, mutuo, assicurazione). Diffidate delle agenzie che promettono prezzi impossibili o che non verificano i documenti prima di mettere in vendita."
+  },
+  {
+    q: "Come evitare problemi nella vendita di un immobile?",
+    a: "I problemi più comuni nella vendita di un immobile riguardano irregolarità catastali o urbanistiche, difformità planimetriche, ipoteche non estinte e contestazioni in fase di rogito. Per evitarli: verifica sempre la conformità dell'immobile prima di metterlo sul mercato, affidati a professionisti che gestiscono anche la parte documentale, e scegli un notaio di fiducia. HUB effettua una due diligence completa prima di avviare ogni compravendita."
+  },
+  {
+    q: "Come ottenere un mutuo per comprare casa a Napoli?",
+    a: "Per ottenere un mutuo a Napoli è consigliabile rivolgersi a un mediatore creditizio qualificato che possa confrontare le offerte di più banche e trovare la soluzione più adatta al tuo profilo. WeUnit, il ramo creditizio di HUB, offre consulenza gratuita per mutui prima casa, surroga e liquidità, con accesso a oltre 20 istituti di credito e pratiche seguite fino all'erogazione."
+  },
+  {
+    q: "Cosa fa un'agenzia immobiliare per vendere casa?",
+    a: "Un'agenzia immobiliare qualificata si occupa di: valutazione dell'immobile, verifica della documentazione, realizzazione di foto e materiali di marketing, pubblicazione degli annunci sui portali, selezione e gestione delle visite, negoziazione con gli acquirenti, assistenza nel compromesso e coordinamento fino al rogito notarile. HUB aggiunge a questo percorso la consulenza su mutuo e assicurazione, chiudendo il cerchio in un unico punto di riferimento."
+  }
+];
+
+function FAQSection({ colors }) {
+  const { NAVY, GOLD, CREAM } = colors;
+  const [open, setOpen] = useState(null);
+
+  return (
+    <section style={{ padding: "100px 32px", background: NAVY }} itemScope itemType="https://schema.org/FAQPage">
+      <div style={{ maxWidth: 860, margin: "0 auto" }}>
+        <div style={{ textAlign: "center", marginBottom: 64 }}>
+          <span className="badge-gold">Domande frequenti</span>
+          <h2 className="serif" style={{ fontSize: "2.6rem", fontWeight: 700, color: CREAM, marginTop: 24, lineHeight: 1.1 }}>
+            Tutto quello che vuoi sapere su <em style={{ color: GOLD }}>HUB e il mercato immobiliare</em> a Napoli
+          </h2>
+        </div>
+
+        <div style={{ display: "flex", flexDirection: "column", gap: 2 }}>
+          {FAQS.map((faq, i) => (
+            <div key={i} itemScope itemProp="mainEntity" itemType="https://schema.org/Question"
+              style={{ borderBottom: "1px solid rgba(193,154,91,0.15)" }}>
+              <button
+                onClick={() => setOpen(open === i ? null : i)}
+                style={{
+                  width: "100%", textAlign: "left", background: "transparent", border: "none",
+                  padding: "24px 0", cursor: "pointer", display: "flex", justifyContent: "space-between",
+                  alignItems: "center", gap: 16
+                }}
+              >
+                <span itemProp="name" style={{ fontSize: "1.05rem", fontWeight: 600, color: CREAM, lineHeight: 1.4 }}>
+                  {faq.q}
+                </span>
+                <span style={{ color: GOLD, fontSize: 22, flexShrink: 0, transition: "transform 0.3s",
+                  transform: open === i ? "rotate(45deg)" : "rotate(0deg)" }}>+</span>
+              </button>
+              {open === i && (
+                <div itemScope itemProp="acceptedAnswer" itemType="https://schema.org/Answer">
+                  <p itemProp="text" style={{
+                    color: "rgba(245,239,228,0.8)", fontSize: 15, lineHeight: 1.8,
+                    paddingBottom: 28, margin: 0
+                  }}>
+                    {faq.a}
+                  </p>
+                </div>
+              )}
+            </div>
+          ))}
+        </div>
+
+        <div style={{ textAlign: "center", marginTop: 56 }}>
+          <p style={{ color: "rgba(245,239,228,0.6)", fontSize: 14, marginBottom: 20 }}>
+            Non hai trovato risposta? Scrivici direttamente.
+          </p>
+          <a href="https://wa.me/3908118653202" target="_blank" rel="noopener noreferrer"
+            style={{ display: "inline-block", background: "#25D366", color: "white", padding: "14px 32px",
+              borderRadius: 3, textDecoration: "none", fontWeight: 600, fontSize: 14, letterSpacing: 1 }}>
+            Scrivici su WhatsApp →
+          </a>
+        </div>
+      </div>
+    </section>
   );
 }
 

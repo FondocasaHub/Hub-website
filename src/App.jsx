@@ -94,6 +94,7 @@ export default function App() {
     { id: "home", label: "Home" },
     { id: "chi-siamo", label: "Chi siamo" },
     { id: "metodo", label: "Il nostro metodo" },
+    { id: "contatti", label: "Contatti" },
     { id: "comincia", label: "Comincia da qui", highlight: true },
     { id: "carriera", label: "Lavora con noi" }
   ];
@@ -103,7 +104,7 @@ export default function App() {
       <GlobalStyles NAVY={NAVY} NAVY_DEEP={NAVY_DEEP} GOLD={GOLD} GOLD_BRIGHT={GOLD_BRIGHT} CREAM={CREAM} />
 
       {/* WhatsApp floating */}
-      <a href="https://wa.me/390811863202" target="_blank" rel="noopener noreferrer" className="whatsapp-float" title="Scrivici su WhatsApp">
+      <a href="https://wa.me/3908118653202" target="_blank" rel="noopener noreferrer" className="whatsapp-float" title="Scrivici su WhatsApp">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
           <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
         </svg>
@@ -191,8 +192,12 @@ export default function App() {
       {page === "home" && <HomePage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "chi-siamo" && <ChiSiamoPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "metodo" && <MetodoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "contatti" && <ContactPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "comincia" && <CominciaQuiPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "carriera" && <CarrieraPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "privacy" && <PrivacyPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "cookie" && <CookiePage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "note-legali" && <NoteLegaliPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
 
       <Footer navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />
     </div>
@@ -530,6 +535,9 @@ function HomePage({ navigate, colors }) {
               </button>
               <button className="btn-outline" style={{ padding: "18px 36px", borderRadius: 3, cursor: "pointer", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase" }} onClick={() => navigate("metodo")}>
                 Scopri il metodo
+              </button>
+              <button className="btn-outline" style={{ padding: "18px 36px", borderRadius: 3, cursor: "pointer", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase" }} onClick={() => navigate("contatti")}>
+                Contattaci
               </button>
             </div>
           </div>
@@ -932,9 +940,38 @@ function CominciaQuiPage({ colors }) {
     nome: "", telefono: "", email: "", privacy: false
   });
   const [sent, setSent] = useState(false);
+  const [sending, setSending] = useState(false);
 
   const next = () => setStep(s => s + 1);
   const prev = () => setStep(s => s - 1);
+
+  const handleSend = async () => {
+    if (!canSend || sending) return;
+    setSending(true);
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: data.nome,
+          email: data.email,
+          phone: data.telefono,
+          obiettivo: data.obiettivo,
+          tempi: data.tempi,
+          zona: data.zona,
+          _subject: 'Lead qualificato HUB Napoli – Comincia Da Qui',
+        })
+      });
+      const result = await res.json();
+      if (!res.ok || result.success === false) throw new Error(result.message || 'Errore invio');
+      setSent(true);
+      if (window.fbq) window.fbq('track', 'Lead');
+    } catch {
+      alert('Errore nell\'invio. Riprova o contattaci direttamente.');
+    } finally {
+      setSending(false);
+    }
+  };
 
   const obiettivi = [
     { v: "vendere", l: "Vendere un immobile" },
@@ -1060,10 +1097,10 @@ function CominciaQuiPage({ colors }) {
                     </label>
                     <button
                       className="btn-gold"
-                      style={{ padding: "16px", borderRadius: 3, border: "none", cursor: canSend ? "pointer" : "not-allowed", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 10, opacity: canSend ? 1 : 0.5 }}
-                      onClick={() => canSend && setSent(true)}
+                      style={{ padding: "16px", borderRadius: 3, border: "none", cursor: canSend && !sending ? "pointer" : "not-allowed", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 10, opacity: canSend && !sending ? 1 : 0.5 }}
+                      onClick={handleSend}
                     >
-                      {isPriority ? "Invia richiesta prioritaria →" : "Invia richiesta →"}
+                      {sending ? "Invio in corso…" : isPriority ? "Invia richiesta prioritaria →" : "Invia richiesta →"}
                     </button>
                   </div>
                   <button onClick={prev} style={{ marginTop: 24, background: "transparent", border: "none", color: "rgba(10,31,61,0.5)", cursor: "pointer", fontSize: 13 }}>← Indietro</button>
@@ -1094,7 +1131,7 @@ function CominciaQuiPage({ colors }) {
               )}
               <div style={{ paddingTop: 24, borderTop: `1px solid rgba(193,154,91,0.2)`, marginTop: 24 }}>
                 <p style={{ fontSize: 13, color: "rgba(245,239,228,0.6)", marginBottom: 8 }}>Hai bisogno di parlarci subito?</p>
-                <a href="https://wa.me/390811863202" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontWeight: 600, textDecoration: "none", fontSize: 14 }}>
+                <a href="https://wa.me/3908118653202" target="_blank" rel="noopener noreferrer" style={{ color: GOLD, fontWeight: 600, textDecoration: "none", fontSize: 14 }}>
                   Scrivici su WhatsApp →
                 </a>
               </div>
@@ -1115,6 +1152,35 @@ function CarrieraPage({ colors }) {
     nome: "", telefono: "", email: "", esperienza: "", area: "", motivazione: "", privacy: false
   });
   const [candSent, setCandSent] = useState(false);
+  const [candSending, setCandSending] = useState(false);
+
+  const handleCandSend = async () => {
+    const canSend = candForm.nome && candForm.telefono && candForm.email && candForm.area && candForm.privacy;
+    if (!canSend || candSending) return;
+    setCandSending(true);
+    try {
+      const res = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({
+          name: candForm.nome,
+          email: candForm.email,
+          phone: candForm.telefono,
+          area: candForm.area,
+          esperienza: candForm.esperienza,
+          motivazione: candForm.motivazione,
+          _subject: 'Candidatura HUB Napoli',
+        })
+      });
+      const result = await res.json();
+      if (!res.ok || result.success === false) throw new Error(result.message || 'Errore invio');
+      setCandSent(true);
+    } catch {
+      alert('Errore nell\'invio. Riprova o contattaci direttamente.');
+    } finally {
+      setCandSending(false);
+    }
+  };
 
   return (
     <>
@@ -1231,10 +1297,10 @@ function CarrieraPage({ colors }) {
                   </label>
                   <button
                     className="btn-gold"
-                    style={{ padding: "16px", borderRadius: 3, border: "none", cursor: "pointer", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 8 }}
-                    onClick={() => candForm.nome && candForm.telefono && candForm.email && candForm.area && candForm.privacy && setCandSent(true)}
+                    style={{ padding: "16px", borderRadius: 3, border: "none", cursor: candSending ? "not-allowed" : "pointer", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 8, opacity: candSending ? 0.6 : 1 }}
+                    onClick={handleCandSend}
                   >
-                    Invia candidatura →
+                    {candSending ? "Invio in corso…" : "Invia candidatura →"}
                   </button>
                 </div>
               </div>
@@ -1255,8 +1321,303 @@ function CarrieraPage({ colors }) {
 }
 
 // =====================================================
-// FOOTER
+// CONTATTI
 // =====================================================
+function ContactPage({ navigate, colors }) {
+  const { NAVY, GOLD, CREAM } = colors;
+  const [form, setForm] = useState({ nome: "", telefono: "", email: "", messaggio: "", privacy: false, marketing: false });
+  const [sent, setSent] = useState(false);
+  const canSend = form.nome && form.telefono && form.email && form.messaggio && form.privacy;
+
+  const handleSend = async () => {
+    if (!canSend) return;
+
+    try {
+      // Send email directly via FormSubmit.co to the official email address
+      const emailResponse = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          name: form.nome,
+          email: form.email,
+          phone: form.telefono,
+          message: form.messaggio,
+          marketing_consent: form.marketing ? 'Sì' : 'No',
+          _subject: 'Richiesta HUB Napoli - sito web',
+          _honey: '',
+        })
+      });
+
+      const emailResult = await emailResponse.json();
+      if (!emailResponse.ok || emailResult.success === false) {
+        throw new Error(emailResult.message || 'Errore nell\'invio dell\'email');
+      }
+
+      // Send to Google Sheets via Apps Script if available
+      try {
+        const sheetResponse = await fetch('https://script.google.com/macros/s/1-ufWrj8PncYdBmq_Alf7Hw5nNDKwH51BsRMnw9EK1VnEo_s6OjVMhxvi/exec', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            nome: form.nome,
+            telefono: form.telefono,
+            email: form.email,
+            messaggio: form.messaggio,
+            marketing: form.marketing
+          })
+        });
+
+        if (!sheetResponse.ok) {
+          console.warn('Google Sheets non raggiungibile:', sheetResponse.statusText);
+        }
+      } catch (sheetError) {
+        console.warn('Impossibile salvare su Google Sheets:', sheetError);
+      }
+
+      setSent(true);
+      if (window.fbq) {
+        window.fbq('track', 'Lead');
+      }
+    } catch (error) {
+      console.error('Error sending form:', error);
+      const message = error?.text || error?.message || 'Errore sconosciuto';
+      alert(`Errore nell\'invio del form: ${message}. Riprova o contattaci direttamente.`);
+    }
+  };
+
+  return (
+    <>
+      <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <span className="badge-gold">Contattaci</span>
+          <h1 className="serif h1-resp" style={{ fontSize: "3.6rem", fontWeight: 700, color: CREAM, marginTop: 24, marginBottom: 24, lineHeight: 1.1 }}>
+            Parla con <span className="gold-text">HUB Napoli</span> oggi.
+          </h1>
+          <p style={{ color: "rgba(245,239,228,0.85)", fontSize: "1.15rem", lineHeight: 1.7, maxWidth: 720, margin: "0 auto" }}>
+            Compila il form per ricevere una risposta personalizzata e veloce. Siamo a disposizione per valutazioni immobiliari, mutui, assicurazioni e consulenza integrata.
+          </p>
+        </div>
+      </section>
+
+      <section style={{ padding: "80px 32px 120px", background: CREAM }}>
+        <div style={{ maxWidth: 1160, margin: "0 auto" }}>
+          <div className="grid-2-mobile" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 40, alignItems: "flex-start" }}>
+            <div>
+              <h2 className="serif" style={{ fontSize: "2.4rem", fontWeight: 700, marginBottom: 20, color: NAVY }}>Form contatti</h2>
+              <p style={{ color: "rgba(10,31,61,0.75)", fontSize: 15, lineHeight: 1.8, marginBottom: 36 }}>
+                Inserisci i tuoi dati e il messaggio. Riceverai una conferma immediata e potremo contattarti entro 24 ore lavorative.
+              </p>
+              {!sent ? (
+                <div style={{ display: "grid", gap: 16 }}>
+                  <input className="input-field" placeholder="Nome e cognome *" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
+                  <input className="input-field" placeholder="Telefono *" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
+                  <input className="input-field" placeholder="Email *" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
+                  <textarea className="input-field" placeholder="Messaggio *" rows={6} value={form.messaggio} onChange={e => setForm({ ...form, messaggio: e.target.value })} style={{ resize: "vertical", fontFamily: "'Jost', sans-serif" }} />
+                  <label style={{ display: "flex", gap: 10, fontSize: 12, color: "rgba(10,31,61,0.7)" }}>
+                    <input type="checkbox" checked={form.privacy} onChange={e => setForm({ ...form, privacy: e.target.checked })} />
+                    <span>Acconsento al trattamento dei miei dati personali ai sensi del GDPR per ricevere una risposta alla richiesta inviata e per le finalità indicate nella <span onClick={() => navigate("privacy")} style={{ color: "#b68a39", textDecoration: "underline", cursor: "pointer" }}>privacy policy</span>.</span>
+                  </label>
+                  <label style={{ display: "flex", gap: 10, fontSize: 12, color: "rgba(10,31,61,0.7)" }}>
+                    <input type="checkbox" checked={form.marketing} onChange={e => setForm({ ...form, marketing: e.target.checked })} />
+                    <span>Acconsento all'utilizzo dei miei dati per finalità di marketing e al caricamento delle liste contatti su Meta/Facebook per campagne personalizzate.</span>
+                  </label>
+                  <button
+                    className="btn-gold"
+                    style={{ padding: "16px", borderRadius: 3, border: "none", cursor: canSend ? "pointer" : "not-allowed", fontSize: 14, letterSpacing: 1.5, textTransform: "uppercase", marginTop: 8, opacity: canSend ? 1 : 0.5 }}
+                    onClick={handleSend}
+                  >
+                    Invia richiesta →
+                  </button>
+                </div>
+              ) : (
+                <div style={{ padding: 44, borderRadius: 8, background: NAVY, color: CREAM, textAlign: "center" }}>
+                  <div style={{ fontSize: 56, color: GOLD, marginBottom: 20 }}>✓</div>
+                  <h3 className="serif" style={{ fontSize: "2rem", marginBottom: 12 }}>Richiesta inviata</h3>
+                  <p style={{ color: "rgba(245,239,228,0.85)", fontSize: 16, lineHeight: 1.8 }}>
+                    Grazie {form.nome.split(" ")[0]}! Il tuo messaggio è pronto per essere inviato al nostro ufficio. Se preferisci, usa anche WhatsApp per una risposta immediata.
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div style={{ padding: 36, borderRadius: 8, background: NAVY, color: CREAM, border: `1px solid rgba(193,154,91,0.2)` }}>
+              <div style={{ marginBottom: 28 }}>
+                <span className="badge-gold" style={{ background: "rgba(255,255,255,0.08)", color: GOLD }}>Sede e contatti</span>
+                <h3 className="serif" style={{ fontSize: "2rem", fontWeight: 700, marginTop: 18, marginBottom: 14 }}>HUB Napoli</h3>
+                <p style={{ color: "rgba(245,239,228,0.8)", lineHeight: 1.8, fontSize: 15 }}>
+                  Via Pietro Mascagni, 35<br />80128 Napoli<br />
+                  Tel: 081 18653202<br />
+                  Email: na.vomero@fondocasa.it
+                </p>
+              </div>
+              <div style={{ marginBottom: 24 }}>
+                <h4 style={{ fontSize: 12, letterSpacing: 2.5, textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>Orari</h4>
+                <p style={{ color: "rgba(245,239,228,0.7)", fontSize: 14, lineHeight: 1.7 }}>
+                  Lun-Ven 09:00-19:00<br />Sab 09:00-13:00
+                </p>
+              </div>
+              <div>
+                <h4 style={{ fontSize: 12, letterSpacing: 2.5, textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>Contatto rapido</h4>
+                <a href="https://wa.me/3908118653202" target="_blank" rel="noopener noreferrer" style={{ display: "inline-block", color: GOLD, textDecoration: "none", fontWeight: 600, marginBottom: 10 }}>
+                  WhatsApp HUB Napoli →
+                </a>
+                <p style={{ color: "rgba(245,239,228,0.7)", fontSize: 14, lineHeight: 1.7, marginTop: 14 }}>
+                  Oppure clicca il pulsante in basso per tornare alla home e scoprire il metodo completo.
+                </p>
+                <button className="btn-outline" style={{ marginTop: 18, padding: "14px 24px", borderRadius: 3, border: "1px solid rgba(193,154,91,0.4)", background: "transparent", color: CREAM, cursor: "pointer", textTransform: "uppercase", fontSize: 12, letterSpacing: 1.2 }} onClick={() => navigate("home")}>Torna alla home</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// =====================================================
+// PRIVACY POLICY
+// =====================================================
+function PrivacyPage({ colors }) {
+  const { NAVY, GOLD, CREAM } = colors;
+  return (
+    <>
+      <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <span className="badge-gold">Privacy Policy</span>
+          <h1 className="serif h1-resp" style={{ fontSize: "3.6rem", fontWeight: 700, color: CREAM, marginTop: 24, marginBottom: 24, lineHeight: 1.1 }}>
+            La tua privacy è una priorità per HUB.
+          </h1>
+          <p style={{ color: "rgba(245,239,228,0.85)", fontSize: "1.15rem", lineHeight: 1.7, maxWidth: 720, margin: "0 auto" }}>
+            In questa pagina trovi tutte le informazioni sul trattamento dei dati personali, le finalità, i diritti e le garanzie previste dalla normativa GDPR.
+          </p>
+        </div>
+      </section>
+
+      <section style={{ padding: "80px 32px 120px", background: CREAM, color: NAVY }}>
+        <div style={{ maxWidth: 980, margin: "0 auto", display: "grid", gap: 40 }}>
+          {[
+            { title: "Titolare del trattamento", text: "FC Punto Hub Srl - Via Pietro Mascagni, 35, 80128 Napoli - na.vomero@fondocasa.it - P.IVA IT01924140096" },
+            { title: "Normativa applicabile", text: "Il trattamento dei dati personali è effettuato ai sensi del Regolamento UE 2016/679 (GDPR) e delle leggi nazionali vigenti in materia di protezione dei dati personali." },
+            { title: "Finalità del trattamento", text: "Rispondere alle richieste di informazioni, valutazioni immobiliari, consulenze mutui e assicurative, gestire il contatto commerciale, fornire informazioni personalizzate e promuovere servizi tramite comunicazioni marketing." },
+            { title: "Dati trattati", text: "Nome, cognome, telefono, email, messaggio, preferenze sui servizi richiesti e consensi espressi. Possono essere trattati anche dati tecnici necessari al funzionamento del sito, come indirizzo IP, tipo di browser, sistema operativo e dati di navigazione." },
+            { title: "Base giuridica", text: "Il trattamento si basa sul consenso espresso dall'interessato per le comunicazioni commerciali e il caricamento delle liste contatti su piattaforme partner come Meta (Facebook), e su interessi legittimi per garantire la sicurezza del sito, la gestione tecnica e la prevenzione di abusi." },
+            { title: "Marketing e profilazione", text: "Con il tuo consenso, i dati possono essere utilizzati per la creazione di elenchi di marketing e campagne personalizzate su Meta/Facebook. Non verranno utilizzati per scopi diversi da quelli esplicitamente autorizzati e potrai revocare il consenso in qualsiasi momento." },
+            { title: "Facoltatività del marketing", text: "Il conferimento dei dati di contatto è necessario per poter rispondere alla richiesta. Il consenso alle finalità di marketing e al caricamento su Meta/Facebook è facoltativo e può essere revocato senza pregiudicare la risposta alla tua richiesta." },
+            { title: "Modalità di conservazione", text: "I dati vengono conservati in modo sicuro per il tempo necessario a evadere la richiesta e, comunque, non oltre 24 mesi salvo obblighi di legge o esigenze legittime di tutela." },
+            { title: "Destinatari", text: "I dati non sono comunicati a soggetti non autorizzati né sono venduti. Possono essere condivisi con fornitori terzi che forniscono servizi tecnici, amministrativi o di marketing necessari al sito e alle campagne promozionali, sempre sotto vincolo di riservatezza." },
+            { title: "Trasferimenti internazionali", text: "I dati non saranno trasferiti al di fuori dell'Unione Europea senza adeguate garanzie previste dal GDPR. Qualora fosse necessario un trasferimento, verranno adottate le misure richieste dalla normativa." },
+            { title: "Diritti dell'interessato", text: "Hai diritto di ottenere l'accesso, la rettifica, la cancellazione, la limitazione del trattamento, l'opposizione, la portabilità dei dati e la revoca del consenso in qualsiasi momento, senza pregiudicare la liceità del trattamento basata sul consenso prestato prima della revoca." },
+            { title: "Reclamo", text: "Se ritieni che il trattamento non rispetti la normativa, puoi proporre reclamo all'Autorità Garante per la protezione dei dati personali: www.garanteprivacy.it." }
+          ].map((item, index) => (
+            <div key={index} style={{ padding: 30, background: "white", borderRadius: 8, boxShadow: "0 16px 40px rgba(10,31,61,0.05)" }}>
+              <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14, color: NAVY }}>{item.title}</h2>
+              <p style={{ lineHeight: 1.8, color: "rgba(10,31,61,0.78)", fontSize: 15 }}>{item.text}</p>
+            </div>
+          ))}
+
+          <div style={{ padding: 30, background: NAVY, color: CREAM, borderRadius: 8 }}>
+            <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14 }}>Come esercitare i tuoi diritti</h2>
+            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15 }}>
+              Per esercitare i diritti relativi ai tuoi dati personali, contatta il titolare del trattamento scrivendo a <a href="mailto:na.vomero@fondocasa.it" style={{ color: GOLD, textDecoration: "none" }}>na.vomero@fondocasa.it</a> o chiamando il numero 081 18653202.
+            </p>
+            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15, marginTop: 12 }}>
+              Se preferisci, puoi richiedere l'eliminazione dei tuoi dati o la limitazione del trattamento in qualsiasi momento. La tua richiesta sarà gestita con priorità e in conformità al GDPR.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// =====================================================
+// COOKIE POLICY
+// =====================================================
+function CookiePage({ colors }) {
+  const { NAVY, GOLD, CREAM } = colors;
+  return (
+    <>
+      <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <span className="badge-gold">Cookie Policy</span>
+          <h1 className="serif h1-resp" style={{ fontSize: "3.6rem", fontWeight: 700, color: CREAM, marginTop: 24, marginBottom: 24, lineHeight: 1.1 }}>
+            Trasparenza sui cookie usati da HUB.
+          </h1>
+          <p style={{ color: "rgba(245,239,228,0.85)", fontSize: "1.15rem", lineHeight: 1.7, maxWidth: 720, margin: "0 auto" }}>
+            Scopri quali cookie usiamo per far funzionare il sito, quali sono strettamente necessari e come puoi gestirli.
+          </p>
+        </div>
+      </section>
+
+      <section style={{ padding: "80px 32px 120px", background: CREAM, color: NAVY }}>
+        <div style={{ maxWidth: 980, margin: "0 auto", display: "grid", gap: 40 }}>
+          {[
+            { title: "Cosa sono i cookie?", text: "I cookie sono piccoli file di testo che vengono salvati sul dispositivo quando visiti un sito. Aiutano a migliorare l'esperienza di navigazione e a ricordare le tue preferenze." },
+            { title: "Cookie necessari", text: "Questo sito utilizza cookie tecnici strettamente necessari per garantire la navigazione, la sicurezza e il corretto funzionamento delle pagine." },
+            { title: "Cookie di analisi", text: "Al momento non sono installati cookie di tracciamento diretto da questo sito. Se in futuro verranno aggiunti strumenti di analytics, saranno sempre indicati in questa pagina." },
+            { title: "Gestione dei cookie", text: "Puoi gestire o disattivare i cookie direttamente dal browser. Disattivando i cookie tecnici alcune funzioni del sito potrebbero non essere disponibili." }
+          ].map((item, index) => (
+            <div key={index} style={{ padding: 30, background: "white", borderRadius: 8, boxShadow: "0 16px 40px rgba(10,31,61,0.05)" }}>
+              <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14, color: NAVY }}>{item.title}</h2>
+              <p style={{ lineHeight: 1.8, color: "rgba(10,31,61,0.78)", fontSize: 15 }}>{item.text}</p>
+            </div>
+          ))}
+          <div style={{ padding: 30, background: NAVY, color: CREAM, borderRadius: 8 }}>
+            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15 }}>
+              Se hai domande specifiche sulla gestione dei cookie, contattaci a <a href="mailto:na.vomero@fondocasa.it" style={{ color: GOLD, textDecoration: "none" }}>na.vomero@fondocasa.it</a>.
+            </p>
+          </div>
+        </div>
+      </section>
+    </>
+  );
+}
+
+// =====================================================
+// NOTE LEGALI
+// =====================================================
+function NoteLegaliPage({ colors }) {
+  const { NAVY, GOLD, CREAM } = colors;
+  return (
+    <>
+      <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
+        <div style={{ maxWidth: 900, margin: "0 auto", textAlign: "center" }}>
+          <span className="badge-gold">Note legali</span>
+          <h1 className="serif h1-resp" style={{ fontSize: "3.6rem", fontWeight: 700, color: CREAM, marginTop: 24, marginBottom: 24, lineHeight: 1.1 }}>
+            Informazioni legali e responsabilità.
+          </h1>
+          <p style={{ color: "rgba(245,239,228,0.85)", fontSize: "1.15rem", lineHeight: 1.7, maxWidth: 720, margin: "0 auto" }}>
+            Leggi come HUB gestisce responsabilità, diritti d'autore e contenuti del sito.
+          </p>
+        </div>
+      </section>
+
+      <section style={{ padding: "80px 32px 120px", background: CREAM, color: NAVY }}>
+        <div style={{ maxWidth: 980, margin: "0 auto", display: "grid", gap: 40 }}>
+          {[
+            { title: "Proprietà del sito", text: "FC Punto Hub Srl - Via Pietro Mascagni, 35, 80128 Napoli - P.IVA IT01924140096" },
+            { title: "Contenuti", text: "Tutti i contenuti del sito sono di proprietà di FC Punto Hub Srl e sono protetti dal diritto d'autore. È vietata la riproduzione non autorizzata." },
+            { title: "Esclusione di responsabilità", text: "Le informazioni fornite hanno carattere generale. HUB non è responsabile per errori, omissioni o aggiornamenti mancanti nelle informazioni pubblicate." },
+            { title: "Collegamenti esterni", text: "Il sito può contenere link verso siti terzi. HUB non è responsabile per i contenuti o le policy dei siti esterni collegati." }
+          ].map((item, index) => (
+            <div key={index} style={{ padding: 30, background: "white", borderRadius: 8, boxShadow: "0 16px 40px rgba(10,31,61,0.05)" }}>
+              <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14, color: NAVY }}>{item.title}</h2>
+              <p style={{ lineHeight: 1.8, color: "rgba(10,31,61,0.78)", fontSize: 15 }}>{item.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+    </>
+  );
+}
+
+// =====================================================
+// FOOTER
 function Footer({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   return (
@@ -1317,11 +1678,11 @@ function Footer({ navigate, colors }) {
         </div>
 
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, fontSize: 12, color: "rgba(245,239,228,0.5)" }}>
-          <div>© 2026 FC Punto Hub Srl — Via Pietro Mascagni, 35 · 80128 Napoli — P.IVA IT07446820636 — Tutti i diritti riservati</div>
+          <div>© 2026 FC Punto Hub Srl — Via Pietro Mascagni, 35 · 80128 Napoli — P.IVA IT01924140096 — Tutti i diritti riservati</div>
           <div style={{ display: "flex", gap: 24 }}>
-            <span style={{ cursor: "pointer" }}>Privacy Policy</span>
-            <span style={{ cursor: "pointer" }}>Cookie Policy</span>
-            <span style={{ cursor: "pointer" }}>Note legali</span>
+            <span style={{ cursor: "pointer" }} onClick={() => navigate("privacy")}>Privacy Policy</span>
+            <span style={{ cursor: "pointer" }} onClick={() => navigate("cookie")}>Cookie Policy</span>
+            <span style={{ cursor: "pointer" }} onClick={() => navigate("note-legali")}>Note legali</span>
           </div>
         </div>
       </div>

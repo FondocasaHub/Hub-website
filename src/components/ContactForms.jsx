@@ -64,6 +64,12 @@ export default function ContactForms() {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || "Errore invio");
+      // Conferma email al cliente via Make.com
+      fetch("https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: form.nome, email: form.email, categoria: categoria.label }),
+      }).catch(() => {});
       setSent(true);
       if (window.fbq) window.fbq("track", "Lead");
     } catch (err) {

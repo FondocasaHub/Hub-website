@@ -1097,6 +1097,11 @@ function CominciaQuiPage({ colors }) {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
+      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Comincia Da Qui' }),
+      }).catch(() => {});
       setSent(true);
       if (window.fbq) window.fbq('track', 'Lead');
     } catch {
@@ -1309,6 +1314,11 @@ function CarrieraPage({ colors }) {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
+      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: candForm.nome, email: candForm.email, categoria: 'Candidatura' }),
+      }).catch(() => {});
       setCandSent(true);
     } catch {
       alert('Errore nell\'invio. Riprova o contattaci direttamente.');
@@ -1487,6 +1497,11 @@ function ContactPage({ navigate, colors }) {
       if (!emailResponse.ok || emailResult.ok === false) {
         throw new Error(emailResult.error || 'Errore nell\'invio');
       }
+      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: form.nome, email: form.email, categoria: 'Contatti' }),
+      }).catch(() => {});
 
       // Send to Google Sheets via Apps Script if available
       try {

@@ -65,7 +65,7 @@ export default function ContactForms() {
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || "Errore invio");
       // Conferma email al cliente via Make.com
-      fetch("https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuu", {
+      fetch("https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuukjm", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name: form.nome, email: form.email, categoria: categoria.label }),

@@ -6,9 +6,8 @@ const GOLD = "#C19A5B";
 const GOLD_BRIGHT = "#D4B27A";
 const CREAM = "#F5EFE4";
 
-// TODO: sostituire con i veri endpoint Formspree quando disponibili
-const ENDPOINT_A = "https://formspree.io/f/ENDPOINT_A"; // Vendi casa + Cerca casa
-const ENDPOINT_B = "https://formspree.io/f/ENDPOINT_B"; // Mutuo & Credito + Lavora con noi
+const ENDPOINT_A = "https://formspree.io/f/xojrqepv";  // Contatti (Vendi + Cerca)
+const ENDPOINT_B = "https://formspree.io/f/xrejkvkp";  // Contatta HUB AI (Mutuo + Lavora)
 
 const CATEGORIE = [
   { id: "vendi",  label: "Vendi casa",      icon: "🏠", endpoint: ENDPOINT_A },

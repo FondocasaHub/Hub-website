@@ -1827,8 +1827,8 @@ function Footer({ navigate, colors }) {
         <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", flexWrap: "wrap", gap: 20, fontSize: 12, color: "rgba(245,239,228,0.5)" }}>
           <div>© 2026 FC Punto Hub Srl — Via Pietro Mascagni, 35 · 80128 Napoli — P.IVA IT01924140096 — Tutti i diritti riservati</div>
           <div style={{ display: "flex", gap: 24 }}>
-            <span style={{ cursor: "pointer" }} onClick={() => navigate("privacy")}>Privacy Policy</span>
-            <span style={{ cursor: "pointer" }} onClick={() => navigate("cookie")}>Cookie Policy</span>
+            <a href="https://www.iubenda.com/privacy-policy/40741385" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(245,239,228,0.5)", textDecoration: "none", cursor: "pointer" }}>Privacy Policy</a>
+            <a href="https://www.iubenda.com/privacy-policy/40741385/cookie-policy" target="_blank" rel="noopener noreferrer" style={{ color: "rgba(245,239,228,0.5)", textDecoration: "none", cursor: "pointer" }}>Cookie Policy</a>
             <span style={{ cursor: "pointer" }} onClick={() => navigate("note-legali")}>Note legali</span>
           </div>
         </div>

@@ -1080,10 +1080,11 @@ function CominciaQuiPage({ colors }) {
     if (!canSend || sending) return;
     setSending(true);
     try {
-      const res = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+      const res = await fetch('https://formspree.io/f/xojrqepv', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          categoria: 'Comincia Da Qui',
           name: data.nome,
           email: data.email,
           phone: data.telefono,
@@ -1092,11 +1093,10 @@ function CominciaQuiPage({ colors }) {
           zona: data.zona,
           _subject: 'Lead qualificato HUB Napoli – Comincia Da Qui',
           _replyto: data.email,
-          _autoresponse: `Ciao ${data.nome}, grazie per averci contattato! Abbiamo ricevuto la tua richiesta e ti ricontatteremo entro 24-48 ore. A presto, il team di FondoCasa Hub.`,
         })
       });
       const result = await res.json();
-      if (!res.ok || result.success === false) throw new Error(result.message || 'Errore invio');
+      if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
       setSent(true);
       if (window.fbq) window.fbq('track', 'Lead');
     } catch {
@@ -1292,10 +1292,11 @@ function CarrieraPage({ colors }) {
     if (!canSend || candSending) return;
     setCandSending(true);
     try {
-      const res = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+      const res = await fetch('https://formspree.io/f/xrejkvkp', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          categoria: 'Candidatura',
           name: candForm.nome,
           email: candForm.email,
           phone: candForm.telefono,
@@ -1304,11 +1305,10 @@ function CarrieraPage({ colors }) {
           motivazione: candForm.motivazione,
           _subject: 'Candidatura HUB Napoli',
           _replyto: candForm.email,
-          _autoresponse: `Ciao ${candForm.nome}, grazie per la tua candidatura! Abbiamo ricevuto il tuo profilo e lo esamineremo con attenzione. Ti contatteremo entro pochi giorni. A presto, il team di FondoCasa Hub.`,
         })
       });
       const result = await res.json();
-      if (!res.ok || result.success === false) throw new Error(result.message || 'Errore invio');
+      if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
       setCandSent(true);
     } catch {
       alert('Errore nell\'invio. Riprova o contattaci direttamente.');
@@ -1468,14 +1468,11 @@ function ContactPage({ navigate, colors }) {
     if (!canSend) return;
 
     try {
-      // Send email directly via FormSubmit.co to the official email address
-      const emailResponse = await fetch('https://formsubmit.co/ajax/na.vomero@fondocasa.it', {
+      const emailResponse = await fetch('https://formspree.io/f/xojrqepv', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
+          categoria: 'Contatti',
           name: form.nome,
           email: form.email,
           phone: form.telefono,
@@ -1483,14 +1480,12 @@ function ContactPage({ navigate, colors }) {
           marketing_consent: form.marketing ? 'Sì' : 'No',
           _subject: 'Richiesta HUB Napoli - sito web',
           _replyto: form.email,
-          _autoresponse: `Ciao ${form.nome}, grazie per averci scritto! Abbiamo ricevuto il tuo messaggio e ti risponderemo al più presto. A presto, il team di FondoCasa Hub.`,
-          _honey: '',
         })
       });
 
       const emailResult = await emailResponse.json();
-      if (!emailResponse.ok || emailResult.success === false) {
-        throw new Error(emailResult.message || 'Errore nell\'invio dell\'email');
+      if (!emailResponse.ok || emailResult.ok === false) {
+        throw new Error(emailResult.error || 'Errore nell\'invio');
       }
 
       // Send to Google Sheets via Apps Script if available

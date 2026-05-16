@@ -1097,7 +1097,7 @@ function CominciaQuiPage({ colors }) {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
-      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+      fetch('https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Comincia Da Qui' }),
@@ -1314,7 +1314,7 @@ function CarrieraPage({ colors }) {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
-      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+      fetch('https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: candForm.nome, email: candForm.email, categoria: 'Candidatura' }),
@@ -1497,7 +1497,7 @@ function ContactPage({ navigate, colors }) {
       if (!emailResponse.ok || emailResult.ok === false) {
         throw new Error(emailResult.error || 'Errore nell\'invio');
       }
-      fetch('https://hook.eu1.make.com/cdjxyon78xe59chfmgvi8ibi0u3ns6m2', {
+      fetch('https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuu', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name: form.nome, email: form.email, categoria: 'Contatti' }),

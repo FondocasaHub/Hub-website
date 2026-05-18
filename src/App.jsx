@@ -673,112 +673,130 @@ function HomePage({ navigate, colors }) {
 
 function NewsletterSection({ colors }) {
   const { NAVY, GOLD, CREAM } = colors;
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState("");
+  const [status, setStatus] = useState("idle"); // idle | loading | success | error
 
-  React.useEffect(() => {
-    // Carica lo script Brevo solo una volta
-    if (!document.getElementById("brevo-form-script")) {
-      const script = document.createElement("script");
-      script.id = "brevo-form-script";
-      script.defer = true;
-      script.src = "https://sibforms.com/forms/end-form/build/main.js";
-      document.body.appendChild(script);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!nome.trim() || !email.trim()) return;
+    setStatus("loading");
+    try {
+      const formData = new FormData();
+      formData.append("EMAIL", email);
+      formData.append("NOME", nome);
+      formData.append("email_address_check", "");
+      formData.append("locale", "it");
+
+      const response = await fetch(
+        "https://9c72d01c.sibforms.com/serve/MUIFAB1J55WTqPS-LvOkkoRX9BiMyiSHZB_Bvsa0EBMIF7Lkqlfb1wOv-MdnyEy8i2xnFYfeaYM0EAXGDuTPa-L-sG5K4xbdTM8Yx_XkmGrGsbmTR1OgLF4K5zr-aeFfdTHy00dh1xlle_KurcWAKrz89QxKxmftIEFv8K7g2Nw6k-BUUpVkTDi-rhZATjN0nPKLZlVLK_FW2Fh84Q==",
+        { method: "POST", body: formData, mode: "no-cors" }
+      );
+      // no-cors restituisce sempre opaque — consideriamo successo
+      setStatus("success");
+      setNome("");
+      setEmail("");
+    } catch {
+      setStatus("error");
     }
-  }, []);
+  };
+
+  const inputStyle = {
+    width: "100%",
+    padding: "13px 16px",
+    fontSize: 15,
+    border: "1px solid #d0d8e0",
+    borderRadius: 4,
+    fontFamily: "Helvetica, sans-serif",
+    boxSizing: "border-box",
+    marginTop: 6,
+    outline: "none",
+    color: "#1b3a5c",
+  };
+
+  const labelStyle = {
+    display: "block",
+    textAlign: "left",
+    fontSize: 12,
+    fontWeight: 700,
+    letterSpacing: 1.2,
+    textTransform: "uppercase",
+    color: NAVY,
+    fontFamily: "Helvetica, sans-serif",
+    marginTop: 16,
+  };
 
   return (
     <section style={{ padding: "100px 32px", background: CREAM }}>
-      <div style={{ maxWidth: 620, margin: "0 auto", textAlign: "center" }}>
+      <div style={{ maxWidth: 520, margin: "0 auto", textAlign: "center" }}>
         <div style={{ fontSize: 11, letterSpacing: 3, color: GOLD, textTransform: "uppercase", marginBottom: 16, fontWeight: 600 }}>
           Newsletter
         </div>
         <h2 className="serif" style={{ fontSize: 36, fontWeight: 700, color: NAVY, marginBottom: 16, lineHeight: 1.25 }}>
           Resta aggiornato con FondoCasa Hub
         </h2>
-        <p style={{ fontSize: 16, color: "#5a6a7a", marginBottom: 48, lineHeight: 1.7 }}>
+        <p style={{ fontSize: 16, color: "#5a6a7a", marginBottom: 40, lineHeight: 1.7 }}>
           Immobili, mutui e opportunità esclusive a Napoli. Iscriviti gratis.
         </p>
 
-        {/* Stili Brevo inline */}
-        <style>{`
-          #sib-container { border: none !important; background: transparent !important; }
-          .sib-form { background: transparent !important; }
-          .sib-form-block__button {
-            background-color: #1b3a5c !important;
-            font-family: Helvetica, sans-serif !important;
-            border-radius: 4px !important;
-            padding: 14px 32px !important;
-            font-size: 14px !important;
-            letter-spacing: 1.5px !important;
-            text-transform: uppercase !important;
-            cursor: pointer !important;
-            border: none !important;
-            width: 100% !important;
-          }
-          .sib-form-block__button:hover { background-color: #c9a84c !important; }
-          .input { border: 1px solid #d0d8e0 !important; border-radius: 4px !important; padding: 12px 16px !important; font-size: 15px !important; width: 100% !important; box-sizing: border-box !important; }
-          .entry__label { color: #1b3a5c !important; font-size: 13px !important; letter-spacing: 1px !important; }
-          #sib-form-message-panel { max-width: 100% !important; }
-        `}</style>
-
-        {/* Form Brevo */}
-        <div className="sib-form" style={{ textAlign: "center", backgroundColor: "transparent" }}>
-          <div id="sib-form-container" className="sib-form-container">
-            <div id="error-message" className="sib-form-message-panel" style={{ fontFamily: "Helvetica, sans-serif", fontSize: 15, textAlign: "left", color: "#661d1d", backgroundColor: "#ffeded", borderColor: "#ff4949", borderRadius: 4, maxWidth: "100%", display: "none" }}>
-              <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-                <span>Si è verificato un errore. Riprova o contattaci su info@fondocasahub.com</span>
-              </div>
-            </div>
-            <div id="success-message" className="sib-form-message-panel" style={{ fontFamily: "Helvetica, sans-serif", fontSize: 15, textAlign: "left", color: "#085229", backgroundColor: "#e7faf0", borderColor: "#13ce66", borderRadius: 4, maxWidth: "100%", display: "none" }}>
-              <div className="sib-form-message-panel__text sib-form-message-panel__text--center">
-                <span>Grazie! Controlla la tua email e clicca sul link per confermare l&apos;iscrizione.</span>
-              </div>
-            </div>
-            <div id="sib-container" className="sib-container--large sib-container--vertical" style={{ maxWidth: "100%", textAlign: "left", backgroundColor: "transparent", borderWidth: 0, direction: "ltr" }}>
-              <form id="sib-form" method="POST" action="https://9c72d01c.sibforms.com/serve/MUIFAB1J55WTqPS-LvOkkoRX9BiMyiSHZB_Bvsa0EBMIF7Lkqlfb1wOv-MdnyEy8i2xnFYfeaYM0EAXGDuTPa-L-sG5K4xbdTM8Yx_XkmGrGsbmTR1OgLF4K5zr-aeFfdTHy00dh1xlle_KurcWAKrz89QxKxmftIEFv8K7g2Nw6k-BUUpVkTDi-rhZATjN0nPKLZlVLK_FW2Fh84Q==" data-type="subscription">
-                <div style={{ padding: "8px 0" }}>
-                  <div className="sib-input sib-form-block">
-                    <div className="form__entry entry_block">
-                      <div className="form__label-row">
-                        <label className="entry__label" style={{ fontWeight: 700, fontFamily: "Helvetica, sans-serif", fontSize: 13, color: "#1b3a5c", letterSpacing: 1, textTransform: "uppercase" }} htmlFor="NOME">Nome *</label>
-                        <div className="entry__field">
-                          <input className="input" maxLength="200" type="text" id="NOME" name="NOME" autoComplete="off" placeholder="Il tuo nome" data-required="true" required />
-                        </div>
-                      </div>
-                      <label className="entry__error entry__error--primary" style={{ fontFamily: "Helvetica, sans-serif", fontSize: 13, color: "#661d1d", backgroundColor: "#ffeded", borderColor: "#ff4949", borderRadius: 3 }}></label>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ padding: "8px 0" }}>
-                  <div className="sib-input sib-form-block">
-                    <div className="form__entry entry_block">
-                      <div className="form__label-row">
-                        <label className="entry__label" style={{ fontWeight: 700, fontFamily: "Helvetica, sans-serif", fontSize: 13, color: "#1b3a5c", letterSpacing: 1, textTransform: "uppercase" }} htmlFor="EMAIL">Email *</label>
-                        <div className="entry__field">
-                          <input className="input" type="text" id="EMAIL" name="EMAIL" autoComplete="off" placeholder="La tua email" data-required="true" required />
-                        </div>
-                      </div>
-                      <label className="entry__error entry__error--primary" style={{ fontFamily: "Helvetica, sans-serif", fontSize: 13, color: "#661d1d", backgroundColor: "#ffeded", borderColor: "#ff4949", borderRadius: 3 }}></label>
-                    </div>
-                  </div>
-                </div>
-                <div style={{ padding: "8px 0" }}>
-                  <div className="sib-form-block" style={{ textAlign: "center" }}>
-                    <button className="sib-form-block__button sib-form-block__button-with-loader" style={{ fontFamily: "Helvetica, sans-serif", fontSize: 13, fontWeight: 700, color: "#FFFFFF", backgroundColor: "#1b3a5c", borderWidth: 0, borderRadius: 4, padding: "14px 32px", width: "100%", cursor: "pointer", letterSpacing: 2, textTransform: "uppercase" }} form="sib-form" type="submit">
-                      ISCRIVITI GRATIS
-                    </button>
-                  </div>
-                </div>
-                <div style={{ padding: "8px 0", textAlign: "center" }}>
-                  <p style={{ fontSize: 11, color: "#8390A4", fontFamily: "Helvetica, sans-serif" }}>
-                    Nessuno spam. Puoi disiscriverti in qualsiasi momento.
-                  </p>
-                </div>
-                <input type="text" name="email_address_check" value="" className="input--hidden" readOnly />
-                <input type="hidden" name="locale" value="it" />
-              </form>
-            </div>
+        {status === "success" ? (
+          <div style={{ backgroundColor: "#e7faf0", border: "1px solid #13ce66", borderRadius: 6, padding: "24px 20px", color: "#085229", fontSize: 16, fontFamily: "Helvetica, sans-serif", lineHeight: 1.6 }}>
+            ✅ <strong>Grazie!</strong> Controlla la tua email e clicca sul link per confermare l'iscrizione.
           </div>
-        </div>
+        ) : (
+          <form onSubmit={handleSubmit} style={{ textAlign: "left" }}>
+            <label style={labelStyle} htmlFor="nl-nome">Nome</label>
+            <input
+              id="nl-nome"
+              type="text"
+              value={nome}
+              onChange={e => setNome(e.target.value)}
+              placeholder="Il tuo nome"
+              required
+              style={inputStyle}
+            />
+            <label style={labelStyle} htmlFor="nl-email">Email</label>
+            <input
+              id="nl-email"
+              type="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
+              placeholder="La tua email"
+              required
+              style={inputStyle}
+            />
+            {status === "error" && (
+              <div style={{ marginTop: 12, color: "#661d1d", backgroundColor: "#ffeded", border: "1px solid #ff4949", borderRadius: 4, padding: "10px 14px", fontSize: 14, fontFamily: "Helvetica, sans-serif" }}>
+                Si è verificato un errore. Riprova o scrivici su info@fondocasahub.com
+              </div>
+            )}
+            <button
+              type="submit"
+              disabled={status === "loading"}
+              style={{
+                marginTop: 20,
+                width: "100%",
+                padding: "14px 32px",
+                backgroundColor: status === "loading" ? "#8a9bb0" : NAVY,
+                color: "#fff",
+                border: "none",
+                borderRadius: 4,
+                fontSize: 13,
+                fontWeight: 700,
+                letterSpacing: 2,
+                textTransform: "uppercase",
+                cursor: status === "loading" ? "not-allowed" : "pointer",
+                fontFamily: "Helvetica, sans-serif",
+                transition: "background-color 0.2s",
+              }}
+            >
+              {status === "loading" ? "Invio in corso..." : "ISCRIVITI GRATIS"}
+            </button>
+            <p style={{ marginTop: 12, fontSize: 11, color: "#8390A4", fontFamily: "Helvetica, sans-serif", textAlign: "center" }}>
+              Nessuno spam. Puoi disiscriverti in qualsiasi momento.
+            </p>
+          </form>
+        )}
       </div>
     </section>
   );

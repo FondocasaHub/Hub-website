@@ -1192,6 +1192,7 @@
         document.getElementById("successMsg").style.display = "block";
         // Invio email di conferma al cliente via EmailJS
         emailjs.send('service_1l0berb', 'template_3n72tko', {
+          from_name: form.querySelector('#nome').value,
           nome: form.querySelector('#nome').value,
           email: form.querySelector('#email').value,
           telefono: form.querySelector('#telefono').value,

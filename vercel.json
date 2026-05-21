@@ -1,5 +1,6 @@
 {
   "rewrites": [
+    { "source": "/zero-vincoli-60", "destination": "/zero-vincoli-60/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

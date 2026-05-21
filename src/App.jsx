@@ -475,6 +475,79 @@ function GlobalStyles({ NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM }) {
 }
 
 // =====================================================
+// PROMO ZERO VINCOLI 60
+// =====================================================
+function PromoZeroVincoli() {
+  const NAVY_DEEP = "#06152A";
+  const NAVY = "#0A1F3D";
+  const GOLD = "#C19A5B";
+  const CREAM = "#F5EFE4";
+  return (
+    <section style={{
+      background: `linear-gradient(135deg, ${NAVY_DEEP} 0%, ${NAVY} 100%)`,
+      padding: "72px 32px",
+      borderTop: `2px solid ${GOLD}`,
+      borderBottom: `2px solid rgba(193,154,91,0.3)`,
+      position: "relative",
+      overflow: "hidden",
+    }}>
+      <div style={{
+        position: "absolute", inset: 0, opacity: 0.03,
+        backgroundImage: `repeating-linear-gradient(45deg, ${GOLD} 0, ${GOLD} 1px, transparent 1px, transparent 60px)`
+      }} />
+      <div style={{ maxWidth: 860, margin: "0 auto", textAlign: "center", position: "relative", zIndex: 1 }}>
+        <span style={{
+          display: "inline-block",
+          background: "rgba(193,154,91,0.12)",
+          border: `1px solid ${GOLD}`,
+          color: GOLD,
+          fontSize: 11,
+          letterSpacing: 2.5,
+          textTransform: "uppercase",
+          padding: "6px 20px",
+          borderRadius: 2,
+          marginBottom: 28,
+          fontWeight: 600,
+        }}>◆ Promo esclusiva · Valida fino al 30 settembre 2026 ◆</span>
+
+        <h2 className="serif" style={{
+          fontSize: "3.2rem", fontWeight: 700, color: CREAM,
+          marginBottom: 20, lineHeight: 1.05, letterSpacing: "-0.5px",
+        }}>
+          Zero <em style={{ color: GOLD }}>Vincoli</em> 60
+        </h2>
+
+        <p style={{
+          fontSize: "1.15rem", color: "rgba(245,239,228,0.82)", lineHeight: 1.65,
+          maxWidth: 620, margin: "0 auto 40px", fontWeight: 300,
+        }}>
+          Affidaci la vendita della tua casa. Dopo 60 giorni decidi tu.<br />
+          <strong style={{ color: CREAM, fontWeight: 600 }}>Senza penali. Senza costi nascosti. Solo risultati.</strong>
+        </p>
+
+        <a
+          href="/zero-vincoli-60"
+          style={{
+            display: "inline-block",
+            background: GOLD,
+            color: NAVY_DEEP,
+            padding: "17px 44px",
+            borderRadius: 3,
+            fontSize: 13,
+            fontWeight: 700,
+            letterSpacing: 1.5,
+            textTransform: "uppercase",
+            textDecoration: "none",
+          }}
+        >
+          Scopri l'offerta →
+        </a>
+      </div>
+    </section>
+  );
+}
+
+// =====================================================
 // HOME
 // =====================================================
 function HomePage({ navigate, colors }) {
@@ -556,6 +629,9 @@ function HomePage({ navigate, colors }) {
           </div>
         </div>
       </section>
+
+      {/* PROMO ZERO VINCOLI 60 */}
+      <PromoZeroVincoli />
 
       {/* CONTACT FORMS */}
       <ContactForms />

@@ -1864,6 +1864,44 @@ function ContactPage({ navigate, colors }) {
               </div>
             </div>
           </div>
+
+          {/* Google Maps embed */}
+          <div style={{ marginTop: 56 }}>
+            <h3 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, color: NAVY, marginBottom: 20 }}>
+              📍 Dove siamo
+            </h3>
+            <div style={{ borderRadius: 8, overflow: "hidden", border: `1px solid rgba(10,31,61,0.12)`, boxShadow: "0 4px 24px rgba(10,31,61,0.08)" }}>
+              <iframe
+                title="HUB Napoli – Via Pietro Mascagni 35"
+                src="https://maps.google.com/maps?q=Via+Pietro+Mascagni+35+Napoli+80128&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="380"
+                style={{ border: 0, display: "block" }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                aria-label="Mappa sede HUB Napoli – Via Pietro Mascagni 35"
+              />
+            </div>
+            <div style={{ display: "flex", gap: 24, marginTop: 16, flexWrap: "wrap" }}>
+              <a
+                href="https://maps.google.com/?q=Via+Pietro+Mascagni+35+Napoli"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#b68a39", fontSize: 14, fontWeight: 600, textDecoration: "none" }}
+              >
+                Apri in Google Maps →
+              </a>
+              <a
+                href="https://maps.apple.com/?q=Via+Pietro+Mascagni+35+Napoli"
+                target="_blank"
+                rel="noopener noreferrer"
+                style={{ color: "#b68a39", fontSize: 14, fontWeight: 600, textDecoration: "none" }}
+              >
+                Apri in Apple Maps →
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </>

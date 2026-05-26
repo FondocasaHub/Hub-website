@@ -15,10 +15,18 @@ export default function PosillpoPage({ navigate, colors }) {
       "areaServed": [{ "@type": "Place", "name": "Posillipo" }, { "@type": "Place", "name": "Mergellina" }, { "@type": "Place", "name": "Capo Posillipo" }],
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
     };
+    const breadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Agenzia Immobiliare Posillipo Napoli", "item": "https://www.fondocasahub.com/posillipo" }
+      ]
+    };
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.id = 'schema-neighborhood';
-    script.textContent = JSON.stringify(schema);
+    script.textContent = JSON.stringify([schema, breadcrumb]);
     document.head.appendChild(script);
     return () => { const el = document.getElementById('schema-neighborhood'); if (el) el.remove(); };
   }, []);

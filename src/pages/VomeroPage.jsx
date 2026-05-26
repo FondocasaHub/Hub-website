@@ -23,10 +23,18 @@ export default function VomeroPage({ navigate, colors }) {
       "areaServed": [{ "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Vomero Alto" }, { "@type": "Place", "name": "Belvedere" }],
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
     };
+    const breadcrumb = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com/" },
+        { "@type": "ListItem", "position": 2, "name": "Agenzia Immobiliare Vomero Napoli", "item": "https://www.fondocasahub.com/vomero" }
+      ]
+    };
     const script = document.createElement('script');
     script.type = 'application/ld+json';
     script.id = 'schema-neighborhood';
-    script.textContent = JSON.stringify(schema);
+    script.textContent = JSON.stringify([schema, breadcrumb]);
     document.head.appendChild(script);
     return () => { const el = document.getElementById('schema-neighborhood'); if (el) el.remove(); };
   }, []);

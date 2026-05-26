@@ -2,6 +2,168 @@ import React, { useState, useEffect } from "react";
 
 const ARTICLES = [
   {
+    slug: "prezzi-case-napoli-2026",
+    title: "Prezzi delle case a Napoli: andamento del mercato immobiliare 2026",
+    excerpt: "Analisi aggiornata dei prezzi al metro quadro per quartiere a Napoli nel 2026. Vomero, Chiaia, Posillipo, Centro Storico: dove conviene comprare e cosa aspettarsi.",
+    date: "2026-05-19",
+    category: "Mercato Immobiliare",
+    readTime: "7 min",
+    content: `
+      <h2>Il mercato immobiliare napoletano nel 2026</h2>
+      <p>Il 2026 conferma la solidità del mercato immobiliare napoletano. Dopo anni di crescita moderata, Napoli si posiziona come una delle città italiane con il miglior rapporto qualità/prezzo per gli immobili residenziali, attirando sia acquirenti locali sia investitori nazionali e internazionali.</p>
+
+      <h3>Prezzi per quartiere a Napoli nel 2026</h3>
+      <p>Ecco una panoramica dei valori medi al metro quadro per immobili ristrutturati:</p>
+      <ul>
+        <li><strong>Posillipo:</strong> 5.500 – 12.000 €/mq (ville panoramiche e appartamenti di pregio)</li>
+        <li><strong>Chiaia / Riviera:</strong> 4.500 – 7.500 €/mq (posizioni fronte mare fino a 8.000 €/mq)</li>
+        <li><strong>Vomero:</strong> 3.800 – 5.500 €/mq (alta domanda, offerta limitata)</li>
+        <li><strong>Mergellina:</strong> 3.500 – 5.000 €/mq</li>
+        <li><strong>Arenella:</strong> 2.800 – 4.000 €/mq</li>
+        <li><strong>Centro Storico (ristrutturato):</strong> 2.500 – 4.500 €/mq</li>
+        <li><strong>Centro Storico (da ristrutturare):</strong> 1.200 – 2.500 €/mq</li>
+        <li><strong>Fuorigrotta / Bagnoli:</strong> 1.800 – 3.200 €/mq</li>
+      </ul>
+
+      <h3>Tendenze 2026: cosa sta succedendo</h3>
+      <p>Il mercato napoletano nel 2026 mostra alcune tendenze chiare:</p>
+      <ul>
+        <li><strong>Stabilizzazione dei tassi:</strong> dopo il ciclo di rialzi BCE, i tassi sui mutui si sono stabilizzati, riattivando la domanda di acquirenti con mutuo</li>
+        <li><strong>Crescita del Centro Storico:</strong> il quartiere UNESCO continua ad attrarre investitori per affitti brevi e B&B; la domanda supera l'offerta di qualità</li>
+        <li><strong>Pressione al Vomero:</strong> il quartiere più richiesto mantiene prezzi solidi; la domanda eccede l'offerta disponibile</li>
+        <li><strong>Rivalutazione di Fuorigrotta:</strong> il completamento della metro linea 6 ha riportato interesse su quest'area con prezzi ancora accessibili</li>
+      </ul>
+
+      <h3>Conviene comprare casa a Napoli nel 2026?</h3>
+      <p>Per chi acquista per abitare: sì, soprattutto con mutuo a tasso fisso. I prezzi napoletani restano competitivi rispetto a Roma, Milano e alle principali città europee affacciate sul Mediterraneo.</p>
+      <p>Per chi investe: il rendimento da affitto breve nel Centro Storico e a Chiaia supera ancora il 6-7% annuo lordo, con buone prospettive di rivalutazione.</p>
+
+      <h3>Ottieni una valutazione precisa</h3>
+      <p>I dati medi sono utili come orientamento, ma il valore reale di un immobile dipende da decine di variabili specifiche. HUB offre valutazioni gratuite basate su dati reali di vendita nella stessa zona e nello stesso periodo.</p>
+    `
+  },
+  {
+    slug: "valutazione-immobile-napoli",
+    title: "Come si valuta un immobile a Napoli: metodi e criteri professionali",
+    excerpt: "Scopri come viene calcolato il valore di una casa a Napoli: comparativo di mercato, stato dell'immobile, piano, esposizione e tutti i fattori che incidono sul prezzo.",
+    date: "2026-05-12",
+    category: "Consigli Pratici",
+    readTime: "8 min",
+    content: `
+      <h2>Come si calcola il valore di una casa a Napoli</h2>
+      <p>La domanda più comune che riceviamo da chi vuole vendere o comprare casa a Napoli è: "quanto vale questo immobile?" La risposta non è mai semplice, perché il valore dipende da molteplici fattori che solo chi conosce bene il mercato locale sa pesare correttamente.</p>
+
+      <h3>Il metodo comparativo di mercato (CMA)</h3>
+      <p>Il metodo più affidabile è il <strong>Comparative Market Analysis</strong>: confronto con immobili simili venduti nella stessa zona negli ultimi 6-12 mesi. Non annunci di vendita (che possono essere gonfiati), ma prezzi reali di transazioni concluse.</p>
+
+      <h3>I fattori che incidono sul valore</h3>
+      <ul>
+        <li><strong>Zona e microzona:</strong> a parità di piano e metratura, due appartamenti nello stesso quartiere possono valere il 20-40% di differenza in base alla via specifica</li>
+        <li><strong>Piano:</strong> al Vomero un piano alto con vista vale il 15-25% in più rispetto al piano basso senza affaccio</li>
+        <li><strong>Esposizione e luminosità:</strong> gli appartamenti esposti a sud e luminosi valgono mediamente il 10-15% in più</li>
+        <li><strong>Stato conservativo:</strong> un immobile ristrutturato ottimamente vale il 30-40% più di uno da ristrutturare nelle stesse condizioni strutturali</li>
+        <li><strong>Efficienza energetica (classe APE):</strong> dal 2024 la classe energetica incide sempre di più sulle trattative; una classe A o B può valere 5-10% in più rispetto alla stessa unità in classe F o G</li>
+        <li><strong>Regolarità urbanistica e catastale:</strong> un immobile con difformità documentali vale meno e si vende più lentamente</li>
+        <li><strong>Dotazioni condominiali:</strong> ascensore, portineria, posto auto, terrazzo condominiale</li>
+      </ul>
+
+      <h3>L'errore più comune: basarsi sui prezzi degli annunci</h3>
+      <p>Gli annunci pubblicati sui portali riflettono il <em>prezzo richiesto</em>, non quello di vendita. In media, in Italia, lo scarto tra prezzo richiesto e prezzo di vendita è del 10-20%. A Napoli, nelle zone più liquide come il Vomero, lo scarto è più contenuto (5-12%), mentre in zone con meno transazioni può essere superiore.</p>
+
+      <h3>La valutazione gratuita di HUB</h3>
+      <p>HUB offre valutazioni gratuite e senza impegno per immobili a Napoli. La valutazione viene elaborata dai nostri agenti con accesso ai dati reali di vendita del quartiere, non da algoritmi automatici. Contattaci per ricevere una stima precisa entro 24 ore.</p>
+    `
+  },
+  {
+    slug: "acquisto-prima-casa-napoli-guida",
+    title: "Acquistare la prima casa a Napoli: guida passo dopo passo per il 2026",
+    excerpt: "Dalla ricerca al rogito: tutto quello che devi sapere per comprare casa a Napoli per la prima volta. Agevolazioni, mutuo, documenti e consigli pratici di HUB.",
+    date: "2026-05-05",
+    category: "Comprare Casa",
+    readTime: "10 min",
+    content: `
+      <h2>Comprare la prima casa a Napoli nel 2026: guida completa</h2>
+      <p>Acquistare la prima casa è uno dei momenti più importanti della vita. A Napoli, con le sue particolarità di mercato, è ancora più importante essere preparati. Ecco la guida completa di HUB per chi acquista per la prima volta.</p>
+
+      <h3>Step 1: definisci il budget reale</h3>
+      <p>Prima di cercare casa, calcola il budget effettivo considerando:</p>
+      <ul>
+        <li>Risparmio disponibile per l'anticipo (le banche finanziano solitamente l'80% del valore)</li>
+        <li>Rata mensile sostenibile (non più del 30-35% del reddito netto)</li>
+        <li>Spese accessorie: imposta di registro, notaio, agenzia, trasloco, eventuali lavori</li>
+      </ul>
+      <p>Con WeUnit, il ramo creditizio di HUB, puoi ottenere una pre-analisi gratuita della tua capacità di mutuo prima ancora di iniziare a cercare casa.</p>
+
+      <h3>Step 2: scegli il quartiere giusto</h3>
+      <p>Napoli è una città di quartieri: la scelta della zona deve bilanciare qualità della vita, servizi, collegamenti e budget. I quartieri più richiesti (Vomero, Chiaia, Posillipo) hanno prezzi più alti ma maggiore liquidità del mercato; zone come Fuorigrotta o Arenella offrono prezzi più accessibili con buoni servizi.</p>
+
+      <h3>Step 3: la ricerca dell'immobile</h3>
+      <p>Usa più canali: portali immobiliari, agenzie locali con mandati in esclusiva, e il passaparola. Un'agenzia immobiliare con conoscenza profonda della zona, come HUB al Vomero, ha spesso accesso a immobili non ancora pubblicati.</p>
+
+      <h3>Step 4: proposta d'acquisto e trattativa</h3>
+      <p>Una volta trovata la casa giusta, si presenta una proposta d'acquisto scritta con caparra confirmatoria. Attenzione: verifica sempre la documentazione dell'immobile prima di versare qualsiasi cifra.</p>
+
+      <h3>Step 5: verifiche documentali essenziali</h3>
+      <ul>
+        <li>Conformità catastale (planimetria = stato reale)</li>
+        <li>Conformità urbanistica (nessun abuso edilizio)</li>
+        <li>Assenza di ipoteche o pignoramenti (visura ipotecaria)</li>
+        <li>Situazione condominiale (eventuali morosità del venditore)</li>
+        <li>APE aggiornato</li>
+      </ul>
+
+      <h3>Step 6: compromesso e rogito</h3>
+      <p>Il compromesso (contratto preliminare) è un passo vincolante: dopo la firma, in caso di recesso del venditore, si ha diritto al doppio della caparra. Al rogito (atto definitivo dal notaio) si completa il trasferimento di proprietà.</p>
+
+      <h3>Le agevolazioni prima casa 2026</h3>
+      <ul>
+        <li>Imposta di registro al 2% (invece del 9%) sul valore catastale</li>
+        <li>IVA al 4% se si acquista dal costruttore</li>
+        <li>Garanzia CONSAP per under 36 (garanzia statale all'80% del mutuo)</li>
+        <li>Detrazione interessi mutuo fino a 4.000€/anno in dichiarazione dei redditi</li>
+      </ul>
+
+      <h3>HUB: un unico punto per tutto il percorso</h3>
+      <p>Con HUB trovi la casa, verifichi i documenti, ottieni il mutuo con WeUnit e assicuri l'immobile con Henia. Un percorso completo, senza sorprese, in un unico punto di riferimento a Napoli.</p>
+    `
+  },
+  {
+    slug: "agenzia-immobiliare-napoli-come-scegliere",
+    title: "Come scegliere un'agenzia immobiliare a Napoli: 7 criteri fondamentali",
+    excerpt: "Non tutte le agenzie immobiliari sono uguali. Ecco i 7 criteri per scegliere il partner giusto per vendere o comprare casa a Napoli senza rischi.",
+    date: "2026-04-28",
+    category: "Consigli Pratici",
+    readTime: "6 min",
+    content: `
+      <h2>Come scegliere un'agenzia immobiliare a Napoli</h2>
+      <p>A Napoli operano decine di agenzie immobiliari, dalle grandi catene ai piccoli operatori locali. Scegliere quella giusta può fare la differenza tra una compravendita serena e un'esperienza stressante e costosa. Ecco i 7 criteri che contano davvero.</p>
+
+      <h3>1. Esperienza locale certificata</h3>
+      <p>Un'agenzia che opera nel quartiere da anni conosce i prezzi reali delle singole vie, i meccanismi del mercato locale e i potenziali acquirenti. Non affidarti a chi "copre tutta Napoli" in modo generico.</p>
+
+      <h3>2. Metodo di valutazione trasparente</h3>
+      <p>L'agenzia deve sapere spiegare come calcola il valore del tuo immobile, con dati di mercato reali e comparativi verificabili. Diffida di chi propone prezzi gonfiati per aggiudicarsi il mandato, o di chi fa valutazioni istantanee senza vedere l'immobile.</p>
+
+      <h3>3. Verifica documentale preventiva</h3>
+      <p>Un'agenzia seria verifica la conformità catastale e urbanistica prima di mettere l'immobile sul mercato. Questo evita brutte sorprese a pochi giorni dal rogito.</p>
+
+      <h3>4. Piano di marketing specifico</h3>
+      <p>Come verrà promosso il tuo immobile? Servizio fotografico professionale, virtual tour, pubblicazione sui principali portali, social media, mailing list di acquirenti già qualificati: un piano di marketing concreto fa la differenza sui tempi di vendita.</p>
+
+      <h3>5. Qualificazione degli acquirenti</h3>
+      <p>Non tutte le visite portano a un'offerta seria. Un'agenzia professionale qualifica gli acquirenti in anticipo, verificando la loro reale capacità finanziaria, evitando di farti perdere tempo con persone che non possono ottenere il mutuo.</p>
+
+      <h3>6. Servizio integrato (mutuo + assicurazione)</h3>
+      <p>Un venditore ha interesse a che l'acquirente ottenga il mutuo. Se l'agenzia ha accesso a un mediatore creditizio interno, le trattative che partono si concludono: non salta il rogito per mancanza di finanziamento all'ultimo momento.</p>
+
+      <h3>7. Recensioni verificabili e referenze reali</h3>
+      <p>Controlla le recensioni su Google Business Profile: devono essere recenti, specifiche e numerose. Diffida di profili con poche recensioni o tutte generiche.</p>
+
+      <h3>HUB Napoli: i 7 criteri in un unico posto</h3>
+      <p>HUB opera al Vomero da 26 anni con un team di 10 professionisti, un metodo strutturato in 7 pilastri, un ramo creditizio (WeUnit) e uno assicurativo (Henia) integrati, e oltre 5 recensioni Google a 5 stelle. Contattaci per una consulenza gratuita senza impegno.</p>
+    `
+  },
+  {
     slug: "come-vendere-casa-napoli",
     title: "Come vendere casa a Napoli nel 2025: guida completa",
     excerpt: "Tutto quello che devi sapere per vendere casa a Napoli: documentazione, valutazione, marketing e negoziazione. La guida pratica di HUB.",

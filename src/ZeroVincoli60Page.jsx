@@ -17,6 +17,48 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Inject Service + BreadcrumbList + FAQPage schema
+    const schemas = [
+      {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Zero Vincoli 60 – Vendita Casa Napoli in 60 Giorni Garantiti",
+        "description": "Servizio garantito di vendita immobiliare a Napoli entro 60 giorni senza vincoli. Se non sei soddisfatto entro 60 giorni, ti liberiamo dal mandato senza penali.",
+        "url": "https://www.fondocasahub.com/zero-vincoli-60",
+        "provider": {
+          "@type": "RealEstateAgent",
+          "name": "HUB – FC Punto Hub Srl",
+          "url": "https://www.fondocasahub.com",
+          "telephone": "+39-081-18653202",
+          "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" }
+        },
+        "areaServed": [{ "@type": "City", "name": "Napoli" }, { "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Posillipo" }]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com/" },
+          { "@type": "ListItem", "position": 2, "name": "Zero Vincoli 60", "item": "https://www.fondocasahub.com/zero-vincoli-60" }
+        ]
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          { "@type": "Question", "name": "Cos'è Zero Vincoli 60?", "acceptedAnswer": { "@type": "Answer", "text": "Zero Vincoli 60 è una promozione esclusiva di FondoCasa Hub per vendere casa a Napoli con mandato in esclusiva di 6 mesi. Se entro 60 giorni non sei soddisfatto, ti liberiamo dal contratto senza penali e senza costi." } },
+          { "@type": "Question", "name": "Quanto costa il servizio Zero Vincoli 60?", "acceptedAnswer": { "@type": "Answer", "text": "Nulla fino al rogito. Non ci sono spese anticipate, costi di attivazione né penali in caso di recesso nei termini previsti. La provvigione si paga esclusivamente a vendita conclusa." } },
+          { "@type": "Question", "name": "Cosa succede dopo i 60 giorni?", "acceptedAnswer": { "@type": "Answer", "text": "Se sei soddisfatto del nostro lavoro, continuiamo insieme fino alla vendita. Se non sei soddisfatto per qualsiasi motivo, ti liberiamo dal mandato senza penali, senza discussioni e senza costi." } },
+          { "@type": "Question", "name": "Zero Vincoli 60 funziona anche fuori Napoli?", "acceptedAnswer": { "@type": "Answer", "text": "Gestiamo tutta la fase iniziale completamente da remoto. Il servizio è operativo nell'area di Napoli e provincia." } }
+        ]
+      }
+    ];
+    const script = document.createElement('script');
+    script.type = 'application/ld+json';
+    script.id = 'schema-zv60-react';
+    script.textContent = JSON.stringify(schemas);
+    document.head.appendChild(script);
+    return () => { const el = document.getElementById('schema-zv60-react'); if (el) el.remove(); };
   }, []);
 
   const scrollToForm = () => {

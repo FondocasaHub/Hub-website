@@ -1,6 +1,19 @@
 {
   "rewrites": [
     { "source": "/zero-vincoli-60", "destination": "/zero-vincoli-60/index.html" },
+    { "source": "/chi-siamo", "destination": "/index.html" },
+    { "source": "/il-nostro-metodo", "destination": "/index.html" },
+    { "source": "/contatti", "destination": "/index.html" },
+    { "source": "/comincia", "destination": "/index.html" },
+    { "source": "/lavora-con-noi", "destination": "/index.html" },
+    { "source": "/privacy", "destination": "/index.html" },
+    { "source": "/cookie", "destination": "/index.html" },
+    { "source": "/note-legali", "destination": "/index.html" },
+    { "source": "/vomero", "destination": "/index.html" },
+    { "source": "/posillipo", "destination": "/index.html" },
+    { "source": "/chiaia", "destination": "/index.html" },
+    { "source": "/centro-storico", "destination": "/index.html" },
+    { "source": "/blog", "destination": "/index.html" },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
 }

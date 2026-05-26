@@ -1,4 +1,10 @@
 User-agent: *
 Allow: /
 
+# Blocca risorse interne non indicizzabili
+Disallow: /src/
+Disallow: /*.json$
+Disallow: /*.jsx$
+
+# Sitemap
 Sitemap: https://www.fondocasahub.com/sitemap.xml

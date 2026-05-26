@@ -5,6 +5,14 @@ Allow: /
 Disallow: /src/
 Disallow: /*.json$
 Disallow: /*.jsx$
+Disallow: /node_modules/
+
+# Crawl-delay per bot aggressivi
+User-agent: AhrefsBot
+Crawl-delay: 5
+
+User-agent: SemrushBot
+Crawl-delay: 5
 
 # Sitemap
 Sitemap: https://www.fondocasahub.com/sitemap.xml

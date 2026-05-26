@@ -842,6 +842,40 @@ function HomePage({ navigate, colors }) {
         </div>
       </section>
 
+      {/* ZONE CHE SERVIAMO — SEO local links */}
+      <section style={{ padding: "80px 32px", background: NAVY_DEEP, color: CREAM }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 48 }}>
+            <div style={{ fontSize: 12, letterSpacing: 3, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Dove operiamo</div>
+            <h2 style={{ fontSize: "clamp(1.8rem,3.5vw,2.6rem)", fontWeight: 700, lineHeight: 1.2 }}>
+              Agenzia immobiliare a Napoli:<br />
+              <span style={{ color: GOLD }}>ogni quartiere, una competenza</span>
+            </h2>
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 20 }}>
+            {[
+              { id: "vomero", nome: "Vomero", desc: "Il quartiere residenziale più richiesto di Napoli. HUB ha sede qui da 26 anni.", prezzo: "3.500 – 5.500 €/mq" },
+              { id: "posillipo", nome: "Posillipo", desc: "Il segmento premium di Napoli: ville con vista mare e appartamenti esclusivi.", prezzo: "5.000 – 12.000 €/mq" },
+              { id: "chiaia", nome: "Chiaia", desc: "Il quartiere più elegante di Napoli, tra Riviera e Via dei Mille.", prezzo: "4.000 – 7.000 €/mq" },
+              { id: "centro-storico", nome: "Centro Storico", desc: "Napoli Patrimonio UNESCO. Palazzi storici, Decumani e Toledo.", prezzo: "1.200 – 4.000 €/mq" },
+            ].map(q => (
+              <div
+                key={q.id}
+                onClick={() => navigate(q.id)}
+                style={{ padding: 28, background: "rgba(255,255,255,0.04)", border: "1px solid rgba(193,154,91,0.2)", borderRadius: 4, cursor: "pointer", transition: "all 0.25s" }}
+                onMouseEnter={e => { e.currentTarget.style.borderColor = GOLD; e.currentTarget.style.background = "rgba(193,154,91,0.08)"; }}
+                onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(193,154,91,0.2)"; e.currentTarget.style.background = "rgba(255,255,255,0.04)"; }}
+              >
+                <h3 style={{ fontSize: "1.15rem", fontWeight: 700, color: GOLD, marginBottom: 8 }}>{q.nome}</h3>
+                <p style={{ fontSize: 13, lineHeight: 1.6, opacity: 0.75, marginBottom: 12 }}>{q.desc}</p>
+                <div style={{ fontSize: 12, letterSpacing: 1, color: GOLD, fontWeight: 600 }}>{q.prezzo}</div>
+                <div style={{ marginTop: 16, fontSize: 13, color: GOLD, fontWeight: 600 }}>Scopri →</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ SEO */}
       <FAQSection colors={{ NAVY, GOLD, CREAM }} />
 

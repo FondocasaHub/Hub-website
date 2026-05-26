@@ -1156,9 +1156,7 @@
 <!-- ========== FLOATING WHATSAPP ========== -->
 <a href="https://wa.me/393937882334?text=Ciao,%20vorrei%20info%20su%20Zero%20Vincoli%2060" class="float-wa" target="_blank" aria-label="WhatsApp">✦</a>
 
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 <script>
-  emailjs.init('IdN0s_yuY8yepMYd9');
 
   const target = new Date("2026-09-30T23:59:59").getTime();
   function tick(){
@@ -1190,14 +1188,18 @@
       });
       if(res.ok){
         document.getElementById("successMsg").style.display = "block";
-        // Invio email di conferma al cliente via EmailJS
-        emailjs.send('service_wbryl9l', 'template_3n72tko', {
-          from_name: form.querySelector('#nome').value,
-          nome: form.querySelector('#nome').value,
-          email: form.querySelector('#email').value,
-          telefono: form.querySelector('#telefono').value,
-          zona: form.querySelector('#zona').value || '-',
-          tipo: form.querySelector('#tipo').value || '-'
+        // Invio dati al webhook Make.com → Brevo template ZV60
+        fetch('https://hook.eu1.make.com/b6m4govnf6kvwdigs3kqdffpjm3asoxv', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            nome: form.querySelector('#nome').value,
+            cognome: '',
+            email: form.querySelector('#email').value,
+            telefono: form.querySelector('#telefono').value,
+            indirizzo: form.querySelector('#zona').value || '',
+            categoria: form.querySelector('#tipo').value || 'Zero-Vincoli-60'
+          })
         }).catch(() => {});
         form.reset();
         btn.textContent = "✓ Inviato";

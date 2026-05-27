@@ -1,12 +1,7 @@
-// Vercel Serverless Function — inietta meta tag corretti per ogni route React
-// Chiamata da vercel.json come beforeFiles rewrite
+// Vercel Serverless Function — inietta meta tag SEO corretti per ogni route React
+// Funziona leggendo il template HTML dalla homepage e sostituendo i meta
 
 const PAGE_META = {
-  '/': {
-    title: 'HUB | Agenzia Immobiliare, Mutui e Assicurazioni a Napoli',
-    desc: 'HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.',
-    canonical: 'https://www.fondocasahub.com/'
-  },
   '/chi-siamo': {
     title: 'Chi Siamo | HUB Napoli – Fondocasa, WeUnit, Henia',
     desc: 'Scopri il team di HUB Napoli: 26 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa a Napoli.',
@@ -61,57 +56,81 @@ const PAGE_META = {
 
 module.exports = async (req, res) => {
   const path = req.url.split('?')[0];
-  const meta = PAGE_META[path] || PAGE_META['/'];
+  const meta = PAGE_META[path];
 
-  // Leggi index.html dal filesystem
-  const fs = require('fs');
-  const fsPath = require('path').join(process.cwd(), 'dist', 'index.html');
-
-  let html;
-  try {
-    html = fs.readFileSync(fsPath, 'utf8');
-  } catch {
-    res.status(500).send('index.html not found');
+  if (!meta) {
+    // Fallback: serve index.html normale
+    res.redirect(301, '/');
     return;
   }
 
-  // Sostituisci title
-  html = html.replace(
-    /<title>[^<]*<\/title>/,
-    `<title>${meta.title}</title>`
-  );
+  try {
+    // Legge il template dalla homepage live (già deployata come static file)
+    const host = process.env.VERCEL_URL
+      ? `https://${process.env.VERCEL_URL}`
+      : 'https://www.fondocasahub.com';
 
-  // Sostituisci meta description
-  html = html.replace(
-    /<meta name="description" content="[^"]*"/,
-    `<meta name="description" content="${meta.desc}"`
-  );
+    const response = await fetch(`${host}/`);
+    if (!response.ok) throw new Error('Failed to fetch index.html');
+    let html = await response.text();
 
-  // Sostituisci canonical
-  html = html.replace(
-    /<link rel="canonical" href="[^"]*"/,
-    `<link rel="canonical" href="${meta.canonical}"`
-  );
+    // Sostituisce title
+    html = html.replace(
+      /<title>[^<]*<\/title>/,
+      `<title>${meta.title}</title>`
+    );
 
-  // Sostituisci og:title
-  html = html.replace(
-    /<meta property="og:title" content="[^"]*"/,
-    `<meta property="og:title" content="${meta.title}"`
-  );
+    // Sostituisce meta description
+    html = html.replace(
+      /<meta name="description" content="[^"]*"\s*\/>/,
+      `<meta name="description" content="${meta.desc}" />`
+    );
 
-  // Sostituisci og:description
-  html = html.replace(
-    /<meta property="og:description" content="[^"]*"/,
-    `<meta property="og:description" content="${meta.desc}"`
-  );
+    // Sostituisce canonical
+    html = html.replace(
+      /<link rel="canonical" href="[^"]*"\s*\/>/,
+      `<link rel="canonical" href="${meta.canonical}" />`
+    );
 
-  // Sostituisci og:url
-  html = html.replace(
-    /<meta property="og:url" content="[^"]*"/,
-    `<meta property="og:url" content="${meta.canonical}"`
-  );
+    // Sostituisce og:title
+    html = html.replace(
+      /(<meta property="og:title" content=")[^"]*(")/,
+      `$1${meta.title}$2`
+    );
 
-  res.setHeader('Content-Type', 'text/html; charset=utf-8');
-  res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate');
-  res.status(200).send(html);
+    // Sostituisce og:description
+    html = html.replace(
+      /(<meta property="og:description" content=")[^"]*(")/,
+      `$1${meta.desc}$2`
+    );
+
+    // Sostituisce og:url
+    html = html.replace(
+      /(<meta property="og:url" content=")[^"]*(")/,
+      `$1${meta.canonical}$2`
+    );
+
+    // Aggiunge tag canonico Twitter se mancante
+    html = html.replace(
+      /(<meta property="twitter:url" content=")[^"]*(")/,
+      `$1${meta.canonical}$2`
+    );
+    html = html.replace(
+      /(<meta property="twitter:title" content=")[^"]*(")/,
+      `$1${meta.title}$2`
+    );
+    html = html.replace(
+      /(<meta property="twitter:description" content=")[^"]*(")/,
+      `$1${meta.desc}$2`
+    );
+
+    res.setHeader('Content-Type', 'text/html; charset=utf-8');
+    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
+    res.status(200).send(html);
+
+  } catch (err) {
+    console.error('meta.js error:', err.message);
+    // Fallback sicuro: redirect alla homepage
+    res.redirect(302, '/');
+  }
 };

@@ -1,24 +1,19 @@
 {
-  "functions": {
-    "api/meta.js": {
-      "includeFiles": "api/template.html"
-    }
-  },
   "rewrites": [
     { "source": "/zero-vincoli-60", "destination": "/zero-vincoli-60/index.html" },
-    { "source": "/chi-siamo", "destination": "/api/meta" },
-    { "source": "/il-nostro-metodo", "destination": "/api/meta" },
-    { "source": "/contatti", "destination": "/api/meta" },
-    { "source": "/comincia", "destination": "/api/meta" },
-    { "source": "/lavora-con-noi", "destination": "/api/meta" },
-    { "source": "/vomero", "destination": "/api/meta" },
-    { "source": "/posillipo", "destination": "/api/meta" },
-    { "source": "/chiaia", "destination": "/api/meta" },
-    { "source": "/centro-storico", "destination": "/api/meta" },
-    { "source": "/blog", "destination": "/api/meta" },
-    { "source": "/privacy", "destination": "/index.html" },
-    { "source": "/cookie", "destination": "/index.html" },
-    { "source": "/note-legali", "destination": "/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/chi-siamo",       "destination": "/chi-siamo.html" },
+    { "source": "/il-nostro-metodo","destination": "/il-nostro-metodo.html" },
+    { "source": "/contatti",        "destination": "/contatti.html" },
+    { "source": "/comincia",        "destination": "/comincia.html" },
+    { "source": "/lavora-con-noi",  "destination": "/lavora-con-noi.html" },
+    { "source": "/vomero",          "destination": "/vomero.html" },
+    { "source": "/posillipo",       "destination": "/posillipo.html" },
+    { "source": "/chiaia",          "destination": "/chiaia.html" },
+    { "source": "/centro-storico",  "destination": "/centro-storico.html" },
+    { "source": "/blog",            "destination": "/blog.html" },
+    { "source": "/privacy",         "destination": "/index.html" },
+    { "source": "/cookie",          "destination": "/index.html" },
+    { "source": "/note-legali",     "destination": "/index.html" },
+    { "source": "/(.*)",            "destination": "/index.html" }
   ]
 }

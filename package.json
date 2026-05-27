@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node -e \"const fs=require('fs');fs.copyFileSync('dist/index.html','api/template.html');console.log('[postbuild] api/template.html aggiornato')\"",
+    "postbuild": "node scripts/postbuild.js",
     "preview": "vite preview"
   },
   "dependencies": {

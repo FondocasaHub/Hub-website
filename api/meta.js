@@ -1,5 +1,6 @@
 // Vercel Serverless Function — inietta meta tag SEO corretti per ogni route React
-// Legge dist/index.html (incluso nel bundle via includeFiles in vercel.json)
+// Il template HTML viene copiato in api/template.html dallo script postbuild
+// e incluso nel bundle Lambda tramite includeFiles in vercel.json
 
 const fs = require('fs');
 const path = require('path');
@@ -57,24 +58,17 @@ const PAGE_META = {
   }
 };
 
-// Legge il template HTML dal dist/ incluso nel bundle della funzione
+// Cache del template in memoria per evitare letture ripetute del filesystem
 let templateHtml = null;
+
 function getTemplate() {
   if (templateHtml) return templateHtml;
-  // Vercel include il file in process.cwd()/dist/index.html grazie a includeFiles
-  const candidates = [
-    path.join(process.cwd(), 'dist', 'index.html'),
-    path.join(__dirname, '..', 'dist', 'index.html'),
-    path.join(__dirname, 'dist', 'index.html'),
-  ];
-  for (const p of candidates) {
-    try {
-      templateHtml = fs.readFileSync(p, 'utf8');
-      console.log('[meta.js] Template loaded from:', p);
-      return templateHtml;
-    } catch (_) { /* try next */ }
-  }
-  throw new Error('Template index.html not found in any candidate path');
+  // Il file è stato copiato in api/template.html dal postbuild
+  // e incluso nel bundle Lambda tramite includeFiles
+  const templatePath = path.join(__dirname, 'template.html');
+  templateHtml = fs.readFileSync(templatePath, 'utf8');
+  console.log('[meta.js] Template caricato da:', templatePath, '(', templateHtml.length, 'bytes)');
+  return templateHtml;
 }
 
 module.exports = async (req, res) => {
@@ -109,8 +103,7 @@ module.exports = async (req, res) => {
     res.end(modified);
 
   } catch (err) {
-    console.error('[meta.js] Error:', err.message);
-    // Fallback: serve index.html statico senza modifiche
+    console.error('[meta.js] Errore:', err.message, '\n__dirname:', __dirname, '\nprocess.cwd():', process.cwd());
     res.writeHead(302, { Location: '/' });
     res.end();
   }

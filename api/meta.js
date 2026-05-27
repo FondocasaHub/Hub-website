@@ -1,5 +1,8 @@
 // Vercel Serverless Function — inietta meta tag SEO corretti per ogni route React
-// Funziona leggendo il template HTML dalla homepage e sostituendo i meta
+// Legge dist/index.html (incluso nel bundle via includeFiles in vercel.json)
+
+const fs = require('fs');
+const path = require('path');
 
 const PAGE_META = {
   '/chi-siamo': {
@@ -54,83 +57,61 @@ const PAGE_META = {
   }
 };
 
+// Legge il template HTML dal dist/ incluso nel bundle della funzione
+let templateHtml = null;
+function getTemplate() {
+  if (templateHtml) return templateHtml;
+  // Vercel include il file in process.cwd()/dist/index.html grazie a includeFiles
+  const candidates = [
+    path.join(process.cwd(), 'dist', 'index.html'),
+    path.join(__dirname, '..', 'dist', 'index.html'),
+    path.join(__dirname, 'dist', 'index.html'),
+  ];
+  for (const p of candidates) {
+    try {
+      templateHtml = fs.readFileSync(p, 'utf8');
+      console.log('[meta.js] Template loaded from:', p);
+      return templateHtml;
+    } catch (_) { /* try next */ }
+  }
+  throw new Error('Template index.html not found in any candidate path');
+}
+
 module.exports = async (req, res) => {
-  const path = req.url.split('?')[0];
-  const meta = PAGE_META[path];
+  const urlPath = req.url.split('?')[0];
+  const meta = PAGE_META[urlPath];
 
   if (!meta) {
-    // Fallback: serve index.html normale
-    res.redirect(301, '/');
+    res.writeHead(302, { Location: '/' });
+    res.end();
     return;
   }
 
   try {
-    // Legge il template dalla homepage live (già deployata come static file)
-    const host = process.env.VERCEL_URL
-      ? `https://${process.env.VERCEL_URL}`
-      : 'https://www.fondocasahub.com';
+    const html = getTemplate();
 
-    const response = await fetch(`${host}/`);
-    if (!response.ok) throw new Error('Failed to fetch index.html');
-    let html = await response.text();
+    const modified = html
+      .replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`)
+      .replace(/(<meta name="description" content=")[^"]*(")/g, `$1${meta.desc}$2`)
+      .replace(/(<link rel="canonical" href=")[^"]*(")/g, `$1${meta.canonical}$2`)
+      .replace(/(<meta property="og:title" content=")[^"]*(")/g, `$1${meta.title}$2`)
+      .replace(/(<meta property="og:description" content=")[^"]*(")/g, `$1${meta.desc}$2`)
+      .replace(/(<meta property="og:url" content=")[^"]*(")/g, `$1${meta.canonical}$2`)
+      .replace(/(<meta property="twitter:url" content=")[^"]*(")/g, `$1${meta.canonical}$2`)
+      .replace(/(<meta property="twitter:title" content=")[^"]*(")/g, `$1${meta.title}$2`)
+      .replace(/(<meta property="twitter:description" content=")[^"]*(")/g, `$1${meta.desc}$2`);
 
-    // Sostituisce title
-    html = html.replace(
-      /<title>[^<]*<\/title>/,
-      `<title>${meta.title}</title>`
-    );
-
-    // Sostituisce meta description
-    html = html.replace(
-      /<meta name="description" content="[^"]*"\s*\/>/,
-      `<meta name="description" content="${meta.desc}" />`
-    );
-
-    // Sostituisce canonical
-    html = html.replace(
-      /<link rel="canonical" href="[^"]*"\s*\/>/,
-      `<link rel="canonical" href="${meta.canonical}" />`
-    );
-
-    // Sostituisce og:title
-    html = html.replace(
-      /(<meta property="og:title" content=")[^"]*(")/,
-      `$1${meta.title}$2`
-    );
-
-    // Sostituisce og:description
-    html = html.replace(
-      /(<meta property="og:description" content=")[^"]*(")/,
-      `$1${meta.desc}$2`
-    );
-
-    // Sostituisce og:url
-    html = html.replace(
-      /(<meta property="og:url" content=")[^"]*(")/,
-      `$1${meta.canonical}$2`
-    );
-
-    // Aggiunge tag canonico Twitter se mancante
-    html = html.replace(
-      /(<meta property="twitter:url" content=")[^"]*(")/,
-      `$1${meta.canonical}$2`
-    );
-    html = html.replace(
-      /(<meta property="twitter:title" content=")[^"]*(")/,
-      `$1${meta.title}$2`
-    );
-    html = html.replace(
-      /(<meta property="twitter:description" content=")[^"]*(")/,
-      `$1${meta.desc}$2`
-    );
-
-    res.setHeader('Content-Type', 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 's-maxage=3600, stale-while-revalidate=86400');
-    res.status(200).send(html);
+    res.writeHead(200, {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 's-maxage=3600, stale-while-revalidate=86400',
+      'X-Meta-Injected': 'true'
+    });
+    res.end(modified);
 
   } catch (err) {
-    console.error('meta.js error:', err.message);
-    // Fallback sicuro: redirect alla homepage
-    res.redirect(302, '/');
+    console.error('[meta.js] Error:', err.message);
+    // Fallback: serve index.html statico senza modifiche
+    res.writeHead(302, { Location: '/' });
+    res.end();
   }
 };

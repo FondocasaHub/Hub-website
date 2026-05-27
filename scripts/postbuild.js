@@ -1,10 +1,13 @@
-// scripts/postbuild.js
+// scripts/postbuild.js  (ES Module — package.json ha "type": "module")
 // Genera un file HTML statico per ogni route SEO con i meta tag corretti.
 // Viene eseguito automaticamente dopo "npm run build" (script postbuild).
 // Vercel serve questi file staticamente dal CDN — nessuna Lambda necessaria.
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PAGE_META = {
   'chi-siamo': {
@@ -63,7 +66,7 @@ const distDir = path.join(__dirname, '..', 'dist');
 const templatePath = path.join(distDir, 'index.html');
 
 if (!fs.existsSync(templatePath)) {
-  console.error('[postbuild] ERRORE: dist/index.html non trovato. Esegui prima npm run build.');
+  console.error('[postbuild] ERRORE: dist/index.html non trovato.');
   process.exit(1);
 }
 

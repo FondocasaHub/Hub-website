@@ -1488,7 +1488,7 @@ function CominciaQuiPage({ colors }) {
           obiettivo: data.obiettivo,
           tempi: data.tempi,
           zona: data.zona,
-          categoria: 'Comincia Da Qui - Valutazione Gratuita'
+          categoria: 'Comincia Da Qui'
         }),
       }).catch(() => {});
       setSent(true);
@@ -1703,10 +1703,10 @@ function CarrieraPage({ colors }) {
       });
       const result = await res.json();
       if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
-      fetch('https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuukjm', {
+      fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: candForm.nome, email: candForm.email, categoria: 'Candidatura' }),
+        body: JSON.stringify({ name: candForm.nome, email: candForm.email, phone: candForm.telefono, area: candForm.area, esperienza: candForm.esperienza, categoria: 'Candidatura' }),
       }).catch(() => {});
       setCandSent(true);
     } catch {
@@ -1886,10 +1886,10 @@ function ContactPage({ navigate, colors }) {
       if (!emailResponse.ok || emailResult.ok === false) {
         throw new Error(emailResult.error || 'Errore nell\'invio');
       }
-      fetch('https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuukjm', {
+      fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.nome, email: form.email, categoria: 'Contatti' }),
+        body: JSON.stringify({ name: form.nome, email: form.email, phone: form.telefono, message: form.messaggio, categoria: 'Contatti' }),
       }).catch(() => {});
 
       // Send to Google Sheets via Apps Script if available

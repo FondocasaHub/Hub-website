@@ -12,8 +12,13 @@ const ARTICLES = [
       <h2>I tassi BCE a giugno 2026 e l'impatto sui mutui</h2>
       <p>La Banca Centrale Europea ha confermato il rialzo dei tassi di riferimento a giugno 2026, proseguendo la sua politica di contenimento dell'inflazione. Per chi sta pensando di comprare casa a Napoli nei prossimi mesi, è fondamentale capire come questo aumento si riflette sulle rate dei mutui e quali sono le scelte più convenienti.</p>
 
-      <h3>Quanto è salito il tasso BCE a giugno 2026?</h3>
-      <p>A giugno, il tasso di riferimento BCE è salito a <strong>4,00%</strong>, in continuità con il ciclo di rialzi iniziato nel 2022. Sebbene il ritmo di aumento sia rallentato rispetto ai mesi precedenti, il trend resta orientato al rialzo, riflettendo le pressioni inflazionistiche ancora presenti nell'eurozona.</p>
+      <h3>I nuovi tassi di riferimento della BCE dal 17 giugno 2026</h3>
+      <p>A partire dal 17 giugno 2026, la Banca Centrale Europea ha annunciato i seguenti tassi di riferimento:</p>
+      <ul>
+        <li><strong>Tasso di rifinanziamento principale:</strong> 2,40% (in aumento di 0,25% rispetto al 2,15% precedente)</li>
+        <li><strong>Tasso sui depositi:</strong> 2,25% (in aumento di 0,25% rispetto al 2,00% precedente)</li>
+      </ul>
+      <p>Si tratta di un ulteriore step nel ciclo di normalizzazione della politica monetaria BCE, anche se con un ritmo di aumento che continua a rallentare rispetto ai rialzi più aggressivi dei mesi precedenti. Questo segnale è positivo per chi spera in una stabilizzazione dei tassi sui mutui nei prossimi mesi.</p>
 
       <h3>Come gli aumenti BCE influenzano i mutui a Napoli</h3>
       <p>Il tasso BCE non è il tasso del tuo mutuo, ma è il parametro su cui si basano i costi del denaro per le banche. Quando la BCE alza il tasso:</p>
@@ -24,11 +29,11 @@ const ARTICLES = [
       </ul>
 
       <h3>I tassi attuali per i mutui a Napoli (giugno 2026)</h3>
-      <p>Sulla base della situazione di mercato a giugno 2026:</p>
+      <p>Sulla base della situazione di mercato a giugno 2026, in seguito al nuovo tasso BCE al 2,40%:</p>
       <ul>
-        <li><strong>Tasso fisso:</strong> 3,8% – 4,2% (spread bancario: 1,8% – 2,2%)</li>
-        <li><strong>Tasso variabile:</strong> Euribor 3M + spread (varia da banca a banca, mediamente 2,5% – 3,0%)</li>
-        <li><strong>Tasso variabile con cap:</strong> generalmente 0,5% – 1,0% più alto del variabile puro, ma con protezione dai rialzi futuri</li>
+        <li><strong>Tasso fisso:</strong> 3,0% – 3,8% (spread bancario: 0,60% – 1,40%)</li>
+        <li><strong>Tasso variabile:</strong> Euribor 3M + spread (varia da banca a banca, mediamente 1,8% – 2,3%)</li>
+        <li><strong>Tasso variabile con cap:</strong> generalmente 0,4% – 0,8% più alto del variabile puro, ma con protezione dai rialzi futuri</li>
       </ul>
 
       <h3>Tasso fisso o tasso variabile? Cosa conviene nel 2026?</h3>
@@ -39,9 +44,10 @@ const ARTICLES = [
       <h3>Esempio concreto: quanto costa un mutuo a Napoli a giugno 2026</h3>
       <p>Scenario: acquisto di un immobile a Napoli per 300.000 €, finanziamento dell'80% (240.000 €), mutuo a 30 anni.</p>
       <ul>
-        <li><strong>Tasso fisso 4,0%:</strong> rata mensile circa 1.145 € / interesse totale: 172.200 €</li>
-        <li><strong>Tasso variabile Euribor 3M (2,6%) + 2,8% = 5,4%:</strong> rata iniziale circa 1.365 € / aumenterà se l'Euribor sale</li>
+        <li><strong>Tasso fisso 3,4%:</strong> rata mensile circa 1.075 € / interesse totale: 146.850 €</li>
+        <li><strong>Tasso variabile Euribor 3M (1,8%) + 2,0% = 3,8%:</strong> rata iniziale circa 1.110 € / aumenterà se l'Euribor sale</li>
       </ul>
+      <p>Come vedi, i tassi attuali sono significativamente più bassi rispetto ai picchi di fine 2023, rendendo i mutui più sostenibili per le famiglie napoletane.</p>
       <p>La differenza di 220 € al mese sembra significativa inizialmente, ma il tasso fisso ti protegge da eventuali aumenti nei prossimi 30 anni.</p>
 
       <h3>Cosa aspettarsi nei prossimi mesi della BCE</h3>

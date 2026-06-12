@@ -713,7 +713,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
                   cursor: 'pointer',
                 }}>
                   Acconsento al trattamento dei miei dati personali ai sensi del GDPR.{' '}
-                  <span style={{ color: GOLD, textDecoration: 'underline', cursor: 'pointer' }}>
+                  <span onClick={() => navigate("privacy")} style={{ color: GOLD, textDecoration: 'underline', cursor: 'pointer' }}>
                     Leggi la privacy policy.
                   </span>
                 </label>

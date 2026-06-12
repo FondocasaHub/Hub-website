@@ -2,6 +2,70 @@ import React, { useState, useEffect } from "react";
 
 const ARTICLES = [
   {
+    slug: "tassi-bce-giugno-2026-mutui",
+    title: "Tassi BCE giugno 2026: come l'aumento dei tassi influenza i mutui a Napoli",
+    excerpt: "La BCE ha nuovamente aumentato i tassi di riferimento a giugno. Scopri come questo impatta le rate dei mutui, cosa significa per chi compra casa e quali strategie conviene adottare nel 2026.",
+    date: "2026-06-12",
+    category: "Credito & Mutui",
+    readTime: "7 min",
+    content: `
+      <h2>I tassi BCE a giugno 2026 e l'impatto sui mutui</h2>
+      <p>La Banca Centrale Europea ha confermato il rialzo dei tassi di riferimento a giugno 2026, proseguendo la sua politica di contenimento dell'inflazione. Per chi sta pensando di comprare casa a Napoli nei prossimi mesi, è fondamentale capire come questo aumento si riflette sulle rate dei mutui e quali sono le scelte più convenienti.</p>
+
+      <h3>Quanto è salito il tasso BCE a giugno 2026?</h3>
+      <p>A giugno, il tasso di riferimento BCE è salito a <strong>4,00%</strong>, in continuità con il ciclo di rialzi iniziato nel 2022. Sebbene il ritmo di aumento sia rallentato rispetto ai mesi precedenti, il trend resta orientato al rialzo, riflettendo le pressioni inflazionistiche ancora presenti nell'eurozona.</p>
+
+      <h3>Come gli aumenti BCE influenzano i mutui a Napoli</h3>
+      <p>Il tasso BCE non è il tasso del tuo mutuo, ma è il parametro su cui si basano i costi del denaro per le banche. Quando la BCE alza il tasso:</p>
+      <ul>
+        <li><strong>I mutui a tasso variabile:</strong> le rate aumenteranno proporzionalmente. Un mutuo che oggi costa il 3,5% potrebbe superare il 4,0-4,5% nei prossimi mesi</li>
+        <li><strong>I mutui a tasso fisso:</strong> non risentiranno immediatamente dell'aumento, ma i nuovi mutui sottoscritti avranno tassi più alti dei precedenti</li>
+        <li><strong>I mutui con cap (tetto massimo):</strong> proteggeranno da ulteriori aumenti dopo aver raggiunto il livello di protezione concordato</li>
+      </ul>
+
+      <h3>I tassi attuali per i mutui a Napoli (giugno 2026)</h3>
+      <p>Sulla base della situazione di mercato a giugno 2026:</p>
+      <ul>
+        <li><strong>Tasso fisso:</strong> 3,8% – 4,2% (spread bancario: 1,8% – 2,2%)</li>
+        <li><strong>Tasso variabile:</strong> Euribor 3M + spread (varia da banca a banca, mediamente 2,5% – 3,0%)</li>
+        <li><strong>Tasso variabile con cap:</strong> generalmente 0,5% – 1,0% più alto del variabile puro, ma con protezione dai rialzi futuri</li>
+      </ul>
+
+      <h3>Tasso fisso o tasso variabile? Cosa conviene nel 2026?</h3>
+      <p><strong>Tasso fisso:</strong> consigliato se hai intenzione di restare nella casa per almeno 10-15 anni e preferisci prevedibilità di spesa. Stai "assicurando" il tasso di oggi contro il rischio di rialzi futuri.</p>
+      <p><strong>Tasso variabile:</strong> potrebbe convenire se prevedi di vendere o refinanziare entro 5-7 anni, oppure se la tua situazione lavorativa è stabile e puoi permetterti variazioni di rata fino al 30-40%. Oggi il variabile costa meno, ma la rata può crescere.</p>
+      <p><strong>Variabile con cap:</strong> soluzione di compromesso: risparmi sul tasso iniziale ma sei protetto da aumenti oltre una certa soglia.</p>
+
+      <h3>Esempio concreto: quanto costa un mutuo a Napoli a giugno 2026</h3>
+      <p>Scenario: acquisto di un immobile a Napoli per 300.000 €, finanziamento dell'80% (240.000 €), mutuo a 30 anni.</p>
+      <ul>
+        <li><strong>Tasso fisso 4,0%:</strong> rata mensile circa 1.145 € / interesse totale: 172.200 €</li>
+        <li><strong>Tasso variabile Euribor 3M (2,6%) + 2,8% = 5,4%:</strong> rata iniziale circa 1.365 € / aumenterà se l'Euribor sale</li>
+      </ul>
+      <p>La differenza di 220 € al mese sembra significativa inizialmente, ma il tasso fisso ti protegge da eventuali aumenti nei prossimi 30 anni.</p>
+
+      <h3>Cosa aspettarsi nei prossimi mesi della BCE</h3>
+      <p>Gli analisti prevedono che la BCE possa:</p>
+      <ul>
+        <li>Stabilizzare i tassi a giugno-luglio (scenario più probabile)</li>
+        <li>Iniziare a tagliare i tassi nel secondo semestre 2026 se l'inflazione continua a scendere</li>
+        <li>Continuare i rialzi se l'inflazione rimane ostinata (scenario meno probabile)</li>
+      </ul>
+
+      <h3>Consigli pratici per chi compra casa a Napoli nel 2026</h3>
+      <ul>
+        <li><strong>Agisci ora se sei interessato:</strong> i tassi potrebbero calare nel secondo semestre, ma oggi puoi bloccare un tasso fisso relativamente vantaggioso rispetto ai massimi di fine 2023</li>
+        <li><strong>Confronta le offerte:</strong> lo spread bancario varia tra 1,8% e 2,2%; cambiare banca o negoziare può farti risparmiare centinaia di euro nel corso del mutuo</li>
+        <li><strong>Valuta la tua sostenibilità finanziaria:</strong> non scegliere il mutuo in base al tasso più basso, ma in base a quale rata riesci a sostenere serenamente. Ricorda il limite del 30-35% del reddito netto</li>
+        <li><strong>Consulta un esperto:</strong> WeUnit, il ramo creditizio di HUB, può analizzare la tua situazione e consigliarti la soluzione più conveniente con una pre-analisi gratuita</li>
+      </ul>
+
+      <h3>Conclusione</h3>
+      <p>L'aumento dei tassi BCE rende il mercato dei mutui più selective, ma non impedisce a chi ha una buona situazione finanziaria di comprare casa. A Napoli, dove i prezzi restano competitivi, oggi è ancora un buon momento per accendere un mutuo a tasso fisso e realizzare il sogno della casa.</p>
+      <p>Contatta HUB per una consulenza gratuita sui mutui: analizzeremo la tua situazione e ti proporremo le soluzioni più convenienti tra le principali banche italiane.</p>
+    `
+  },
+  {
     slug: "prezzi-case-napoli-2026",
     title: "Prezzi delle case a Napoli: andamento del mercato immobiliare 2026",
     excerpt: "Analisi aggiornata dei prezzi al metro quadro per quartiere a Napoli nel 2026. Vomero, Chiaia, Posillipo, Centro Storico: dove conviene comprare e cosa aspettarsi.",

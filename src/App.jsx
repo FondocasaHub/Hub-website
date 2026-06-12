@@ -2058,6 +2058,13 @@ function ContactPage({ navigate, colors }) {
 // =====================================================
 function PrivacyPage({ colors }) {
   const { NAVY, GOLD, CREAM } = colors;
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.innerHTML = `(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);`;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <>
       <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
@@ -2073,36 +2080,8 @@ function PrivacyPage({ colors }) {
       </section>
 
       <section style={{ padding: "80px 32px 120px", background: CREAM, color: NAVY }}>
-        <div style={{ maxWidth: 980, margin: "0 auto", display: "grid", gap: 40 }}>
-          {[
-            { title: "Titolare del trattamento", text: "FC Punto Hub Srl - Via Pietro Mascagni, 35, 80128 Napoli - na.vomero@fondocasa.it - P.IVA IT01924140096" },
-            { title: "Normativa applicabile", text: "Il trattamento dei dati personali è effettuato ai sensi del Regolamento UE 2016/679 (GDPR) e delle leggi nazionali vigenti in materia di protezione dei dati personali." },
-            { title: "Finalità del trattamento", text: "Rispondere alle richieste di informazioni, valutazioni immobiliari, consulenze mutui e assicurative, gestire il contatto commerciale, fornire informazioni personalizzate e promuovere servizi tramite comunicazioni marketing." },
-            { title: "Dati trattati", text: "Nome, cognome, telefono, email, messaggio, preferenze sui servizi richiesti e consensi espressi. Possono essere trattati anche dati tecnici necessari al funzionamento del sito, come indirizzo IP, tipo di browser, sistema operativo e dati di navigazione." },
-            { title: "Base giuridica", text: "Il trattamento si basa sul consenso espresso dall'interessato per le comunicazioni commerciali e il caricamento delle liste contatti su piattaforme partner come Meta (Facebook), e su interessi legittimi per garantire la sicurezza del sito, la gestione tecnica e la prevenzione di abusi." },
-            { title: "Marketing e profilazione", text: "Con il tuo consenso, i dati possono essere utilizzati per la creazione di elenchi di marketing e campagne personalizzate su Meta/Facebook. Non verranno utilizzati per scopi diversi da quelli esplicitamente autorizzati e potrai revocare il consenso in qualsiasi momento." },
-            { title: "Facoltatività del marketing", text: "Il conferimento dei dati di contatto è necessario per poter rispondere alla richiesta. Il consenso alle finalità di marketing e al caricamento su Meta/Facebook è facoltativo e può essere revocato senza pregiudicare la risposta alla tua richiesta." },
-            { title: "Modalità di conservazione", text: "I dati vengono conservati in modo sicuro per il tempo necessario a evadere la richiesta e, comunque, non oltre 24 mesi salvo obblighi di legge o esigenze legittime di tutela." },
-            { title: "Destinatari", text: "I dati non sono comunicati a soggetti non autorizzati né sono venduti. Possono essere condivisi con fornitori terzi che forniscono servizi tecnici, amministrativi o di marketing necessari al sito e alle campagne promozionali, sempre sotto vincolo di riservatezza." },
-            { title: "Trasferimenti internazionali", text: "I dati non saranno trasferiti al di fuori dell'Unione Europea senza adeguate garanzie previste dal GDPR. Qualora fosse necessario un trasferimento, verranno adottate le misure richieste dalla normativa." },
-            { title: "Diritti dell'interessato", text: "Hai diritto di ottenere l'accesso, la rettifica, la cancellazione, la limitazione del trattamento, l'opposizione, la portabilità dei dati e la revoca del consenso in qualsiasi momento, senza pregiudicare la liceità del trattamento basata sul consenso prestato prima della revoca." },
-            { title: "Reclamo", text: "Se ritieni che il trattamento non rispetti la normativa, puoi proporre reclamo all'Autorità Garante per la protezione dei dati personali: www.garanteprivacy.it." }
-          ].map((item, index) => (
-            <div key={index} style={{ padding: 30, background: "white", borderRadius: 8, boxShadow: "0 16px 40px rgba(10,31,61,0.05)" }}>
-              <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14, color: NAVY }}>{item.title}</h2>
-              <p style={{ lineHeight: 1.8, color: "rgba(10,31,61,0.78)", fontSize: 15 }}>{item.text}</p>
-            </div>
-          ))}
-
-          <div style={{ padding: 30, background: NAVY, color: CREAM, borderRadius: 8 }}>
-            <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14 }}>Come esercitare i tuoi diritti</h2>
-            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15 }}>
-              Per esercitare i diritti relativi ai tuoi dati personali, contatta il titolare del trattamento scrivendo a <a href="mailto:na.vomero@fondocasa.it" style={{ color: GOLD, textDecoration: "none" }}>na.vomero@fondocasa.it</a> o chiamando il numero 081 18653202.
-            </p>
-            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15, marginTop: 12 }}>
-              Se preferisci, puoi richiedere l'eliminazione dei tuoi dati o la limitazione del trattamento in qualsiasi momento. La tua richiesta sarà gestita con priorità e in conformità al GDPR.
-            </p>
-          </div>
+        <div style={{ maxWidth: 980, margin: "0 auto" }}>
+          <a href="https://www.iubenda.com/privacy-policy/40741385" className="iubenda-white iubenda-noiframe iubenda-embed" title="Privacy Policy">Privacy Policy</a>
         </div>
       </section>
     </>
@@ -2114,6 +2093,13 @@ function PrivacyPage({ colors }) {
 // =====================================================
 function CookiePage({ colors }) {
   const { NAVY, GOLD, CREAM } = colors;
+  React.useEffect(() => {
+    const script = document.createElement("script");
+    script.type = "text/javascript";
+    script.innerHTML = `(function (w,d) {var loader = function () {var s = d.createElement("script"), tag = d.getElementsByTagName("script")[0]; s.src="https://cdn.iubenda.com/iubenda.js"; tag.parentNode.insertBefore(s,tag);}; if(w.addEventListener){w.addEventListener("load", loader, false);}else if(w.attachEvent){w.attachEvent("onload", loader);}else{w.onload = loader;}})(window, document);`;
+    document.body.appendChild(script);
+  }, []);
+
   return (
     <>
       <section className="hero-grad" style={{ padding: "160px 32px 100px" }}>
@@ -2129,23 +2115,8 @@ function CookiePage({ colors }) {
       </section>
 
       <section style={{ padding: "80px 32px 120px", background: CREAM, color: NAVY }}>
-        <div style={{ maxWidth: 980, margin: "0 auto", display: "grid", gap: 40 }}>
-          {[
-            { title: "Cosa sono i cookie?", text: "I cookie sono piccoli file di testo che vengono salvati sul dispositivo quando visiti un sito. Aiutano a migliorare l'esperienza di navigazione e a ricordare le tue preferenze." },
-            { title: "Cookie necessari", text: "Questo sito utilizza cookie tecnici strettamente necessari per garantire la navigazione, la sicurezza e il corretto funzionamento delle pagine." },
-            { title: "Cookie di analisi", text: "Al momento non sono installati cookie di tracciamento diretto da questo sito. Se in futuro verranno aggiunti strumenti di analytics, saranno sempre indicati in questa pagina." },
-            { title: "Gestione dei cookie", text: "Puoi gestire o disattivare i cookie direttamente dal browser. Disattivando i cookie tecnici alcune funzioni del sito potrebbero non essere disponibili." }
-          ].map((item, index) => (
-            <div key={index} style={{ padding: 30, background: "white", borderRadius: 8, boxShadow: "0 16px 40px rgba(10,31,61,0.05)" }}>
-              <h2 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, marginBottom: 14, color: NAVY }}>{item.title}</h2>
-              <p style={{ lineHeight: 1.8, color: "rgba(10,31,61,0.78)", fontSize: 15 }}>{item.text}</p>
-            </div>
-          ))}
-          <div style={{ padding: 30, background: NAVY, color: CREAM, borderRadius: 8 }}>
-            <p style={{ lineHeight: 1.8, color: "rgba(245,239,228,0.85)", fontSize: 15 }}>
-              Se hai domande specifiche sulla gestione dei cookie, contattaci a <a href="mailto:na.vomero@fondocasa.it" style={{ color: GOLD, textDecoration: "none" }}>na.vomero@fondocasa.it</a>.
-            </p>
-          </div>
+        <div style={{ maxWidth: 980, margin: "0 auto" }}>
+          <a href="https://www.iubenda.com/privacy-policy/40741385/cookie-policy" className="iubenda-white iubenda-noiframe iubenda-embed" title="Cookie Policy">Cookie Policy</a>
         </div>
       </section>
     </>

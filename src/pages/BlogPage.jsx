@@ -9,66 +9,63 @@ const ARTICLES = [
     category: "Credito & Mutui",
     readTime: "7 min",
     content: `
-      <h2>I tassi BCE a giugno 2026 e l'impatto sui mutui</h2>
-      <p>La Banca Centrale Europea ha confermato il rialzo dei tassi di riferimento a giugno 2026, proseguendo la sua politica di contenimento dell'inflazione. Per chi sta pensando di comprare casa a Napoli nei prossimi mesi, è fondamentale capire come questo aumento si riflette sulle rate dei mutui e quali sono le scelte più convenienti.</p>
+      <h2>Rialzo BCE di giugno 2026: cosa significa per i tuoi mutui</h2>
+      <p>Dal 17 giugno 2026, la Banca Centrale Europea ha nuovamente aumentato i tassi di riferimento di <strong>0,25%</strong>. Questa decisione avrà un impatto diretto su chi sta valutando un mutuo per comprare casa a Napoli. Ecco cosa devi sapere.</p>
 
-      <h3>I nuovi tassi di riferimento della BCE dal 17 giugno 2026</h3>
-      <p>A partire dal 17 giugno 2026, la Banca Centrale Europea ha annunciato i seguenti tassi di riferimento:</p>
+      <h3>Il rialzo dei tassi BCE dal 17 giugno 2026</h3>
+      <p>A partire dal 17 giugno, i tassi di riferimento della BCE sono aumentati di <strong>0,25%</strong>:</p>
       <ul>
-        <li><strong>Tasso di rifinanziamento principale:</strong> 2,40% (in aumento di 0,25% rispetto al 2,15% precedente)</li>
-        <li><strong>Tasso sui depositi:</strong> 2,25% (in aumento di 0,25% rispetto al 2,00% precedente)</li>
+        <li><strong>Tasso di rifinanziamento principale:</strong> 2,40% (precedente: 2,15%)</li>
+        <li><strong>Tasso sui depositi:</strong> 2,25% (precedente: 2,00%)</li>
       </ul>
-      <p>Si tratta di un ulteriore step nel ciclo di normalizzazione della politica monetaria BCE, anche se con un ritmo di aumento che continua a rallentare rispetto ai rialzi più aggressivi dei mesi precedenti. Questo segnale è positivo per chi spera in una stabilizzazione dei tassi sui mutui nei prossimi mesi.</p>
+      <p>Sebbene l'incremento sia contenuto (0,25%), ha un impatto concreto sui mutui, soprattutto per chi sta pensando di accenderne uno nei prossimi mesi.</p>
 
-      <h3>Come gli aumenti BCE influenzano i mutui a Napoli</h3>
-      <p>Il tasso BCE non è il tasso del tuo mutuo, ma è il parametro su cui si basano i costi del denaro per le banche. Quando la BCE alza il tasso:</p>
-      <ul>
-        <li><strong>I mutui a tasso variabile:</strong> le rate aumenteranno proporzionalmente. Un mutuo che oggi costa il 3,5% potrebbe superare il 4,0-4,5% nei prossimi mesi</li>
-        <li><strong>I mutui a tasso fisso:</strong> non risentiranno immediatamente dell'aumento, ma i nuovi mutui sottoscritti avranno tassi più alti dei precedenti</li>
-        <li><strong>I mutui con cap (tetto massimo):</strong> proteggeranno da ulteriori aumenti dopo aver raggiunto il livello di protezione concordato</li>
-      </ul>
+      <h3>Come funziona il tasso del mutuo: BCE + Spread</h3>
+      <p>È importante capire come viene calcolato il tasso del tuo mutuo:</p>
+      <p><strong>Tasso del mutuo = Tasso BCE + Spread bancario</strong></p>
+      <p>Lo spread è il margine che la banca aggiunge al tasso di riferimento BCE per coprire i costi operativi e i rischi. Lo spread varia da banca a banca.</p>
 
-      <h3>I tassi attuali per i mutui a Napoli (giugno 2026)</h3>
-      <p>Sulla base della situazione di mercato a giugno 2026, in seguito al nuovo tasso BCE al 2,40%:</p>
+      <h3>Mutui a tasso variabile: aumenteranno subito di 0,25%</h3>
+      <p>Se hai un mutuo a tasso variabile, la tua rata <strong>aumenterà di 0,25%</strong> a partire da giugno. Questo significa:</p>
       <ul>
-        <li><strong>Tasso fisso:</strong> 3,0% – 3,8% (spread bancario: 0,60% – 1,40%)</li>
-        <li><strong>Tasso variabile:</strong> Euribor 3M + spread (varia da banca a banca, mediamente 1,8% – 2,3%)</li>
-        <li><strong>Tasso variabile con cap:</strong> generalmente 0,4% – 0,8% più alto del variabile puro, ma con protezione dai rialzi futuri</li>
+        <li>Una rata che era di 1.000 € aumenterà di circa 50-60 € al mese (dipende dall'importo finanziato)</li>
+        <li>Chi vuole accendere un nuovo mutuo variabile pagherà subito il tasso più alto</li>
+        <li>Se prevedi ulteriori aumenti dei tassi BCE, il variabile può diventare costoso nel tempo</li>
       </ul>
 
-      <h3>Tasso fisso o tasso variabile? Cosa conviene nel 2026?</h3>
-      <p><strong>Tasso fisso:</strong> consigliato se hai intenzione di restare nella casa per almeno 10-15 anni e preferisci prevedibilità di spesa. Stai "assicurando" il tasso di oggi contro il rischio di rialzi futuri.</p>
-      <p><strong>Tasso variabile:</strong> potrebbe convenire se prevedi di vendere o refinanziare entro 5-7 anni, oppure se la tua situazione lavorativa è stabile e puoi permetterti variazioni di rata fino al 30-40%. Oggi il variabile costa meno, ma la rata può crescere.</p>
-      <p><strong>Variabile con cap:</strong> soluzione di compromesso: risparmi sul tasso iniziale ma sei protetto da aumenti oltre una certa soglia.</p>
-
-      <h3>Esempio concreto: quanto costa un mutuo a Napoli a giugno 2026</h3>
-      <p>Scenario: acquisto di un immobile a Napoli per 300.000 €, finanziamento dell'80% (240.000 €), mutuo a 30 anni.</p>
+      <h3>Mutui a tasso fisso: i NUOVI saranno più cari</h3>
+      <p>Se hai già un mutuo a tasso fisso sottoscritto prima del 17 giugno, la tua rata <strong>non cambia</strong>. Tuttavia:</p>
       <ul>
-        <li><strong>Tasso fisso 3,4%:</strong> rata mensile circa 1.075 € / interesse totale: 146.850 €</li>
-        <li><strong>Tasso variabile Euribor 3M (1,8%) + 2,0% = 3,8%:</strong> rata iniziale circa 1.110 € / aumenterà se l'Euribor sale</li>
-      </ul>
-      <p>Come vedi, i tassi attuali sono significativamente più bassi rispetto ai picchi di fine 2023, rendendo i mutui più sostenibili per le famiglie napoletane.</p>
-      <p>La differenza di 220 € al mese sembra significativa inizialmente, ma il tasso fisso ti protegge da eventuali aumenti nei prossimi 30 anni.</p>
-
-      <h3>Cosa aspettarsi nei prossimi mesi della BCE</h3>
-      <p>Gli analisti prevedono che la BCE possa:</p>
-      <ul>
-        <li>Stabilizzare i tassi a giugno-luglio (scenario più probabile)</li>
-        <li>Iniziare a tagliare i tassi nel secondo semestre 2026 se l'inflazione continua a scendere</li>
-        <li>Continuare i rialzi se l'inflazione rimane ostinata (scenario meno probabile)</li>
+        <li><strong>I NUOVI mutui a tasso fisso saranno più cari</strong> perché le banche li quotano includendo il nuovo tasso BCE più alto</li>
+        <li>Chi sottoscrive un mutuo fisso dopo il 17 giugno pagherà un tasso di partenza superiore rispetto a prima</li>
       </ul>
 
-      <h3>Consigli pratici per chi compra casa a Napoli nel 2026</h3>
+      <h3>A parità di rata: meno denaro finanziato</h3>
+      <p>Questo è un punto fondamentale che pochi comprendono:</p>
+      <p><strong>Se fissi una rata mensile massima, con i tassi più alti potrai finanziare meno denaro.</strong></p>
+      <p>Esempio illustrativo:</p>
       <ul>
-        <li><strong>Agisci ora se sei interessato:</strong> i tassi potrebbero calare nel secondo semestre, ma oggi puoi bloccare un tasso fisso relativamente vantaggioso rispetto ai massimi di fine 2023</li>
-        <li><strong>Confronta le offerte:</strong> lo spread bancario varia tra 1,8% e 2,2%; cambiare banca o negoziare può farti risparmiare centinaia di euro nel corso del mutuo</li>
-        <li><strong>Valuta la tua sostenibilità finanziaria:</strong> non scegliere il mutuo in base al tasso più basso, ma in base a quale rata riesci a sostenere serenamente. Ricorda il limite del 30-35% del reddito netto</li>
-        <li><strong>Consulta un esperto:</strong> WeUnit, il ramo creditizio di HUB, può analizzare la tua situazione e consigliarti la soluzione più conveniente con una pre-analisi gratuita</li>
+        <li>Prima del rialzo: con una rata di 1.000 € potevi finanziare (ipotesi illustrativa) 240.000 € a 25 anni</li>
+        <li>Dopo il rialzo: con la stessa rata di 1.000 € potrai finanziare meno (es. 235.000 €) perché il tasso è salito dello 0,25%</li>
+      </ul>
+      <p>Se vuoi mantenere lo stesso importo finanziato (240.000 €), la tua rata mensile sarà più alta di circa 50-60 €.</p>
+
+      <h3>Cosa scegliere: fisso o variabile?</h3>
+      <p><strong>Tasso fisso:</strong> Protegge da futuri aumenti BCE, ma il tasso di partenza ora è più alto dopo il rialzo del 17 giugno. Se prevedi di restare nella casa a lungo, è una scelta di protezione.</p>
+      <p><strong>Tasso variabile:</strong> Inizia più basso rispetto al fisso, ma rischia di crescere ulteriormente se la BCE continua a salire. Scegli questa opzione solo se sei sicuro che i tassi caleranno nei prossimi anni.</p>
+
+      <h3>Consigli pratici per chi vuole un mutuo a Napoli</h3>
+      <ul>
+        <li><strong>Se vuoi il tasso fisso, agisci velocemente:</strong> prima sottoscrivi, meglio è, perché ogni ulteriore rialzo BCE farà salire i nuovi tassi fissi</li>
+        <li><strong>Valuta bene la rata che puoi sostenere:</strong> non prendere il massimo che le banche ti offrono; scegli una rata che ti lasci spazio per le emergenze</li>
+        <li><strong>Confronta gli spread bancari:</strong> possono variare di 0,3-0,5% da banca a banca; una differenza che costa migliaia di euro nel corso del mutuo</li>
+        <li><strong>Chiedi una consulenza a WeUnit:</strong> il ramo creditizio di HUB offre una pre-analisi gratuita per capire quale soluzione (fisso, variabile, cap) conviene alla tua situazione specifica</li>
       </ul>
 
       <h3>Conclusione</h3>
-      <p>L'aumento dei tassi BCE rende il mercato dei mutui più selective, ma non impedisce a chi ha una buona situazione finanziaria di comprare casa. A Napoli, dove i prezzi restano competitivi, oggi è ancora un buon momento per accendere un mutuo a tasso fisso e realizzare il sogno della casa.</p>
-      <p>Contatta HUB per una consulenza gratuita sui mutui: analizzeremo la tua situazione e ti proporremo le soluzioni più convenienti tra le principali banche italiane.</p>
+      <p>L'aumento dei tassi BCE di giugno rende i nuovi mutui più costosi, sia a tasso fisso che variabile. Ma per chi ha una buona situazione finanziaria, è ancora possibile accendere un mutuo e comprare casa a Napoli, dove i prezzi restano competitivi.</p>
+      <p>La chiave è: (1) capire bene cosa puoi permetterti, (2) scegliere consapevolmente tra fisso e variabile, (3) confrontare le offerte bancarie, (4) farsi consigliare da un esperto di credito.</p>
+      <p>Contatta WeUnit per una consulenza gratuita: analizzeremo la tua capacità di mutuo e ti guideremo nella scelta migliore.</p>
     `
   },
   {

@@ -1,4 +1,7 @@
 {
+  "redirects": [
+    { "source": "/", "destination": "https://www.fondocasahub.com", "statusCode": 301 }
+  ],
   "rewrites": [
     { "source": "/zero-vincoli-60", "destination": "/zero-vincoli-60/index.html" },
     { "source": "/chi-siamo",       "destination": "/chi-siamo.html" },

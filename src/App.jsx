@@ -107,7 +107,7 @@ export default function App() {
 
   // SEO: sync browser URL and meta tags with current page
   const PAGE_META = {
-    'home': { title: 'HUB | Agenzia Immobiliare, Mutui e Assicurazioni a Napoli', desc: 'HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.' },
+    'home': { title: 'FondoCasa Hub Vomero | Agenzia Immobiliare, Mutui e Assicurazioni Napoli', desc: 'HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.' },
     'chi-siamo': { title: 'Chi Siamo | HUB Napoli – Fondocasa, WeUnit, Henia', desc: 'Scopri il team di HUB Napoli: 26 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa.' },
     'metodo': { title: 'Il Metodo dei 7 Pilastri | HUB Agenzia Immobiliare Napoli', desc: 'Il metodo HUB in 7 pilastri per vendere o comprare casa a Napoli senza sorprese. Due diligence, marketing dedicato, mutuo e assicurazione integrati.' },
     'contatti': { title: 'Contatti | HUB Napoli – Via Pietro Mascagni 35', desc: 'Contatta HUB Napoli: Via Pietro Mascagni 35, Vomero. Tel. 081 18653202. Aperto lun-ven 9-19, sab 9-13. Richiedi una valutazione gratuita.' },

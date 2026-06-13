@@ -2,6 +2,549 @@ import React, { useState, useEffect } from "react";
 
 const ARTICLES = [
   {
+    slug: "come-vendere-casa-napoli-guida-completa",
+    title: "Come vendere casa a Napoli: guida completa per vender velocemente",
+    excerpt: "Guida definitiva per vendere casa a Napoli. Dalla preparazione all'annuncio, dalla gestione delle visite alla chiusura della vendita: tutti i passi per vendere velocemente e al miglior prezzo.",
+    date: "2026-06-14",
+    category: "Vendere Casa",
+    readTime: "12 min",
+    content: `
+      <h2>Come vendere casa a Napoli: la guida definitiva</h2>
+      <p>Vendere una casa a Napoli non è solo una questione di prezzo. È una strategia che richiede preparazione, conoscenza del mercato locale e decisioni intelligenti in ogni fase. Questa guida ti porterà passo dopo passo attraverso il processo di vendita, dalle scelte iniziali fino al rogito.</p>
+      <p>HUB, con 26 anni di esperienza nel mercato napoletano, ha aiutato migliaia di famiglie a vendere le loro case velocemente e al giusto prezzo. Ecco il metodo dei 7 pilastri che abbiamo sviluppato.</p>
+
+      <h3>Fase 1: La preparazione - Rendere la casa pronta alla vendita</h3>
+      <p>La prima impressione è cruciale. Gli acquirenti decidono se una casa "piace" nei primi 15 secondi di visita. Prima di metterla sul mercato:</p>
+      <ul>
+        <li><strong>Pulizia profonda:</strong> una casa pulita e ordinata vale il 10-15% in più. Non è un dettaglio, è un fattore decisivo.</li>
+        <li><strong>Depersonalizzazione:</strong> rimuovi foto di famiglia, oggetti personali e decorazioni eccessive. L'acquirente deve vedersi vivere in quella casa, non in casa tua.</li>
+        <li><strong>Piccoli lavori di manutenzione:</strong> rubinetti che gocciolano, vernici scrostate, porte che cigolano. Risolvili: costano poco ma creano un'impressione di proprietà trascurata.</li>
+        <li><strong>Illuminazione:</strong> massimizza la luce naturale. Se necessario, usa luci calde in serata per rendere gli spazi più accoglienti.</li>
+        <li><strong>Odori:</strong> elimina odori di cucina o animali. Un odore gradevole (ma non di deodorante artificiale) aiuta l'atmosfera.</li>
+      </ul>
+
+      <h3>Fase 2: La valutazione accurata - Non esagerare il prezzo</h3>
+      <p>L'errore più comune è sopravvalutare la casa per "avere margine di trattativa". Non funziona così:</p>
+      <ul>
+        <li><strong>Un prezzo gonfiato allontana gli acquirenti reali</strong> dal primo annuncio. Le visite diminuiscono, la casa rimane in vendita più a lungo e alla fine la abbassi comunque.</li>
+        <li><strong>A Napoli, le case ben prezzate si vendono in 30-60 giorni.</strong> Le case sopravvalutate restano sul mercato 6-12 mesi, abbattendo ulteriormente il valore percepito.</li>
+        <li><strong>Come calcolare il prezzo giusto:</strong> non usare annunci gonfiati sui portali. Usa comparabili recenti di vendite reali (negli ultimi 6 mesi) nella tua zona, in condizioni simili alla tua casa.</li>
+      </ul>
+      <p><strong>Consiglio:</strong> HUB offre valutazioni gratuite basate su dati reali di vendita nel tuo quartiere e nel tuo mese. Richiedi una stima senza impegno.</p>
+
+      <h3>Fase 3: Documentazione - Raccogli tutto prima di iniziare</h3>
+      <p>La documentazione corretta accelera le trattative e evita problemi legali. Preparala prima di iniziare:</p>
+      <ul>
+        <li><strong>Atto di proprietà (rogito catastale)</strong> - verifica la conformità catastale</li>
+        <li><strong>Visura catastale aggiornata</strong> - deve corrispondere allo stato effettivo dell'immobile</li>
+        <li><strong>Planimetria catastale</strong> - consegna una copia stampata agli acquirenti</li>
+        <li><strong>Certificato di agibilità</strong> - indispensabile per chi compra con mutuo</li>
+        <li><strong>Dichiarazione di conformità impianti</strong> (elettrico, gas, idraulico)</li>
+        <li><strong>Attestato di Prestazione Energetica (APE)</strong> - obbligatorio per legge</li>
+        <li><strong>Certificato di non iscrizione di ipoteca</strong> - dal notaio o agenzia delle entrate</li>
+        <li><strong>Documentazione condominiale</strong> - budget annuale, verbali ultimi 3 anni, regolamento</li>
+        <li><strong>Comunicazione al catasto se ci sono state modifiche</strong> - divani, bagni, cucine non contano; pareti, finestre sì</li>
+      </ul>
+      <p><strong>Importante:</strong> se la documentazione ha difetti o mancanze, risolvili PRIMA di mettere la casa in vendita. Un difetto scoperto dopo una lunga trattativa affossa la vendita.</p>
+
+      <h3>Fase 4: Il marketing - Come attirare gli acquirenti giusti</h3>
+      <p>Oggi la maggior parte degli acquirenti inizia cercando online. La visibilità è tutto:</p>
+      <ul>
+        <li><strong>Foto professionali:</strong> foto scattate con smartphone non vendono case. Foto professionali, ben illuminate e ben inquadrate, possono aumentare l'interesse del 40%. Vale la pena investirci.</li>
+        <li><strong>Descrizione accurata:</strong> non dire "comodo" o "ben tenuto" (parole vuote). Descrivi specificamente: "Vomero, via XX, piano 4°, 120mq, 4 camere, ristrutturato 2020, affaccio su parco, parcheggio in garage".</li>
+        <li><strong>Multichannel:</strong> non affidarti a un solo portale (Immobiliare.it, Subito, ecc.). Sii su tutti, e aggiorna frequentemente gli annunci.</li>
+        <li><strong>Video virtuale o tour 3D:</strong> i video aumentano le visite del 50-70%. Un tour 3D attira visitatori seri, non curiosi.</li>
+        <li><strong>Annunci locali e circoli di vicini:</strong> molti venditori trovano acquirenti tra amici e circoli. Comunica che stai vendendo.</li>
+      </ul>
+
+      <h3>Fase 5: Le visite - Gestiscile strategicamente</h3>
+      <p>Come si comporta durante la visita fa la differenza tra vendere e non vendere:</p>
+      <ul>
+        <li><strong>Non stare sempre presente:</strong> l'agente immobiliare sappia condurre la visita; la tua presenza intimorisce l'acquirente e impedisce al suo agente di negoziare liberamente.</li>
+        <li><strong>Tieni la casa immacolata prima di ogni visita:</strong> aria fresca (apri le finestre prima), niente odori di cucina, toilette pulito al 100%.</li>
+        <li><strong>Permetti agli acquirenti di "sentirsi a casa":</strong> lascia che tocchino, che si muovano, che si immaginino. Non fare tour guidati serrati; dai spazio.</li>
+        <li><strong>Raccogli feedback da ogni visita:</strong> chiedi all'agente cosa ha detto l'acquirente. Il prezzo è giusto? La casa è "troppo piccola"? Mancano garage? Questi feedback sono preziosi.</li>
+      </ul>
+
+      <h3>Fase 6: La negoziazione - Come arrivare all'accordo</h3>
+      <p>Raramente un acquirente offre il prezzo chiesto. La negoziazione è normale:</p>
+      <ul>
+        <li><strong>Un ribasso di 2-5% è aspettato:</strong> se chiedi 250.000 € e ricevi offerta di 240.000 €, non è un insulto. È il mercato.</li>
+        <li><strong>Non scendere emotivamente:</strong> decidi il prezzo minimo che accetti PRIMA di ricevere offerte. Se scendere sotto quel prezzo non conviene, rifiuta.</li>
+        <li><strong>La velocità ha valore:</strong> un acquirente che offre 245.000 € ma chiude in 30 giorni è migliore di uno che ne offre 250.000 € ma richiede 4 mesi. Il tempo = denaro.</li>
+        <li><strong>Offerte multiple?</strong> Se ricevi più offerte, puoi farle "competere" educatamente. A volte gli acquirenti salgono se sanno che ce ne sono altri interessati.</li>
+      </ul>
+
+      <h3>Fase 7: La chiusura - Dal compromesso al rogito</h3>
+      <p>Una volta raggiunto l'accordo, sei nella fase finale:</p>
+      <ul>
+        <li><strong>Compromesso (o contratto preliminare):</strong> vincolante per entrambi. Se l'acquirente si ritira, perde la caparra (di solito il 10% del prezzo). Se tu ti ritiri, devetti il doppio della caparra.</li>
+        <li><strong>Verifiche dell'acquirente:</strong> avrà diritto a fare ispezioni tecniche (strutture, impianti, infiltrazioni). Coopera e sii trasparente.</li>
+        <li><strong>Approvazione mutuo:</strong> se l'acquirente compra con mutuo, la banca farà ispezione e valutazione. Se il valore è inferiore alle aspettative della banca, il mutuo scende. Questo è un rischio che corre l'acquirente, non tu.</li>
+        <li><strong>Rogito (atto ufficiale):</strong> firmato davanti al notaio, è il trasferimento ufficiale della proprietà. A questo punto la casa è dell'acquirente.</li>
+      </ul>
+
+      <h3>Gli errori più comuni che rallentano la vendita</h3>
+      <p>Basandoci su 26 anni di esperienza, ecco i 5 errori che le persone commettono più spesso:</p>
+      <ol>
+        <li><strong>Prezzo non realistico:</strong> il 40% delle case che restano sul mercato sono sopravvalutate di 10-20%.</li>
+        <li><strong>Documentazione incompleta:</strong> un documento mancante può bloccare tutto per mesi.</li>
+        <li><strong>Foto scadenti:</strong> gli annunci con foto mediocri ricevono il 60% di visite in meno.</li>
+        <li><strong>Non sapere quand'è il "momento di scendere":</strong> aspettare una cifra precisa quando il mercato non la offre spreca mesi di opportunità.</li>
+        <li><strong>Fare da soli, senza professionisti:</strong> vendere una casa è complesso legalmente e fiscalmente. Un agente esperto recupera facilmente il suo compenso (che è di solito il 3-4% condiviso tra i due agenti).</li>
+      </ol>
+
+      <h3>Il metodo HUB: i 7 pilastri per vendere velocemente</h3>
+      <p>Nel 2026, il mercato napoletano è saturo di annunci. Per distinguerti e vendere PRIMA e MEGLIO, usiamo il metodo dei 7 Pilastri:</p>
+      <ol>
+        <li><strong>Analisi documentale completa:</strong> risolviamo problemi prima di iniziare. Niente sorprese.</li>
+        <li><strong>Valutazione di mercato precisa:</strong> il prezzo giusto, non gonfiato. Attira buyer seri dal primo giorno.</li>
+        <li><strong>Piano di marketing dedicato:</strong> foto professionali, video, multichannel, social. La tua casa si vede.</li>
+        <li><strong>Qualificazione degli acquirenti:</strong> gestiamo le visite per attirare buyer certi di affetto, non curiosi.</li>
+        <li><strong>Negoziazione protetta:</strong> mediamo tra le parti con esperienza. Niente errori.</li>
+        <li><strong>Gestione mutuo e assicurazione in parallelo:</strong> mentre tu vendi, WeUnit (nostro ramo creditizio) prepara il finanziamento per l'acquirente. Meno impedimenti, più velocità.</li>
+        <li><strong>Assistenza fino al rogito e oltre:</strong> supporto legale e fiscale fino a che il trasferimento non è ufficiale.</li>
+      </ol>
+
+      <h3>Zero Vincoli 60: se vuoi vendere ancora più velocemente</h3>
+      <p>Se hai fretta (trasferimento per lavoro, separazione, situazione economica difficile), abbiamo una soluzione speciale:</p>
+      <p><strong>Zero Vincoli 60:</strong> la tua casa si vende in 60 giorni garantito. Nessun vincolo contrattuale, nessun rischio. Se non vendiamo, non paghi nulla. Come funziona? Lo spieghiamo di persona.</p>
+
+      <h3>Domande frequenti</h3>
+      <p><strong>Quanto tempo ci vuole a vendere una casa a Napoli?</strong><br/>In media, 45-90 giorni se il prezzo è realistico e la documentazione è completa. Sopravvalutate o con difetti: 6-12 mesi o più.</p>
+      <p><strong>Posso vendere senza agenzia?</strong><br/>Sì, ma le statistiche mostrano che le case vendute senza agente impiegano 3 volte più a lungo e spesso finiscono per meno soldi (perché l'agente dell'acquirente negozia con più forza quando il venditore è non professionista).</p>
+      <p><strong>Che documenti devo avere?</strong><br/>Leggi la sezione Fase 3. Se manca anche uno, risolvi prima.</p>
+      <p><strong>Se ho una casa con difformità catastale, posso venderla?</strong><br/>Sì, ma sarà più complicato e potrai vendere solo a chi non ha bisogno di mutuo (contanti). Meglio regularizzarla prima se è semplice.</p>
+
+      <h3>Contatta HUB per una consulenza gratuita</h3>
+      <p>Se stai considerando di vendere la tua casa a Napoli, contattaci per una <strong>valutazione gratuita</strong> e una consulenza personalizzata. Non aspettare il momento "perfetto": il momento migliore è quando hai deciso che è ora di farlo.</p>
+      <p><strong>Via Pietro Mascagni 35 - Vomero, Napoli</strong><br/>
+      <strong>Tel. 081 18653202</strong><br/>
+      <strong>WhatsApp</strong> - scrivici direttamente per una risposta veloce</p>
+      <p>Siamo qui da 26 anni. Aiutiamo le famiglie napoletane a vendere velocemente, proteggendo i loro diritti ogni passo del cammino.</p>
+    `
+  },
+  {
+    slug: "tasse-costi-vendita-casa-napoli-2026",
+    title: "Quanto costa vendere una casa a Napoli: tasse, spese e detrazioni 2026",
+    excerpt: "Analisi completa dei costi di vendita immobile: plusvalenza, imposta di registro, agenzia, notaio. Quanto te ne rimarrà realmente in tasca.",
+    date: "2026-06-14",
+    category: "Fiscalità & Costi",
+    readTime: "11 min",
+    content: `
+      <h2>Quanto costa vendere casa a Napoli: la vera matematica</h2>
+      <p>Quando vendi una casa, il prezzo concordato non è quello che finisce nel tuo conto. Tasse, commissioni, spese notarili, e in alcuni casi plusvalenza, riducono l'importo netto. Questa guida ti mostra esattamente cosa aspettarti.</p>
+
+      <h3>Esempio concreto: vendita di 250.000 €</h3>
+      <p>Supponiamo tu venda una casa al prezzo di <strong>250.000 €</strong>. Ecco cosa viene sottratto:</p>
+
+      <table style="border-collapse: collapse; width: 100%;">
+        <tr style="border-bottom: 2px solid #333;">
+          <td style="padding: 10px;"><strong>Voce di spesa</strong></td>
+          <td style="padding: 10px; text-align: right;"><strong>Importo</strong></td>
+          <td style="padding: 10px; text-align: right;"><strong>% sul prezzo</strong></td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Prezzo lordo di vendita</td>
+          <td style="padding: 10px; text-align: right;"><strong>250.000 €</strong></td>
+          <td style="padding: 10px; text-align: right;">100%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Commissione agenzia (divisa tra buyer e seller agente)*</td>
+          <td style="padding: 10px; text-align: right;">-7.500 €</td>
+          <td style="padding: 10px; text-align: right;">-3%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Spese notarili (rogito + atto di vendita)</td>
+          <td style="padding: 10px; text-align: right;">-1.500 €</td>
+          <td style="padding: 10px; text-align: right;">-0,6%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Imposta di registro</td>
+          <td style="padding: 10px; text-align: right;">-7.500 €</td>
+          <td style="padding: 10px; text-align: right;">-3%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Tassa ipotecaria e catastale (stima)</td>
+          <td style="padding: 10px; text-align: right;">-300 €</td>
+          <td style="padding: 10px; text-align: right;">-0,12%</td>
+        </tr>
+        <tr style="border-bottom: 1px solid #ccc;">
+          <td style="padding: 10px;">Plusvalenza (se la casa è stata presa prima del 2011)</td>
+          <td style="padding: 10px; text-align: right;">-VARIABILE</td>
+          <td style="padding: 10px; text-align: right;">-VARIABILE</td>
+        </tr>
+        <tr style="background-color: #f0f0f0; border-bottom: 2px solid #333;">
+          <td style="padding: 10px;"><strong>NETTO CHE RICEVI (senza plusvalenza)</strong></td>
+          <td style="padding: 10px; text-align: right;"><strong>233.200 €</strong></td>
+          <td style="padding: 10px; text-align: right;">-6,72%</td>
+        </tr>
+      </table>
+
+      <p><em>*La commissione viene solitamente pagata al 50% dal buyer e al 50% dal seller. L'importo totale (3-4%) è condiviso.</em></p>
+
+      <h3>Analisi dettagliata di ogni costo</h3>
+
+      <p><strong>1. Commissione dell'agente (0-4% del prezzo)</strong></p>
+      <ul>
+        <li>Solitamente <strong>3-4% split</strong> (metà pagata dall'acquirente, metà dal venditore)</li>
+        <li>Se vendi senza agenzia: risparmi la commissione, ma spesso il prezzo finale è inferiore (l'agente dell'acquirente negozia più forte)</li>
+        <li>Nel nostro esempio: 3% = 7.500 € totali, di cui 3.750 € a carico del venditore</li>
+        <li><strong>Negoziabile?</strong> Per vendite di prestigio o grandi volumi, sì. Per una casa normale: no, è il standard di mercato</li>
+      </ul>
+
+      <p><strong>2. Imposta di registro (3-9% del prezzo, a seconda del caso)</strong></p>
+      <ul>
+        <li><strong>3%</strong> se è la tua prima casa ceduta (esenzione parziale)</li>
+        <li><strong>9%</strong> se è una seconda casa o una proprietà da investimento</li>
+        <li>Nel nostro esempio, assumendo prima casa: 3% = 7.500 €</li>
+        <li>Questa è la tassa più importante e non è negoziabile</li>
+      </ul>
+
+      <p><strong>3. Spese notarili (800-2.000 €)</strong></p>
+      <ul>
+        <li>Il notaio redige l'atto di vendita e lo registra. È una spesa obbligatoria</li>
+        <li>Varia in base al prezzo della casa e alla complessità dell'operazione</li>
+        <li>Per una casa di 250.000 €: circa 1.200-1.500 €</li>
+      </ul>
+
+      <p><strong>4. Tassa ipotecaria e catastale</strong></p>
+      <ul>
+        <li><strong>Tassa ipotecaria:</strong> se la casa è gravata da ipoteca, la cancellazione costa circa 50-150 €</li>
+        <li><strong>Tassa catastale:</strong> per l'iscrizione al catasto, circa 50-100 €</li>
+        <li>Nel nostro esempio: circa 300 € totali</li>
+      </ul>
+
+      <p><strong>5. Imposta sulla plusvalenza (se applicabile)</strong></p>
+      <p>Questa è la parte più complessa. Non sempre paghi la plusvalenza, dipende da quando hai comprato la casa:</p>
+
+      <ul>
+        <li><strong>Casa comprata prima del 1° gennaio 2011:</strong> Plusvalenza tassata al 26% sul guadagno (solo se realizzi utile)</li>
+        <li><strong>Esempio:</strong> Se hai comprato a 150.000 € nel 2010 e vendi a 250.000 €, guadagno = 100.000 €. Tasse sulla plusvalenza = 26.000 €</li>
+        <li><strong>Casa comprata dopo il 1° gennaio 2011:</strong> Esentasse se è tua prima casa. Se è seconda casa, plusvalenza al 26%</li>
+        <li><strong>Casa ereditata:</strong> Base di calcolo è il valore al momento dell'eredità, non il prezzo di acquisto originale. Spesso non c'è plusvalenza.</li>
+        <li><strong>Importante:</strong> Non tutti gli immobili hanno plusvalenza. Se vendi al prezzo di acquisto (o meno), non paghi tasse sulla plusvalenza</li>
+      </ul>
+
+      <h3>Scenario A: Prima casa, nessuna plusvalenza</h3>
+      <p>Comprata a 200.000 €, venduta a 250.000 € nel 2026 (dopo il 2011):</p>
+      <ul>
+        <li>Prezzo di vendita: 250.000 €</li>
+        <li>Commissione: -3.750 € (il tuo 50%)</li>
+        <li>Imposta registro (3%): -7.500 €</li>
+        <li>Spese notarili: -1.500 €</li>
+        <li>Tasse ipotecaria/catastale: -300 €</li>
+        <li>Plusvalenza: € 0 (esentasse su prima casa)</li>
+        <li><strong>NETTO: 235.450 €</strong></li>
+      </ul>
+
+      <h3>Scenario B: Prima casa, con plusvalenza pre-2011</h3>
+      <p>Comprata a 150.000 € nel 2010, venduta a 250.000 € nel 2026:</p>
+      <ul>
+        <li>Prezzo di vendita: 250.000 €</li>
+        <li>Commissione: -3.750 €</li>
+        <li>Imposta registro (3%): -7.500 €</li>
+        <li>Spese notarili: -1.500 €</li>
+        <li>Tasse ipotecaria/catastale: -300 €</li>
+        <li>Plusvalenza: 100.000 € × 26% = -26.000 €</li>
+        <li><strong>NETTO: 209.950 €</strong></li>
+      </ul>
+
+      <h3>Scenario C: Seconda casa</h3>
+      <p>Comprata a 200.000 €, venduta a 250.000 € nel 2026:</p>
+      <ul>
+        <li>Prezzo di vendita: 250.000 €</li>
+        <li>Commissione: -3.750 €</li>
+        <li>Imposta registro (9% per seconda casa): -22.500 €</li>
+        <li>Spese notarili: -1.500 €</li>
+        <li>Tasse ipotecaria/catastale: -300 €</li>
+        <li>Plusvalenza: 50.000 € × 26% = -13.000 €</li>
+        <li><strong>NETTO: 208.450 €</strong></li>
+      </ul>
+
+      <h3>Come risparmiare sui costi di vendita</h3>
+      <ul>
+        <li><strong>Non sopravvalutare la casa:</strong> Se la vendi a prezzo realistico, la vendi velocemente e risparmi mesi di mutuo + spese di mantenimento</li>
+        <li><strong>Documentazione in ordine:</strong> Evita spese legali per sanare irregolarità. Una visura catastale conforme vale più che correggere dopo</li>
+        <li><strong>Manutenzione preventiva:</strong> Un piccolo intervento prima di vendere (€500) evita che l'acquirente chieda uno sconto di €5.000</li>
+        <li><strong>Scegli il notaio con cura:</strong> I costi notarili variano di 300-500 €. Chiedi preventivi a 2-3 notai</li>
+        <li><strong>Pianifica il timing:</strong> Se hai fretta, spesso devi scendere sul prezzo. Dai tempo al mercato di assorbire la vendita</li>
+      </ul>
+
+      <h3>Il ruolo del commercialista</h3>
+      <p>Se hai dubbi sulla plusvalenza o sulla tassazione della tua specifica casa, consulta un commercialista prima di firmare il compromesso. Costa 200-300 € e ti evita sorprese di migliaia di euro. È un investimento che si ripaga subito.</p>
+
+      <h3>HUB: trasparenza su tutti i costi</h3>
+      <p>Quando vendi con HUB, ti spieghiamo esattamente:</p>
+      <ul>
+        <li>Quale sarà il tuo netto (dopo commissione e tasse)</li>
+        <li>Se ci sono rischi di plusvalenza</li>
+        <li>Quale notaio scegliere (con preventivi)</li>
+        <li>Quale agente fiscale consultare se necessario</li>
+      </ul>
+      <p>Nessuna sorpresa. Nessun costo nascosto. Trasparenza totale dal primo colloquio.</p>
+    `
+  },
+  {
+    slug: "trovare-agente-immobiliare-napoli",
+    title: "Come trovare un bravo agente immobiliare a Napoli: criteri di scelta",
+    excerpt: "Guida per scegliere il miglior agente immobiliare a Napoli. Quali domande fare, cosa controllare, come riconoscere i professionisti dai dilettanti.",
+    date: "2026-06-14",
+    category: "Scelta dell'Agente",
+    readTime: "9 min",
+    content: `
+      <h2>Come scegliere un bravo agente immobiliare a Napoli</h2>
+      <p>L'agente immobiliare che scegli farà la differenza tra una vendita veloce e profittevole, e mesi di frustrazione. Questa guida ti aiuterà a identificare i professionisti dai dilettanti.</p>
+
+      <h3>I criteri per scegliere bene</h3>
+      <p><strong>1. Esperienza specifica nel tuo quartiere</strong></p>
+      <ul>
+        <li>Non tutti gli agenti conoscono tutti i quartieri di Napoli.</li>
+        <li>Un agente che vende principalmente al Vomero sa dove sono i comparabili, quali sono i prezzi reali, quali sono i tempi medi di vendita.</li>
+        <li><strong>Domanda chiave:</strong> "Quante case hai venduto nel mio quartiere negli ultimi 12 mesi?" Se la risposta è vaga, passa oltre.</li>
+      </ul>
+
+      <p><strong>2. Presence fisica nel territorio</strong></p>
+      <ul>
+        <li>Un agente che ha un ufficio nel tuo quartiere conosce meglio il mercato locale rispetto a uno che lavora da casa o lontano.</li>
+        <li>Chiedi se hanno un ufficio nel tuo quartiere e quanto tempo trascorrono lì.</li>
+      </ul>
+
+      <p><strong>3. Track record verificabile</strong></p>
+      <ul>
+        <li>Chiedi referenze di proprietari che hanno venduto con loro. Parla direttamente con loro.</li>
+        <li>Cerca recensioni su Google, Facebook, portali immobiliari. Leggi sia le positive che le negative.</li>
+        <li>Attenzione: le agenzie piccole spesso hanno poche recensioni. Non è per forza negativo; può significare che lavorano più per passaparola.</li>
+      </ul>
+
+      <p><strong>4. Competenza tecnica e legale</strong></p>
+      <ul>
+        <li>Un bravo agente deve parlare fluentemente di documentazione, conformità catastale, APE, certificazioni impianti.</li>
+        <li>Se durante il colloquio non sa cosa significa "certificato di agibilità", è un campanello d'allarme.</li>
+        <li>Deve essere in grado di guidarti su documentazione mancante o irregolarità.</li>
+      </ul>
+
+      <p><strong>5. Professionalità nella comunicazione</strong></p>
+      <ul>
+        <li>Comunica in modo chiaro e trasparente sui costi (percentuale di commissione, spese aggiuntive)?</li>
+        <li>Ti spiega il processo di vendita passo per passo?</li>
+        <li>Ascolta le tue priorità (velocità vs massimo prezzo) e adatta la strategia?</li>
+        <li>O è tutto "voi dovete scendere sul prezzo" e "accettate ogni offerta"?</li>
+      </ul>
+
+      <h3>Le domande critiche da porre</h3>
+      <p>Quando parli con un agente, fai queste domande:</p>
+      <ol>
+        <li><strong>"Quante case avete venduto nel mio quartiere negli ultimi 12 mesi?"</strong> → Vuoi sentire numeri concreti, non "molte".</li>
+        <li><strong>"Qual è il tempo medio di vendita per case come la mia?"</strong> → Deve darti un range (45-90 giorni se ben prezzata).</li>
+        <li><strong>"Come determinate il prezzo di un immobile?"</strong> → Se dicono "al feeling" o "decidiamo noi", passa oltre. Deve basarsi su comparabili recenti.</li>
+        <li><strong>"Come vi comunico feedback durante il processo?"</strong> → Devono offrire comunicazione frequente (almeno settimanale).</li>
+        <li><strong>"Se la casa non si vende entro 90 giorni, qual è il piano B?"</strong> → Se non hanno un piano B, non sono professionisti.</li>
+        <li><strong>"Mi farete foto professionali e video?"</strong> → Un agente professionista investe in foto e video di qualità.</li>
+        <li><strong>"Come gestite le visite e gli acquirenti? Sarò sempre presente?"</strong> → Un bravo agente sa quando mandarti fuori per permettere negoziazione libera.</li>
+        <li><strong>"Qual è la vostra commissione e cosa include?"</strong> → Deve essere trasparente su costi e che cosa fa per quel costo.</li>
+      </ol>
+
+      <h3>Le agenzie grandi vs quelle piccole</h3>
+      <p><strong>Agenzia grande (catena nazionale):</strong></p>
+      <ul>
+        <li>✅ Risorse tecniche: foto professionali, video, siti internet, marketing</li>
+        <li>✅ Rete ampia: contatti con altri agenti per portare buyer</li>
+        <li>❌ Spesso meno personalizzate, più standardizzate</li>
+        <li>❌ Agente turnover alto (molti agenti impreparati)</li>
+      </ul>
+
+      <p><strong>Agenzia piccola o locale:</strong></p>
+      <ul>
+        <li>✅ Conosce il territorio in profondità</li>
+        <li>✅ Rapporto più personale con il proprietario</li>
+        <li>✅ Flessibilità nelle strategie</li>
+        <li>❌ Meno risorse tecniche (foto meno professionali, siti semplici)</li>
+        <li>❌ Rete potenzialmente più piccola di buyer</li>
+      </ul>
+
+      <p><strong>Il nostro consiglio:</strong> Non è questione di grande vs piccolo. È questione di professionista vs dilettante. Una piccola agenzia con agenti esperti è meglio di una grande con agenti impreparati, e viceversa.</p>
+
+      <h3>I segnali di allerta: evita questi agenti</h3>
+      <ul>
+        <li>✋ Ti spinge a sopravvalutare la casa ("ha il potenziale, chiediamo il massimo")</li>
+        <li>✋ Non sa spiegare il processo di vendita</li>
+        <li>✋ Non ha foto professionali da mostrati di case precedenti vendute</li>
+        <li>✋ Non vuole mettere per iscritto commissioni e accordi</li>
+        <li>✋ Non ha ufficio, non ha numero telefonico fisso</li>
+        <li>✋ Non può darti referenze di vendite recenti</li>
+        <li>✋ Promette garantie impossibili ("vendiamo in 30 giorni sicuro")</li>
+        <li>✋ Non ascolta le tue priorità; propone sempre la stessa tattica a tutti</li>
+      </ul>
+
+      <h3>L'importanza del mandato di vendita</h3>
+      <p>Una volta scelto l'agente, firmerai un "mandato di vendita" (accordo di rappresentanza). Leggi bene:</p>
+      <ul>
+        <li><strong>Mandato esclusiva:</strong> solo questo agente vende la casa. Più vincolante, ma significa più lavoro dedicato.</li>
+        <li><strong>Mandato pluriagenzia:</strong> più agenti vendono contemporaneamente. Meno vincolante, ma meno focalizzato.</li>
+        <li><strong>Durata del mandato:</strong> solitamente 3-4 mesi. Se nessuno la compra, rinegozia o scuoti l'agente.</li>
+        <li><strong>Commissione:</strong> solitamente 2-4% condiviso tra agente del venditore e agente dell'acquirente. Che sia scritto in nero su bianco.</li>
+      </ul>
+
+      <h3>HUB: 26 anni di esperienza nel tuo quartiere</h3>
+      <p>HUB ha 10 professionisti che vivono e lavorano a Napoli dal 1999. Conosciamo ogni microzona, ogni costruttore, ogni tipo di immobile.</p>
+      <p>Se cerchi un agente che conosce davvero il tuo quartiere e sa come vendere velocemente, contattaci per una consulenza gratuita. Ti spiegheremo come funzioniamo e cosa faremo per la TUA casa specifica.</p>
+      <p>Non promettiamo miracoli. Promettiamo trasparenza, professionalità e risultati basati su 26 anni di mercato napoletano.</p>
+    `
+  },
+  {
+    slug: "documenti-vendita-immobile-napoli",
+    title: "Documenti necessari per vendere una casa a Napoli: checklist completa",
+    excerpt: "Lista completa di tutti i documenti richiesti per vendere un immobile a Napoli. Dal rogito all'APE, dalla visura catastale alle certificazioni di impianti: non dimenticare nulla.",
+    date: "2026-06-14",
+    category: "Legale & Documenti",
+    readTime: "10 min",
+    content: `
+      <h2>Documenti per vendere casa a Napoli: la lista definitiva</h2>
+      <p>La documentazione è il fondamento di una vendita immobiliare sicura e veloce. Un documento mancante può bloccare la chiusura a pochi giorni dal rogito. Questa è la lista completa e aggiornata di tutti i documenti che devi avere per vendere una casa a Napoli nel 2026.</p>
+
+      <h3>Documenti di proprietà e catastali</h3>
+      <p><strong>1. Rogito di compravendita originale (o copia notarile)</strong></p>
+      <ul>
+        <li>L'atto ufficiale che prova la tua proprietà</li>
+        <li>Richiedilo al notaio che l'ha stipulato, oppure vai dall'Agenzia delle Entrate con un documento di identità</li>
+        <li>Essenziale: senza questo non puoi provare che la casa è tua</li>
+      </ul>
+
+      <p><strong>2. Visura catastale aggiornata</strong></p>
+      <ul>
+        <li>Documento che attesta i dati catastali della proprietà: superficie, categoria, rendita</li>
+        <li>Dove ottenerla: portale AgenziaEntrateEntratel oppure da un geometra</li>
+        <li>Deve essere attuale (non più di 3 mesi vecchia). Stampane una copia per l'acquirente.</li>
+        <li>Costo: circa €5-10 se la richiedi online</li>
+      </ul>
+
+      <p><strong>3. Planimetria catastale aggiornata</strong></p>
+      <ul>
+        <li>Il disegno tecnico della casa con le stanze, le misure, le uscite</li>
+        <li>Se la planimetria in catasto non corrisponde allo stato effettivo (pareti abbattute, stanze combinate), devi regolarizzarla PRIMA di vendere</li>
+        <li>Per regolarizzarla: affidati a un geometra, il quale farà una comunicazione al catasto</li>
+        <li>Scarica la planimetria dal sito dell'Agenzia delle Entrate</li>
+      </ul>
+
+      <h3>Certificazioni di agibilità e conformità</h3>
+      <p><strong>4. Certificato di agibilità</strong></p>
+      <ul>
+        <li>Documento che certifica che l'immobile è conforme alle norme di sicurezza e igiene ed è idoneo all'abitazione</li>
+        <li>Fondamentale: se l'acquirente ha un mutuo, la banca lo richiede</li>
+        <li>Se non ce l'hai, richiedi al Comune di Napoli (Ufficio Edilizia) una copia dell'originale, oppure rivolgiti a un geometra per ottenerlo</li>
+        <li>Costo: circa €50-150 a seconda se è copia storica o nuova</li>
+      </ul>
+
+      <p><strong>5. Attestato di Prestazione Energetica (APE)</strong></p>
+      <ul>
+        <li>Obbligatorio dal 2009. Certifica l'efficienza energetica della casa (classe A, B, C, ecc.)</li>
+        <li>Redatto da un certificatore energetico abilitato (geometra, ingegnere, architetto specializzato)</li>
+        <li>Deve contenere: dati dell'edificio, consumi stimati, classe energetica, consigli di miglioramento</li>
+        <li>Costo: €150-400 a seconda della dimensione della casa</li>
+        <li>Validità: 10 anni dalla data di rilascio</li>
+        <li>Importante per il 2026: classi F e G (molto inefficienti) stanno diventando invendibili. Se la tua casa è in classe F/G, considera interventi di efficientamento prima della vendita</li>
+      </ul>
+
+      <p><strong>6. Dichiarazione di conformità degli impianti (o Certificato di Conformità)</strong></p>
+      <ul>
+        <li><strong>Impianto elettrico:</strong> certificato di conformità dell'impianto, rilasciato dall'ultimo installatore o da un elettricista certificato</li>
+        <li><strong>Impianto gas:</strong> certificato di conformità dell'impianto di riscaldamento/cucina a gas</li>
+        <li><strong>Impianto idraulico e fognario:</strong> pur non essendo sempre "certificato", documenta lo stato dell'impianto</li>
+        <li>Se gli impianti sono vecchi (>20 anni), considera una manutenzione profonda prima di vendere</li>
+        <li>Costo certificati: €50-150 ciascuno</li>
+      </ul>
+
+      <h3>Documenti di regolarità urbanistica</h3>
+      <p><strong>7. Autorizzazione edilizia (Concessione edilizia / CILA / SCIA)</strong></p>
+      <ul>
+        <li>Se hai fatto lavori strutturali (ampliamento, veranda, sopraelevazione), devi avere il permesso originale del Comune</li>
+        <li>Piccoli lavori (porte, finestre, bagni): richiedono CILA (Comunicazione Inizio Lavori Asseverata)</li>
+        <li>Lavori strutturali: richiedono SCIA (Segnalazione Certificata di Inizio Attività) o vecchia Concessione Edilizia</li>
+        <li>Richiedila al Comune di Napoli (Sportello Unico per l'Edilizia)</li>
+      </ul>
+
+      <p><strong>8. Certificato di conformità urbanistica (o Attestato di Conformità Urbanistica)</strong></p>
+      <ul>
+        <li>Documenta che l'edificio è costruito conformemente al progetto autorizzato e alle norme urbanistiche</li>
+        <li>Se la casa ha difformità (es. un muro costruito in 10 cm in più rispetto al progetto), deve essere sanabile</li>
+        <li>Per ottenerlo: affidati a un geometra che farà ispezione e documentazione</li>
+        <li>Costo: €100-300</li>
+      </ul>
+
+      <h3>Documenti condominiali (se in condominio)</h3>
+      <p><strong>9. Documentazione condominiale</strong></p>
+      <ul>
+        <li><strong>Ultimo bilancio preventivo:</strong> spese condominiali annuali previste</li>
+        <li><strong>Verbali assemblea ultimi 3 anni:</strong> decisioni prese dai condomini (lavori in corso, delibere)</li>
+        <li><strong>Regolamento condominiale:</strong> norme su uso degli spazi comuni, animali domestici, orari lavori</li>
+        <li><strong>Certificato dell'amministratore:</strong> attestante che la proprietà è in regola con il pagamento delle spese condominiali</li>
+        <li><strong>Copia della polizza assicurazione condominio:</strong> per responsabilità civile dell'edificio</li>
+        <li>L'amministratore di condominio ha l'obbligo di fornirti tutti questi documenti su richiesta entro 30 giorni</li>
+      </ul>
+
+      <h3>Documenti fiscali e ipotecari</h3>
+      <p><strong>10. Certificato di non iscrizione di ipoteca</strong></p>
+      <ul>
+        <li>Prova che la casa non è gravata da mutuo o altri debiti garantiti sull'immobile</li>
+        <li>Se hai ancora un mutuo, devi estinguerlo al rogito (con i soldi della vendita) oppure informare l'acquirente</li>
+        <li>Richiedi questo certificato dal notaio oppure dall'Agenzia delle Entrate</li>
+      </ul>
+
+      <p><strong>11. Documento di identità del proprietario</strong></p>
+      <ul>
+        <li>Patente, passaporto o carta d'identità validi</li>
+        <li>Necessari per il rogito</li>
+      </ul>
+
+      <p><strong>12. Codice fiscale</strong></p>
+      <ul>
+        <li>Necessario per le operazioni catastali e il rogito</li>
+      </ul>
+
+      <h3>Documenti per l'acquirente (che dovrebbe verificare)</h3>
+      <p>Questi documenti l'acquirente probabilmente farà verificare da suo conto, ma è bene che tu sia trasparente:</p>
+      <ul>
+        <li><strong>Planimetria conforme allo stato effettivo:</strong> se non corrisponde, la casa potrebbe non essere finanziabile con mutuo</li>
+        <li><strong>Regolarità catastale:</strong> assenza di discrepanze tra il catasto e lo stato reale</li>
+        <li><strong>Assenza di vincoli (archeologico, paesaggistico, storico):</strong> che potrebbero limitare future ristrutturazioni</li>
+        <li><strong>Assenza di servitù o diritti di terzi:</strong> es. diritto di passaggio sulla tua proprietà</li>
+      </ul>
+
+      <h3>Checklist pre-vendita: stampa e verifica</h3>
+      <p>Crea questa lista e spunta man mano:</p>
+      <ol>
+        <li>☐ Rogito originale o copia notarile</li>
+        <li>☐ Visura catastale aggiornata</li>
+        <li>☐ Planimetria catastale aggiornata e conforme</li>
+        <li>☐ Certificato di agibilità</li>
+        <li>☐ APE (Attestato Prestazione Energetica)</li>
+        <li>☐ Certificato conformità impianto elettrico</li>
+        <li>☐ Certificato conformità impianto gas</li>
+        <li>☐ Autorizzazione edilizia (se lavori fatti)</li>
+        <li>☐ Certificato conformità urbanistica</li>
+        <li>☐ Documentazione condominiale (se condominio)</li>
+        <li>☐ Certificato non iscrizione ipoteca</li>
+        <li>☐ Documento di identità valido</li>
+        <li>☐ Codice fiscale</li>
+      </ol>
+
+      <h3>Se manca un documento: cosa fare</h3>
+      <p><strong>Documento semplice da ottenere (visura, planimetria, certificato agibilità):</strong> Ottienilo prima di iniziare a vendere. Piccolo ritardo, grande beneficio.</p>
+      <p><strong>Documento complesso (regolarità urbanistica, conformità impianti):</strong> Se la casa ha irregolarità, affidati a un geometra o a un avvocato specializzato in diritto immobiliare. È un investimento che alla fine protegge il valore della casa.</p>
+      <p><strong>Documento introvabile (vecchio rogito, licenza edilizia storica):</strong> Il notaio o un geometra possono aiutarti a rintracciarlo negli archivi comunali o presso l'Agenzia delle Entrate.</p>
+
+      <h3>Quanto tempo per raccogliere tutto?</h3>
+      <p>Se la documentazione è in ordine: <strong>1-2 settimane</strong>.</p>
+      <p>Se ci sono irregolarità da risolvere: <strong>4-8 settimane</strong> (dipende dalla complessità).</p>
+      <p><strong>Consiglio:</strong> Non aspettare il momento della vendita per raccogliere documenti. Raccoglili oggi, verifica con un geometra, risolvi i problemi. Quando deciderai di vendere, sarai pronto in 24 ore.</p>
+
+      <h3>HUB ti aiuta nella documentazione</h3>
+      <p>La documentazione è il nostro pane quotidiano. In 26 anni, abbiamo risolto migliaia di irregolarità immobiliari a Napoli. Se hai domande su quali documenti servono per la TUA casa specifica, contattaci per una consulenza gratuita.</p>
+      <p>Non sottovalutare questa fase: una vendita veloce parte da una documentazione completa e regolare.</p>
+    `
+  },
+  {
     slug: "tassi-bce-giugno-2026-mutui",
     title: "Tassi BCE giugno 2026: come l'aumento dei tassi influenza i mutui a Napoli",
     excerpt: "La BCE ha nuovamente aumentato i tassi di riferimento a giugno. Scopri come questo impatta le rate dei mutui, cosa significa per chi compra casa e quali strategie conviene adottare nel 2026.",

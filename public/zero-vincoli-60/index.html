@@ -1199,6 +1199,22 @@
 
           <button type="submit">Invia richiesta</button>
         </form>
+
+        <!-- Google Ads Conversion Tracking: Zero Vincoli 60 Form Submission -->
+        <script>
+          document.getElementById('leadForm').addEventListener('submit', function(e) {
+            // Track conversion on form submit
+            if (typeof gtag !== 'undefined') {
+              gtag('event', 'conversion', {
+                'send_to': 'AW-18237592158/x-PECJ-74r8cEN6krvhD',
+                'value': 1.0,
+                'currency': 'EUR',
+                'transaction_id': 'ZV60-' + Date.now()
+              });
+            }
+            // Form will submit naturally to Formspree
+          });
+        </script>
       </div>
     </div>
   </div>

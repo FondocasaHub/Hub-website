@@ -684,7 +684,7 @@ function HomePage({ navigate, colors }) {
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 2, width: "100%" }}>
           <div style={{ maxWidth: 920 }}>
             {/* Logo HUB */}
-            <div className="fade-up" style={{ animationDelay: "0.05s", marginBottom: 40, opacity: 0 }}>
+            <div className="fade-up" style={{ animationDelay: "0.05s", marginBottom: 40 }}>
               <svg width="120" height="120" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }}>
                 <circle cx="500" cy="500" r="500" fill="#0A1F3D" />
                 <circle cx="500" cy="500" r="480" fill="none" stroke="#D4AF37" strokeWidth="15" />

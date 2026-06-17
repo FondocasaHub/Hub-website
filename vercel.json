@@ -1,6 +1,5 @@
 {
   "rewrites": [
-    { "source": "/zero-vincoli-60", "destination": "/zero-vincoli-60/index.html" },
     { "source": "/chi-siamo",       "destination": "/chi-siamo.html" },
     { "source": "/il-nostro-metodo","destination": "/il-nostro-metodo.html" },
     { "source": "/contatti",        "destination": "/contatti.html" },

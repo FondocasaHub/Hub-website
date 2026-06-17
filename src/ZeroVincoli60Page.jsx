@@ -17,6 +17,22 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+
+    // Change favicon for Zero Vincoli 60 page
+    const faviconLink = document.querySelector("link[rel='icon']");
+    if (faviconLink) {
+      faviconLink.href = "/favicon-zv60-32x32.png";
+    }
+
+    // Restore original favicon on unmount
+    return () => {
+      if (faviconLink) {
+        faviconLink.href = "/favicon-32x32.png";
+      }
+    };
+  }, []);
+
+  useEffect(() => {
     // Inject Service + BreadcrumbList + FAQPage schema
     const schemas = [
       {
@@ -196,10 +212,13 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
           ← Torna al sito
         </button>
 
-        <div style={{ textAlign: 'center', lineHeight: 1.2 }}>
-          <div style={{ color: GOLD, fontWeight: 700, fontSize: 13, letterSpacing: '0.12em' }}>HUB</div>
-          <div style={{ color: '#fff', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em' }}>FondoCasa Hub</div>
-          <div style={{ color: '#aab4c4', fontSize: 11, letterSpacing: '0.04em' }}>Napoli</div>
+        <div style={{ textAlign: 'center', lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
+          <img src="/logo-zv60.png" alt="ZV60" style={{ width: 32, height: 32 }} />
+          <div>
+            <div style={{ color: GOLD, fontWeight: 700, fontSize: 13, letterSpacing: '0.12em' }}>HUB</div>
+            <div style={{ color: '#fff', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em' }}>FondoCasa Hub</div>
+            <div style={{ color: '#aab4c4', fontSize: 11, letterSpacing: '0.04em' }}>Napoli</div>
+          </div>
         </div>
 
         <button
@@ -244,6 +263,24 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         }} />
 
         <div style={{ position: 'relative', maxWidth: 780, margin: '0 auto' }}>
+          {/* Logo Zero Vincoli 60 */}
+          <div style={{
+            marginBottom: 40,
+            display: 'flex',
+            justifyContent: 'center',
+          }}>
+            <img
+              src="/logo-zv60.png"
+              alt="Zero Vincoli 60 - Vendi casa in 60 giorni"
+              style={{
+                width: '180px',
+                height: '180px',
+                objectFit: 'contain',
+                filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))',
+              }}
+            />
+          </div>
+
           {/* Badge */}
           <div style={{
             display: 'inline-block',

@@ -683,6 +683,11 @@ function HomePage({ navigate, colors }) {
 
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "0 32px", position: "relative", zIndex: 2, width: "100%" }}>
           <div style={{ maxWidth: 920 }}>
+            {/* Logo HUB */}
+            <div className="fade-up" style={{ animationDelay: "0.05s", marginBottom: 40, opacity: 0 }}>
+              <img src="/favicon.png" alt="HUB Logo" style={{ width: 120, height: 120, objectFit: "contain" }} />
+            </div>
+
             <div className="fade-up" style={{ animationDelay: "0.1s", opacity: 0 }}>
               <span className="badge-gold">Hub Immobiliare · Creditizio · Assicurativo</span>
             </div>

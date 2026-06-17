@@ -213,7 +213,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         </button>
 
         <div style={{ textAlign: 'center', lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
-          <img src="/zero-vincoli-60/logo-zv60.png?v=1" alt="ZV60" style={{ width: 32, height: 32 }} />
+          <img src="/logo-zv60.png" alt="ZV60" style={{ width: 32, height: 32 }} />
           <div>
             <div style={{ color: GOLD, fontWeight: 700, fontSize: 13, letterSpacing: '0.12em' }}>HUB</div>
             <div style={{ color: '#fff', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em' }}>FondoCasa Hub</div>
@@ -270,7 +270,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             justifyContent: 'center',
           }}>
             <img
-              src="/zero-vincoli-60/logo-zv60.png?v=1"
+              src="/logo-zv60.png"
               alt="Zero Vincoli 60 - Vendi casa in 60 giorni"
               style={{
                 width: '180px',

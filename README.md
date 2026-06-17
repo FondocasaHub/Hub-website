@@ -23,6 +23,18 @@ npm run build
 Il sito è configurato per il deploy automatico su Vercel.
 Ogni push su questa repository genera un nuovo deploy.
 
+## Setup Form e Integrazioni
+Vedi `FORM_SETUP.md` per istruzioni complete su:
+- Invio email automatico tramite FormSubmit.co
+- Salvataggio contatti su Google Sheets (opzionale)
+- Tracking Facebook Pixel
+
+## Agente AI per lead qualificati
+Vedi `AI_AGENT_PLAN.md` per il piano di:
+- qualificazione lead con AI
+- automazione risposte email e WhatsApp
+- processo di consulenza telefonica
+
 ## Contatti
 **FC Punto Hub Srl**
 Via Pietro Mascagni, 35 · 80128 Napoli

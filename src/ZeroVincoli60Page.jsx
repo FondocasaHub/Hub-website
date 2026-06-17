@@ -269,14 +269,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             display: 'flex',
             justifyContent: 'center',
           }}>
-            <svg width="180" height="180" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }}>
-              {/* Navy background circle */}
-              <circle cx="500" cy="500" r="500" fill="#0A1F3D" />
-              {/* Gold border */}
-              <circle cx="500" cy="500" r="480" fill="none" stroke="#D4AF37" strokeWidth="15" />
-              {/* Center line */}
-              <line x1="100" y1="500" x2="900" y2="500" stroke="#D4AF37" strokeWidth="3" />
-            </svg>
+            <img src="/logo-zv60.png" alt="Zero Vincoli 60 Logo" width="180" height="180" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }} />
           </div>
 
           {/* Badge */}

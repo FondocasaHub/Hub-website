@@ -276,12 +276,6 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
               <circle cx="500" cy="500" r="480" fill="none" stroke="#D4AF37" strokeWidth="15" />
               {/* Center line */}
               <line x1="100" y1="500" x2="900" y2="500" stroke="#D4AF37" strokeWidth="3" />
-              {/* Text: ZERO */}
-              <text x="500" y="250" fontSize="80" fontFamily="Playfair Display, serif" fill="#D4AF37" textAnchor="middle" fontWeight="500" letterSpacing="5">ZERO</text>
-              {/* Text: 60 */}
-              <text x="500" y="550" fontSize="140" fontFamily="Playfair Display, serif" fill="#F5F1E8" textAnchor="middle" fontWeight="700">60</text>
-              {/* Text: VINCOLI */}
-              <text x="500" y="800" fontSize="70" fontFamily="Playfair Display, serif" fill="#D4AF37" textAnchor="middle" fontWeight="500" letterSpacing="3">VINCOLI</text>
             </svg>
           </div>
 

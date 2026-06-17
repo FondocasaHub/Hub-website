@@ -685,7 +685,12 @@ function HomePage({ navigate, colors }) {
           <div style={{ maxWidth: 920 }}>
             {/* Logo HUB */}
             <div className="fade-up" style={{ animationDelay: "0.05s", marginBottom: 40, opacity: 0 }}>
-              <img src="/favicon.png" alt="HUB Logo" style={{ width: 120, height: 120, objectFit: "contain" }} />
+              <svg width="120" height="120" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                <rect width="512" height="512" fill="#0A1F3D" />
+                <circle cx="256" cy="256" r="245" fill="none" stroke="#D4AF37" strokeWidth="8" />
+                <circle cx="256" cy="256" r="230" fill="none" stroke="#D4AF37" strokeWidth="2" opacity="0.5" />
+                <text x="256" y="290" fontSize="140" fontFamily="Playfair Display, serif" fill="#F5F1E8" textAnchor="middle" fontWeight="700">H</text>
+              </svg>
             </div>
 
             <div className="fade-up" style={{ animationDelay: "0.1s", opacity: 0 }}>

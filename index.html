@@ -335,6 +335,33 @@
         </address>
       </noscript>
     </div>
+
+    <!-- Calendly Click Tracking for Google Ads Conversion -->
+    <script>
+      document.addEventListener('click', function(event) {
+        const target = event.target.closest('a');
+        if (target && target.href && target.href.includes('calendly.com/fondocasahub')) {
+          // Invia evento GTM per la conversione Calendly
+          if (window.dataLayer) {
+            window.dataLayer.push({
+              'event': 'conversion',
+              'send_to': 'AW-18237592158/x-PECJ-74r8cEN6krvhD',
+              'value': 0,
+              'currency': 'EUR',
+              'conversionLabel': 'calendly_click'
+            });
+          }
+          // Fallback gtag se disponibile
+          if (typeof gtag !== 'undefined') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-18237592158/x-PECJ-74r8cEN6krvhD'
+            });
+          }
+        }
+      });
+    </script>
+    <!-- End Calendly Click Tracking -->
+
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

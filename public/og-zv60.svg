@@ -1,0 +1,76 @@
+<svg viewBox="0 0 1200 630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Gradient background -->
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#06152A;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0A1F3D;stop-opacity:1" />
+    </linearGradient>
+    <pattern id="goldPattern" x="0" y="0" width="120" height="120" patternUnits="userSpaceOnUse">
+      <line x1="0" y1="0" x2="120" y2="120" stroke="rgba(193,154,91,0.04)" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGrad)"/>
+  <rect width="1200" height="630" fill="url(#goldPattern)"/>
+
+  <!-- Left side: Logo circle -->
+  <g>
+    <!-- Circle border -->
+    <circle cx="280" cy="315" r="160" fill="none" stroke="rgba(193,154,91,0.3)" stroke-width="2"/>
+    <circle cx="280" cy="315" r="155" fill="none" stroke="rgba(193,154,91,0.15)" stroke-width="1"/>
+
+    <!-- Logo text: ZERO -->
+    <text x="280" y="270" font-size="42" font-weight="700" fill="rgba(193,154,91,1)" text-anchor="middle" font-family="'Jost', serif" letter-spacing="4">
+      ZERO
+    </text>
+
+    <!-- Logo text: VINCOLI (left side) -->
+    <text x="280" y="360" font-size="42" font-weight="700" fill="rgba(193,154,91,1)" text-anchor="middle" font-family="'Jost', serif" letter-spacing="3">
+      VINCOLI
+    </text>
+
+    <!-- Logo number: 60 (large, with gold accent) -->
+    <text x="280" y="315" font-size="120" font-weight="800" fill="none" stroke="rgba(193,154,91,0.2)" stroke-width="2" text-anchor="middle" font-family="'Jost', serif" letter-spacing="-2">
+      60
+    </text>
+    <text x="295" y="315" font-size="120" font-weight="800" fill="rgba(193,154,91,1)" text-anchor="middle" font-family="'Jost', serif" letter-spacing="-2">
+      60
+    </text>
+  </g>
+
+  <!-- Right side: Main content -->
+  <g>
+    <!-- Main headline -->
+    <text x="620" y="200" font-size="56" font-weight="800" fill="#ffffff" font-family="'Jost', serif" letter-spacing="-1">
+      Zero Vincoli 60
+    </text>
+
+    <!-- Subheadline -->
+    <text x="620" y="270" font-size="32" font-weight="700" fill="rgba(193,154,91,1)" font-family="'Jost', serif">
+      Vendi casa senza vincoli
+    </text>
+    <text x="620" y="310" font-size="32" font-weight="700" fill="rgba(193,154,91,1)" font-family="'Jost', serif">
+      in 60 giorni
+    </text>
+
+    <!-- Tagline -->
+    <text x="620" y="380" font-size="18" font-weight="500" fill="#a8b8c8" font-family="'Jost', sans-serif" letter-spacing="0.5">
+      Mandato esclusivo · Nessuna penale · Senza costi nascosti
+    </text>
+
+    <!-- Trust line -->
+    <text x="620" y="430" font-size="16" font-weight="600" fill="rgba(193,154,91,0.8)" font-family="'Jost', sans-serif" letter-spacing="0.3">
+      ✓ Oltre 3.200 famiglie assistite in 26 anni
+    </text>
+
+    <!-- FondoCasa Hub branding -->
+    <text x="620" y="520" font-size="14" font-weight="700" fill="#4a5a6a" font-family="'Jost', sans-serif" letter-spacing="1">
+      FondoCasa Hub · Napoli
+    </text>
+    <line x1="620" y1="530" x2="900" y2="530" stroke="rgba(193,154,91,0.25)" stroke-width="1"/>
+  </g>
+
+  <!-- Decorative gold line -->
+  <line x1="0" y1="580" x2="1200" y2="580" stroke="rgba(193,154,91,0.15)" stroke-width="1"/>
+</svg>

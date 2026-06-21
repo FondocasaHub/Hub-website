@@ -183,7 +183,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         <meta name="description" content="Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni." />
         <meta property="og:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
         <meta property="og:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà. Scopri come funziona l'incarico esclusivo di FondoCasa Hub." />
-        <meta property="og:image" content="https://www.fondocasahub.com/og-zv60.jpg" />
+        <meta property="og:image" content="https://www.fondocasahub.com/og-zv60.svg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta property="og:image:alt" content="Zero Vincoli 60 – FondoCasa Hub Napoli" />
@@ -193,7 +193,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
         <meta name="twitter:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà." />
-        <meta name="twitter:image" content="https://www.fondocasahub.com/og-zv60.jpg" />
+        <meta name="twitter:image" content="https://www.fondocasahub.com/og-zv60.svg" />
       </Helmet>
 
       {/* ── MINI NAV ── */}

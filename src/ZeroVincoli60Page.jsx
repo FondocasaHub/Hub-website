@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Helmet } from 'react-helmet-async';
 
 export default function ZeroVincoli60Page({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, CREAM } = colors;
@@ -177,6 +178,23 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
 
   return (
     <div style={{ fontFamily: "'Jost', sans-serif", color: NAVY, overflowX: 'hidden' }}>
+      <Helmet>
+        <title>Zero Vincoli 60 | FondoCasa Hub Napoli</title>
+        <meta name="description" content="Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni." />
+        <meta property="og:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
+        <meta property="og:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà. Scopri come funziona l'incarico esclusivo di FondoCasa Hub." />
+        <meta property="og:image" content="https://www.fondocasahub.com/og-zv60.jpg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="Zero Vincoli 60 – FondoCasa Hub Napoli" />
+        <meta property="og:url" content="https://www.fondocasahub.com/zero-vincoli-60" />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="it_IT" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
+        <meta name="twitter:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà." />
+        <meta name="twitter:image" content="https://www.fondocasahub.com/og-zv60.jpg" />
+      </Helmet>
 
       {/* ── MINI NAV ── */}
       <nav style={{

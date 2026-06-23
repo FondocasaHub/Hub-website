@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
+import { trackFormSubmit } from './utils/trackingEvents';
 
 export default function ZeroVincoli60Page({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, CREAM } = colors;
@@ -122,6 +123,10 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
       });
       if (!res.ok) throw new Error(`Errore server (${res.status}). Riprova.`);
       setFormStatus('success');
+      trackFormSubmit('zero_vincoli_60');
+      setTimeout(() => {
+        navigate('grazie');
+      }, 500);
     } catch (err) {
       setErrorMsg(err.message || 'Errore di rete. Controlla la connessione e riprova.');
       setFormStatus('error');
@@ -645,24 +650,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             </p>
           </div>
 
-          {formStatus === 'success' ? (
-            <div style={{
-              background: '#e8f5e9',
-              border: '1.5px solid #66bb6a',
-              borderRadius: 8,
-              padding: '32px 28px',
-              textAlign: 'center',
-            }}>
-              <div style={{ fontSize: 40, marginBottom: 16 }}>✅</div>
-              <div style={{ fontSize: 18, fontWeight: 700, color: '#2e7d32', marginBottom: 8 }}>
-                Ottimo!
-              </div>
-              <div style={{ fontSize: 15, color: '#388e3c', lineHeight: 1.6 }}>
-                Ti ricontatteremo entro 24 ore. Controlla anche la tua email.
-              </div>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} noValidate>
+          <form onSubmit={handleSubmit} noValidate>
               <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
                 <div style={{ flex: '1 1 200px' }}>
                   <label style={labelStyle}>Nome *</label>
@@ -808,7 +796,6 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
                 {formStatus === 'loading' ? 'Invio in corso...' : 'ADERISCO A ZERO VINCOLI 60 →'}
               </button>
             </form>
-          )}
         </div>
       </section>
 

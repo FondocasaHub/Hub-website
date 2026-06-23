@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import ContactForms from "./components/ContactForms";
 import QRCode from "react-qr-code";
 import ZeroVincoli60Page from "./ZeroVincoli60Page";
+import GraziePage from "./GraziePage";
+import { GA4_ID } from "./config/tracking";
+import { trackPageView } from "./utils/trackingEvents";
 import VomeroPage from "./pages/VomeroPage";
 import PosillpoPage from "./pages/PosillpoPage";
 import ChiaiaPage from "./pages/ChiaiaPage";
@@ -88,6 +91,7 @@ export default function App() {
       '/cookie': 'cookie',
       '/note-legali': 'note-legali',
       '/zero-vincoli-60': 'zero-vincoli-60',
+      '/grazie': 'grazie',
       '/vomero': 'vomero',
       '/posillipo': 'posillipo',
       '/chiaia': 'chiaia',
@@ -105,6 +109,28 @@ export default function App() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Initialize Google Analytics 4
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA4_ID}`;
+    document.head.appendChild(script);
+
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { window.dataLayer.push(arguments); }
+    window.gtag = gtag;
+    gtag('js', new Date());
+    gtag('config', GA4_ID, { 'allow_google_signals': true, 'allow_ad_personalization_signals': true });
+  }, []);
+
+  // Track page view when page changes
+  useEffect(() => {
+    const pageTitle = PAGE_META[page]?.title || 'HUB Napoli';
+    trackPageView(page, pageTitle);
+  }, [page]);
+
   // SEO: sync browser URL and meta tags with current page
   const PAGE_META = {
     'home': { title: 'FondoCasa Hub Vomero | Agenzia Immobiliare, Mutui e Assicurazioni Napoli', desc: 'HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.' },
@@ -117,6 +143,7 @@ export default function App() {
     'cookie': { title: 'Cookie Policy | HUB Napoli', desc: 'Cookie policy di HUB Napoli. Informazioni sui cookie utilizzati dal sito fondocasahub.com.' },
     'note-legali': { title: 'Note Legali | HUB Napoli', desc: 'Note legali di FC Punto Hub Srl – HUB Napoli. Informazioni societarie, condizioni d\'uso e avvertenze legali.' },
     'zero-vincoli-60': { title: 'Zero Vincoli 60 | Vendi Casa Napoli in 60 Giorni – HUB', desc: 'Vendi casa a Napoli in 60 giorni con Zero Vincoli 60 di HUB. Nessun vincolo, nessun rischio: se non vendiamo, non paghi. Scopri come funziona.' },
+    'grazie': { title: 'Richiesta Ricevuta | HUB Napoli', desc: 'Grazie per la tua richiesta. Ti ricontatteremo entro 24 ore.' },
     'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | HUB – Compravendita e Mutui', desc: 'HUB è la tua agenzia immobiliare di riferimento al Vomero di Napoli. Compravendita, mutui e assicurazioni. Via Pietro Mascagni 35 – da 26 anni nel quartiere.' },
     'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | HUB', desc: 'Compra o vendi casa a Posillipo con HUB. Esperienza, conoscenza del mercato locale e servizio integrato immobiliare-mutuo-assicurazione a Napoli.' },
     'chiaia': { title: 'Agenzia Immobiliare Chiaia Napoli | HUB', desc: 'HUB segue compravendite immobiliari nel quartiere Chiaia di Napoli. Contattaci per una valutazione gratuita del tuo immobile a Chiaia.' },
@@ -135,6 +162,7 @@ export default function App() {
     'cookie': '/cookie',
     'note-legali': '/note-legali',
     'zero-vincoli-60': '/zero-vincoli-60',
+    'grazie': '/grazie',
     'vomero': '/vomero',
     'posillipo': '/posillipo',
     'chiaia': '/chiaia',
@@ -162,7 +190,7 @@ export default function App() {
 
   useEffect(() => {
     const onPopState = (e) => {
-      const urlToPage = { '/': 'home', '/chi-siamo': 'chi-siamo', '/il-nostro-metodo': 'metodo', '/contatti': 'contatti', '/comincia': 'comincia', '/lavora-con-noi': 'carriera', '/privacy': 'privacy', '/cookie': 'cookie', '/note-legali': 'note-legali', '/zero-vincoli-60': 'zero-vincoli-60', '/vomero': 'vomero', '/posillipo': 'posillipo', '/chiaia': 'chiaia', '/centro-storico': 'centro-storico', '/blog': 'blog' };
+      const urlToPage = { '/': 'home', '/chi-siamo': 'chi-siamo', '/il-nostro-metodo': 'metodo', '/contatti': 'contatti', '/comincia': 'comincia', '/lavora-con-noi': 'carriera', '/privacy': 'privacy', '/cookie': 'cookie', '/note-legali': 'note-legali', '/zero-vincoli-60': 'zero-vincoli-60', '/grazie': 'grazie', '/vomero': 'vomero', '/posillipo': 'posillipo', '/chiaia': 'chiaia', '/centro-storico': 'centro-storico', '/blog': 'blog' };
       const p = urlToPage[window.location.pathname] || 'home';
       setPage(p);
     };
@@ -298,6 +326,7 @@ export default function App() {
       {page === "cookie" && <CookiePage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "note-legali" && <NoteLegaliPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "zero-vincoli-60" && <ZeroVincoli60Page navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "grazie" && <GraziePage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "vomero" && <VomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "posillipo" && <PosillpoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "chiaia" && <ChiaiaPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}

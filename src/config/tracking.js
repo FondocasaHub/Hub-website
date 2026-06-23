@@ -6,12 +6,12 @@ export const GOOGLE_ADS_CONFIG = {
   customerID: '8316922963', // Senza "AW-"
   conversions: {
     valutazione_immobiliare: {
-      label: 'AW-8316922963/valutazione-immobiliare', // SOSTITUIRE con il tuo label
+      label: 'AW-8316922963/lead-da-chiamata',
       value: 50, // Valore in EUR (contatto generico)
       currency: 'EUR',
     },
     zero_vincoli_60: {
-      label: 'AW-8316922963/zero-vincoli-60', // SOSTITUIRE con il tuo label
+      label: 'AW-8316922963/lead-da-chiamata',
       value: 100, // Valore in EUR (lead qualificato)
       currency: 'EUR',
     },

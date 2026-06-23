@@ -37,6 +37,20 @@
    - Valore: `100` EUR
    - Clicca **Continua** → Copia il **Conversion Label** (es: `AW-8316922963/def456uvw`)
 
+---
+
+## 💰 Budget Allocation (15 EUR/giorno)
+
+| Campagna | Budget | % | Tipo |
+|---|---|---|---|
+| **Performance Max** | 9 EUR | 60% | Automatizzata (principale) |
+| **Search - Zero Vincoli 60** | 6 EUR | 40% | Search (secondaria) |
+| Search - Valutazione | —— | —— | Disattivata (budget limitato) |
+| Display - Remarketing | —— | —— | Disattivata (attivare > 50 EUR/giorno) |
+| YouTube - Branding | —— | —— | Disattivata (attivare > 50 EUR/giorno) |
+
+**Strategia**: Concentrato su 2 campagne ad alto ROI. Scalare a 30+ EUR/giorno per attivare le altre.
+
 4. **Copia i due label** e salvali da qualche parte
 
 ---

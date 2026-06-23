@@ -16,7 +16,7 @@ export const CAMPAIGNS_STRATEGY = {
       name: 'Performance Max - Mix Audience',
       type: 'Performance Max',
       objective: 'Massimizzare conversioni',
-      budget: 500, // EUR/giorno - ADATTA AL TUO BUDGET
+      budget: 9, // EUR/giorno - 60% del budget totale
       bidStrategy: 'Maximize conversions',
       description: 'Campagna multicanale automatizzata per massimizzare i lead',
       audiences: [
@@ -33,7 +33,7 @@ export const CAMPAIGNS_STRATEGY = {
       name: 'Search - Valutazione Immobiliare',
       type: 'Search',
       objective: 'Generare lead valutazione',
-      budget: 200, // EUR/giorno
+      budget: 0, // EUR/giorno - DISATTIVATA per ora (budget limitato)
       bidStrategy: 'Target CPA',
       targetCPA: 25, // EUR per contatto
       keywords: [
@@ -54,7 +54,7 @@ export const CAMPAIGNS_STRATEGY = {
       name: 'Search - Zero Vincoli 60',
       type: 'Search',
       objective: 'Generare lead Zero Vincoli',
-      budget: 300, // EUR/giorno
+      budget: 6, // EUR/giorno - 40% del budget totale
       bidStrategy: 'Target CPA',
       targetCPA: 40, // EUR per contatto qualificato
       keywords: [
@@ -75,7 +75,7 @@ export const CAMPAIGNS_STRATEGY = {
       name: 'Display - Remarketing',
       type: 'Display',
       objective: 'Retargeting visitatori',
-      budget: 150, // EUR/giorno
+      budget: 0, // EUR/giorno - DISATTIVATA (budget limitato - attivare quando budget > 50/giorno)
       bidStrategy: 'Target impression share',
       audiences: [
         {
@@ -98,7 +98,7 @@ export const CAMPAIGNS_STRATEGY = {
       name: 'YouTube - Brand Awareness',
       type: 'YouTube',
       objective: 'Aumentare brand awareness',
-      budget: 100, // EUR/giorno
+      budget: 0, // EUR/giorno - DISATTIVATA (attivare quando budget > 50/giorno per brand building)
       bidStrategy: 'CPV (Cost Per View)',
       targetCPV: 0.10, // EUR per view
       videoLength: '15-30 secondi',
@@ -146,15 +146,15 @@ export const CAMPAIGNS_STRATEGY = {
   },
 
   budgetAllocation: {
-    totalDailyBudget: 1250, // EUR/giorno
+    totalDailyBudget: 15, // EUR/giorno - BUDGET OTTIMIZZATO
     distribution: {
-      performanceMax: '40%', // 500
-      searchZeroVincoli: '24%', // 300
-      searchValutazione: '16%', // 200
-      remarketing: '12%', // 150
-      youtube: '8%', // 100
+      performanceMax: '60%', // 9 EUR/giorno - Principale
+      searchZeroVincoli: '40%', // 6 EUR/giorno - Secondaria
+      searchValutazione: '0%', // Non attiva per ora
+      remarketing: '0%', // Non attiva per ora
+      youtube: '0%', // Non attiva per ora
     },
-    notes: 'Adatta il budget in base ai risultati dopo 2 settimane',
+    notes: 'Budget minimalista. Scalare a 30+ EUR/giorno quando CPA stabilizzato. Concentrato su 2 campagne ad alto rendimento.',
   },
 
   kpis: {

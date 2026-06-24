@@ -59,6 +59,16 @@ const PAGE_META = {
     title: 'Blog Immobiliare Napoli | Consigli su Casa, Mutui, Mercato – HUB',
     desc: 'Articoli e guide pratiche sul mercato immobiliare di Napoli: come vendere casa, ottenere un mutuo, scegliere il quartiere e molto altro da HUB.',
     canonical: 'https://www.fondocasahub.com/blog'
+  },
+  'vendi-casa-vomero': {
+    title: 'Vendi Casa al Vomero Napoli | Valutazione Gratuita | FondoCasa Hub',
+    desc: 'Vuoi vendere casa al Vomero a Napoli? FondoCasa Hub offre valutazione gratuita, piano marketing dedicato e oltre 26 anni di esperienza. Contattaci ora.',
+    canonical: 'https://www.fondocasahub.com/vendi-casa-vomero'
+  },
+  'consulente-mutuo-napoli': {
+    title: 'Consulente Mutuo Napoli | WeUnit - Mediazione Creditizia OAM M28',
+    desc: 'Cerchi un consulente mutuo a Napoli? WeUnit (OAM M28) ti affianca nella scelta del mutuo migliore tra 6 banche partner. Consulenza gratuita. Contattaci.',
+    canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   }
 };
 

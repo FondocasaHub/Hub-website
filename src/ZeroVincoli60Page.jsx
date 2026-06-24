@@ -124,6 +124,26 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
       if (!res.ok) throw new Error(`Errore server (${res.status}). Riprova.`);
       setFormStatus('success');
       trackFormSubmit('zero_vincoli_60');
+
+      // Google Ads Conversion Tracking
+      if (typeof gtag !== 'undefined') {
+        gtag('event', 'conversion', {
+          'send_to': 'AW-18237592158/4zFCCN76r8cEN6krvhD',
+          'value': 1.0,
+          'currency': 'EUR',
+          'transaction_id': 'zero-vincoli-60-' + Date.now()
+        });
+      }
+
+      // GA4 Lead Event
+      if (window.dataLayer) {
+        window.dataLayer.push({
+          'event': 'generate_lead',
+          'currency': 'EUR',
+          'value': 1.0
+        });
+      }
+
       setTimeout(() => {
         navigate('grazie');
       }, 500);

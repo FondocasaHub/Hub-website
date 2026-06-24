@@ -8,6 +8,35 @@ export default function GraziePage({ navigate, colors }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     trackLeadGenerated('zero_vincoli_60');
+
+    // Google Ads Conversion Tracking
+    if (typeof gtag !== 'undefined') {
+      gtag('event', 'conversion', {
+        'send_to': 'AW-18237592158/4zFCCN76r8cEN6krvhD',
+        'value': 1.0,
+        'currency': 'EUR',
+        'transaction_id': 'zero-vincoli-60-' + Date.now()
+      });
+    }
+
+    // GA4 Enhanced Ecommerce Event
+    if (window.dataLayer) {
+      window.dataLayer.push({
+        'event': 'purchase',
+        'transaction_id': 'zero-vincoli-60-' + Date.now(),
+        'affiliation': 'FondoCasa Hub',
+        'value': 1,
+        'currency': 'EUR',
+        'items': [
+          {
+            'item_name': 'Zero Vincoli 60 - Lead',
+            'item_category': 'Real Estate',
+            'price': 1,
+            'quantity': 1
+          }
+        ]
+      });
+    }
   }, []);
 
   return (

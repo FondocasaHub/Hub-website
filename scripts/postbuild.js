@@ -69,6 +69,11 @@ const PAGE_META = {
     title: 'Consulente Mutuo Napoli | WeUnit - Mediazione Creditizia OAM M28',
     desc: 'Cerchi un consulente mutuo a Napoli? WeUnit (OAM M28) ti affianca nella scelta del mutuo migliore tra 6 banche partner. Consulenza gratuita. Contattaci.',
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
+  },
+  'costruttori': {
+    title: 'Vendi Immobili in Costruzione a Napoli | FondoCasa Hub – Divisione Cantieri',
+    desc: 'Vendi immobili in costruzione a Napoli senza anticipo e senza rischio. FondoCasa Hub gestisce marketing, prequalifica acquirenti e trattativa fino al rogito. Metodo ZERCOSS: Zero Anticipo · Zero Rischio · Solo Risultati.',
+    canonical: 'https://www.fondocasahub.com/costruttori'
   }
 };
 

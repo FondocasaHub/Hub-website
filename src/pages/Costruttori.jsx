@@ -247,27 +247,27 @@ export default function Costruttori() {
       {/* SEO */}
       <Helmet>
         {/* ── TITLE & DESCRIPTION ── */}
-        <title>Vendi Immobili in Costruzione a Napoli | FondoCasa Hub – Divisione Cantieri</title>
-        <meta name="description" content="Vendi immobili in costruzione a Napoli senza anticipo e senza rischio. FondoCasa Hub gestisce marketing, prequalifica acquirenti e trattativa fino al rogito. Zero Anticipo · Zero Rischio · Solo Risultati. Richiedi la consulenza gratuita." />
+        <title>Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri</title>
+        <meta name="description" content="Vendi immobili in costruzione in tutta Italia senza anticipo e senza rischio. FondoCasa Hub – Divisione Cantieri opera su grandi cantieri in ogni regione: marketing avanzato, prequalifica acquirenti e gestione fino al rogito. Metodo ZERCOSS. Consulenza gratuita." />
         <link rel="canonical" href="https://fondocasahub.com/costruttori" />
 
         {/* ── OPEN GRAPH ── */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://fondocasahub.com/costruttori" />
-        <meta property="og:title" content="Vendi Immobili in Costruzione a Napoli | FondoCasa Hub" />
-        <meta property="og:description" content="Il metodo evoluto per vendere cantieri e nuove costruzioni a Napoli. Zero anticipo, zero rischio, marketing avanzato e prequalifica finanziaria degli acquirenti. FondoCasa Hub – Divisione Cantieri." />
+        <meta property="og:title" content="Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri" />
+        <meta property="og:description" content="Il metodo evoluto per vendere grandi cantieri e nuove costruzioni in tutta Italia. Zero anticipo, zero rischio, marketing avanzato e prequalifica finanziaria degli acquirenti. FondoCasa Hub – Divisione Cantieri: operativi in ogni regione." />
         <meta property="og:image" content="https://fondocasahub.com/og-costruttori.jpg" />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="FondoCasa Hub" />
 
         {/* ── TWITTER CARD ── */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vendi Immobili in Costruzione a Napoli | FondoCasa Hub" />
-        <meta name="twitter:description" content="Metodo ZERCOSS: Zero anticipo, zero rischio, solo risultati. FondoCasa Hub – Divisione Cantieri Napoli." />
+        <meta name="twitter:title" content="Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub" />
+        <meta name="twitter:description" content="Metodo ZERCOSS: Zero anticipo, zero rischio, solo risultati. FondoCasa Hub – Divisione Cantieri: grandi cantieri in tutta Italia." />
         <meta name="twitter:image" content="https://fondocasahub.com/og-costruttori.jpg" />
 
         {/* ── KEYWORDS & ROBOTS ── */}
-        <meta name="keywords" content="vendita immobili costruzione napoli, agenzia immobiliare cantieri napoli, vendere appartamenti nuova costruzione, prequalifica acquirenti mutuo napoli, divisione cantieri napoli, fondocasa hub costruttori, marketing immobiliare cantieri, zercoss, vendita immobili su progetto napoli" />
+        <meta name="keywords" content="vendita immobili costruzione italia, agenzia immobiliare cantieri italia, vendere appartamenti nuova costruzione, prequalifica acquirenti mutuo, divisione cantieri italia, fondocasa hub costruttori, marketing immobiliare cantieri, zercoss, vendita immobili su progetto, grandi cantieri immobiliari, costruttori immobiliari italia, agenzia cantieri napoli milano roma torino bologna" />
         <meta name="robots" content="index, follow" />
         <meta name="author" content="FondoCasa Hub" />
 
@@ -303,11 +303,14 @@ export default function Costruttori() {
               "longitude": 14.2488
             },
             "areaServed": [
+              {"@type": "Country", "name": "Italia", "identifier": "IT"},
               {"@type": "City", "name": "Napoli"},
-              {"@type": "City", "name": "Vomero"},
-              {"@type": "City", "name": "Chiaia"},
-              {"@type": "City", "name": "Posillipo"},
-              {"@type": "City", "name": "Pozzuoli"},
+              {"@type": "City", "name": "Milano"},
+              {"@type": "City", "name": "Roma"},
+              {"@type": "City", "name": "Torino"},
+              {"@type": "City", "name": "Bologna"},
+              {"@type": "City", "name": "Firenze"},
+              {"@type": "City", "name": "Bari"},
               {"@type": "City", "name": "Caserta"}
             ],
             "sameAs": [
@@ -317,9 +320,9 @@ export default function Costruttori() {
           },
           "serviceType": "Vendita Immobili in Costruzione",
           "areaServed": {
-            "@type": "State",
-            "name": "Campania",
-            "containsPlace": {"@type": "City", "name": "Napoli"}
+            "@type": "Country",
+            "name": "Italia",
+            "identifier": "IT"
           },
           "offers": {
             "@type": "Offer",
@@ -353,10 +356,10 @@ export default function Costruttori() {
             },
             {
               "@type": "Question",
-              "name": "FondoCasa Hub lavora con costruttori su tutto il territorio campano?",
+              "name": "FondoCasa Hub lavora con costruttori su tutto il territorio italiano?",
               "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "Sì, la Divisione Cantieri di FondoCasa Hub opera a Napoli e in tutta la Campania: Vomero, Chiaia, Posillipo, Pozzuoli, Caserta e provincia. Contattaci per una consulenza gratuita."
+                "text": "Sì, la Divisione Cantieri di FondoCasa Hub è operativa su tutto il territorio nazionale. Serviamo grandi cantieri immobiliari da Nord a Sud: Milano, Torino, Bologna, Firenze, Roma, Napoli, Bari e oltre. Il servizio ZERCOSS è sottoscrivibile in qualsiasi regione italiana. Contattaci per una consulenza gratuita."
               }
             },
             {

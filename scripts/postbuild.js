@@ -71,8 +71,8 @@ const PAGE_META = {
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   },
   'costruttori': {
-    title: 'Vendi Immobili in Costruzione a Napoli | FondoCasa Hub – Divisione Cantieri',
-    desc: 'Vendi immobili in costruzione a Napoli senza anticipo e senza rischio. FondoCasa Hub gestisce marketing, prequalifica acquirenti e trattativa fino al rogito. Metodo ZERCOSS: Zero Anticipo · Zero Rischio · Solo Risultati.',
+    title: 'Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri',
+    desc: 'Vendi immobili in costruzione in tutta Italia senza anticipo e senza rischio. FondoCasa Hub – Divisione Cantieri opera su grandi cantieri in ogni regione: marketing avanzato, prequalifica acquirenti e gestione fino al rogito. Metodo ZERCOSS. Consulenza gratuita.',
     canonical: 'https://www.fondocasahub.com/costruttori'
   }
 };

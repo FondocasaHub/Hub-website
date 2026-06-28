@@ -246,9 +246,139 @@ export default function Costruttori() {
     <div className="c-root">
       {/* SEO */}
       <Helmet>
-        <title>Speciale Costruttori 2026 | FondoCasa Hub – Divisione Cantieri</title>
-        <meta name="description" content="Il metodo evoluto per vendere immobili in costruzione. Zero anticipo. Zero rischio. Marketing avanzato, prequalifica finanziaria e vendita strutturata – FondoCasa Hub Napoli." />
+        {/* ── TITLE & DESCRIPTION ── */}
+        <title>Vendi Immobili in Costruzione a Napoli | FondoCasa Hub – Divisione Cantieri</title>
+        <meta name="description" content="Vendi immobili in costruzione a Napoli senza anticipo e senza rischio. FondoCasa Hub gestisce marketing, prequalifica acquirenti e trattativa fino al rogito. Zero Anticipo · Zero Rischio · Solo Risultati. Richiedi la consulenza gratuita." />
         <link rel="canonical" href="https://fondocasahub.com/costruttori" />
+
+        {/* ── OPEN GRAPH ── */}
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://fondocasahub.com/costruttori" />
+        <meta property="og:title" content="Vendi Immobili in Costruzione a Napoli | FondoCasa Hub" />
+        <meta property="og:description" content="Il metodo evoluto per vendere cantieri e nuove costruzioni a Napoli. Zero anticipo, zero rischio, marketing avanzato e prequalifica finanziaria degli acquirenti. FondoCasa Hub – Divisione Cantieri." />
+        <meta property="og:image" content="https://fondocasahub.com/og-costruttori.jpg" />
+        <meta property="og:locale" content="it_IT" />
+        <meta property="og:site_name" content="FondoCasa Hub" />
+
+        {/* ── TWITTER CARD ── */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content="Vendi Immobili in Costruzione a Napoli | FondoCasa Hub" />
+        <meta name="twitter:description" content="Metodo ZERCOSS: Zero anticipo, zero rischio, solo risultati. FondoCasa Hub – Divisione Cantieri Napoli." />
+        <meta name="twitter:image" content="https://fondocasahub.com/og-costruttori.jpg" />
+
+        {/* ── KEYWORDS & ROBOTS ── */}
+        <meta name="keywords" content="vendita immobili costruzione napoli, agenzia immobiliare cantieri napoli, vendere appartamenti nuova costruzione, prequalifica acquirenti mutuo napoli, divisione cantieri napoli, fondocasa hub costruttori, marketing immobiliare cantieri, zercoss, vendita immobili su progetto napoli" />
+        <meta name="robots" content="index, follow" />
+        <meta name="author" content="FondoCasa Hub" />
+
+        {/* ── GEO TAGS ── */}
+        <meta name="geo.region" content="IT-NA" />
+        <meta name="geo.placename" content="Napoli" />
+        <meta name="geo.position" content="40.8359;14.2488" />
+        <meta name="ICBM" content="40.8359, 14.2488" />
+
+        {/* ── JSON-LD: Service ── */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "Service",
+          "name": "Divisione Cantieri – Vendita Immobili in Costruzione",
+          "description": "Servizio specializzato per costruttori e sviluppatori immobiliari a Napoli. FondoCasa Hub gestisce marketing avanzato, prequalifica finanziaria degli acquirenti, trattativa e rogito. Zero anticipo, zero rischio.",
+          "provider": {
+            "@type": "RealEstateAgent",
+            "name": "FondoCasa Hub",
+            "url": "https://fondocasahub.com",
+            "logo": "https://fondocasahub.com/logo.png",
+            "telephone": "+39 081 000 0000",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Via Pietro Mascagni, 35",
+              "addressLocality": "Napoli",
+              "addressRegion": "NA",
+              "postalCode": "80128",
+              "addressCountry": "IT"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 40.8359,
+              "longitude": 14.2488
+            },
+            "areaServed": [
+              {"@type": "City", "name": "Napoli"},
+              {"@type": "City", "name": "Vomero"},
+              {"@type": "City", "name": "Chiaia"},
+              {"@type": "City", "name": "Posillipo"},
+              {"@type": "City", "name": "Pozzuoli"},
+              {"@type": "City", "name": "Caserta"}
+            ],
+            "sameAs": [
+              "https://www.facebook.com/fondocasahub",
+              "https://www.instagram.com/fondocasahub"
+            ]
+          },
+          "serviceType": "Vendita Immobili in Costruzione",
+          "areaServed": {
+            "@type": "State",
+            "name": "Campania",
+            "containsPlace": {"@type": "City", "name": "Napoli"}
+          },
+          "offers": {
+            "@type": "Offer",
+            "description": "Consulenza gratuita per costruttori – Metodo ZERCOSS: Zero Anticipo, Zero Rischio, Solo Risultati",
+            "price": "0",
+            "priceCurrency": "EUR"
+          },
+          "url": "https://fondocasahub.com/costruttori"
+        })}</script>
+
+        {/* ── JSON-LD: FAQPage GEO ── */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "Come vendere appartamenti in costruzione a Napoli?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "FondoCasa Hub offre un metodo strutturato: mini sito dedicato al cantiere, rendering professionali, campagne ADV, prequalifica finanziaria degli acquirenti e gestione completa fino al rogito. Zero anticipo per il costruttore."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Cos'è il metodo ZERCOSS di FondoCasa Hub?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "ZERCOSS è il metodo proprietario di FondoCasa Hub: Zero Anticipo, Zero Rischio, Solo Risultati. Il costruttore non paga nulla finché l'appartamento non è venduto. FondoCasa anticipa il marketing e recupera l'investimento solo a rogito avvenuto."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "FondoCasa Hub lavora con costruttori su tutto il territorio campano?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sì, la Divisione Cantieri di FondoCasa Hub opera a Napoli e in tutta la Campania: Vomero, Chiaia, Posillipo, Pozzuoli, Caserta e provincia. Contattaci per una consulenza gratuita."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "Quali servizi offre FondoCasa Hub per la vendita di nuove costruzioni?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Mini sito dedicato, rendering 3D, video e contenuti multimediali, analisi di mercato, campagne Meta e Google Ads, prequalifica mutuo degli acquirenti, voucher mutuo, gestione trattativa e rogito. Il tutto con la formula success-based."
+              }
+            }
+          ]
+        })}</script>
+
+        {/* ── JSON-LD: BreadcrumbList ── */}
+        <script type="application/ld+json">{JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://fondocasahub.com"},
+            {"@type": "ListItem", "position": 2, "name": "Costruttori", "item": "https://fondocasahub.com/costruttori"}
+          ]
+        })}</script>
       </Helmet>
 
       {/* NAV */}

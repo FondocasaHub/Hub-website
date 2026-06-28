@@ -821,15 +821,17 @@ function HomePage({ navigate, colors }) {
               { title: "Vuoi vendere il tuo immobile?", desc: "Scopri il metodo dei 7 Pilastri e richiedi una valutazione gratuita.", cta: "Comincia →", action: () => navigate("comincia") },
               { title: "Cerchi casa a Napoli?", desc: "Comincia da qui e ti facciamo trovare l'immobile giusto, con il mutuo già pronto.", cta: "Comincia →", action: () => navigate("comincia") },
               { title: "Vuoi conoscerci meglio?", desc: "Scopri chi siamo, il nostro team e perché 3.898 famiglie ci hanno scelto.", cta: "Chi siamo →", action: () => navigate("chi-siamo") },
-              { title: "Vuoi lavorare con noi?", desc: "Ti formiamo, ti diamo gli strumenti, ti accompagniamo. Scopri la carriera in HUB.", cta: "Carriera →", action: () => navigate("carriera") }
+              { title: "Vuoi lavorare con noi?", desc: "Ti formiamo, ti diamo gli strumenti, ti accompagniamo. Scopri la carriera in HUB.", cta: "Carriera →", action: () => navigate("carriera") },
+              { title: "Sei un costruttore?", desc: "Divisione Cantieri: vendi il tuo cantiere in tutta Italia. Zero anticipo, zero rischio. Solo risultati. Metodo ZERCOSS.", cta: "Scopri il servizio →", action: () => navigate("costruttori"), gold: true }
             ].map((c, i) => (
               <div key={i} onClick={c.action} style={{
                 padding: 40, background: "rgba(255,255,255,0.04)",
-                border: "1px solid rgba(193,154,91,0.2)", borderRadius: 6, cursor: "pointer",
+                border: c.gold ? `1px solid ${GOLD}` : "1px solid rgba(193,154,91,0.2)", borderRadius: 6, cursor: "pointer",
+                background: c.gold ? "rgba(201,168,76,0.07)" : "rgba(255,255,255,0.04)",
                 transition: "all 0.3s"
               }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = GOLD; e.currentTarget.style.transform = "translateY(-4px)"; }}
-              onMouseLeave={e => { e.currentTarget.style.borderColor = "rgba(193,154,91,0.2)"; e.currentTarget.style.transform = "translateY(0)"; }}
+              onMouseLeave={e => { e.currentTarget.style.borderColor = c.gold ? GOLD : "rgba(193,154,91,0.2)"; e.currentTarget.style.transform = "translateY(0)"; }}
               >
                 <h3 className="serif" style={{ fontSize: "1.5rem", fontWeight: 600, marginBottom: 12, color: CREAM }}>{c.title}</h3>
                 <p style={{ color: "rgba(245,239,228,0.75)", lineHeight: 1.6, marginBottom: 20, fontSize: 15 }}>{c.desc}</p>
@@ -909,6 +911,47 @@ function HomePage({ navigate, colors }) {
                 <p style={{ fontSize: 13, lineHeight: 1.6, opacity: 0.75, marginBottom: 12 }}>{q.desc}</p>
                 <div style={{ fontSize: 12, letterSpacing: 1, color: GOLD, fontWeight: 600 }}>{q.prezzo}</div>
                 <div style={{ marginTop: 16, fontSize: 13, color: GOLD, fontWeight: 600 }}>Scopri →</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BANNER DIVISIONE CANTIERI */}
+      <section style={{ padding: "80px 32px", background: NAVY }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto", display: "flex", flexWrap: "wrap", alignItems: "center", gap: 48, justifyContent: "space-between" }}>
+          <div style={{ flex: "1 1 480px" }}>
+            <div style={{ fontSize: 11, letterSpacing: 3, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 16 }}>Divisione Cantieri · Copertura Nazionale</div>
+            <h2 className="serif" style={{ fontSize: "clamp(1.8rem,3.5vw,2.8rem)", fontWeight: 700, color: "#F8F8F8", lineHeight: 1.2, marginBottom: 20 }}>
+              Sei un <em style={{ color: GOLD }}>costruttore</em>?<br />Vendiamo il tuo cantiere<br />in tutta Italia.
+            </h2>
+            <p style={{ fontSize: 15, color: "rgba(248,248,248,0.75)", lineHeight: 1.7, marginBottom: 28, maxWidth: 520 }}>
+              FondoCasa Hub – Divisione Cantieri affianca sviluppatori e costruttori su tutto il territorio nazionale. Marketing avanzato, prequalifica finanziaria degli acquirenti, gestione trattativa e rogito. <strong style={{ color: GOLD }}>Zero anticipo. Zero rischio. Solo risultati.</strong>
+            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 12, marginBottom: 32 }}>
+              {["Zero anticipo", "Zero rischio", "Marketing avanzato", "Prequalifica mutuo", "Gestione rogito", "Copertura nazionale"].map(tag => (
+                <span key={tag} style={{ fontSize: 11, fontWeight: 600, letterSpacing: 1.2, textTransform: "uppercase", color: GOLD, border: "1px solid rgba(201,168,76,0.35)", padding: "5px 12px", borderRadius: 2 }}>{tag}</span>
+              ))}
+            </div>
+            <button
+              onClick={() => navigate("costruttori")}
+              style={{ background: GOLD, color: NAVY, border: "none", padding: "16px 36px", borderRadius: 3, fontSize: 13, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", cursor: "pointer", transition: "background 0.2s" }}
+              onMouseEnter={e => e.currentTarget.style.background = "#E2C97E"}
+              onMouseLeave={e => e.currentTarget.style.background = GOLD}
+            >
+              Scopri la Divisione Cantieri →
+            </button>
+          </div>
+          <div style={{ flex: "1 1 260px", display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
+            {[
+              { n: "0%", label: "Anticipo richiesto" },
+              { n: "1,5%", label: "Solo a rogito avvenuto" },
+              { n: "100%", label: "Gestione end-to-end" },
+              { n: "360°", label: "Marketing & finanza" },
+            ].map(s => (
+              <div key={s.n} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(201,168,76,0.2)", borderRadius: 4, padding: "24px 16px", textAlign: "center" }}>
+                <div style={{ fontSize: "1.8rem", fontWeight: 700, color: GOLD, fontFamily: "'Playfair Display', serif" }}>{s.n}</div>
+                <div style={{ fontSize: 12, color: "rgba(248,248,248,0.6)", marginTop: 6, letterSpacing: 0.5 }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -2254,6 +2297,7 @@ function Footer({ navigate, colors }) {
               <div style={{ cursor: "pointer" }} onClick={() => navigate("chiaia")}>Chiaia</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("centro-storico")}>Centro Storico</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("zero-vincoli-60")}>Zero Vincoli 60</div>
+              <div style={{ cursor: "pointer", color: GOLD, fontWeight: 600 }} onClick={() => navigate("costruttori")}>Divisione Cantieri ↗</div>
             </div>
           </div>
         </div>

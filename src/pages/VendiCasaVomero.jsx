@@ -19,6 +19,12 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
         body: JSON.stringify(data),
       });
       if (res.ok) {
+        // Email di conferma
+        fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Vendi Casa Vomero' }),
+        }).catch(() => {});
         navigate('grazie');
       }
     } catch (err) {

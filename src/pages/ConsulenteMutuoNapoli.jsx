@@ -19,6 +19,12 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
         body: JSON.stringify(data),
       });
       if (res.ok) {
+        // Email di conferma
+        fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Consulente Mutuo' }),
+        }).catch(() => {});
         navigate('grazie');
       }
     } catch (err) {

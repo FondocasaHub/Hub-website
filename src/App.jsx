@@ -1949,7 +1949,7 @@ function ContactPage({ navigate, colors }) {
     if (!canSend) return;
 
     try {
-      const emailResponse = await fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
+      const emailResponse = await fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({

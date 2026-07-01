@@ -13,7 +13,7 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
       messaggio: formData.get('messaggio'),
     };
     try {
-      const res = await fetch('https://formspree.io/f/xojrqepv', {
+      const res = await fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),

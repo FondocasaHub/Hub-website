@@ -6,14 +6,15 @@ const GOLD = "#C19A5B";
 const GOLD_BRIGHT = "#D4B27A";
 const CREAM = "#F5EFE4";
 
-const ENDPOINT_A = "https://formspree.io/f/xojrqepv";  // Contatti (Vendi + Cerca)
-const ENDPOINT_B = "https://formspree.io/f/xrejkvkp";  // Contatta HUB AI (Mutuo + Lavora)
+// Make.com Webhooks (Brevo Integration)
+const WEBHOOK_VENDITORI = "https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8";    // Vendi + Cerca
+const WEBHOOK_CREDITO = "https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9";      // Mutuo + Lavora
 
 const CATEGORIE = [
-  { id: "vendi",  label: "Vendi casa",      icon: "🏠", endpoint: ENDPOINT_A },
-  { id: "cerca",  label: "Cerca casa",       icon: "🔍", endpoint: ENDPOINT_A },
-  { id: "mutuo",  label: "Mutuo & Credito",  icon: "💼", endpoint: ENDPOINT_B },
-  { id: "lavora", label: "Lavora con noi",   icon: "🤝", endpoint: ENDPOINT_B },
+  { id: "vendi",  label: "Vendi casa",      icon: "🏠", endpoint: WEBHOOK_VENDITORI },
+  { id: "cerca",  label: "Cerca casa",       icon: "🔍", endpoint: WEBHOOK_VENDITORI },
+  { id: "mutuo",  label: "Mutuo & Credito",  icon: "💼", endpoint: WEBHOOK_CREDITO },
+  { id: "lavora", label: "Lavora con noi",   icon: "🤝", endpoint: WEBHOOK_CREDITO },
 ];
 
 const EMPTY_FORM = { nome: "", email: "", telefono: "", note: "", budget: "", privacy: false };

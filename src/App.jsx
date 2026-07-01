@@ -1543,7 +1543,7 @@ function CominciaQuiPage({ colors }) {
     if (!canSend || sending) return;
     setSending(true);
     try {
-      const res = await fetch('https://formspree.io/f/xojrqepv', {
+      const res = await fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
@@ -1768,7 +1768,7 @@ function CarrieraPage({ colors }) {
     if (!canSend || candSending) return;
     setCandSending(true);
     try {
-      const res = await fetch('https://formspree.io/f/xrejkvkp', {
+      const res = await fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({
@@ -1949,7 +1949,7 @@ function ContactPage({ navigate, colors }) {
     if (!canSend) return;
 
     try {
-      const emailResponse = await fetch('https://formspree.io/f/xojrqepv', {
+      const emailResponse = await fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
         body: JSON.stringify({

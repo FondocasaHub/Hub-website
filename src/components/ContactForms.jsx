@@ -63,8 +63,7 @@ export default function ContactForms() {
           _replyto:  form.email,
         }),
       });
-      const result = await res.json();
-      if (!res.ok || result.ok === false) throw new Error(result.error || "Errore invio");
+      if (!res.ok) throw new Error("Errore nell'invio del form");
       // Conferma email al cliente via Make.com
       fetch("https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuukjm", {
         method: "POST",

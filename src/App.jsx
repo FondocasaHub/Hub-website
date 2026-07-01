@@ -1558,8 +1558,7 @@ function CominciaQuiPage({ colors }) {
           _replyto: data.email,
         })
       });
-      const result = await res.json();
-      if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
+      if (!res.ok) throw new Error('Errore nell\'invio del form');
       fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1783,8 +1782,7 @@ function CarrieraPage({ colors }) {
           _replyto: candForm.email,
         })
       });
-      const result = await res.json();
-      if (!res.ok || result.ok === false) throw new Error(result.error || 'Errore invio');
+      if (!res.ok) throw new Error('Errore nell\'invio del form');
       fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -1964,9 +1962,8 @@ function ContactPage({ navigate, colors }) {
         })
       });
 
-      const emailResult = await emailResponse.json();
-      if (!emailResponse.ok || emailResult.ok === false) {
-        throw new Error(emailResult.error || 'Errore nell\'invio');
+      if (!emailResponse.ok) {
+        throw new Error('Errore nell\'invio del form');
       }
       fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
         method: 'POST',

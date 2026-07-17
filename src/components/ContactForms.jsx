@@ -17,7 +17,7 @@ const CATEGORIE = [
   { id: "lavora", label: "Lavora con noi",   icon: "🤝", endpoint: WEBHOOK_CREDITO },
 ];
 
-const EMPTY_FORM = { nome: "", email: "", telefono: "", note: "", budget: "", privacy: false };
+const EMPTY_FORM = { nome: "", email: "", telefono: "", note: "", budget: "", mq: "", indirizzo: "", privacy: false };
 
 export default function ContactForms() {
   const [active, setActive] = useState(null); // id categoria aperta
@@ -59,6 +59,8 @@ export default function ContactForms() {
           telefono:  form.telefono,
           note:      form.note || "—",
           budget:    form.budget || "—",
+          mq:        form.mq || "—",
+          indirizzo_immobile: form.indirizzo || "—",
           _subject:  `${categoria.label} – HUB Napoli`,
           _replyto:  form.email,
         }),
@@ -195,13 +197,36 @@ export default function ContactForms() {
                     style={{ marginBottom: 16 }}
                   />
 
-                  <input
+                  {active === "vendi" ? (
+            <>
+              <input
+                className="input-field"
+                placeholder="Mq immobile *"
+                type="number"
+                min="1"
+                value={form.mq}
+                onChange={set("mq")}
+                required
+                style={{ marginBottom: 16 }}
+              />
+              <input
+                className="input-field"
+                placeholder="Indirizzo immobile *"
+                value={form.indirizzo}
+                onChange={set("indirizzo")}
+                required
+                style={{ marginBottom: 16 }}
+              />
+            </>
+          ) : (
+            <input
                     className="input-field"
                     placeholder="Budget / Importo (opzionale)"
                     value={form.budget}
                     onChange={set("budget")}
                     style={{ marginBottom: 16 }}
                   />
+          )}
 
                   <textarea
                     className="input-field"

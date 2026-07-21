@@ -58,7 +58,8 @@ export default function ContactForms() {
           email:     form.email,
           telefono:  form.telefono,
           note:      form.note || "—",
-          budget:    form.budget || "—",
+          budget:    active !== "lavora" ? (form.budget || "—") : "—",
+          citta_residenza: active === "lavora" ? (form.budget || "—") : "—",
           mq:        form.mq || "—",
           indirizzo_immobile: form.indirizzo || "—",
           _subject:  `${categoria.label} – HUB Napoli`,
@@ -66,12 +67,6 @@ export default function ContactForms() {
         }),
       });
       if (!res.ok) throw new Error("Errore nell'invio del form");
-      // Conferma email al cliente via Make.com
-      fetch("https://hook.eu1.make.com/7ba2bowjarz6hdebo19si4ekkeiuukjm", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: form.nome, email: form.email, categoria: categoria.label }),
-      }).catch(() => {});
       setSent(true);
       if (window.fbq) window.fbq("track", "Lead");
     } catch (err) {
@@ -218,6 +213,15 @@ export default function ContactForms() {
                 style={{ marginBottom: 16 }}
               />
             </>
+          ) : active === "lavora" ? (
+            <input
+              className="input-field"
+              placeholder="Città di residenza *"
+              value={form.budget}
+              onChange={set("budget")}
+              required
+              style={{ marginBottom: 16 }}
+            />
           ) : (
             <input
                     className="input-field"

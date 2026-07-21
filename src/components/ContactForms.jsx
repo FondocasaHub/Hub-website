@@ -59,9 +59,10 @@ export default function ContactForms() {
           telefono:  form.telefono,
           note:      form.note || "—",
           budget:    active !== "lavora" ? (form.budget || "—") : "—",
-          citta_residenza: active === "lavora" ? (form.budget || "—") : "—",
-          mq:        form.mq || "—",
-          indirizzo_immobile: form.indirizzo || "—",
+          zona_operativa: active === "lavora" ? (form.budget || "—") : "—",
+          zona_target: active === "lavora" ? (form.indirizzo || "—") : "—",
+          mq:        active !== "lavora" ? (form.mq || "—") : "—",
+          indirizzo_immobile: active !== "lavora" ? (form.indirizzo || "—") : "—",
           _subject:  `${categoria.label} – HUB Napoli`,
           _replyto:  form.email,
         }),
@@ -214,14 +215,25 @@ export default function ContactForms() {
               />
             </>
           ) : active === "lavora" ? (
-            <input
-              className="input-field"
-              placeholder="Città di residenza *"
-              value={form.budget}
-              onChange={set("budget")}
-              required
-              style={{ marginBottom: 16 }}
-            />
+            <>
+              <p style={{ color: "rgba(245,239,228,0.75)", fontSize: 13, marginBottom: 8, fontStyle: "italic" }}>Domanda 3 di 4</p>
+              <input
+                className="input-field"
+                placeholder="In quale zona di Napoli operi principalmente?"
+                value={form.budget}
+                onChange={set("budget")}
+                required
+                style={{ marginBottom: 12 }}
+              />
+              <input
+                className="input-field"
+                placeholder="In quale zona di lavoro vuoi concentrarti di più?"
+                value={form.indirizzo}
+                onChange={set("indirizzo")}
+                required
+                style={{ marginBottom: 16 }}
+              />
+            </>
           ) : (
             <input
                     className="input-field"

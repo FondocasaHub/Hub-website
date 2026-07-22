@@ -1559,6 +1559,19 @@ function CominciaQuiPage({ colors }) {
         })
       });
       if (!res.ok) throw new Error('Errore nell\'invio del form');
+          fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: data.nome,
+        email: data.email,
+        phone: data.telefono,
+        obiettivo: data.obiettivo,
+        tempi: data.tempi,
+        zona: data.zona,
+        categoria: 'Comincia Da Qui'
+      }),
+    }).catch(() => {});
       setSent(true);
       if (window.fbq) window.fbq('track', 'Lead');
     } catch {

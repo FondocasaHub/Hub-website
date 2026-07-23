@@ -1697,7 +1697,7 @@ function CominciaQuiPage({ colors }) {
                   </p>
                   <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                     <input className="input-field" placeholder="Nome e cognome *" value={data.nome} onChange={e => setData({...data, nome: e.target.value})} />
-                    <input className="input-field" placeholder="Telefono *" value={data.telefono} onChange={e => setData({...data, telefono: e.target.value})} />
+                    <input className="input-field" type="tel" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required placeholder="Telefono * (es. 333 1234567)" value={data.telefono} onChange={e => setData({...data, telefono: e.target.value})} />
                     <input className="input-field" placeholder="Email *" type="email" value={data.email} onChange={e => setData({...data, email: e.target.value})} />
                     <label style={{ display: "flex", gap: 10, fontSize: 12, color: "rgba(10,31,61,0.7)", marginTop: 4 }}>
                       <input type="checkbox" checked={data.privacy} onChange={e => setData({...data, privacy: e.target.checked})} />
@@ -1881,7 +1881,7 @@ function CarrieraPage({ colors }) {
               <div style={{ background: "rgba(255,255,255,0.06)", padding: 40, borderRadius: 4, border: `1px solid rgba(193,154,91,0.3)` }}>
                 <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
                   <input className="input-field" placeholder="Nome e cognome *" value={candForm.nome} onChange={e => setCandForm({...candForm, nome: e.target.value})} />
-                  <input className="input-field" placeholder="Telefono *" value={candForm.telefono} onChange={e => setCandForm({...candForm, telefono: e.target.value})} />
+                  <input className="input-field" type="tel" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required placeholder="Telefono * (es. 333 1234567)" value={candForm.telefono} onChange={e => setCandForm({...candForm, telefono: e.target.value})} />
                   <input className="input-field" placeholder="Email *" type="email" value={candForm.email} onChange={e => setCandForm({...candForm, email: e.target.value})} />
                   <select className="input-field" value={candForm.area} onChange={e => setCandForm({...candForm, area: e.target.value})}>
                     <option value="">Area di interesse *</option>
@@ -2030,7 +2030,7 @@ function ContactPage({ navigate, colors }) {
               {!sent ? (
                 <div style={{ display: "grid", gap: 16 }}>
                   <input className="input-field" placeholder="Nome e cognome *" value={form.nome} onChange={e => setForm({ ...form, nome: e.target.value })} />
-                  <input className="input-field" placeholder="Telefono *" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
+                  <input className="input-field" type="tel" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required placeholder="Telefono * (es. 333 1234567)" value={form.telefono} onChange={e => setForm({ ...form, telefono: e.target.value })} />
                   <input className="input-field" placeholder="Email *" type="email" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} />
                   <textarea className="input-field" placeholder="Messaggio *" rows={6} value={form.messaggio} onChange={e => setForm({ ...form, messaggio: e.target.value })} style={{ resize: "vertical", fontFamily: "'Jost', sans-serif" }} />
                   <label style={{ display: "flex", gap: 10, fontSize: 12, color: "rgba(10,31,61,0.7)" }}>

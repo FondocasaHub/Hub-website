@@ -7,14 +7,16 @@ const GOLD_BRIGHT = "#D4B27A";
 const CREAM = "#F5EFE4";
 
 // Make.com Webhooks (Brevo Integration)
-const WEBHOOK_VENDITORI = "https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8";    // Vendi + Cerca
-const WEBHOOK_CREDITO = "https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9";      // Mutuo + Lavora
+const WEBHOOK_VENDITORI = "https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d";    // Vendi casa
+const WEBHOOK_ACQUIRENTI = "https://hook.eu1.make.com/lkvlgk1e2yr78s3o2nt2l24h2qbt8f56";   // Cerca casa
+const WEBHOOK_MUTUO = "https://hook.eu1.make.com/pqbst79ud4fhpi7b64wcvmsleh1sj9hz";        // Mutuo & Credito
+const WEBHOOK_LAVORA = "https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9";        // Lavora con noi
 
 const CATEGORIE = [
   { id: "vendi",  label: "Vendi casa",      icon: "🏠", endpoint: WEBHOOK_VENDITORI },
-  { id: "cerca",  label: "Cerca casa",       icon: "🔍", endpoint: WEBHOOK_VENDITORI },
-  { id: "mutuo",  label: "Mutuo & Credito",  icon: "💼", endpoint: WEBHOOK_CREDITO },
-  { id: "lavora", label: "Lavora con noi",   icon: "🤝", endpoint: WEBHOOK_CREDITO },
+  { id: "cerca",  label: "Cerca casa",       icon: "🔍", endpoint: WEBHOOK_ACQUIRENTI },
+  { id: "mutuo",  label: "Mutuo & Credito",  icon: "💼", endpoint: WEBHOOK_MUTUO },
+  { id: "lavora", label: "Lavora con noi",   icon: "🤝", endpoint: WEBHOOK_LAVORA },
 ];
 
 const EMPTY_FORM = { nome: "", email: "", telefono: "", note: "", budget: "", mq: "", indirizzo: "", privacy: false };
@@ -175,8 +177,11 @@ export default function ContactForms() {
                     />
                     <input
                       className="input-field"
-                      placeholder="Telefono *"
+                      placeholder="Telefono * (es. 333 1234567)"
                       type="tel"
+                      inputMode="tel"
+                      pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$"
+                      title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567"
                       value={form.telefono}
                       onChange={set("telefono")}
                       required

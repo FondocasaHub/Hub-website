@@ -8,23 +8,19 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
     const formData = new FormData(e.target);
     const data = {
       nome: formData.get('nome'),
-      telefono: formData.get('telefono'),
-      indirizzo: formData.get('indirizzo'),
-      messaggio: formData.get('messaggio'),
+      email: formData.get('email'),
+      phone: formData.get('telefono'),
+      zona: formData.get('indirizzo'),
+      note: formData.get('messaggio') || '—',
+      categoria: 'Vendi Casa Vomero',
     };
     try {
-      const res = await fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
+      const res = await fetch('https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (res.ok) {
-        // Email di conferma
-        fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Vendi Casa Vomero' }),
-        }).catch(() => {});
         navigate('grazie');
       }
     } catch (err) {
@@ -90,7 +86,8 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
           <h2 style={{ fontSize: '28px', fontWeight: 700, textAlign: 'center', marginBottom: 40, color: NAVY, fontFamily: 'Jost' }}>Richiedi una Valutazione Gratuita</h2>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
             <input type="text" name="nome" placeholder="Nome" required style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
-            <input type="tel" name="telefono" placeholder="Telefono" required style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
+            <input type="email" name="email" placeholder="Email" required style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
+            <input type="tel" name="telefono" placeholder="Telefono (es. 333 1234567)" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
             <input type="text" name="indirizzo" placeholder="Indirizzo Immobile" required style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
             <textarea name="messaggio" placeholder="Messaggio (opzionale)" rows="4" style={{ padding: '14px 18px', border: `1px solid ${NAVY}20`, borderRadius: 4, fontSize: 15, fontFamily: 'Jost', resize: 'vertical' }} />
             <button type="submit" style={{ padding: '16px 32px', background: GOLD, color: NAVY, border: 'none', borderRadius: 4, fontSize: 16, fontWeight: 700, cursor: 'pointer', fontFamily: 'Jost' }}>Richiedi Valutazione Gratuita</button>

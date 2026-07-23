@@ -622,7 +622,7 @@ export default function Costruttori() {
                 <p className="c-form-note">Compila il form — ti richiamiamo entro 24 ore lavorative.</p>
                 <div className="c-form-grid">
                   <div className="c-field"><label>Nome e Cognome *</label><input value={form.nome} onChange={set("nome")} placeholder="Mario Rossi"/></div>
-                  <div className="c-field"><label>Telefono *</label><input type="tel" value={form.telefono} onChange={set("telefono")} placeholder="+39 081 000 0000"/></div>
+                  <div className="c-field"><label>Telefono *</label><input type="tel" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required value={form.telefono} onChange={set("telefono")} placeholder="+39 333 000 0000"/></div>
                   <div className="c-field c-form-full"><label>Email *</label><input type="email" value={form.email} onChange={set("email")} placeholder="mario@costruzioni.it"/></div>
                   <div className="c-field c-form-full"><label>Nome del Cantiere / Progetto</label><input value={form.cantiere} onChange={set("cantiere")} placeholder="es. Residenza Le Torri"/></div>
                   <div className="c-field"><label>Numero di Unità</label>

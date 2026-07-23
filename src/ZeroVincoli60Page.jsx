@@ -722,6 +722,9 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
                 <input
                   type="tel"
                   name="telefono"
+                  inputMode="tel"
+                  pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$"
+                  title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567"
                   value={formData.telefono}
                   onChange={handleChange}
                   placeholder="+39 333 000 0000"

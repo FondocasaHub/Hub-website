@@ -13,14 +13,14 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
       messaggio: formData.get('messaggio'),
     };
     try {
-      const res = await fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
+      const res = await fetch('https://hook.eu1.make.com/pqbst79ud4fhpi7b64wcvmsleh1sj9hz', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
       if (res.ok) {
         // Email di conferma
-        fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
+        fetch('https://hook.eu1.make.com/pqbst79ud4fhpi7b64wcvmsleh1sj9hz', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ name: data.nome, email: data.email, categoria: 'Consulente Mutuo' }),
@@ -197,7 +197,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
           <h2 style={{ fontSize: '28px', fontWeight: 700, marginBottom: 40, fontFamily: 'Jost' }}>Richiedi una Consulenza Gratuita</h2>
           <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20, maxWidth: 500, margin: '0 auto' }}>
             <input type="text" name="nome" placeholder="Nome" required style={{ padding: '14px 18px', border: 'none', borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
-            <input type="tel" name="telefono" placeholder="Telefono" required style={{ padding: '14px 18px', border: 'none', borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
+            <input type="tel" name="telefono" placeholder="Telefono (es. 333 1234567)" inputMode="tel" pattern="^\+?3?9?[ ]?3\d{2}[ ]?\d{6,7}$" title="Inserisci un numero di cellulare italiano, es. 333 1234567 oppure +39 333 1234567" required style={{ padding: '14px 18px', border: 'none', borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
             <input type="email" name="email" placeholder="Email" required style={{ padding: '14px 18px', border: 'none', borderRadius: 4, fontSize: 15, fontFamily: 'Jost' }} />
             <textarea name="messaggio" placeholder="Il tuo messaggio..." rows="4" style={{ padding: '14px 18px', border: 'none', borderRadius: 4, fontSize: 15, fontFamily: 'Jost', resize: 'vertical' }} />
             <button type="submit" style={{ padding: '16px 32px', background: GOLD, color: NAVY, border: 'none', borderRadius: 4, fontSize: 16, fontWeight: 700, cursor: 'pointer', fontFamily: 'Jost' }}>Richiedi Consulenza Gratuita</button>

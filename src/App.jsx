@@ -1770,11 +1770,6 @@ function CarrieraPage({ colors }) {
         })
       });
       if (!res.ok) throw new Error('Errore nell\'invio del form');
-      fetch('https://hook.eu1.make.com/h4ao1l1gmh9v3yhx8kb4mdoj3gve87t9', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: candForm.nome, email: candForm.email, phone: candForm.telefono, area: candForm.area, esperienza: candForm.esperienza, categoria: 'Candidatura' }),
-      }).catch(() => {});
       setCandSent(true);
     } catch {
       alert('Errore nell\'invio. Riprova o contattaci direttamente.');
@@ -1952,11 +1947,6 @@ function ContactPage({ navigate, colors }) {
       if (!emailResponse.ok) {
         throw new Error('Errore nell\'invio del form');
       }
-      fetch('https://hook.eu1.make.com/vxi6kpwrhgfruxdf9bddsy7gjf5apxy8', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: form.nome, email: form.email, phone: form.telefono, message: form.messaggio, categoria: 'Contatti' }),
-      }).catch(() => {});
 
       // Send to Google Sheets via Apps Script if available
       try {

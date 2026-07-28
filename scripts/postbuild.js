@@ -79,6 +79,71 @@ const PAGE_META = {
     title: 'Zero Vincoli 60 | FondoCasa Hub Napoli',
     desc: "Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni.",
     canonical: 'https://www.fondocasahub.com/zero-vincoli-60'
+  },
+  'blog-come-vendere-casa-napoli-guida-completa': {
+    title: 'Come vendere casa a Napoli: guida completa per vender velocemente | Blog HUB Napoli',
+    desc: 'Guida definitiva per vendere casa a Napoli. Dalla preparazione all\'annuncio, dalla gestione delle visite alla chiusura della vendita: tutti i passi per vendere velocemente e al miglior prezzo.',
+    canonical: 'https://www.fondocasahub.com/blog/come-vendere-casa-napoli-guida-completa'
+  },
+  'blog-tasse-costi-vendita-casa-napoli-2026': {
+    title: 'Quanto costa vendere una casa a Napoli: tasse, spese e detrazioni 2026 | Blog HUB Napoli',
+    desc: 'Analisi completa dei costi di vendita immobile: plusvalenza, imposta di registro, agenzia, notaio. Quanto te ne rimarrà realmente in tasca.',
+    canonical: 'https://www.fondocasahub.com/blog/tasse-costi-vendita-casa-napoli-2026'
+  },
+  'blog-trovare-agente-immobiliare-napoli': {
+    title: 'Come trovare un bravo agente immobiliare a Napoli: criteri di scelta | Blog HUB Napoli',
+    desc: 'Guida per scegliere il miglior agente immobiliare a Napoli. Quali domande fare, cosa controllare, come riconoscere un professionista serio.',
+    canonical: 'https://www.fondocasahub.com/blog/trovare-agente-immobiliare-napoli'
+  },
+  'blog-documenti-vendita-immobile-napoli': {
+    title: 'Documenti necessari per vendere una casa a Napoli: checklist completa | Blog HUB Napoli',
+    desc: "Lista completa di tutti i documenti richiesti per vendere un immobile a Napoli. Dal rogito all'APE, tutto quello che serve.",
+    canonical: 'https://www.fondocasahub.com/blog/documenti-vendita-immobile-napoli'
+  },
+  'blog-tassi-bce-giugno-2026-mutui': {
+    title: "Tassi BCE giugno 2026: come l'aumento dei tassi influenza i mutui a Napoli | Blog HUB Napoli",
+    desc: 'La BCE ha nuovamente aumentato i tassi di riferimento a giugno. Scopri come questo impatta le rate dei mutui a Napoli.',
+    canonical: 'https://www.fondocasahub.com/blog/tassi-bce-giugno-2026-mutui'
+  },
+  'blog-prezzi-case-napoli-2026': {
+    title: 'Prezzi delle case a Napoli: andamento del mercato immobiliare 2026 | Blog HUB Napoli',
+    desc: 'Analisi aggiornata dei prezzi al metro quadro per quartiere a Napoli nel 2026. Vomero, Chiaia, Posillipo e tutti gli altri quartieri.',
+    canonical: 'https://www.fondocasahub.com/blog/prezzi-case-napoli-2026'
+  },
+  'blog-valutazione-immobile-napoli': {
+    title: 'Come si valuta un immobile a Napoli: metodi e criteri professionali | Blog HUB Napoli',
+    desc: "Scopri come viene calcolato il valore di una casa a Napoli: comparativo di mercato, stato dell'immobile e altri fattori chiave.",
+    canonical: 'https://www.fondocasahub.com/blog/valutazione-immobile-napoli'
+  },
+  'blog-acquisto-prima-casa-napoli-guida': {
+    title: 'Acquistare la prima casa a Napoli: guida passo dopo passo per il 2026 | Blog HUB Napoli',
+    desc: 'Dalla ricerca al rogito: tutto quello che devi sapere per comprare casa a Napoli per la prima volta.',
+    canonical: 'https://www.fondocasahub.com/blog/acquisto-prima-casa-napoli-guida'
+  },
+  'blog-agenzia-immobiliare-napoli-come-scegliere': {
+    title: "Come scegliere un'agenzia immobiliare a Napoli: 7 criteri fondamentali | Blog HUB Napoli",
+    desc: 'Non tutte le agenzie immobiliari sono uguali. Ecco i 7 criteri per scegliere il partner giusto per vendere o comprare casa.',
+    canonical: 'https://www.fondocasahub.com/blog/agenzia-immobiliare-napoli-come-scegliere'
+  },
+  'blog-come-vendere-casa-napoli': {
+    title: 'Come vendere casa a Napoli nel 2025: guida completa | Blog HUB Napoli',
+    desc: 'Tutto quello che devi sapere per vendere casa a Napoli: documentazione, valutazione, marketing e negoziazione.',
+    canonical: 'https://www.fondocasahub.com/blog/come-vendere-casa-napoli'
+  },
+  'blog-mutuo-prima-casa-napoli': {
+    title: 'Mutuo prima casa a Napoli 2025: tutto quello che devi sapere | Blog HUB Napoli',
+    desc: 'Tassi, requisiti, documenti e consigli per ottenere il mutuo prima casa a Napoli. La guida aggiornata.',
+    canonical: 'https://www.fondocasahub.com/blog/mutuo-prima-casa-napoli'
+  },
+  'blog-migliori-quartieri-abitare-napoli': {
+    title: 'Migliori quartieri dove abitare a Napoli nel 2025 | Blog HUB Napoli',
+    desc: 'Vomero, Posillipo, Chiaia, Centro Storico: confronto tra i quartieri di Napoli per qualità della vita.',
+    canonical: 'https://www.fondocasahub.com/blog/migliori-quartieri-abitare-napoli'
+  },
+  'blog-vendere-casa-senza-agenzia-napoli': {
+    title: 'Vendere casa senza agenzia a Napoli: conviene davvero? | Blog HUB Napoli',
+    desc: 'Analisi costi-benefici della vendita privata vs agenzia a Napoli. Rischi, opportunità e tutto quello che devi sapere.',
+    canonical: 'https://www.fondocasahub.com/blog/vendere-casa-senza-agenzia-napoli'
   }
 };
 

@@ -1,21 +1,83 @@
 {
   "redirects": [
-    { "source": "/30min", "destination": "https://calendly.com/fondocasahub", "permanent": false }
+    {
+      "source": "/30min",
+      "destination": "https://calendly.com/fondocasahub",
+      "permanent": false
+    }
   ],
   "rewrites": [
-    { "source": "/chi-siamo",       "destination": "/chi-siamo.html" },
-    { "source": "/il-nostro-metodo","destination": "/il-nostro-metodo.html" },
-    { "source": "/contatti",        "destination": "/contatti.html" },
-    { "source": "/comincia",        "destination": "/comincia.html" },
-    { "source": "/lavora-con-noi",  "destination": "/lavora-con-noi.html" },
-    { "source": "/vomero",          "destination": "/vomero.html" },
-    { "source": "/posillipo",       "destination": "/posillipo.html" },
-    { "source": "/chiaia",          "destination": "/chiaia.html" },
-    { "source": "/centro-storico",  "destination": "/centro-storico.html" },
-    { "source": "/blog",            "destination": "/blog.html" },
-    { "source": "/privacy",         "destination": "/index.html" },
-    { "source": "/cookie",          "destination": "/index.html" },
-    { "source": "/note-legali",     "destination": "/index.html" },
-    { "source": "/(.*)",            "destination": "/index.html" }
+    {
+      "source": "/chi-siamo",
+      "destination": "/chi-siamo.html"
+    },
+    {
+      "source": "/il-nostro-metodo",
+      "destination": "/il-nostro-metodo.html"
+    },
+    {
+      "source": "/contatti",
+      "destination": "/contatti.html"
+    },
+    {
+      "source": "/comincia",
+      "destination": "/comincia.html"
+    },
+    {
+      "source": "/lavora-con-noi",
+      "destination": "/lavora-con-noi.html"
+    },
+    {
+      "source": "/vomero",
+      "destination": "/vomero.html"
+    },
+    {
+      "source": "/posillipo",
+      "destination": "/posillipo.html"
+    },
+    {
+      "source": "/chiaia",
+      "destination": "/chiaia.html"
+    },
+    {
+      "source": "/centro-storico",
+      "destination": "/centro-storico.html"
+    },
+    {
+      "source": "/blog",
+      "destination": "/blog.html"
+    },
+    {
+      "source": "/vendi-casa-vomero",
+      "destination": "/vendi-casa-vomero.html"
+    },
+    {
+      "source": "/consulente-mutuo-napoli",
+      "destination": "/consulente-mutuo-napoli.html"
+    },
+    {
+      "source": "/costruttori",
+      "destination": "/costruttori.html"
+    },
+    {
+      "source": "/zero-vincoli-60",
+      "destination": "/zero-vincoli-60.html"
+    },
+    {
+      "source": "/privacy",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/cookie",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/note-legali",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
   ]
 }

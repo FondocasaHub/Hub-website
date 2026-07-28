@@ -74,6 +74,11 @@ const PAGE_META = {
     title: 'Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri',
     desc: 'Vendi immobili in costruzione in tutta Italia senza anticipo e senza rischio. FondoCasa Hub – Divisione Cantieri opera su grandi cantieri in ogni regione: marketing avanzato, prequalifica acquirenti e gestione fino al rogito. Metodo ZERCOSS. Consulenza gratuita.',
     canonical: 'https://www.fondocasahub.com/costruttori'
+  },
+  'zero-vincoli-60': {
+    title: 'Zero Vincoli 60 | FondoCasa Hub Napoli',
+    desc: "Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni.",
+    canonical: 'https://www.fondocasahub.com/zero-vincoli-60'
   }
 };
 

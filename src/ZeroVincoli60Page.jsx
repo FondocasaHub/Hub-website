@@ -204,16 +204,16 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
   return (
     <div style={{ fontFamily: "'Jost', sans-serif", color: NAVY, overflowX: 'hidden' }}>
       <Helmet>
-        <title>Zero Vincoli 60 | FondoCasa Hub Napoli</title>
-        <meta name="description" content="Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni." />
-        <meta property="og:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
-        <meta property="og:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà. Scopri come funziona l'incarico esclusivo di FondoCasa Hub." />
+        <title>Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub</title>
+        <meta name="description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
+        <meta property="og:title" content="Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub" />
+        <meta property="og:description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
         <meta property="og:url" content="https://www.fondocasahub.com/zero-vincoli-60" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="it_IT" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Zero Vincoli 60 – Vendi Casa Senza Vincoli in 60 Giorni" />
-        <meta name="twitter:description" content="Vendi casa a Napoli senza vincoli in 60 giorni. Nessuna penale, massima libertà." />
+        <meta name="twitter:title" content="Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub" />
+        <meta name="twitter:description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
       </Helmet>
 
       {/* ── MINI NAV ── */}

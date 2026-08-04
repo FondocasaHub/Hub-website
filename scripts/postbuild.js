@@ -11,138 +11,153 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const PAGE_META = {
   'chi-siamo': {
-    title: 'Chi Siamo | HUB Napoli – Fondocasa, WeUnit, Henia',
-    desc: 'Scopri il team di HUB Napoli: 26 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa a Napoli.',
+    title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub',
+    desc: 'Scopri il team FondoCasa Hub: 26 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.',
     canonical: 'https://www.fondocasahub.com/chi-siamo'
   },
   'il-nostro-metodo': {
-    title: 'Il Metodo dei 7 Pilastri | HUB Agenzia Immobiliare Napoli',
-    desc: 'Il metodo HUB in 7 pilastri per vendere o comprare casa a Napoli senza sorprese. Due diligence, marketing dedicato, mutuo e assicurazione integrati.',
+    title: 'Metodo dei 7 Pilastri per Vendere Casa | FondoCasa Hub',
+    desc: 'Vendi casa senza sorprese con il Metodo dei 7 Pilastri: due diligence, marketing dedicato e gestione di mutuo e assicurazione. Scopri come funziona.',
     canonical: 'https://www.fondocasahub.com/il-nostro-metodo'
   },
   'contatti': {
-    title: 'Contatti | HUB Napoli – Via Pietro Mascagni 35, Vomero',
-    desc: 'Contatta HUB Napoli: Via Pietro Mascagni 35, Vomero. Tel. 081 18653202. Aperto lun-ven 9-19, sab 9-13. Richiedi una valutazione gratuita.',
+    title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub',
+    desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9-13. Richiedi una consulenza gratuita.',
     canonical: 'https://www.fondocasahub.com/contatti'
   },
   'comincia': {
-    title: 'Comincia da Qui | HUB – Valutazione Gratuita Immobile Napoli',
-    desc: 'Richiedi una valutazione gratuita del tuo immobile a Napoli. HUB ti risponde entro 24h con una stima precisa basata sul mercato locale.',
+    title: 'Valutazione Gratuita Immobile Napoli | FondoCasa Hub',
+    desc: 'Richiedi la valutazione gratuita del tuo immobile a Napoli: analisi di mercato precisa e risposta entro 24 ore dal team FondoCasa Hub. Inizia subito.',
     canonical: 'https://www.fondocasahub.com/comincia'
   },
   'lavora-con-noi': {
-    title: 'Lavora con Noi | HUB Napoli – Agenti Immobiliari',
-    desc: 'Unisciti al team HUB Napoli. Cerchiamo agenti immobiliari, consulenti creditizi e assicurativi con passione per il cliente. Candidati ora.',
+    title: 'Lavora con Noi: Agenti Immobiliari Napoli | FondoCasa Hub',
+    desc: 'Cerchi lavoro nel settore immobiliare a Napoli? Candidati come agente, consulente creditizio o assicurativo nel team FondoCasa Hub. Posizioni aperte.',
     canonical: 'https://www.fondocasahub.com/lavora-con-noi'
   },
+  'privacy': {
+    title: 'Informativa sulla Privacy | FondoCasa Hub',
+    desc: "Scopri come FondoCasa Hub tratta i tuoi dati personali nel rispetto del GDPR: raccolta, uso e conservazione delle informazioni. Leggi l'informativa completa.",
+    canonical: 'https://www.fondocasahub.com/privacy'
+  },
+  'cookie': {
+    title: 'Cookie Policy del Sito | FondoCasa Hub',
+    desc: 'Informazioni sui cookie tecnici e di terze parti utilizzati dal sito fondocasahub.com e su come gestire le tue preferenze. Consulta i dettagli completi.',
+    canonical: 'https://www.fondocasahub.com/cookie'
+  },
+  'note-legali': {
+    title: 'Note Legali e Dati Societari | FondoCasa Hub',
+    desc: "Informazioni societarie, condizioni d'uso e avvertenze legali di FC Punto Hub Srl, titolare del sito FondoCasa Hub. Consulta tutti i dettagli societari.",
+    canonical: 'https://www.fondocasahub.com/note-legali'
+  },
   'vomero': {
-    title: 'Agenzia Immobiliare Vomero Napoli | HUB – Compravendita e Mutui',
-    desc: 'HUB è la tua agenzia immobiliare di riferimento al Vomero di Napoli. Compravendita, mutui e assicurazioni. Via Pietro Mascagni 35 – da 26 anni nel quartiere.',
+    title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub',
+    desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.',
     canonical: 'https://www.fondocasahub.com/vomero'
   },
   'posillipo': {
-    title: 'Agenzia Immobiliare Posillipo Napoli | HUB',
-    desc: 'Compra o vendi casa a Posillipo con HUB. Esperienza, conoscenza del mercato locale e servizio integrato immobiliare-mutuo-assicurazione a Napoli.',
+    title: 'Agenzia Immobiliare Posillipo Napoli | FondoCasa Hub',
+    desc: 'Vuoi comprare o vendere casa a Posillipo? FondoCasa Hub conosce il mercato locale e offre valutazioni gratuite con consulenza su mutuo e assicurazione.',
     canonical: 'https://www.fondocasahub.com/posillipo'
   },
   'chiaia': {
-    title: 'Agenzia Immobiliare Chiaia Napoli | HUB',
-    desc: 'HUB segue compravendite immobiliari nel quartiere Chiaia di Napoli. Contattaci per una valutazione gratuita del tuo immobile a Chiaia.',
+    title: 'Agenzia Immobiliare Chiaia Napoli | FondoCasa Hub',
+    desc: 'FondoCasa Hub segue compravendite immobiliari a Chiaia, Napoli: valutazione gratuita del tuo immobile e assistenza fino al rogito. Richiedi una consulenza.',
     canonical: 'https://www.fondocasahub.com/chiaia'
   },
   'centro-storico': {
-    title: 'Agenzia Immobiliare Centro Storico Napoli | HUB',
-    desc: 'Acquista o vendi casa nel Centro Storico di Napoli con HUB. Consulenza immobiliare, mediazione creditizia e assicurazioni nella Napoli UNESCO.',
+    title: 'Agenzia Immobiliare Centro Storico Napoli | FondoCasa Hub',
+    desc: 'Acquista o vendi casa nel Centro Storico di Napoli con FondoCasa Hub: consulenza immobiliare, mutuo e assicurazione integrati. Richiedi info gratuite.',
     canonical: 'https://www.fondocasahub.com/centro-storico'
   },
   'blog': {
-    title: 'Blog Immobiliare Napoli | Consigli su Casa, Mutui, Mercato – HUB',
-    desc: 'Articoli e guide pratiche sul mercato immobiliare di Napoli: come vendere casa, ottenere un mutuo, scegliere il quartiere e molto altro da HUB.',
+    title: 'Blog Immobiliare Napoli | FondoCasa Hub',
+    desc: 'Guide pratiche su casa, mutui e mercato immobiliare a Napoli: consigli per vendere, comprare o scegliere il quartiere giusto. Leggi gli articoli del blog.',
     canonical: 'https://www.fondocasahub.com/blog'
   },
   'vendi-casa-vomero': {
-    title: 'Vendi Casa al Vomero Napoli | Valutazione Gratuita | FondoCasa Hub',
-    desc: 'Vuoi vendere casa al Vomero a Napoli? FondoCasa Hub offre valutazione gratuita, piano marketing dedicato e oltre 26 anni di esperienza. Contattaci ora.',
+    title: 'Vendi Casa al Vomero Napoli | FondoCasa Hub',
+    desc: 'Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci.',
     canonical: 'https://www.fondocasahub.com/vendi-casa-vomero'
   },
   'consulente-mutuo-napoli': {
-    title: 'Consulente Mutuo Napoli | WeUnit - Mediazione Creditizia OAM M28',
-    desc: 'Cerchi un consulente mutuo a Napoli? WeUnit (OAM M28) ti affianca nella scelta del mutuo migliore tra 6 banche partner. Consulenza gratuita. Contattaci.',
+    title: 'Consulente Mutuo Napoli | FondoCasa Hub',
+    desc: 'Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): consulenza gratuita tra 6 banche partner per mutuo prima casa o surroga. Richiedi informazioni.',
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   },
   'costruttori': {
-    title: 'Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri',
-    desc: 'Vendi immobili in costruzione in tutta Italia senza anticipo e senza rischio. FondoCasa Hub – Divisione Cantieri opera su grandi cantieri in ogni regione: marketing avanzato, prequalifica acquirenti e gestione fino al rogito. Metodo ZERCOSS. Consulenza gratuita.',
+    title: 'Vendi Immobili in Costruzione in Italia | FondoCasa Hub',
+    desc: 'Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita.',
     canonical: 'https://www.fondocasahub.com/costruttori'
   },
   'zero-vincoli-60': {
-    title: 'Zero Vincoli 60 | FondoCasa Hub Napoli',
-    desc: "Vendi casa a Napoli senza vincoli in 60 giorni. L'incarico esclusivo senza penali di FondoCasa Hub. Oltre 3.200 famiglie assistite in 26 anni.",
+    title: 'Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub',
+    desc: "Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più.",
     canonical: 'https://www.fondocasahub.com/zero-vincoli-60'
   },
   'blog-come-vendere-casa-napoli-guida-completa': {
-    title: 'Come vendere casa a Napoli: guida completa per vender velocemente | Blog HUB Napoli',
-    desc: 'Guida definitiva per vendere casa a Napoli. Dalla preparazione all\'annuncio, dalla gestione delle visite alla chiusura della vendita: tutti i passi per vendere velocemente e al miglior prezzo.',
+    title: 'Come Vendere Casa a Napoli: Guida Completa | FondoCasa Hub',
+    desc: 'Guida completa per vendere casa a Napoli: preparazione, annuncio, gestione delle visite e chiusura della trattativa. I consigli pratici di FondoCasa Hub.',
     canonical: 'https://www.fondocasahub.com/blog/come-vendere-casa-napoli-guida-completa'
   },
   'blog-tasse-costi-vendita-casa-napoli-2026': {
-    title: 'Quanto costa vendere una casa a Napoli: tasse, spese e detrazioni 2026 | Blog HUB Napoli',
-    desc: 'Analisi completa dei costi di vendita immobile: plusvalenza, imposta di registro, agenzia, notaio. Quanto te ne rimarrà realmente in tasca.',
+    title: 'Tasse e Costi per Vendere Casa a Napoli 2026 | FondoCasa Hub',
+    desc: "Plusvalenza, imposta di registro, agenzia e notaio: scopri quanto costa davvero vendere casa a Napoli nel 2026 e quanto ti resta in tasca. Leggi l'analisi.",
     canonical: 'https://www.fondocasahub.com/blog/tasse-costi-vendita-casa-napoli-2026'
   },
   'blog-trovare-agente-immobiliare-napoli': {
-    title: 'Come trovare un bravo agente immobiliare a Napoli: criteri di scelta | Blog HUB Napoli',
-    desc: 'Guida per scegliere il miglior agente immobiliare a Napoli. Quali domande fare, cosa controllare, come riconoscere un professionista serio.',
+    title: 'Come Trovare un Agente Immobiliare a Napoli | FondoCasa Hub',
+    desc: 'Quali domande fare e cosa controllare per scegliere un agente immobiliare serio a Napoli. La guida di FondoCasa Hub per non sbagliare la scelta giusta.',
     canonical: 'https://www.fondocasahub.com/blog/trovare-agente-immobiliare-napoli'
   },
   'blog-documenti-vendita-immobile-napoli': {
-    title: 'Documenti necessari per vendere una casa a Napoli: checklist completa | Blog HUB Napoli',
-    desc: "Lista completa di tutti i documenti richiesti per vendere un immobile a Napoli. Dal rogito all'APE, tutto quello che serve.",
+    title: 'Documenti per Vendere Casa a Napoli | FondoCasa Hub',
+    desc: "La checklist completa dei documenti necessari per vendere un immobile a Napoli, dal rogito all'APE. Scopri come prepararli con la guida di FondoCasa Hub.",
     canonical: 'https://www.fondocasahub.com/blog/documenti-vendita-immobile-napoli'
   },
   'blog-tassi-bce-giugno-2026-mutui': {
-    title: "Tassi BCE giugno 2026: come l'aumento dei tassi influenza i mutui a Napoli | Blog HUB Napoli",
-    desc: 'La BCE ha nuovamente aumentato i tassi di riferimento a giugno. Scopri come questo impatta le rate dei mutui a Napoli.',
+    title: "Tassi BCE 2026: Effetto sui Mutui a Napoli | FondoCasa Hub",
+    desc: "Come l'aumento dei tassi BCE di giugno 2026 impatta le rate dei mutui a Napoli. Analisi e consigli pratici del team FondoCasa Hub per orientarti meglio.",
     canonical: 'https://www.fondocasahub.com/blog/tassi-bce-giugno-2026-mutui'
   },
   'blog-prezzi-case-napoli-2026': {
-    title: 'Prezzi delle case a Napoli: andamento del mercato immobiliare 2026 | Blog HUB Napoli',
-    desc: 'Analisi aggiornata dei prezzi al metro quadro per quartiere a Napoli nel 2026. Vomero, Chiaia, Posillipo e tutti gli altri quartieri.',
+    title: 'Prezzi delle Case a Napoli nel 2026 | FondoCasa Hub',
+    desc: 'Analisi aggiornata dei prezzi al metro quadro per quartiere a Napoli: Vomero, Chiaia, Posillipo e non solo. Scopri i valori di mercato con FondoCasa Hub.',
     canonical: 'https://www.fondocasahub.com/blog/prezzi-case-napoli-2026'
   },
   'blog-valutazione-immobile-napoli': {
-    title: 'Come si valuta un immobile a Napoli: metodi e criteri professionali | Blog HUB Napoli',
-    desc: "Scopri come viene calcolato il valore di una casa a Napoli: comparativo di mercato, stato dell'immobile e altri fattori chiave.",
+    title: 'Come si Valuta un Immobile a Napoli | FondoCasa Hub',
+    desc: "Comparativo di mercato, stato dell'immobile e altri criteri: scopri come viene calcolato il valore di una casa a Napoli con la guida di FondoCasa Hub.",
     canonical: 'https://www.fondocasahub.com/blog/valutazione-immobile-napoli'
   },
   'blog-acquisto-prima-casa-napoli-guida': {
-    title: 'Acquistare la prima casa a Napoli: guida passo dopo passo per il 2026 | Blog HUB Napoli',
-    desc: 'Dalla ricerca al rogito: tutto quello che devi sapere per comprare casa a Napoli per la prima volta.',
+    title: 'Comprare la Prima Casa a Napoli: Guida 2026 | FondoCasa Hub',
+    desc: 'Dalla ricerca al rogito: tutto quello che devi sapere per comprare la prima casa a Napoli. La guida passo dopo passo di FondoCasa Hub per non sbagliare.',
     canonical: 'https://www.fondocasahub.com/blog/acquisto-prima-casa-napoli-guida'
   },
   'blog-agenzia-immobiliare-napoli-come-scegliere': {
-    title: "Come scegliere un'agenzia immobiliare a Napoli: 7 criteri fondamentali | Blog HUB Napoli",
-    desc: 'Non tutte le agenzie immobiliari sono uguali. Ecco i 7 criteri per scegliere il partner giusto per vendere o comprare casa.',
+    title: "Scegliere l'Agenzia Immobiliare a Napoli | FondoCasa Hub",
+    desc: "I 7 criteri per scegliere l'agenzia immobiliare giusta a Napoli: esperienza, trasparenza e servizi integrati. Scopri come valutarli con FondoCasa Hub.",
     canonical: 'https://www.fondocasahub.com/blog/agenzia-immobiliare-napoli-come-scegliere'
   },
   'blog-come-vendere-casa-napoli': {
-    title: 'Come vendere casa a Napoli nel 2025: guida completa | Blog HUB Napoli',
-    desc: 'Tutto quello che devi sapere per vendere casa a Napoli: documentazione, valutazione, marketing e negoziazione.',
+    title: 'Vendere Casa a Napoli: la Guida Pratica | FondoCasa Hub',
+    desc: 'Documentazione, valutazione, marketing e negoziazione: gli aspetti pratici per vendere casa a Napoli spiegati passo dopo passo dal team FondoCasa Hub.',
     canonical: 'https://www.fondocasahub.com/blog/come-vendere-casa-napoli'
   },
   'blog-mutuo-prima-casa-napoli': {
-    title: 'Mutuo prima casa a Napoli 2025: tutto quello che devi sapere | Blog HUB Napoli',
-    desc: 'Tassi, requisiti, documenti e consigli per ottenere il mutuo prima casa a Napoli. La guida aggiornata.',
+    title: 'Mutuo Prima Casa a Napoli: la Guida | FondoCasa Hub',
+    desc: 'Tassi, requisiti e documenti per ottenere il mutuo prima casa a Napoli. La guida aggiornata di WeUnit e FondoCasa Hub per scegliere la banca giusta.',
     canonical: 'https://www.fondocasahub.com/blog/mutuo-prima-casa-napoli'
   },
   'blog-migliori-quartieri-abitare-napoli': {
-    title: 'Migliori quartieri dove abitare a Napoli nel 2025 | Blog HUB Napoli',
-    desc: 'Vomero, Posillipo, Chiaia, Centro Storico: confronto tra i quartieri di Napoli per qualità della vita.',
+    title: 'Migliori Quartieri dove Abitare a Napoli | FondoCasa Hub',
+    desc: 'Vomero, Posillipo, Chiaia o Centro Storico? Confronto tra i quartieri di Napoli per qualità della vita. Scopri quale scegliere con la guida di FondoCasa Hub.',
     canonical: 'https://www.fondocasahub.com/blog/migliori-quartieri-abitare-napoli'
   },
   'blog-vendere-casa-senza-agenzia-napoli': {
-    title: 'Vendere casa senza agenzia a Napoli: conviene davvero? | Blog HUB Napoli',
-    desc: 'Analisi costi-benefici della vendita privata vs agenzia a Napoli. Rischi, opportunità e tutto quello che devi sapere.',
+    title: 'Vendere Casa senza Agenzia a Napoli | FondoCasa Hub',
+    desc: "Vendita privata o tramite agenzia? Costi, rischi e opportunità per chi vuole vendere casa a Napoli senza intermediari. Leggi l'analisi di FondoCasa Hub.",
     canonical: 'https://www.fondocasahub.com/blog/vendere-casa-senza-agenzia-napoli'
   }
 };

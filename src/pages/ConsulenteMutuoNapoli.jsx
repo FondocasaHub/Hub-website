@@ -88,10 +88,10 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
   return (
     <>
       <Helmet>
-        <title>Consulente Mutuo Napoli | WeUnit - Mediazione Creditizia OAM M28</title>
-        <meta name="description" content="Cerchi un consulente mutuo a Napoli? WeUnit (OAM M28) ti affianca nella scelta del mutuo migliore tra 6 banche partner. Consulenza gratuita. Contattaci." />
-        <meta property="og:title" content="Consulente Mutuo Napoli | WeUnit - Mediazione Creditizia OAM M28" />
-        <meta property="og:description" content="Cerchi un consulente mutuo a Napoli? WeUnit (OAM M28) ti affianca nella scelta del mutuo migliore tra 6 banche partner. Consulenza gratuita. Contattaci." />
+        <title>Consulente Mutuo Napoli | FondoCasa Hub</title>
+        <meta name="description" content="Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): consulenza gratuita tra 6 banche partner per mutuo prima casa o surroga. Richiedi informazioni." />
+        <meta property="og:title" content="Consulente Mutuo Napoli | FondoCasa Hub" />
+        <meta property="og:description" content="Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): consulenza gratuita tra 6 banche partner per mutuo prima casa o surroga. Richiedi informazioni." />
         <meta property="og:url" content="https://www.fondocasahub.com/consulente-mutuo-napoli" />
         <script type="application/ld+json">{JSON.stringify(faqSchema)}</script>
         <script type="application/ld+json">{JSON.stringify(financialServiceSchema)}</script>

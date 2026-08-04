@@ -1,16 +1,7 @@
 import { useEffect, useState } from "react";
 import { Helmet } from "react-helmet-async";
 
-/* ─────────────────────────────────────────
-   NOTA DEPLOY:
-   1. Copia questo file in src/pages/Costruttori.jsx
-   2. Copia il PDF in public/Speciale-Costruttori-2026.pdf
-   3. Aggiungi la route in App.jsx:
-      <Route path="/costruttori" element={<Costruttori />} />
-   4. git add . && git commit -m "feat: landing costruttori" && git push
-───────────────────────────────────────────── */
-
-const MAKE_WEBHOOK = "https://hook.eu1.make.com/f5y10qwk1czp77a9vbgk9e2vxqpoyycg"; // ← sostituisci dopo
+const MAKE_WEBHOOK = "https://hook.eu1.make.com/f5y10qwk1czp77a9vbgk9e2vxqpoyycg";
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap');
@@ -247,23 +238,23 @@ export default function Costruttori() {
       {/* SEO */}
       <Helmet>
         {/* ── TITLE & DESCRIPTION ── */}
-        <title>Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri</title>
-        <meta name="description" content="Vendi immobili in costruzione in tutta Italia senza anticipo e senza rischio. FondoCasa Hub – Divisione Cantieri opera su grandi cantieri in ogni regione: marketing avanzato, prequalifica acquirenti e gestione fino al rogito. Metodo ZERCOSS. Consulenza gratuita." />
+        <title>Vendi Immobili in Costruzione in Italia | FondoCasa Hub</title>
+        <meta name="description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
         <link rel="canonical" href="https://fondocasahub.com/costruttori" />
 
         {/* ── OPEN GRAPH ── */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://fondocasahub.com/costruttori" />
-        <meta property="og:title" content="Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub – Divisione Cantieri" />
-        <meta property="og:description" content="Il metodo evoluto per vendere grandi cantieri e nuove costruzioni in tutta Italia. Zero anticipo, zero rischio, marketing avanzato e prequalifica finanziaria degli acquirenti. FondoCasa Hub – Divisione Cantieri: operativi in ogni regione." />
+        <meta property="og:title" content="Vendi Immobili in Costruzione in Italia | FondoCasa Hub" />
+        <meta property="og:description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
         <meta property="og:image" content="https://fondocasahub.com/og-costruttori.jpg" />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="FondoCasa Hub" />
 
         {/* ── TWITTER CARD ── */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="Vendi Immobili in Costruzione in Tutta Italia | FondoCasa Hub" />
-        <meta name="twitter:description" content="Metodo ZERCOSS: Zero anticipo, zero rischio, solo risultati. FondoCasa Hub – Divisione Cantieri: grandi cantieri in tutta Italia." />
+        <meta name="twitter:title" content="Vendi Immobili in Costruzione in Italia | FondoCasa Hub" />
+        <meta name="twitter:description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
         <meta name="twitter:image" content="https://fondocasahub.com/og-costruttori.jpg" />
 
         {/* ── KEYWORDS & ROBOTS ── */}

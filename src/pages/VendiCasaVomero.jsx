@@ -31,10 +31,10 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
   return (
     <>
       <Helmet>
-        <title>Vendi Casa al Vomero Napoli | Valutazione Gratuita | FondoCasa Hub</title>
-        <meta name="description" content="Vuoi vendere casa al Vomero a Napoli? FondoCasa Hub offre valutazione gratuita, piano marketing dedicato e oltre 26 anni di esperienza. Contattaci ora." />
-        <meta property="og:title" content="Vendi Casa al Vomero Napoli | Valutazione Gratuita | FondoCasa Hub" />
-        <meta property="og:description" content="Vuoi vendere casa al Vomero a Napoli? FondoCasa Hub offre valutazione gratuita, piano marketing dedicato e oltre 26 anni di esperienza. Contattaci ora." />
+        <title>Vendi Casa al Vomero Napoli | FondoCasa Hub</title>
+        <meta name="description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci." />
+        <meta property="og:title" content="Vendi Casa al Vomero Napoli | FondoCasa Hub" />
+        <meta property="og:description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci." />
         <meta property="og:url" content="https://www.fondocasahub.com/vendi-casa-vomero" />
       </Helmet>
 

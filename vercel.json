@@ -117,15 +117,15 @@
     },
     {
       "source": "/privacy",
-      "destination": "/index.html"
+      "destination": "/privacy.html"
     },
     {
       "source": "/cookie",
-      "destination": "/index.html"
+      "destination": "/cookie.html"
     },
     {
       "source": "/note-legali",
-      "destination": "/index.html"
+      "destination": "/note-legali.html"
     },
     {
       "source": "/(.*)",

@@ -81,29 +81,36 @@ const TESTIMONIALS = [
   }
 ];
 
+// Unica fonte di verità per il routing custom: pathname -> chiave pagina.
+// Usata sia all'avvio (useState) sia nel listener popstate (indietro/avanti del browser).
+const URL_TO_PAGE = {
+  '/': 'home',
+  '/chi-siamo': 'chi-siamo',
+  '/il-nostro-metodo': 'metodo',
+  '/contatti': 'contatti',
+  '/comincia': 'comincia',
+  '/lavora-con-noi': 'carriera',
+  '/privacy': 'privacy',
+  '/cookie': 'cookie',
+  '/note-legali': 'note-legali',
+  '/zero-vincoli-60': 'zero-vincoli-60',
+  '/costruttori': 'costruttori',
+  '/vendi-casa-vomero': 'vendi-casa-vomero',
+  '/consulente-mutuo-napoli': 'consulente-mutuo-napoli',
+  '/grazie': 'grazie',
+  '/vomero': 'vomero',
+  '/posillipo': 'posillipo',
+  '/chiaia': 'chiaia',
+  '/centro-storico': 'centro-storico',
+  '/blog': 'blog',
+};
+
+// Pagine standalone con la propria navbar/footer: non devono ricevere anche
+// la navbar/footer condivisi di App.jsx (altrimenti si sovrappongono).
+const STANDALONE_PAGES = ['zero-vincoli-60', 'costruttori', 'vendi-casa-vomero', 'consulente-mutuo-napoli'];
+
 export default function App() {
-  const [page, setPage] = useState(() => {
-    const urlToPage = {
-      '/': 'home',
-      '/chi-siamo': 'chi-siamo',
-      '/il-nostro-metodo': 'metodo',
-      '/contatti': 'contatti',
-      '/comincia': 'comincia',
-      '/lavora-con-noi': 'carriera',
-      '/privacy': 'privacy',
-      '/cookie': 'cookie',
-      '/note-legali': 'note-legali',
-      '/zero-vincoli-60': 'zero-vincoli-60',
-      '/costruttori': 'costruttori',
-      '/grazie': 'grazie',
-      '/vomero': 'vomero',
-      '/posillipo': 'posillipo',
-      '/chiaia': 'chiaia',
-      '/centro-storico': 'centro-storico',
-      '/blog': 'blog',
-    };
-    return urlToPage[window.location.pathname] || 'home';
-  });
+  const [page, setPage] = useState(() => URL_TO_PAGE[window.location.pathname] || 'home');
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -137,22 +144,22 @@ export default function App() {
 
   // SEO: sync browser URL and meta tags with current page
   const PAGE_META = {
-    'home': { title: 'FondoCasa Hub Vomero | Agenzia Immobiliare, Mutui e Assicurazioni Napoli', desc: 'HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.' },
-    'chi-siamo': { title: 'Chi Siamo | HUB Napoli – Fondocasa, WeUnit, Henia', desc: 'Scopri il team di HUB Napoli: 26 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa.' },
-    'metodo': { title: 'Il Metodo dei 7 Pilastri | HUB Agenzia Immobiliare Napoli', desc: 'Il metodo HUB in 7 pilastri per vendere o comprare casa a Napoli senza sorprese. Due diligence, marketing dedicato, mutuo e assicurazione integrati.' },
-    'contatti': { title: 'Contatti | HUB Napoli – Via Pietro Mascagni 35', desc: 'Contatta HUB Napoli: Via Pietro Mascagni 35, Vomero. Tel. 081 18653202. Aperto lun-ven 9-19, sab 9-13. Richiedi una valutazione gratuita.' },
-    'comincia': { title: 'Comincia da Qui | HUB – Valutazione Gratuita Immobile Napoli', desc: 'Richiedi una valutazione gratuita del tuo immobile a Napoli. HUB ti risponde entro 24h con una stima precisa basata sul mercato locale.' },
-    'carriera': { title: 'Lavora con Noi | HUB Napoli – Agenti Immobiliari', desc: 'Unisciti al team HUB Napoli. Cerchiamo agenti immobiliari, consulenti creditizi e assicurativi con passione per il cliente. Candidati ora.' },
-    'privacy': { title: 'Privacy Policy | HUB Napoli', desc: 'Informativa sulla privacy di HUB – FC Punto Hub Srl. Come trattiamo i tuoi dati personali nel rispetto del GDPR.' },
-    'cookie': { title: 'Cookie Policy | HUB Napoli', desc: 'Cookie policy di HUB Napoli. Informazioni sui cookie utilizzati dal sito fondocasahub.com.' },
-    'note-legali': { title: 'Note Legali | HUB Napoli', desc: 'Note legali di FC Punto Hub Srl – HUB Napoli. Informazioni societarie, condizioni d\'uso e avvertenze legali.' },
-    'zero-vincoli-60': { title: 'Zero Vincoli 60 | Vendi Casa Napoli in 60 Giorni – HUB', desc: 'Vendi casa a Napoli in 60 giorni con Zero Vincoli 60 di HUB. Nessun vincolo, nessun rischio: se non vendiamo, non paghi. Scopri come funziona.' },
-    'grazie': { title: 'Richiesta Ricevuta | HUB Napoli', desc: 'Grazie per la tua richiesta. Ti ricontatteremo entro 24 ore.' },
-    'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | HUB – Compravendita e Mutui', desc: 'HUB è la tua agenzia immobiliare di riferimento al Vomero di Napoli. Compravendita, mutui e assicurazioni. Via Pietro Mascagni 35 – da 26 anni nel quartiere.' },
-    'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | HUB', desc: 'Compra o vendi casa a Posillipo con HUB. Esperienza, conoscenza del mercato locale e servizio integrato immobiliare-mutuo-assicurazione a Napoli.' },
-    'chiaia': { title: 'Agenzia Immobiliare Chiaia Napoli | HUB', desc: 'HUB segue compravendite immobiliari nel quartiere Chiaia di Napoli. Contattaci per una valutazione gratuita del tuo immobile a Chiaia.' },
-    'centro-storico': { title: 'Agenzia Immobiliare Centro Storico Napoli | HUB', desc: 'Acquista o vendi casa nel Centro Storico di Napoli con HUB. Consulenza immobiliare, mediazione creditizia e assicurazioni nella Napoli antica.' },
-    'blog': { title: 'Blog Immobiliare Napoli | Consigli su Casa, Mutui, Mercato – HUB', desc: 'Articoli e guide pratiche sul mercato immobiliare di Napoli: come vendere casa, ottenere un mutuo, scegliere il quartiere e molto altro da HUB.' },
+    'home': { title: 'Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub', desc: 'A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile.' },
+    'chi-siamo': { title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Scopri il team FondoCasa Hub: 26 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.' },
+    'metodo': { title: 'Metodo dei 7 Pilastri per Vendere Casa | FondoCasa Hub', desc: 'Vendi casa senza sorprese con il Metodo dei 7 Pilastri: due diligence, marketing dedicato e gestione di mutuo e assicurazione. Scopri come funziona.' },
+    'contatti': { title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub', desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9-13. Richiedi una consulenza gratuita.' },
+    'comincia': { title: 'Valutazione Gratuita Immobile Napoli | FondoCasa Hub', desc: 'Richiedi la valutazione gratuita del tuo immobile a Napoli: analisi di mercato precisa e risposta entro 24 ore dal team FondoCasa Hub. Inizia subito.' },
+    'carriera': { title: 'Lavora con Noi: Agenti Immobiliari Napoli | FondoCasa Hub', desc: 'Cerchi lavoro nel settore immobiliare a Napoli? Candidati come agente, consulente creditizio o assicurativo nel team FondoCasa Hub. Posizioni aperte.' },
+    'privacy': { title: 'Informativa sulla Privacy | FondoCasa Hub', desc: 'Scopri come FondoCasa Hub tratta i tuoi dati personali nel rispetto del GDPR: raccolta, uso e conservazione delle informazioni. Leggi l\'informativa completa.' },
+    'cookie': { title: 'Cookie Policy del Sito | FondoCasa Hub', desc: 'Informazioni sui cookie tecnici e di terze parti utilizzati dal sito fondocasahub.com e su come gestire le tue preferenze. Consulta i dettagli completi.' },
+    'note-legali': { title: 'Note Legali e Dati Societari | FondoCasa Hub', desc: 'Informazioni societarie, condizioni d\'uso e avvertenze legali di FC Punto Hub Srl, titolare del sito FondoCasa Hub. Consulta tutti i dettagli societari.' },
+    'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub', desc: 'Vendi casa a Napoli in 60 giorni con l\'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più.' },
+    'grazie': { title: 'Richiesta Ricevuta | FondoCasa Hub', desc: 'Grazie per averci contattato: un consulente FondoCasa Hub ti richiamerà entro 24 ore per la tua richiesta su casa, mutuo o assicurazione a Napoli.' },
+    'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.' },
+    'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | FondoCasa Hub', desc: 'Vuoi comprare o vendere casa a Posillipo? FondoCasa Hub conosce il mercato locale e offre valutazioni gratuite con consulenza su mutuo e assicurazione.' },
+    'chiaia': { title: 'Agenzia Immobiliare Chiaia Napoli | FondoCasa Hub', desc: 'FondoCasa Hub segue compravendite immobiliari a Chiaia, Napoli: valutazione gratuita del tuo immobile e assistenza fino al rogito. Richiedi una consulenza.' },
+    'centro-storico': { title: 'Agenzia Immobiliare Centro Storico Napoli | FondoCasa Hub', desc: 'Acquista o vendi casa nel Centro Storico di Napoli con FondoCasa Hub: consulenza immobiliare, mutuo e assicurazione integrati. Richiedi info gratuite.' },
+    'blog': { title: 'Blog Immobiliare Napoli | FondoCasa Hub', desc: 'Guide pratiche su casa, mutui e mercato immobiliare a Napoli: consigli per vendere, comprare o scegliere il quartiere giusto. Leggi gli articoli del blog.' },
   };
 
   const PAGE_URLS = {
@@ -166,6 +173,9 @@ export default function App() {
     'cookie': '/cookie',
     'note-legali': '/note-legali',
     'zero-vincoli-60': '/zero-vincoli-60',
+    'costruttori': '/costruttori',
+    'vendi-casa-vomero': '/vendi-casa-vomero',
+    'consulente-mutuo-napoli': '/consulente-mutuo-napoli',
     'grazie': '/grazie',
     'vomero': '/vomero',
     'posillipo': '/posillipo',
@@ -174,7 +184,12 @@ export default function App() {
     'blog': '/blog',
   };
 
+  // Pagine che gestiscono i propri meta tag via <Helmet> (vedi rispettivi componenti):
+  // updateMeta() non deve sovrascriverli con i meta della home.
+  const PAGES_WITH_OWN_HELMET = ['costruttori', 'vendi-casa-vomero', 'consulente-mutuo-napoli'];
+
   const updateMeta = (p) => {
+    if (PAGES_WITH_OWN_HELMET.includes(p)) return;
     const meta = PAGE_META[p] || PAGE_META['home'];
     document.title = meta.title;
     const desc = document.querySelector('meta[name="description"]');
@@ -194,8 +209,7 @@ export default function App() {
 
   useEffect(() => {
     const onPopState = (e) => {
-      const urlToPage = { '/': 'home', '/chi-siamo': 'chi-siamo', '/il-nostro-metodo': 'metodo', '/contatti': 'contatti', '/comincia': 'comincia', '/lavora-con-noi': 'carriera', '/privacy': 'privacy', '/cookie': 'cookie', '/note-legali': 'note-legali', '/zero-vincoli-60': 'zero-vincoli-60', '/grazie': 'grazie', '/vomero': 'vomero', '/posillipo': 'posillipo', '/chiaia': 'chiaia', '/centro-storico': 'centro-storico', '/blog': 'blog' };
-      const p = urlToPage[window.location.pathname] || 'home';
+      const p = URL_TO_PAGE[window.location.pathname] || 'home';
       setPage(p);
     };
     window.addEventListener('popstate', onPopState);
@@ -241,8 +255,8 @@ export default function App() {
         </svg>
       </a>
 
-      {/* NAVBAR — nascosta sulla landing page Zero Vincoli 60 */}
-      {page !== "zero-vincoli-60" && <nav style={{
+      {/* NAVBAR — nascosta sulle landing standalone con navbar propria */}
+      {!STANDALONE_PAGES.includes(page) && <nav style={{
         position: "fixed", top: 0, left: 0, right: 0, zIndex: 100,
         background: scrolled || page !== "home" ? "rgba(10,31,61,0.96)" : "transparent",
         backdropFilter: scrolled || page !== "home" ? "blur(12px)" : "none",
@@ -331,6 +345,8 @@ export default function App() {
       {page === "note-legali" && <NoteLegaliPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "zero-vincoli-60" && <ZeroVincoli60Page navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "costruttori" && <CostruttoPage />}
+      {page === "vendi-casa-vomero" && <VendiCasaVomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "consulente-mutuo-napoli" && <ConsulenteMutuoNapoliPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "grazie" && <GraziePage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "vomero" && <VomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "posillipo" && <PosillpoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
@@ -338,7 +354,7 @@ export default function App() {
       {page === "centro-storico" && <CentroStoricoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "blog" && <BlogPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
 
-      {page !== "zero-vincoli-60" && <Footer navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {!STANDALONE_PAGES.includes(page) && <Footer navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
     </div>
   );
 }

@@ -42,8 +42,8 @@ export default function GraziePage({ navigate, colors }) {
   return (
     <>
       <Helmet>
-        <title>Richiesta Ricevuta | HUB Napoli</title>
-        <meta name="description" content="Grazie per la tua richiesta. Ti ricontatteremo entro 24 ore." />
+        <title>Richiesta Ricevuta | FondoCasa Hub</title>
+        <meta name="description" content="Grazie per averci contattato: un consulente FondoCasa Hub ti richiamerà entro 24 ore per la tua richiesta su casa, mutuo o assicurazione a Napoli." />
         <meta name="robots" content="noindex" />
       </Helmet>
 

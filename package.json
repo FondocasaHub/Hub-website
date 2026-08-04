@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/postbuild.js",
+    "postbuild": "node scripts/postbuild.js && node scripts/prerender-ssr-pages.mjs",
     "preview": "vite preview"
   },
   "dependencies": {
@@ -17,6 +17,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.3.1",
+    "esbuild": "^0.21.5",
     "vite": "^5.4.0"
   }
 }

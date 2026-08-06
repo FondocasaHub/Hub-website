@@ -240,14 +240,14 @@ export default function Costruttori() {
         {/* ── TITLE & DESCRIPTION ── */}
         <title>Vendi Immobili in Costruzione in Italia | FondoCasa Hub</title>
         <meta name="description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
-        <link rel="canonical" href="https://fondocasahub.com/costruttori" />
+        <link rel="canonical" href="https://www.fondocasahub.com/costruttori" />
 
         {/* ── OPEN GRAPH ── */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://fondocasahub.com/costruttori" />
+        <meta property="og:url" content="https://www.fondocasahub.com/costruttori" />
         <meta property="og:title" content="Vendi Immobili in Costruzione in Italia | FondoCasa Hub" />
         <meta property="og:description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
-        <meta property="og:image" content="https://fondocasahub.com/og-costruttori.jpg" />
+        <meta property="og:image" content="https://www.fondocasahub.com/og-costruttori.jpg" />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="FondoCasa Hub" />
 
@@ -255,7 +255,7 @@ export default function Costruttori() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="Vendi Immobili in Costruzione in Italia | FondoCasa Hub" />
         <meta name="twitter:description" content="Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita." />
-        <meta name="twitter:image" content="https://fondocasahub.com/og-costruttori.jpg" />
+        <meta name="twitter:image" content="https://www.fondocasahub.com/og-costruttori.jpg" />
 
         {/* ── KEYWORDS & ROBOTS ── */}
         <meta name="keywords" content="vendita immobili costruzione italia, agenzia immobiliare cantieri italia, vendere appartamenti nuova costruzione, prequalifica acquirenti mutuo, divisione cantieri italia, fondocasa hub costruttori, marketing immobiliare cantieri, zercoss, vendita immobili su progetto, grandi cantieri immobiliari, costruttori immobiliari italia, agenzia cantieri napoli milano roma torino bologna" />
@@ -277,9 +277,9 @@ export default function Costruttori() {
           "provider": {
             "@type": "RealEstateAgent",
             "name": "FondoCasa Hub",
-            "url": "https://fondocasahub.com",
-            "logo": "https://fondocasahub.com/logo.png",
-            "telephone": "+39 081 000 0000",
+            "url": "https://www.fondocasahub.com",
+            "logo": "https://www.fondocasahub.com/logo.png",
+            "telephone": "+39-081-18653202",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Via Pietro Mascagni, 35",
@@ -305,8 +305,11 @@ export default function Costruttori() {
               {"@type": "City", "name": "Caserta"}
             ],
             "sameAs": [
-              "https://www.facebook.com/fondocasahub",
-              "https://www.instagram.com/fondocasahub"
+              "https://www.fondocasa.it",
+              "https://www.facebook.com/fcpuntohub",
+              "https://www.instagram.com/fcpuntohub",
+              "https://www.linkedin.com/company/fc-punto-hub-srl",
+              "https://www.youtube.com/@FondoCasaHub"
             ]
           },
           "serviceType": "Vendita Immobili in Costruzione",
@@ -321,7 +324,7 @@ export default function Costruttori() {
             "price": "0",
             "priceCurrency": "EUR"
           },
-          "url": "https://fondocasahub.com/costruttori"
+          "url": "https://www.fondocasahub.com/costruttori"
         })}</script>
 
         {/* ── JSON-LD: FAQPage GEO ── */}
@@ -369,8 +372,8 @@ export default function Costruttori() {
           "@context": "https://schema.org",
           "@type": "BreadcrumbList",
           "itemListElement": [
-            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://fondocasahub.com"},
-            {"@type": "ListItem", "position": 2, "name": "Costruttori", "item": "https://fondocasahub.com/costruttori"}
+            {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com"},
+            {"@type": "ListItem", "position": 2, "name": "Costruttori", "item": "https://www.fondocasahub.com/costruttori"}
           ]
         })}</script>
       </Helmet>

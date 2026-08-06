@@ -14,5 +14,25 @@ Crawl-delay: 5
 User-agent: SemrushBot
 Crawl-delay: 5
 
+# AI answer engine / assistenti — accesso esplicitamente consentito
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
 # Sitemap
 Sitemap: https://www.fondocasahub.com/sitemap.xml
+LLM: https://www.fondocasahub.com/llms.txt

@@ -279,7 +279,7 @@ export default function Costruttori() {
             "name": "FondoCasa Hub",
             "url": "https://www.fondocasahub.com",
             "logo": "https://www.fondocasahub.com/logo.png",
-            "telephone": "+39-081-18653202",
+            "telephone": "+3908118653202",
             "address": {
               "@type": "PostalAddress",
               "streetAddress": "Via Pietro Mascagni, 35",

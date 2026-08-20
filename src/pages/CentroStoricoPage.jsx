@@ -10,7 +10,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
       "name": "HUB – Agenzia Immobiliare Centro Storico Napoli",
       "description": "Agenzia immobiliare per il Centro Storico di Napoli. HUB segue compravendite di palazzi storici, appartamenti e beni culturali a Napoli antica.",
       "url": "https://www.fondocasahub.com/centro-storico",
-      "telephone": "+39-081-18653202",
+      "telephone": "+3908118653202",
       "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
       "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }],
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }

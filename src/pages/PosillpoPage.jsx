@@ -10,7 +10,7 @@ export default function PosillpoPage({ navigate, colors }) {
       "name": "HUB – Agenzia Immobiliare Posillipo Napoli",
       "description": "Agenzia immobiliare per il quartiere Posillipo di Napoli. HUB offre compravendita ville e appartamenti con vista mare, mutui e assicurazioni.",
       "url": "https://www.fondocasahub.com/posillipo",
-      "telephone": "+39-081-18653202",
+      "telephone": "+3908118653202",
       "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
       "areaServed": [{ "@type": "Place", "name": "Posillipo" }, { "@type": "Place", "name": "Mergellina" }, { "@type": "Place", "name": "Capo Posillipo" }],
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }

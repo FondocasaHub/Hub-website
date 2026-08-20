@@ -79,7 +79,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
     'name': 'WeUnit',
     'description': 'Mediazione creditizia per mutui, surroghe, prestiti personali',
     'url': 'https://www.fondocasahub.com/consulente-mutuo-napoli',
-    'telephone': '+39-081-18653202',
+    'telephone': '+3908118653202',
     'areaServed': 'Campania',
     'serviceType': ['Mutuo', 'Surroga', 'Prestito Personale'],
     'founder': { '@type': 'Organization', 'name': 'FondoCasa Hub' }

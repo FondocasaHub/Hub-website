@@ -93,8 +93,9 @@ export default function ChiaiaPage({ navigate, colors }) {
         <div style={{ borderLeft: `3px solid ${GOLD}`, paddingLeft: 24, marginBottom: 24 }}>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 8 }}>Come vendere casa a Chiaia rapidamente?</h3>
           <p style={{ fontSize: 15, lineHeight: 1.8, opacity: 0.85 }}>
-            Con il programma Zero Vincoli 60 di HUB, garantiamo la vendita entro 60 giorni o acquistiamo noi.
             Il nostro marketing dedicato e la rete di acquirenti pre-qualificati accelerano ogni trattativa.
+            Con il programma Zero Vincoli 60 non resti vincolato: se entro 60 giorni non sei soddisfatto del servizio,
+            o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere dall'incarico senza penali.
           </p>
         </div>
         <div style={{ borderLeft: `3px solid ${GOLD}`, paddingLeft: 24, marginBottom: 40 }}>

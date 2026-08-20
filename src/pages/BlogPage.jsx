@@ -807,7 +807,7 @@ const ARTICLES = [
       <p>La trattativa sul prezzo e le condizioni richiede esperienza e neutralità. Un agente immobiliare professionista tutela gli interessi del venditore senza compromettere la trattativa.</p>
 
       <h2>Il programma Zero Vincoli 60 di HUB</h2>
-      <p>HUB offre una garanzia unica a Napoli: con Zero Vincoli 60, vendiamo la tua casa in 60 giorni o la acquistiamo noi. Nessun vincolo, nessun rischio per il venditore.</p>
+      <p>Con Zero Vincoli 60 affidi l'incarico a HUB senza restare legato: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere senza penali e senza costi.</p>
     `
   },
   {
@@ -908,7 +908,7 @@ const ARTICLES = [
       </ul>
 
       <h3>La garanzia Zero Vincoli 60 di HUB</h3>
-      <p>HUB offre una soluzione unica: Zero Vincoli 60. Vendiamo la tua casa in 60 giorni, al prezzo concordato, senza vincoli. Se non vendiamo, valutiamo l'acquisto diretto. Una garanzia concreta che non esiste nella vendita privata.</p>
+      <p>HUB offre una soluzione che nella vendita privata non esiste: Zero Vincoli 60. Affidi l'incarico e resti libero: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere senza penali e senza costi.</p>
 
       <h3>Conclusione</h3>
       <p>La vendita privata può sembrare conveniente sulla carta, ma i rischi e il tempo richiesto spesso superano il risparmio sulla provvigione. Con HUB hai la certezza del risultato e la tranquillità di un servizio professionale e garantito.</p>

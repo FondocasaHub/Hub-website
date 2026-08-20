@@ -52,7 +52,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
           </button>
           <a
             href={`tel:${PHONE}`}
-            style={{ display: "inline-block", marginLeft: 12, marginTop: 12, background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 38px", fontSize: 14, letterSpacing: 1.5, fontWeight: 700, cursor: "pointer", borderRadius: 3, textTransform: "uppercase", textDecoration: "none" }}
+            style={{ display: "inline-block", marginLeft: 12, marginTop: 12, background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 38px", fontSize: 14, lineHeight: "16px", letterSpacing: 1.5, fontWeight: 700, cursor: "pointer", borderRadius: 3, textTransform: "uppercase", textDecoration: "none" }}
           >
             Chiama ora
           </a>
@@ -119,7 +119,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           <button onClick={() => navigate("comincia")} style={{ background: GOLD, color: NAVY, border: "none", padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Richiedi valutazione</button>
           <button onClick={() => navigate("contatti")} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Contattaci</button>
-          <a href={`tel:${PHONE}`} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
+          <a href={`tel:${PHONE}`} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, lineHeight: "16px", letterSpacing: 1, textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
             Chiama {PHONE_DISPLAY}
           </a>
           <button onClick={() => navigate("zero-vincoli-60")} style={{ background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Zero Vincoli 60</button>

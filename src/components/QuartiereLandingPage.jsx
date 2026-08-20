@@ -25,6 +25,8 @@ import { Helmet } from "react-helmet-async";
 // src/components/ContactForms.jsx e src/pages/VendiCasaVomero.jsx).
 const MAKE_WEBHOOK_VENDITORI = "https://hook.eu1.make.com/7fqc30vc6gfaqi4vgsi9neyrwijpxg1d";
 
+const PHONE = "+3908118653202";
+const PHONE_DISPLAY = "081 18653202";
 const ADDRESS = "Via Pietro Mascagni, 35";
 const CITY = "Napoli";
 const POSTAL_CODE = "80128";
@@ -246,7 +248,7 @@ export default function QuartiereLandingPage({
     "@type": "RealEstateAgent",
     "name": `FondoCasa Hub – Agenzia Immobiliare ${quartiere}`,
     "url": canonicalUrl,
-    "telephone": "+3908118653202",
+    "telephone": PHONE,
     "address": {
       "@type": "PostalAddress",
       "streetAddress": ADDRESS,
@@ -323,6 +325,7 @@ export default function QuartiereLandingPage({
           <div className="q-hero-btns">
             <a href="#valutazione" className="q-btn-primary">→ Valutazione Gratuita</a>
             <a href="#mercato" className="q-btn-secondary">+ Scopri il mercato</a>
+            <a href={`tel:${PHONE}`} className="q-btn-secondary">&#9742; Chiama {PHONE_DISPLAY}</a>
           </div>
         </div>
         <div className="q-hero-right">
@@ -456,6 +459,7 @@ export default function QuartiereLandingPage({
         </div>
         <div className="q-footer-info" style={{textAlign:"right"}}>
           {ADDRESS}, {POSTAL_CODE} {CITY}<br/>
+          <a href={`tel:${PHONE}`} style={{color:"#C9A84C",textDecoration:"none"}}>Tel. {PHONE_DISPLAY}</a><br/>
           fondocasahub.com | WeUnit – OAM M28
         </div>
       </footer>

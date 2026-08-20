@@ -117,8 +117,9 @@ export default function VomeroPage({ navigate, colors }) {
         <div style={{ borderLeft: `3px solid ${GOLD}`, paddingLeft: 24, marginBottom: 24 }}>
           <h3 style={{ fontSize: "1.1rem", fontWeight: 700, marginBottom: 8 }}>Quanto tempo ci vuole per vendere casa al Vomero?</h3>
           <p style={{ fontSize: 15, lineHeight: 1.8, opacity: 0.85 }}>
-            Con il metodo HUB e il programma <strong>Zero Vincoli 60</strong>, garantiamo la vendita entro 60 giorni.
-            In caso contrario, provvediamo all'acquisto diretto senza ulteriori vincoli per il venditore.
+            I tempi dipendono da zona, prezzo e condizioni dell'immobile. Con il programma <strong>Zero Vincoli 60</strong>
+            i primi 60 giorni seguono un piano di attività definito da contratto: se al termine non sei soddisfatto del
+            servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere dall'incarico senza penali.
           </p>
         </div>
         <div style={{ borderLeft: `3px solid ${GOLD}`, paddingLeft: 24, marginBottom: 40 }}>

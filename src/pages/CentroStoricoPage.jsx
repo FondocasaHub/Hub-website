@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+const PHONE = "+3908118653202";
+const PHONE_DISPLAY = "081 18653202";
+
 export default function CentroStoricoPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -10,7 +13,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
       "name": "HUB – Agenzia Immobiliare Centro Storico Napoli",
       "description": "Agenzia immobiliare per il Centro Storico di Napoli. HUB segue compravendite di palazzi storici, appartamenti e beni culturali a Napoli antica.",
       "url": "https://www.fondocasahub.com/centro-storico",
-      "telephone": "+3908118653202",
+      "telephone": PHONE,
       "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
       "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }],
       "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
@@ -47,6 +50,12 @@ export default function CentroStoricoPage({ navigate, colors }) {
           <button onClick={() => navigate("comincia")} style={{ background: GOLD, color: NAVY, border: "none", padding: "16px 40px", fontSize: 14, letterSpacing: 1.5, fontWeight: 700, cursor: "pointer", borderRadius: 3, textTransform: "uppercase" }}>
             Valutazione gratuita
           </button>
+          <a
+            href={`tel:${PHONE}`}
+            style={{ display: "inline-block", marginLeft: 12, marginTop: 12, background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 38px", fontSize: 14, lineHeight: "16px", letterSpacing: 1.5, fontWeight: 700, cursor: "pointer", borderRadius: 3, textTransform: "uppercase", textDecoration: "none" }}
+          >
+            Chiama ora
+          </a>
         </div>
       </section>
 
@@ -110,6 +119,9 @@ export default function CentroStoricoPage({ navigate, colors }) {
         <div style={{ display: "flex", gap: 16, flexWrap: "wrap" }}>
           <button onClick={() => navigate("comincia")} style={{ background: GOLD, color: NAVY, border: "none", padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Richiedi valutazione</button>
           <button onClick={() => navigate("contatti")} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Contattaci</button>
+          <a href={`tel:${PHONE}`} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, lineHeight: "16px", letterSpacing: 1, textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
+            Chiama {PHONE_DISPLAY}
+          </a>
           <button onClick={() => navigate("zero-vincoli-60")} style={{ background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>Zero Vincoli 60</button>
         </div>
       </section>

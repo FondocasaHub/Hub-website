@@ -40,8 +40,8 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
       {
         "@context": "https://schema.org",
         "@type": "Service",
-        "name": "Zero Vincoli 60 – Vendita Casa Napoli in 60 Giorni Garantiti",
-        "description": "Servizio garantito di vendita immobiliare a Napoli entro 60 giorni senza vincoli. Se non sei soddisfatto entro 60 giorni, ti liberiamo dal mandato senza penali.",
+        "name": "Zero Vincoli 60 – Vendi casa a Napoli senza vincoli",
+        "description": "Mandato in esclusiva per vendere casa a Napoli senza restare vincolati: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere senza penali e senza costi.",
         "url": "https://www.fondocasahub.com/zero-vincoli-60",
         "provider": {
           "@type": "RealEstateAgent",
@@ -400,7 +400,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
 
           {/* Trust pills */}
           <div style={{ display: 'flex', gap: 24, justifyContent: 'center', flexWrap: 'wrap' }}>
-            {['✓ Nessuna penale', '✓ Solo online', '✓ Risultati garantiti'].map((pill) => (
+            {['✓ Nessuna penale', '✓ Solo online', '✓ Recesso libero a 60 giorni'].map((pill) => (
               <span key={pill} style={{
                 color: '#a8b8c8',
                 fontSize: 13,

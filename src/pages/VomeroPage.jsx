@@ -1,5 +1,8 @@
 import React, { useEffect } from "react";
 
+const PHONE = "+3908118653202";
+const PHONE_DISPLAY = "081 18653202";
+
 export default function VomeroPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -11,7 +14,7 @@ export default function VomeroPage({ navigate, colors }) {
       "name": "HUB – Agenzia Immobiliare Vomero Napoli",
       "description": "Agenzia immobiliare di riferimento al Vomero di Napoli. HUB offre compravendita, mutui e assicurazioni casa in Via Pietro Mascagni 35, Vomero.",
       "url": "https://www.fondocasahub.com/vomero",
-      "telephone": "+3908118653202",
+      "telephone": PHONE,
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Via Pietro Mascagni, 35",
@@ -59,6 +62,12 @@ export default function VomeroPage({ navigate, colors }) {
           >
             Valutazione gratuita
           </button>
+          <a
+            href={`tel:${PHONE}`}
+            style={{ display: "inline-block", marginLeft: 12, marginTop: 12, background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 38px", fontSize: 14, letterSpacing: 1.5, fontWeight: 700, cursor: "pointer", borderRadius: 3, textTransform: "uppercase", textDecoration: "none" }}
+          >
+            Chiama ora
+          </a>
         </div>
       </section>
 
@@ -127,6 +136,9 @@ export default function VomeroPage({ navigate, colors }) {
           <button onClick={() => navigate("contatti")} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>
             Contattaci
           </button>
+          <a href={`tel:${PHONE}`} style={{ background: "transparent", color: NAVY, border: `2px solid ${NAVY}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase", textDecoration: "none", display: "inline-block" }}>
+            Chiama {PHONE_DISPLAY}
+          </a>
           <button onClick={() => navigate("zero-vincoli-60")} style={{ background: "transparent", color: GOLD, border: `2px solid ${GOLD}`, padding: "14px 32px", fontWeight: 700, cursor: "pointer", borderRadius: 3, fontSize: 14, letterSpacing: 1, textTransform: "uppercase" }}>
             Zero Vincoli 60
           </button>

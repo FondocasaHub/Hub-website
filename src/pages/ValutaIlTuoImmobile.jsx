@@ -224,7 +224,7 @@ export default function ValutaIlTuoImmobile() {
       "@type": "RealEstateAgent",
       "name": "FondoCasa Hub",
       "url": "https://www.fondocasahub.com",
-      "telephone": "+39-081-18653202",
+      "telephone": "+3908118653202",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Via Pietro Mascagni, 35",

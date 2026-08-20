@@ -11,7 +11,7 @@ export default function VomeroPage({ navigate, colors }) {
       "name": "HUB – Agenzia Immobiliare Vomero Napoli",
       "description": "Agenzia immobiliare di riferimento al Vomero di Napoli. HUB offre compravendita, mutui e assicurazioni casa in Via Pietro Mascagni 35, Vomero.",
       "url": "https://www.fondocasahub.com/vomero",
-      "telephone": "+39-081-18653202",
+      "telephone": "+3908118653202",
       "address": {
         "@type": "PostalAddress",
         "streetAddress": "Via Pietro Mascagni, 35",

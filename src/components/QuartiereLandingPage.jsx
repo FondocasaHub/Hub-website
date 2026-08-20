@@ -246,7 +246,7 @@ export default function QuartiereLandingPage({
     "@type": "RealEstateAgent",
     "name": `FondoCasa Hub – Agenzia Immobiliare ${quartiere}`,
     "url": canonicalUrl,
-    "telephone": "+39-081-18653202",
+    "telephone": "+3908118653202",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": ADDRESS,

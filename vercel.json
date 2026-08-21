@@ -100,6 +100,10 @@
       "destination": "/agenzia-immobiliare-centro-storico-napoli.html"
     },
     {
+      "source": "/agenzia-immobiliare-soccavo-napoli",
+      "destination": "/agenzia-immobiliare-soccavo-napoli.html"
+    },
+    {
       "source": "/valuta-il-tuo-immobile",
       "destination": "/valuta-il-tuo-immobile.html"
     },

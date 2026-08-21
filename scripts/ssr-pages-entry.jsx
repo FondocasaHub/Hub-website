@@ -14,6 +14,7 @@ import AgenziaImmobiliarePosillipoNapoli from "../src/pages/AgenziaImmobiliarePo
 import AgenziaImmobiliareFuorigrottaNapoli from "../src/pages/AgenziaImmobiliareFuorigrottaNapoli.jsx";
 import AgenziaImmobiliareColliAmineiNapoli from "../src/pages/AgenziaImmobiliareColliAmineiNapoli.jsx";
 import AgenziaImmobiliareCentroStoricoNapoli from "../src/pages/AgenziaImmobiliareCentroStoricoNapoli.jsx";
+import AgenziaImmobiliareSoccavoNapoli from "../src/pages/AgenziaImmobiliareSoccavoNapoli.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -24,6 +25,7 @@ const PAGES = {
   "agenzia-immobiliare-fuorigrotta-napoli": AgenziaImmobiliareFuorigrottaNapoli,
   "agenzia-immobiliare-colli-aminei-napoli": AgenziaImmobiliareColliAmineiNapoli,
   "agenzia-immobiliare-centro-storico-napoli": AgenziaImmobiliareCentroStoricoNapoli,
+  "agenzia-immobiliare-soccavo-napoli": AgenziaImmobiliareSoccavoNapoli,
   "valuta-il-tuo-immobile": ValutaIlTuoImmobile,
 };
 

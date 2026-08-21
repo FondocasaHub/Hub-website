@@ -24,6 +24,10 @@ import ChiaiaPage from "../src/pages/ChiaiaPage.jsx";
 import PosillpoPage from "../src/pages/PosillpoPage.jsx";
 import CentroStoricoPage from "../src/pages/CentroStoricoPage.jsx";
 import { COLORS } from "../src/config/colors.js";
+
+// La home vive dentro App.jsx (componente HomePage) e riceve le stesse props
+// delle pagine quartiere: navigate + palette.
+import { HomePage } from "../src/App.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -40,6 +44,7 @@ const PAGES = {
   "chiaia": ChiaiaPage,
   "posillipo": PosillpoPage,
   "centro-storico": CentroStoricoPage,
+  "index": HomePage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -50,6 +55,7 @@ const PAGE_PROPS = {
   "chiaia": { navigate: noop, colors: COLORS },
   "posillipo": { navigate: noop, colors: COLORS },
   "centro-storico": { navigate: noop, colors: COLORS },
+  "index": { navigate: noop, colors: COLORS },
 };
 
 export function renderSsrPage(slug) {

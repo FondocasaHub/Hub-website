@@ -278,7 +278,7 @@ export default function Costruttori() {
             "@type": "RealEstateAgent",
             "name": "FondoCasa Hub",
             "url": "https://www.fondocasahub.com",
-            "logo": "https://www.fondocasahub.com/logo.png",
+            "logo": "https://www.fondocasahub.com/logo-hub.png",
             "telephone": "+3908118653202",
             "address": {
               "@type": "PostalAddress",

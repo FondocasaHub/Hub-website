@@ -39,6 +39,7 @@ export const SSR_PAGES = [
   { slug: 'agenzia-immobiliare-posillipo-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'agenzia-immobiliare-fuorigrotta-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'agenzia-immobiliare-colli-aminei-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
+  { slug: 'agenzia-immobiliare-centro-storico-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'valuta-il-tuo-immobile', expectTypes: ['Service', 'BreadcrumbList'] },
 ];
 

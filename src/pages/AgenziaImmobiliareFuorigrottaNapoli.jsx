@@ -47,14 +47,21 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
       marketText={[
         "Fuorigrotta è uno dei quartieri più estesi e popolosi di Napoli Ovest, sviluppatosi soprattutto nel secondo dopoguerra dopo l'apertura della galleria che dà il nome al quartiere e che lo collega a Chiaia e Mergellina. È la sede di alcuni dei principali poli cittadini — la Mostra d'Oltremare, lo Stadio Diego Armando Maradona, Città della Scienza e la Città Universitaria — che ne fanno una zona vivace e ben servita, pur restando prevalentemente residenziale. La grande estensione del quartiere fa sì che al suo interno convivano zone molto diverse tra loro per carattere e livello dei servizi, un aspetto da considerare attentamente in fase di ricerca.",
         "Il patrimonio immobiliare è costituito in larga parte da palazzine e condomini costruiti tra gli anni '50 e '80, con tagli generalmente familiari e una buona disponibilità di box auto rispetto ad altre zone della città, complice l'impianto urbanistico più moderno e pianificato rispetto al centro storico. Le zone intorno a via Terracina, via Leopardi e piazzale Tecchio sono tra le più richieste per la vicinanza ai servizi e ai collegamenti. Non mancano interventi più recenti di riqualificazione urbana, che negli ultimi anni hanno interessato alcune aree del quartiere migliorandone la dotazione di spazi verdi e servizi pubblici.",
-        "Sul fronte dei prezzi, Fuorigrotta si posiziona in una fascia media per gli standard di Napoli, generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo: [PLACEHOLDER: inserire fascia €/mq aggiornata, distinta per stato dell'immobile e vicinanza ai poli universitari/stadio]. La presenza di collegamenti rapidi verso il centro — Cumana e Metro Linea 6 — è un fattore che incide positivamente sul valore degli immobili più vicini alle stazioni.",
+        "Sul fronte dei prezzi, Fuorigrotta si posiziona in una fascia media per gli standard di Napoli, generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo. A incidere di più sono lo stato dell'immobile e la distanza dai poli universitari e dallo stadio. La presenza di collegamenti rapidi verso il centro — Cumana e Metro Linea 6 — è un fattore che incide positivamente sul valore degli immobili più vicini alle stazioni.",
         "La domanda arriva da un pubblico eterogeneo: famiglie che cercano un buon rapporto qualità-prezzo restando ben collegate al centro, studenti e famiglie di studenti fuori sede vista la vicinanza alla Città Universitaria, e chi lavora nella zona ospedaliera e nei poli fieristici della zona. Il mercato degli affitti è storicamente attivo, il che rende Fuorigrotta interessante anche per chi valuta un acquisto a scopo di investimento locativo, in particolare nelle zone più vicine alle stazioni della Cumana e della Metro Linea 6.",
         "Per chi vende casa a Fuorigrotta, la preparazione documentale riguarda soprattutto la conformità catastale degli edifici del dopoguerra, spesso oggetto nel tempo di piccole modifiche interne. Un immobile con carte in ordine e un prezzo allineato al mercato si posiziona meglio rispetto alla concorrenza di annunci nella stessa zona, particolarmente numerosi vista l'estensione del quartiere.",
+      ]}
+      priceTableTitle="Valori del venduto per zona"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della zona; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Piazzale Tecchio (zona stadio Maradona)", tipico: "2.900 €/mq", massimo: "3.200 €/mq" },
+        { via: "Via Giulio Cesare", tipico: "2.866 €/mq", massimo: "3.166 €/mq" },
+        { via: "Via Consalvo", tipico: "2.500 €/mq", massimo: "3.100 €/mq" },
       ]}
       faq={[
         {
           q: "Quanto vale un appartamento a Fuorigrotta?",
-          a: "Fuorigrotta è generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo. [PLACEHOLDER: inserire fascia di prezzo €/mq aggiornata]. Richiedi una valutazione gratuita per una stima precisa basata su vendite comparabili reali.",
+          a: "Fuorigrotta è generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo. Sul venduto che seguiamo, in piazzale Tecchio circa il 70% delle compravendite si chiude intorno a 2.900 €/mq con punte fino a 3.200, in via Giulio Cesare intorno a 2.866 €/mq con punte fino a 3.166, in via Consalvo intorno a 2.500 €/mq con punte fino a 3.100. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "Fuorigrotta è una buona zona per investire in affitto?",
@@ -62,7 +69,7 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
         },
         {
           q: "Quanto tempo serve per vendere casa a Fuorigrotta?",
-          a: "Dipende da prezzo richiesto, documentazione e marketing dell'immobile. [PLACEHOLDER: inserire tempo medio di vendita verificato]. Un immobile con carte in regola e prezzo di mercato si vende generalmente più rapidamente.",
+          a: "Dipende soprattutto dal prezzo di partenza, dalla documentazione e dal marketing dell'immobile. Con il programma Zero Vincoli 60 i primi 60 giorni seguono un piano di attività definito da contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere dall'incarico senza penali. Un immobile con carte in regola e prezzo di mercato si vende generalmente più rapidamente.",
         },
         {
           q: "Come si raggiunge Fuorigrotta dal centro di Napoli?",

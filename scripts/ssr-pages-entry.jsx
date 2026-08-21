@@ -13,6 +13,7 @@ import AgenziaImmobiliareChiaiaNapoli from "../src/pages/AgenziaImmobiliareChiai
 import AgenziaImmobiliarePosillipoNapoli from "../src/pages/AgenziaImmobiliarePosillipoNapoli.jsx";
 import AgenziaImmobiliareFuorigrottaNapoli from "../src/pages/AgenziaImmobiliareFuorigrottaNapoli.jsx";
 import AgenziaImmobiliareColliAmineiNapoli from "../src/pages/AgenziaImmobiliareColliAmineiNapoli.jsx";
+import AgenziaImmobiliareCentroStoricoNapoli from "../src/pages/AgenziaImmobiliareCentroStoricoNapoli.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -22,6 +23,7 @@ const PAGES = {
   "agenzia-immobiliare-posillipo-napoli": AgenziaImmobiliarePosillipoNapoli,
   "agenzia-immobiliare-fuorigrotta-napoli": AgenziaImmobiliareFuorigrottaNapoli,
   "agenzia-immobiliare-colli-aminei-napoli": AgenziaImmobiliareColliAmineiNapoli,
+  "agenzia-immobiliare-centro-storico-napoli": AgenziaImmobiliareCentroStoricoNapoli,
   "valuta-il-tuo-immobile": ValutaIlTuoImmobile,
 };
 

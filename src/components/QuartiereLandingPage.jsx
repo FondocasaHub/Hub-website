@@ -88,6 +88,19 @@ const styles = `
   .q-market-text p { font-size: 0.98rem; font-weight: 300; line-height: 1.85; color: rgba(248,248,248,0.75); margin-bottom: 22px; }
   .q-market-text p:last-child { margin-bottom: 0; }
 
+  /* TABELLA VALORI PER STRADA */
+  .q-price-table { max-width: 780px; margin-top: 36px; }
+  .q-price-caption { font-size: 0.82rem; font-weight: 400; line-height: 1.6; color: rgba(248,248,248,0.5); margin-top: 14px; }
+  .q-price-table table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+  .q-price-table th, .q-price-table td { padding: 14px 16px; text-align: left; border-bottom: 1px solid rgba(201,168,76,0.18); }
+  .q-price-table th { font-size: 0.72rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: #C9A84C; }
+  .q-price-table td { font-weight: 300; color: rgba(248,248,248,0.85); }
+  .q-price-table td:first-child { font-weight: 500; color: #F8F8F8; }
+  .q-price-table tr:last-child td { border-bottom: none; }
+  @media (max-width: 560px) {
+    .q-price-table th, .q-price-table td { padding: 10px 8px; font-size: 0.85rem; }
+  }
+
   /* PERCHE' SCEGLIERE NOI */
   .q-why-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 2px; }
   .q-why-card { background: #0A1628; padding: 36px 32px; border-top: 3px solid transparent; transition: border-color 0.3s; }
@@ -183,6 +196,12 @@ export default function QuartiereLandingPage({
   alsoServesAreas = [],
   marketTitle,
   marketText = [],
+  // Valori del venduto per singola strada, quando il quartiere e' troppo
+  // ampio per un range unico: [{ via, tipico, massimo }]. Sotto la tabella
+  // va sempre priceTableNote, che spiega a cosa si riferiscono le cifre.
+  priceTable = [],
+  priceTableTitle,
+  priceTableNote,
   whyUsTitle,
   whyUsPoints = [],
   faq = [],
@@ -352,6 +371,32 @@ export default function QuartiereLandingPage({
         <div className="q-market-text">
           {marketText.map((p, i) => <p key={i}>{p}</p>)}
         </div>
+        {priceTable.length > 0 && (
+          <div className="q-price-table">
+            <div className="q-eyebrow" style={{ marginBottom: 16 }}>
+              {priceTableTitle || `Valori del venduto a ${quartiere}`}
+            </div>
+            <table aria-label={priceTableTitle || `Valori del venduto a ${quartiere}`}>
+              <thead>
+                <tr>
+                  <th scope="col">Strada</th>
+                  <th scope="col">Valore ricorrente</th>
+                  <th scope="col">Punta massima</th>
+                </tr>
+              </thead>
+              <tbody>
+                {priceTable.map((r) => (
+                  <tr key={r.via}>
+                    <td>{r.via}</td>
+                    <td>{r.tipico}</td>
+                    <td>{r.massimo}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            {priceTableNote && <p className="q-price-caption">{priceTableNote}</p>}
+          </div>
+        )}
       </section>
 
       {/* PERCHE' SCEGLIERE NOI */}

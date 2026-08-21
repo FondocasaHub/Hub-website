@@ -15,6 +15,15 @@ import AgenziaImmobiliareFuorigrottaNapoli from "../src/pages/AgenziaImmobiliare
 import AgenziaImmobiliareColliAmineiNapoli from "../src/pages/AgenziaImmobiliareColliAmineiNapoli.jsx";
 import AgenziaImmobiliareCentroStoricoNapoli from "../src/pages/AgenziaImmobiliareCentroStoricoNapoli.jsx";
 import AgenziaImmobiliareSoccavoNapoli from "../src/pages/AgenziaImmobiliareSoccavoNapoli.jsx";
+
+// Pagine di quartiere "storiche": a differenza delle landing
+// agenzia-immobiliare-*, non usano Helmet e ricevono props da App.jsx
+// (navigate + palette). In prerender le props le passa PAGE_PROPS qui sotto.
+import VomeroPage from "../src/pages/VomeroPage.jsx";
+import ChiaiaPage from "../src/pages/ChiaiaPage.jsx";
+import PosillpoPage from "../src/pages/PosillpoPage.jsx";
+import CentroStoricoPage from "../src/pages/CentroStoricoPage.jsx";
+import { COLORS } from "../src/config/colors.js";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -27,6 +36,20 @@ const PAGES = {
   "agenzia-immobiliare-centro-storico-napoli": AgenziaImmobiliareCentroStoricoNapoli,
   "agenzia-immobiliare-soccavo-napoli": AgenziaImmobiliareSoccavoNapoli,
   "valuta-il-tuo-immobile": ValutaIlTuoImmobile,
+  "vomero": VomeroPage,
+  "chiaia": ChiaiaPage,
+  "posillipo": PosillpoPage,
+  "centro-storico": CentroStoricoPage,
+};
+
+// navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
+// serve solo a non far esplodere il render degli onClick.
+const noop = () => {};
+const PAGE_PROPS = {
+  "vomero": { navigate: noop, colors: COLORS },
+  "chiaia": { navigate: noop, colors: COLORS },
+  "posillipo": { navigate: noop, colors: COLORS },
+  "centro-storico": { navigate: noop, colors: COLORS },
 };
 
 export function renderSsrPage(slug) {
@@ -38,7 +61,7 @@ export function renderSsrPage(slug) {
     React.createElement(
       HelmetProvider,
       { context: helmetContext },
-      React.createElement(Component)
+      React.createElement(Component, PAGE_PROPS[slug] || undefined)
     )
   );
   const { helmet } = helmetContext;

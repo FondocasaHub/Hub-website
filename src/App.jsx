@@ -19,6 +19,7 @@ import AgenziaImmobiliareChiaiaNapoli from "./pages/AgenziaImmobiliareChiaiaNapo
 import AgenziaImmobiliarePosillipoNapoli from "./pages/AgenziaImmobiliarePosillipoNapoli";
 import AgenziaImmobiliareFuorigrottaNapoli from "./pages/AgenziaImmobiliareFuorigrottaNapoli";
 import AgenziaImmobiliareColliAmineiNapoli from "./pages/AgenziaImmobiliareColliAmineiNapoli";
+import AgenziaImmobiliareCentroStoricoNapoli from "./pages/AgenziaImmobiliareCentroStoricoNapoli";
 import ValutaIlTuoImmobile from "./pages/ValutaIlTuoImmobile";
 
 // === LOGO HUB ===
@@ -118,6 +119,7 @@ const URL_TO_PAGE = {
   '/agenzia-immobiliare-posillipo-napoli': 'agenzia-immobiliare-posillipo-napoli',
   '/agenzia-immobiliare-fuorigrotta-napoli': 'agenzia-immobiliare-fuorigrotta-napoli',
   '/agenzia-immobiliare-colli-aminei-napoli': 'agenzia-immobiliare-colli-aminei-napoli',
+  '/agenzia-immobiliare-centro-storico-napoli': 'agenzia-immobiliare-centro-storico-napoli',
   '/valuta-il-tuo-immobile': 'valuta-il-tuo-immobile',
   '/grazie': 'grazie',
   '/vomero': 'vomero',
@@ -134,6 +136,7 @@ const STANDALONE_PAGES = [
   'agenzia-immobiliare-vomero-napoli', 'agenzia-immobiliare-arenella-napoli',
   'agenzia-immobiliare-chiaia-napoli', 'agenzia-immobiliare-posillipo-napoli',
   'agenzia-immobiliare-fuorigrotta-napoli', 'agenzia-immobiliare-colli-aminei-napoli',
+  'agenzia-immobiliare-centro-storico-napoli',
   'valuta-il-tuo-immobile',
 ];
 
@@ -210,6 +213,7 @@ export default function App() {
     'agenzia-immobiliare-posillipo-napoli': '/agenzia-immobiliare-posillipo-napoli',
     'agenzia-immobiliare-fuorigrotta-napoli': '/agenzia-immobiliare-fuorigrotta-napoli',
     'agenzia-immobiliare-colli-aminei-napoli': '/agenzia-immobiliare-colli-aminei-napoli',
+    'agenzia-immobiliare-centro-storico-napoli': '/agenzia-immobiliare-centro-storico-napoli',
     'valuta-il-tuo-immobile': '/valuta-il-tuo-immobile',
     'grazie': '/grazie',
     'vomero': '/vomero',
@@ -226,6 +230,7 @@ export default function App() {
     'agenzia-immobiliare-vomero-napoli', 'agenzia-immobiliare-arenella-napoli',
     'agenzia-immobiliare-chiaia-napoli', 'agenzia-immobiliare-posillipo-napoli',
     'agenzia-immobiliare-fuorigrotta-napoli', 'agenzia-immobiliare-colli-aminei-napoli',
+    'agenzia-immobiliare-centro-storico-napoli',
     'valuta-il-tuo-immobile',
   ];
 
@@ -392,6 +397,7 @@ export default function App() {
       {page === "agenzia-immobiliare-posillipo-napoli" && <AgenziaImmobiliarePosillipoNapoli />}
       {page === "agenzia-immobiliare-fuorigrotta-napoli" && <AgenziaImmobiliareFuorigrottaNapoli />}
       {page === "agenzia-immobiliare-colli-aminei-napoli" && <AgenziaImmobiliareColliAmineiNapoli />}
+      {page === "agenzia-immobiliare-centro-storico-napoli" && <AgenziaImmobiliareCentroStoricoNapoli />}
       {page === "valuta-il-tuo-immobile" && <ValutaIlTuoImmobile />}
       {page === "vendi-casa-vomero" && <VendiCasaVomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "consulente-mutuo-napoli" && <ConsulenteMutuoNapoliPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
@@ -973,6 +979,7 @@ function HomePage({ navigate, colors }) {
               { slug: "posillipo", nome: "Posillipo", desc: "Il segmento premium di Napoli: ville con vista mare e appartamenti esclusivi.", prezzo: "5.000 – 12.000 €/mq" },
               { slug: "fuorigrotta", nome: "Fuorigrotta", desc: "Napoli Ovest: Mostra d'Oltremare, stadio e Città della Scienza, ben collegata.", prezzo: null },
               { slug: "colli-aminei", nome: "Colli Aminei", desc: "Zona residenziale a nord, vicino ai grandi ospedali e alla Metro Linea 1.", prezzo: null },
+              { slug: "centro-storico", nome: "Centro Storico", desc: "Patrimonio UNESCO: Decumani, San Domenico Maggiore e via Duomo. Valori diversi da strada a strada.", prezzo: "1.700 – 3.100 €/mq" },
             ].map(q => {
               const pageKey = `agenzia-immobiliare-${q.slug}-napoli`;
               return (
@@ -2303,6 +2310,7 @@ const QUARTIERE_FOOTER_LINKS = [
   { slug: "posillipo", nome: "Posillipo" },
   { slug: "fuorigrotta", nome: "Fuorigrotta" },
   { slug: "colli-aminei", nome: "Colli Aminei" },
+  { slug: "centro-storico", nome: "Centro Storico" },
 ];
 
 function Footer({ navigate, colors }) {

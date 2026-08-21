@@ -58,7 +58,7 @@ export default function AgenziaImmobiliarePosillipoNapoli() {
         },
         {
           q: "Quanto tempo serve per vendere un immobile a Posillipo?",
-          a: "Il mercato degli immobili di pregio è meno liquido rispetto ad altre zone: [PLACEHOLDER: inserire tempo medio di vendita verificato]. Un marketing mirato verso il pubblico giusto riduce sensibilmente i tempi.",
+          a: "Il mercato degli immobili di pregio è meno liquido rispetto ad altre zone e i tempi sono in genere più lunghi. Un marketing mirato verso il pubblico giusto li riduce sensibilmente. Con il programma Zero Vincoli 60 non resti comunque vincolato: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere senza penali.",
         },
         {
           q: "Cos'è Marechiaro?",

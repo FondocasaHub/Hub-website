@@ -55,10 +55,17 @@ export default function AgenziaImmobiliareVomeroNapoli() {
         "La domanda arriva sia da chi già vive al Vomero e cerca un cambio (upgrade di metratura in vista di un figlio, o downsizing dopo che i figli sono usciti di casa), sia da famiglie che si trasferiscono da altri quartieri di Napoli o dall'hinterland attratte dalla qualità della vita e dalla rete scolastica. Non mancano investitori interessati alla rendita da locazione breve nelle traverse più centrali, anche se negli ultimi anni le regole condominiali e comunali su questo fronte si sono fatte più stringenti in diverse zone della città — un aspetto da verificare caso per caso prima di un acquisto a scopo di investimento.",
         "Per chi decide di vendere, la fase più delicata resta la preparazione della documentazione: conformità catastale e urbanistica, soprattutto negli edifici d'epoca dove nel tempo sono stati realizzati frazionamenti o piccole modifiche interne non sempre regolarizzate. Un immobile con carte in ordine si vende più rapidamente e con minor margine di trattativa. È qui che un'agenzia con esperienza diretta nel quartiere fa la differenza reale rispetto a un annuncio pubblicato su un portale senza un supporto locale strutturato.",
       ]}
+      priceTableTitle="Valori del venduto per strada"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della strada; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Piazza Vanvitelli", tipico: "4.450 €/mq", massimo: "5.400 €/mq" },
+        { via: "Via Luca Giordano", tipico: "4.724 €/mq", massimo: "5.384 €/mq" },
+        { via: "Via Cilea", tipico: "3.800 €/mq", massimo: "4.300 €/mq" },
+      ]}
       faq={[
         {
           q: "Quanto vale un appartamento al Vomero?",
-          a: "Il valore medio si colloca tra 3.500 e 5.500 €/mq, ma dipende molto da zona, piano, stato dell'immobile e presenza di ascensore o box auto. Richiedi una valutazione gratuita per una stima precisa basata su vendite comparabili reali della tua traversa.",
+          a: "Dipende dalla strada, dal piano e dallo stato dell'immobile. Sul venduto che seguiamo, in via Luca Giordano circa il 70% delle compravendite si chiude intorno a 4.724 €/mq con punte fino a 5.384, in piazza Vanvitelli intorno a 4.450 €/mq con punte fino a 5.400, in via Cilea intorno a 3.800 €/mq con punte fino a 4.300. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "Quali sono le zone migliori del Vomero?",
@@ -66,7 +73,7 @@ export default function AgenziaImmobiliareVomeroNapoli() {
         },
         {
           q: "Quanto tempo serve per vendere casa al Vomero?",
-          a: "Dipende da prezzo richiesto, documentazione e marketing dell'immobile. [PLACEHOLDER: inserire tempo medio di vendita verificato]. Un immobile con documentazione in regola e in linea con i prezzi di mercato si vende generalmente più rapidamente.",
+          a: "Dipende soprattutto dal prezzo di partenza, dalla documentazione e dal marketing dell'immobile. Con il programma Zero Vincoli 60 i primi 60 giorni seguono un piano di attività definito da contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere dall'incarico senza penali. Un immobile con documentazione in regola e in linea con i prezzi di mercato si vende generalmente più rapidamente.",
         },
         {
           q: "Come si raggiunge il Vomero dal centro di Napoli?",

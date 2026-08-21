@@ -10,6 +10,7 @@ import PosillpoPage from "./pages/PosillpoPage";
 import ChiaiaPage from "./pages/ChiaiaPage";
 import CentroStoricoPage from "./pages/CentroStoricoPage";
 import BlogPage from "./pages/BlogPage";
+import { COLORS } from "./config/colors";
 import VendiCasaVomeroPage from "./pages/VendiCasaVomero";
 import ConsulenteMutuoNapoliPage from "./pages/ConsulenteMutuoNapoli";
 import CostruttoPage from "./pages/Costruttori";
@@ -271,11 +272,7 @@ export default function App() {
     window.scrollTo({ top: 0, behavior: "instant" });
   }, [page]);
 
-  const NAVY = "#0A1F3D";
-  const NAVY_DEEP = "#061229";
-  const GOLD = "#C19A5B";
-  const GOLD_BRIGHT = "#D4B27A";
-  const CREAM = "#F5EFE4";
+  const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = COLORS;
 
   const navigate = (p) => {
     setPage(p);

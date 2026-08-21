@@ -42,6 +42,15 @@ export const SSR_PAGES = [
   { slug: 'agenzia-immobiliare-centro-storico-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'agenzia-immobiliare-soccavo-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'valuta-il-tuo-immobile', expectTypes: ['Service', 'BreadcrumbList'] },
+  // Pagine di quartiere "storiche". contentOnly: title, description, canonical
+  // e og/twitter sono gia' corretti nel dist/<slug>.html prodotto da
+  // postbuild.js (queste pagine non usano Helmet), quindi qui non si tocca il
+  // <head>: si parte da quel file e si inietta solo il contenuto renderizzato
+  // dentro #root, cosi' H1, testi e JSON-LD arrivano ai crawler senza JS.
+  { slug: 'vomero', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
+  { slug: 'chiaia', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
+  { slug: 'posillipo', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
+  { slug: 'centro-storico', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
 ];
 
 function bundleEntry() {
@@ -98,7 +107,7 @@ function main() {
   const template = fs.readFileSync(templatePath, 'utf8');
   const report = [];
 
-  for (const { slug, expectTypes } of SSR_PAGES) {
+  for (const { slug, expectTypes, contentOnly } of SSR_PAGES) {
     const { contentHtml, title, meta, link, script } = renderSsrPage(slug);
     const pageOwnFaqPage = /"@type"\s*:\s*"FAQPage"/.test(script);
 
@@ -110,6 +119,13 @@ function main() {
     html = injectContent(html, contentHtml);
 
     const outPath = path.join(distDir, `${slug}.html`);
+    if (contentOnly) {
+      if (!fs.existsSync(outPath)) {
+        console.error(`[prerender-ssr-pages] ERRORE: ${slug}.html non trovato: postbuild.js deve girare prima.`);
+        process.exit(1);
+      }
+      html = injectContent(fs.readFileSync(outPath, 'utf8'), contentHtml);
+    }
     fs.writeFileSync(outPath, html, 'utf8');
 
     // Validazione strutturale minima: H1 presente, meta description non

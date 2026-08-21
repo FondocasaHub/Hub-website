@@ -51,10 +51,17 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
         "La domanda arriva da un pubblico eterogeneo: famiglie che cercano un buon rapporto qualità-prezzo restando ben collegate al centro, studenti e famiglie di studenti fuori sede vista la vicinanza alla Città Universitaria, e chi lavora nella zona ospedaliera e nei poli fieristici della zona. Il mercato degli affitti è storicamente attivo, il che rende Fuorigrotta interessante anche per chi valuta un acquisto a scopo di investimento locativo, in particolare nelle zone più vicine alle stazioni della Cumana e della Metro Linea 6.",
         "Per chi vende casa a Fuorigrotta, la preparazione documentale riguarda soprattutto la conformità catastale degli edifici del dopoguerra, spesso oggetto nel tempo di piccole modifiche interne. Un immobile con carte in ordine e un prezzo allineato al mercato si posiziona meglio rispetto alla concorrenza di annunci nella stessa zona, particolarmente numerosi vista l'estensione del quartiere.",
       ]}
+      priceTableTitle="Valori del venduto per zona"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della zona; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Piazzale Tecchio (zona stadio Maradona)", tipico: "2.900 €/mq", massimo: "3.200 €/mq" },
+        { via: "Via Giulio Cesare", tipico: "2.866 €/mq", massimo: "3.166 €/mq" },
+        { via: "Via Consalvo", tipico: "2.500 €/mq", massimo: "3.100 €/mq" },
+      ]}
       faq={[
         {
           q: "Quanto vale un appartamento a Fuorigrotta?",
-          a: "Fuorigrotta è generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo. Il valore cambia in base alla strada, allo stato dell'immobile e alla vicinanza ai collegamenti. Richiedi una valutazione gratuita per una stima basata sulle vendite reali della tua zona.",
+          a: "Fuorigrotta è generalmente più accessibile rispetto a Vomero, Chiaia e Posillipo. Sul venduto che seguiamo, in piazzale Tecchio circa il 70% delle compravendite si chiude intorno a 2.900 €/mq con punte fino a 3.200, in via Giulio Cesare intorno a 2.866 €/mq con punte fino a 3.166, in via Consalvo intorno a 2.500 €/mq con punte fino a 3.100. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "Fuorigrotta è una buona zona per investire in affitto?",

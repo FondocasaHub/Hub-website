@@ -96,6 +96,10 @@
       "destination": "/agenzia-immobiliare-colli-aminei-napoli.html"
     },
     {
+      "source": "/agenzia-immobiliare-centro-storico-napoli",
+      "destination": "/agenzia-immobiliare-centro-storico-napoli.html"
+    },
+    {
       "source": "/valuta-il-tuo-immobile",
       "destination": "/valuta-il-tuo-immobile.html"
     },

@@ -373,10 +373,10 @@ export default function QuartiereLandingPage({
         </div>
         {priceTable.length > 0 && (
           <div className="q-price-table">
-            <table>
-              <caption className="q-eyebrow" style={{ marginTop: 8, marginBottom: 16 }}>
-                {priceTableTitle || `Valori del venduto a ${quartiere}`}
-              </caption>
+            <div className="q-eyebrow" style={{ marginBottom: 16 }}>
+              {priceTableTitle || `Valori del venduto a ${quartiere}`}
+            </div>
+            <table aria-label={priceTableTitle || `Valori del venduto a ${quartiere}`}>
               <thead>
                 <tr>
                   <th scope="col">Strada</th>

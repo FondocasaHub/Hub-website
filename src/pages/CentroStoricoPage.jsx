@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 const PHONE = "+3908118653202";
 const PHONE_DISPLAY = "081 18653202";
@@ -6,36 +6,32 @@ const PHONE_DISPLAY = "081 18653202";
 export default function CentroStoricoPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
-  useEffect(() => {
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": ["RealEstateAgent", "LocalBusiness"],
-      "name": "HUB – Agenzia Immobiliare Centro Storico Napoli",
-      "description": "Agenzia immobiliare per il Centro Storico di Napoli. HUB segue compravendite di palazzi storici, appartamenti e beni culturali a Napoli antica.",
-      "url": "https://www.fondocasahub.com/centro-storico",
-      "telephone": PHONE,
-      "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
-      "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }],
-      "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
-    };
-    const breadcrumb = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com/" },
-        { "@type": "ListItem", "position": 2, "name": "Agenzia Immobiliare Centro Storico Napoli", "item": "https://www.fondocasahub.com/centro-storico" }
-      ]
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'schema-neighborhood';
-    script.textContent = JSON.stringify([schema, breadcrumb]);
-    document.head.appendChild(script);
-    return () => { const el = document.getElementById('schema-neighborhood'); if (el) el.remove(); };
-  }, []);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": ["RealEstateAgent", "LocalBusiness"],
+    "name": "HUB – Agenzia Immobiliare Centro Storico Napoli",
+    "description": "Agenzia immobiliare per il Centro Storico di Napoli. HUB segue compravendite di palazzi storici, appartamenti e beni culturali a Napoli antica.",
+    "url": "https://www.fondocasahub.com/centro-storico",
+    "telephone": PHONE,
+    "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
+    "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }],
+    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
+  };
+  const breadcrumb = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://www.fondocasahub.com/" },
+      { "@type": "ListItem", "position": 2, "name": "Agenzia Immobiliare Centro Storico Napoli", "item": "https://www.fondocasahub.com/centro-storico" }
+    ]
+  };
 
   return (
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
+      />
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "80px 32px 64px", textAlign: "center" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>
           <div style={{ fontSize: 12, letterSpacing: 3, color: GOLD, textTransform: "uppercase", marginBottom: 16, fontWeight: 600 }}>Agenzia Immobiliare Centro Storico · Napoli</div>

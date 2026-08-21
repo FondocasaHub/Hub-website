@@ -22,8 +22,7 @@ export default function VomeroPage({ navigate, colors }) {
       "addressCountry": "IT"
     },
     "geo": { "@type": "GeoCoordinates", "latitude": 40.851773, "longitude": 14.268124 },
-    "areaServed": [{ "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Vomero Alto" }, { "@type": "Place", "name": "Belvedere" }],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
+    "areaServed": [{ "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Vomero Alto" }, { "@type": "Place", "name": "Belvedere" }]
   };
   const breadcrumb = {
     "@context": "https://schema.org",

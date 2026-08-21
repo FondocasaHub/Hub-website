@@ -14,8 +14,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
     "url": "https://www.fondocasahub.com/centro-storico",
     "telephone": PHONE,
     "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
-    "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
+    "areaServed": [{ "@type": "Place", "name": "Centro Storico Napoli" }, { "@type": "Place", "name": "Toledo" }, { "@type": "Place", "name": "Spaccanapoli" }, { "@type": "Place", "name": "Decumani" }]
   };
   const breadcrumb = {
     "@context": "https://schema.org",

@@ -14,8 +14,7 @@ export default function ChiaiaPage({ navigate, colors }) {
     "url": "https://www.fondocasahub.com/chiaia",
     "telephone": PHONE,
     "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
-    "areaServed": [{ "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Riviera di Chiaia" }, { "@type": "Place", "name": "Via dei Mille" }],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
+    "areaServed": [{ "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Riviera di Chiaia" }, { "@type": "Place", "name": "Via dei Mille" }]
   };
   const breadcrumb = {
     "@context": "https://schema.org",

@@ -14,8 +14,7 @@ export default function PosillpoPage({ navigate, colors }) {
     "url": "https://www.fondocasahub.com/posillipo",
     "telephone": PHONE,
     "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
-    "areaServed": [{ "@type": "Place", "name": "Posillipo" }, { "@type": "Place", "name": "Mergellina" }, { "@type": "Place", "name": "Capo Posillipo" }],
-    "aggregateRating": { "@type": "AggregateRating", "ratingValue": "5.0", "reviewCount": "5" }
+    "areaServed": [{ "@type": "Place", "name": "Posillipo" }, { "@type": "Place", "name": "Mergellina" }, { "@type": "Place", "name": "Capo Posillipo" }]
   };
   const breadcrumb = {
     "@context": "https://schema.org",

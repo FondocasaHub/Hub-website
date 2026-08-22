@@ -51,6 +51,9 @@ export const SSR_PAGES = [
   { slug: 'chiaia', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
   { slug: 'posillipo', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
   { slug: 'centro-storico', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
+  // La home: template e output coincidono (dist/index.html), quindi title,
+  // description, canonical e og restano quelli gia' presenti nel file.
+  { slug: 'index', contentOnly: true, expectTypes: ['RealEstateAgent', 'WebSite'] },
 ];
 
 function bundleEntry() {

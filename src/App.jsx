@@ -760,7 +760,7 @@ function PromoZeroVincoli() {
 // =====================================================
 // HOME
 // =====================================================
-function HomePage({ navigate, colors }) {
+export function HomePage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   const [tIndex, setTIndex] = useState(0);
 

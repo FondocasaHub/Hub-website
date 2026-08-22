@@ -3,6 +3,11 @@ import React from "react";
 const PHONE = "+3908118653202";
 const PHONE_DISPLAY = "081 18653202";
 
+const FAQ_ITEMS = [
+  { q: "È possibile comprare casa a Posillipo con mutuo?", a: "Sì, anche per immobili di pregio è possibile ottenere un mutuo. WeUnit valuta le migliori soluzioni tra oltre 20 istituti bancari, anche per importi elevati e per seconde case." },
+  { q: "HUB gestisce anche compravendite di lusso?", a: "Sì. HUB ha esperienza nella gestione di trattative immobiliari nel segmento premium con assoluta riservatezza e un approccio su misura per ogni cliente." },
+];
+
 export default function PosillpoPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -29,7 +34,7 @@ export default function PosillpoPage({ navigate, colors }) {
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb, { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQ_ITEMS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) }]) }}
       />
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "80px 32px 64px", textAlign: "center" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>

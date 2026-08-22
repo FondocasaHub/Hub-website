@@ -1,5 +1,14 @@
 import { HelmetProvider, Helmet } from 'react-helmet-async';
 
+const FAQ_VENDI = [
+  { q: "Quanto vale il mio appartamento al Vomero?", a: "Dipende soprattutto dalla strada, dal piano e dallo stato dell'immobile. Sul venduto che seguiamo, in via Luca Giordano circa il 70% delle compravendite si chiude intorno a 4.724 €/mq, in piazza Vanvitelli intorno a 4.450, in via Cilea intorno a 3.800. Per una stima riferita al tuo immobile serve un sopralluogo: la valutazione è gratuita." },
+  { q: "Quanto costa la valutazione?", a: "Niente. La valutazione è gratuita e non ti vincola a darci l'incarico. Facciamo un sopralluogo, confrontiamo il tuo immobile con le vendite reali della tua zona e ti consegniamo un prezzo motivato, con i dati su cui è costruito. Poi decidi tu se procedere." },
+  { q: "Quali documenti servono per vendere casa al Vomero?", a: "Servono l'atto di provenienza, la visura e la planimetria catastale, l'attestato di prestazione energetica e la verifica di conformità urbanistica e catastale. Se l'immobile arriva da una successione o da una donazione, va sistemata anche quella parte. Ce ne occupiamo noi all'inizio dell'incarico, prima di mettere l'immobile sul mercato." },
+  { q: "Posso cambiare idea se non sono soddisfatto?", a: "Sì. Con il programma Zero Vincoli 60 i primi 60 giorni seguono un piano di attività definito da contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere dall'incarico senza penali e senza costi." },
+  { q: "In quanto tempo si vende un appartamento al Vomero?", a: "I tempi dipendono dal prezzo di partenza, dallo stato dell'immobile e dalla documentazione. Un immobile con le carte in regola e un prezzo in linea con le vendite reali della zona si colloca generalmente più in fretta. Non promettiamo una data: lavoriamo su un piano di attività verificabile." },
+  { q: "Chi segue il mutuo di chi compra?", a: "Lo seguiamo noi. WeUnit è il ramo creditizio di HUB: confronta le offerte di oltre 20 banche e accompagna l'acquirente fino all'erogazione. Avere il mutuo gestito internamente riduce i tempi morti tra proposta e rogito e il rischio che la trattativa si blocchi per un finanziamento non concesso." },
+];
+
 export default function VendiCasaVomeroPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -69,7 +78,7 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 40, maxWidth: 1200, margin: '0 auto' }}>
             {[
               { num: '1', title: 'Valutazione Gratuita', desc: 'Ti contatteremo entro 24h per una valutazione precisa, senza impegni.' },
-              { num: '2', title: 'Piano Marketing Dedicato', desc: 'Fotografhe professionali, descrizione SEO-optimizzata, annunci multicanale.' },
+              { num: '2', title: 'Piano Marketing Dedicato', desc: 'Fotografie professionali, annuncio scritto per farsi trovare sui motori, pubblicazione multicanale.' },
               { num: '3', title: 'Vendita', desc: 'Negoziazione, documenti, visure catastali, rogito notarile — ce ne occupiamo noi.' },
             ].map((item, i) => (
               <div key={i} style={{ padding: 40 }}>
@@ -80,6 +89,94 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
             ))}
           </div>
         </section>
+
+
+        {/* Valori di mercato e documenti — contenuto utile a chi valuta se vendere */}
+        <section style={{ padding: '80px 20px', maxWidth: 900, margin: '0 auto' }}>
+          <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: 24, color: NAVY, fontFamily: 'Jost' }}>Quanto vale casa tua al Vomero</h2>
+          <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
+            Al Vomero il prezzo al metro quadro cambia sensibilmente da una strada all'altra, e all'interno della stessa
+            strada pesano il piano, la presenza di ascensore, l'esposizione e lo stato di conservazione. Per questo una
+            stima costruita su una media di quartiere serve a poco: quello che conta è il confronto con le vendite
+            realmente concluse nella tua via.
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 24 }}>
+            Questi sono i valori che rileviamo sul venduto che seguiamo direttamente, non stime da portale. Il valore
+            ricorrente è quello a cui si chiude circa il 70% delle compravendite della strada.
+          </p>
+
+          <div style={{ overflowX: 'auto', marginBottom: 16 }}>
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15 }}>
+              <thead>
+                <tr>
+                  <th scope="col" style={{ textAlign: 'left', padding: '12px 14px', borderBottom: `2px solid ${GOLD}`, color: NAVY, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase' }}>Strada</th>
+                  <th scope="col" style={{ textAlign: 'left', padding: '12px 14px', borderBottom: `2px solid ${GOLD}`, color: NAVY, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase' }}>Valore ricorrente</th>
+                  <th scope="col" style={{ textAlign: 'left', padding: '12px 14px', borderBottom: `2px solid ${GOLD}`, color: NAVY, fontSize: 12, letterSpacing: 1, textTransform: 'uppercase' }}>Punta massima</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  ['Piazza Vanvitelli', '4.450 €/mq', '5.400 €/mq'],
+                  ['Via Luca Giordano', '4.724 €/mq', '5.384 €/mq'],
+                  ['Via Cilea', '3.800 €/mq', '4.300 €/mq'],
+                ].map((r) => (
+                  <tr key={r[0]}>
+                    <td style={{ padding: '12px 14px', borderBottom: '1px solid #e2e2e2', fontWeight: 600 }}>{r[0]}</td>
+                    <td style={{ padding: '12px 14px', borderBottom: '1px solid #e2e2e2' }}>{r[1]}</td>
+                    <td style={{ padding: '12px 14px', borderBottom: '1px solid #e2e2e2' }}>{r[2]}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p style={{ fontSize: 13, lineHeight: 1.7, color: '#6b6b6b', marginBottom: 48 }}>
+            Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia. Per una stima riferita al tuo
+            immobile serve un sopralluogo.
+          </p>
+
+          <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: 24, color: NAVY, fontFamily: 'Jost' }}>I documenti da sistemare prima di vendere</h2>
+          <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
+            La parte che fa saltare più compravendite non è il prezzo: è la documentazione. Difformità catastali,
+            provenienze successorie non aggiornate, sanatorie mai chiuse vengono quasi sempre a galla quando la
+            trattativa è già avviata, e a quel punto o si rinegozia o si perde l'acquirente.
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
+            Per questo la verifica la facciamo all'inizio dell'incarico, non al rogito: atto di provenienza, visura e
+            planimetria catastale, attestato di prestazione energetica, conformità urbanistica e catastale, e — se
+            l'immobile arriva da una successione o da una donazione — la regolarità di quel passaggio. Se emerge
+            qualcosa da sistemare, lo sai prima di pubblicare l'annuncio e hai il tempo di intervenire con calma.
+          </p>
+          <p style={{ fontSize: 16, lineHeight: 1.9 }}>
+            La sede è in Via Pietro Mascagni 35, al Vomero: se preferisci parlarne di persona prima di affidare
+            l'incarico, puoi passare in agenzia o chiamarci al 081 18653202.
+          </p>
+        </section>
+
+        {/* FAQ visibili — le stesse marcate in FAQPage */}
+        <section style={{ background: '#f7f4ee', padding: '80px 20px' }}>
+          <div style={{ maxWidth: 900, margin: '0 auto' }}>
+            <h2 style={{ fontSize: '32px', fontWeight: 700, marginBottom: 40, color: NAVY, fontFamily: 'Jost' }}>Domande frequenti su come vendere casa al Vomero</h2>
+            {FAQ_VENDI.map((f) => (
+              <div key={f.q} style={{ marginBottom: 32 }}>
+                <h3 style={{ fontSize: '1.15rem', fontWeight: 700, color: NAVY, marginBottom: 10, fontFamily: 'Jost' }}>{f.q}</h3>
+                <p style={{ fontSize: 16, lineHeight: 1.9 }}>{f.a}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": FAQ_VENDI.map((f) => ({
+              "@type": "Question",
+              "name": f.q,
+              "acceptedAnswer": { "@type": "Answer", "text": f.a },
+            })),
+          }) }}
+        />
 
         {/* Form Contatto */}
         <section style={{ padding: '80px 20px', maxWidth: 600, margin: '0 auto' }}>

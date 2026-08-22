@@ -3,6 +3,12 @@ import React from "react";
 const PHONE = "+3908118653202";
 const PHONE_DISPLAY = "081 18653202";
 
+const FAQ_ITEMS = [
+  { q: "Quanto vale il mio appartamento al Vomero?", a: "Il valore dipende da zona, piano, esposizione e condizioni. HUB offre valutazioni gratuite basate su dati di vendita reali nel quartiere. Contattaci per una stima precisa e senza impegno." },
+  { q: "Quanto tempo ci vuole per vendere casa al Vomero?", a: "I tempi dipendono da zona, prezzo e condizioni dell'immobile. Con il programma Zero Vincoli 60  i primi 60 giorni seguono un piano di attività definito da contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere dall'incarico senza penali." },
+  { q: "Come funziona il mutuo per comprare casa al Vomero?", a: "WeUnit, il ramo creditizio di HUB, confronta le offerte di oltre 20 banche per trovare il mutuo più conveniente. La consulenza è gratuita e la pratica viene seguita fino all'erogazione." },
+];
+
 export default function VomeroPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -37,7 +43,7 @@ export default function VomeroPage({ navigate, colors }) {
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb, { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQ_ITEMS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) }]) }}
       />
       {/* Hero */}
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "80px 32px 64px", textAlign: "center" }}>

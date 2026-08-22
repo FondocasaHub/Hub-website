@@ -3,6 +3,11 @@ import React from "react";
 const PHONE = "+3908118653202";
 const PHONE_DISPLAY = "081 18653202";
 
+const FAQ_ITEMS = [
+  { q: "Come vendere casa a Chiaia rapidamente?", a: "Il nostro marketing dedicato e la rete di acquirenti pre-qualificati accelerano ogni trattativa. Con il programma Zero Vincoli 60 non resti vincolato: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere dall'incarico senza penali." },
+  { q: "Quale documentazione serve per vendere a Chiaia?", a: "Servono: atto di provenienza, visura e planimetria catastale, APE, conformità urbanistica e documenti condominiali. HUB verifica gratuitamente tutta la documentazione prima di avviare la vendita." },
+];
+
 export default function ChiaiaPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -29,7 +34,7 @@ export default function ChiaiaPage({ navigate, colors }) {
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb, { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQ_ITEMS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) }]) }}
       />
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "80px 32px 64px", textAlign: "center" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>

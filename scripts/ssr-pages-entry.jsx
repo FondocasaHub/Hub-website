@@ -28,6 +28,10 @@ import { COLORS } from "../src/config/colors.js";
 // La home vive dentro App.jsx (componente HomePage) e riceve le stesse props
 // delle pagine quartiere: navigate + palette.
 import { HomePage } from "../src/App.jsx";
+import Costruttori from "../src/pages/Costruttori.jsx";
+import ZeroVincoli60Page from "../src/ZeroVincoli60Page.jsx";
+import ConsulenteMutuoNapoliPage from "../src/pages/ConsulenteMutuoNapoli.jsx";
+import VendiCasaVomeroPage from "../src/pages/VendiCasaVomero.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -45,6 +49,10 @@ const PAGES = {
   "posillipo": PosillpoPage,
   "centro-storico": CentroStoricoPage,
   "index": HomePage,
+  "costruttori": Costruttori,
+  "zero-vincoli-60": ZeroVincoli60Page,
+  "consulente-mutuo-napoli": ConsulenteMutuoNapoliPage,
+  "vendi-casa-vomero": VendiCasaVomeroPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -56,6 +64,10 @@ const PAGE_PROPS = {
   "posillipo": { navigate: noop, colors: COLORS },
   "centro-storico": { navigate: noop, colors: COLORS },
   "index": { navigate: noop, colors: COLORS },
+  // Costruttori non riceve props.
+  "zero-vincoli-60": { navigate: noop, colors: COLORS },
+  "consulente-mutuo-napoli": { navigate: noop, colors: COLORS },
+  "vendi-casa-vomero": { navigate: noop, colors: COLORS },
 };
 
 export function renderSsrPage(slug) {

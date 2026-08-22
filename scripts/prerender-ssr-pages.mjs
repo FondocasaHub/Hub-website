@@ -54,6 +54,14 @@ export const SSR_PAGES = [
   // La home: template e output coincidono (dist/index.html), quindi title,
   // description, canonical e og restano quelli gia' presenti nel file.
   { slug: 'index', contentOnly: true, expectTypes: ['RealEstateAgent', 'WebSite'] },
+  // Costruttori ha title, description, canonical e JSON-LD dentro Helmet:
+  // puo' usare il percorso standard, che porta quei tag nell'HTML statico.
+  { slug: 'costruttori', expectTypes: ['RealEstateAgent', 'FAQPage'] },
+  // Queste tre hanno Helmet senza canonical: si parte dal file di
+  // postbuild.js, che il canonical ce l'ha, e si inietta solo il contenuto.
+  { slug: 'zero-vincoli-60', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'consulente-mutuo-napoli', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'vendi-casa-vomero', contentOnly: true, expectTypes: ['RealEstateAgent'] },
 ];
 
 function bundleEntry() {

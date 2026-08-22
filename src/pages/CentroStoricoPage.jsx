@@ -3,6 +3,12 @@ import React from "react";
 const PHONE = "+3908118653202";
 const PHONE_DISPLAY = "081 18653202";
 
+const FAQ_ITEMS = [
+  { q: "Ci sono vincoli per ristrutturare nel Centro Storico?", a: "Sì. Gli immobili nel Centro Storico UNESCO possono essere soggetti a vincoli della Soprintendenza. HUB verifica la presenza di vincoli prima di qualsiasi trattativa e ti orienta sulle agevolazioni fiscali disponibili." },
+  { q: "È un buon momento per investire nel Centro Storico di Napoli?", a: "Sì. Il Centro Storico napoletano ha registrato un forte interesse da parte di acquirenti nazionali e internazionali per uso residenziale, B&B e affitti brevi. I prezzi sono ancora competitivi rispetto ad altre città d'arte italiane, con prospettive di rivalutazione." },
+  { q: "Come ottenere un mutuo per un immobile storico?", a: "WeUnit, il ramo creditizio di HUB, ha esperienza nel finanziamento di immobili storici. Esistono soluzioni specifiche e agevolazioni regionali che WeUnit conosce e gestisce." },
+];
+
 export default function CentroStoricoPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
 
@@ -29,7 +35,7 @@ export default function CentroStoricoPage({ navigate, colors }) {
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb]) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify([schema, breadcrumb, { "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": FAQ_ITEMS.map((f) => ({ "@type": "Question", "name": f.q, "acceptedAnswer": { "@type": "Answer", "text": f.a } })) }]) }}
       />
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "80px 32px 64px", textAlign: "center" }}>
         <div style={{ maxWidth: 800, margin: "0 auto" }}>

@@ -2,6 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { trackFormSubmit } from './utils/trackingEvents';
 
+const FAQ_ZV60 = [
+  { q: "Cos'è Zero Vincoli 60?", a: "È un mandato in esclusiva di 6 mesi con una clausola di uscita anticipata. Nei primi 60 giorni dal lancio dell'annuncio seguiamo un piano di attività definito nel contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere senza penali e senza costi." },
+  { q: "Zero Vincoli 60 garantisce la vendita in 60 giorni?", a: "No, e non lo promettiamo. Nessuna agenzia seria può garantire una vendita entro una data: dipende dal mercato, dal prezzo e dall'immobile. Quello che garantiamo per iscritto è diverso e verificabile: se il servizio non è all'altezza, dopo 60 giorni sei libero di andartene senza pagare nulla." },
+  { q: "Cosa comprende il piano di attività dei primi 60 giorni?", a: "Verifica documentale dell'immobile prima della pubblicazione, valutazione basata sulle vendite reali della zona, servizio fotografico professionale, annuncio pubblicato sui principali portali e piano di promozione dedicato. Sono le attività che, se non svolte, ti danno diritto a recedere." },
+  { q: "Cosa significa mandato in esclusiva?", a: "Significa che siamo l'unica agenzia autorizzata a promuovere il tuo immobile. È la condizione che ci permette di investire davvero su fotografie, promozione e tempo dedicato: senza esclusiva nessuna agenzia mette risorse serie su un immobile che potrebbe vendere qualcun altro." },
+  { q: "Cosa succede dopo i 60 giorni?", a: "Decidi tu. Se sei soddisfatto del lavoro proseguiamo insieme fino alla vendita, alle stesse condizioni. Se non lo sei, ti liberiamo dal mandato senza penali, senza discussioni e senza costi: non devi giustificare la scelta." },
+  { q: "Quanto costa?", a: "Nulla fino al rogito. Non ci sono spese anticipate, costi di attivazione né penali in caso di recesso nei termini previsti. La provvigione si paga soltanto a vendita conclusa e rogito avvenuto." },
+  { q: "Vale per qualsiasi immobile?", a: "No. L'accesso alla promozione dipende dalle caratteristiche dell'immobile: non tutti rientrano. Lo verifichiamo in fase di valutazione e te lo diciamo subito, prima di farti firmare qualsiasi cosa." },
+  { q: "Posso farlo se abito fuori Napoli?", a: "Sì. Gestiamo da remoto tutta la fase iniziale, dalla richiesta alla valutazione fino alla firma del mandato. Vieni in agenzia solo se e quando vuoi. Operiamo su Napoli e provincia." },
+];
+
 export default function ZeroVincoli60Page({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, CREAM } = colors;
 
@@ -34,9 +45,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
     };
   }, []);
 
-  useEffect(() => {
-    // Inject Service + BreadcrumbList + FAQPage schema
-    const schemas = [
+  const schemas = [
       {
         "@context": "https://schema.org",
         "@type": "Service",
@@ -63,21 +72,13 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
       {
         "@context": "https://schema.org",
         "@type": "FAQPage",
-        "mainEntity": [
-          { "@type": "Question", "name": "Cos'è Zero Vincoli 60?", "acceptedAnswer": { "@type": "Answer", "text": "Zero Vincoli 60 è una promozione esclusiva di FondoCasa Hub per vendere casa a Napoli con mandato in esclusiva di 6 mesi. Se entro 60 giorni non sei soddisfatto, ti liberiamo dal contratto senza penali e senza costi." } },
-          { "@type": "Question", "name": "Quanto costa il servizio Zero Vincoli 60?", "acceptedAnswer": { "@type": "Answer", "text": "Nulla fino al rogito. Non ci sono spese anticipate, costi di attivazione né penali in caso di recesso nei termini previsti. La provvigione si paga esclusivamente a vendita conclusa." } },
-          { "@type": "Question", "name": "Cosa succede dopo i 60 giorni?", "acceptedAnswer": { "@type": "Answer", "text": "Se sei soddisfatto del nostro lavoro, continuiamo insieme fino alla vendita. Se non sei soddisfatto per qualsiasi motivo, ti liberiamo dal mandato senza penali, senza discussioni e senza costi." } },
-          { "@type": "Question", "name": "Zero Vincoli 60 funziona anche fuori Napoli?", "acceptedAnswer": { "@type": "Answer", "text": "Gestiamo tutta la fase iniziale completamente da remoto. Il servizio è operativo nell'area di Napoli e provincia." } }
-        ]
+        "mainEntity": FAQ_ZV60.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a },
+        })),
       }
     ];
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'schema-zv60-react';
-    script.textContent = JSON.stringify(schemas);
-    document.head.appendChild(script);
-    return () => { const el = document.getElementById('schema-zv60-react'); if (el) el.remove(); };
-  }, []);
 
   const scrollToForm = () => {
     document.getElementById('form-zv60')?.scrollIntoView({ behavior: 'smooth' });
@@ -153,28 +154,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
     }
   };
 
-  const faqs = [
-    {
-      q: 'Cos\'è Zero Vincoli 60?',
-      a: 'Zero Vincoli 60 è una promozione esclusiva di FondoCasa Hub disponibile solo online. Puoi affidarci la vendita della tua casa con un mandato in esclusiva di 6 mesi, ma con una garanzia concreta: se entro 60 giorni dal lancio del tuo annuncio non sei soddisfatto del nostro lavoro, ti liberiamo dal contratto senza penali e senza costi di alcun tipo.',
-    },
-    {
-      q: 'Cosa significa mandato in esclusiva?',
-      a: 'Con il mandato in esclusiva siamo noi l\'unica agenzia autorizzata a promuovere il tuo immobile. Questo ci permette di investire davvero: fotografie professionali, piano marketing dedicato, pubblicazione su tutti i principali portali immobiliari e una strategia commerciale seria. Senza esclusiva, nessuna agenzia può permettersi di investire sulla tua casa.',
-    },
-    {
-      q: 'Cosa succede dopo i 60 giorni?',
-      a: 'Se sei soddisfatto del nostro lavoro — e contiamo di esserlo — continuiamo insieme fino alla vendita. Se invece non sei soddisfatto per qualsiasi motivo, ti liberiamo dal mandato senza penali, senza discussioni e senza costi. La scelta è totalmente tua.',
-    },
-    {
-      q: 'Quanto costa?',
-      a: 'Nulla fino al rogito. Non ci sono spese anticipate, costi di attivazione, né penali in caso di recesso nei termini previsti. La nostra provvigione si paga esclusivamente a vendita conclusa e rogito avvenuto.',
-    },
-    {
-      q: 'Posso farlo se abito fuori Napoli?',
-      a: 'Sì. Gestiamo tutta la fase iniziale — dalla compilazione del form alla valutazione, fino alla firma del mandato — completamente da remoto. Vieni in agenzia solo se e quando vuoi. Siamo operativi nell\'area di Napoli e provincia.',
-    },
-  ];
+  const faqs = FAQ_ZV60;
 
   const inputStyle = {
     width: '100%',
@@ -822,6 +802,11 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         </div>
       </section>
 
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schemas) }}
+      />
+
       {/* ── GARANZIA ── */}
       <section style={{ background: NAVY_DEEP, padding: '100px 24px', textAlign: 'center' }}>
         <div style={{ maxWidth: 680, margin: '0 auto' }}>
@@ -929,8 +914,11 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
                       +
                     </span>
                   </button>
-                  {isOpen && (
+                  {(
                     <div style={{
+                        maxHeight: isOpen ? 600 : 0,
+                        overflow: 'hidden',
+                        transition: 'max-height 0.3s ease',
                       paddingBottom: 24,
                     }}>
                       <p style={{

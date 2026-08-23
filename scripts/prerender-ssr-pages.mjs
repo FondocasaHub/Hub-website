@@ -42,15 +42,8 @@ export const SSR_PAGES = [
   { slug: 'agenzia-immobiliare-centro-storico-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'agenzia-immobiliare-soccavo-napoli', expectTypes: ['RealEstateAgent', 'FAQPage'] },
   { slug: 'valuta-il-tuo-immobile', expectTypes: ['Service', 'BreadcrumbList'] },
-  // Pagine di quartiere "storiche". contentOnly: title, description, canonical
-  // e og/twitter sono gia' corretti nel dist/<slug>.html prodotto da
-  // postbuild.js (queste pagine non usano Helmet), quindi qui non si tocca il
-  // <head>: si parte da quel file e si inietta solo il contenuto renderizzato
-  // dentro #root, cosi' H1, testi e JSON-LD arrivano ai crawler senza JS.
-  { slug: 'vomero', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
-  { slug: 'chiaia', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
-  { slug: 'posillipo', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
-  { slug: 'centro-storico', contentOnly: true, expectTypes: ['RealEstateAgent', 'LocalBusiness', 'BreadcrumbList'] },
+  // Le vecchie pagine /vomero, /chiaia, /posillipo, /centro-storico sono
+  // reindirizzate alle landing corrispondenti: non vanno piu' prerenderizzate.
   // La home: template e output coincidono (dist/index.html), quindi title,
   // description, canonical e og restano quelli gia' presenti nel file.
   { slug: 'index', contentOnly: true, expectTypes: ['RealEstateAgent', 'WebSite'] },

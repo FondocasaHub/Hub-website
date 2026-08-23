@@ -7,22 +7,22 @@
     },
     {
       "source": "/vomero",
-      "destination": "/agenzia-immobiliare/vomero-napoli",
+      "destination": "/agenzia-immobiliare-vomero-napoli",
       "permanent": true
     },
     {
       "source": "/chiaia",
-      "destination": "/agenzia-immobiliare/chiaia-napoli",
+      "destination": "/agenzia-immobiliare-chiaia-napoli",
       "permanent": true
     },
     {
       "source": "/posillipo",
-      "destination": "/agenzia-immobiliare/posillipo-napoli",
+      "destination": "/agenzia-immobiliare-posillipo-napoli",
       "permanent": true
     },
     {
       "source": "/centro-storico",
-      "destination": "/agenzia-immobiliare/centro-storico-napoli",
+      "destination": "/agenzia-immobiliare-centro-storico-napoli",
       "permanent": true
     }
   ],

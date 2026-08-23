@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 
 const FAQ_MUTUO = [
   { q: "Quanto costa la consulenza WeUnit?", a: "Gratuita. Non paghi nulla per la consulenza e per il confronto delle offerte: siamo remunerati dall'istituto solo quando il mutuo viene erogato. È anche il motivo per cui abbiamo interesse a chiudere in fretta e bene, non a farti perdere tempo." },
-  { q: "Quante banche confrontate?", a: "Oltre 20 istituti, tra grandi gruppi, tutte le banche del gruppo ICCREA e banche pi\u00f9 piccole del territorio. Queste ultime spesso sfuggono a chi cerca da solo, ma su Napoli sanno essere molto competitive su tasso e flessibilit\u00e0. Non siamo agenti di una singola banca: le mettiamo a confronto e ti spieghiamo perch\u00e9 una proposta conviene rispetto a un'altra." },
+  { q: "Quante banche confrontate?", a: "Oltre 20 istituti: BPER Banca, tutte le banche del gruppo ICCREA e diverse banche pi\u00f9 piccole del territorio. Queste ultime spesso sfuggono a chi cerca da solo, ma su Napoli sanno essere molto competitive su tasso e flessibilit\u00e0. Non siamo agenti di una singola banca: le mettiamo a confronto e ti spieghiamo perch\u00e9 una proposta conviene rispetto a un'altra." },
   { q: "Quanto tempo serve per la delibera?", a: "La delibera reddituale arriva mediamente in 20 giorni lavorativi. Dopo quella restano la perizia sull'immobile e la delibera finale, i cui tempi dipendono anche dal perito e dal notaio. Ti aggiorniamo a ogni passaggio, senza che debba essere tu a rincorrere la banca." },
   { q: "Che tipi di mutuo trattate?", a: "Acquisto prima casa, mutuo Consap al 100% per under 36, acquisto seconda casa, mutuo liquidità, consolidamento debiti, sostituzione più acquisto, surroga e sostituzione più liquidità. Nel primo incontro capiamo quale forma tecnica è adatta alla tua situazione." },
   { q: "Come funziona il mutuo al 100% per under 36?", a: "Si appoggia al Fondo di garanzia Consap per la prima casa, che permette a chi ha meno di 36 anni di finanziare l'intero valore dell'immobile invece del consueto 80%. Verifichiamo i requisiti prima di presentare la domanda, così non perdi tempo su una pratica che non passerebbe." },
@@ -119,7 +119,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 40 }}>
             {[
-              { t: 'Oltre 20 banche, un solo interlocutore', d: 'Grandi gruppi, tutte le banche del gruppo ICCREA e istituti più piccoli del territorio. Presenti la tua situazione una volta sola: al confronto e ai solleciti pensiamo noi.' },
+              { t: 'Oltre 20 banche, un solo interlocutore', d: 'Da BPER Banca a tutte le banche del gruppo ICCREA, fino agli istituti più piccoli del territorio. Presenti la tua situazione una volta sola: al confronto e ai solleciti pensiamo noi.' },
               { t: 'Tempi rapidi', d: 'La delibera reddituale arriva mediamente in 20 giorni lavorativi. Lavorando a provvigione sul risultato, abbiamo lo stesso interesse tuo a chiudere in fretta.' },
               { t: 'Nessun conflitto di interesse', d: 'Non abbiamo budget di prodotto da rispettare. Se la proposta migliore è quella di un altro istituto, è quella che ti presentiamo.' },
             ].map((b, i) => (

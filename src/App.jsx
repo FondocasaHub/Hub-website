@@ -1313,7 +1313,7 @@ function FAQSection({ colors }) {
 // =====================================================
 // CHI SIAMO
 // =====================================================
-function ChiSiamoPage({ colors }) {
+export function ChiSiamoPage({ colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   const [filterArea, setFilterArea] = useState("Tutti");
 
@@ -1614,7 +1614,7 @@ function MetodoPage({ navigate, colors }) {
 // =====================================================
 // COMINCIA DA QUI - FORM QUALIFICA
 // =====================================================
-function CominciaQuiPage({ colors }) {
+export function CominciaQuiPage({ colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   const [step, setStep] = useState(1);
   const [data, setData] = useState({
@@ -1829,7 +1829,7 @@ function CominciaQuiPage({ colors }) {
 // =====================================================
 // CARRIERA
 // =====================================================
-function CarrieraPage({ colors }) {
+export function CarrieraPage({ colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   const [candForm, setCandForm] = useState({
     nome: "", telefono: "", email: "", esperienza: "", area: "", motivazione: "", privacy: false
@@ -2007,7 +2007,7 @@ function CarrieraPage({ colors }) {
 // =====================================================
 // CONTATTI
 // =====================================================
-function ContactPage({ navigate, colors }) {
+export function ContactPage({ navigate, colors }) {
   const { NAVY, GOLD, CREAM } = colors;
   const [form, setForm] = useState({ nome: "", telefono: "", email: "", messaggio: "", privacy: false, marketing: false });
   const [sent, setSent] = useState(false);
@@ -2318,7 +2318,7 @@ const QUARTIERE_FOOTER_LINKS = [
   { slug: "soccavo", nome: "Soccavo" },
 ];
 
-function Footer({ navigate, colors }) {
+export function Footer({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   return (
     <section style={{ padding: "100px 32px 60px", background: NAVY_DEEP, color: CREAM }}>
@@ -2345,7 +2345,7 @@ function Footer({ navigate, colors }) {
             <div style={{ fontSize: 14, color: "rgba(245,239,228,0.75)", lineHeight: 2 }}>
               Via Pietro Mascagni, 35<br/>
               80128 Napoli<br/>
-              Tel. 081 18653202<br/>
+              <a href="tel:+3908118653202" style={{ color: "inherit", textDecoration: "none" }}>Tel. 081 18653202</a><br/>
               na.vomero@fondocasa.it
             </div>
           </div>

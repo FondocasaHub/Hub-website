@@ -145,7 +145,15 @@ const STANDALONE_PAGES = [
 ];
 
 export default function App() {
-  const [page, setPage] = useState(() => URL_TO_PAGE[window.location.pathname] || 'home');
+  const [page, setPage] = useState(() => {
+    const p = window.location.pathname;
+    if (p.startsWith('/blog/')) return 'blog';
+    return URL_TO_PAGE[p] || 'home';
+  });
+  // slug dell'articolo quando si entra direttamente da /blog/<slug>
+  const blogSlug = window.location.pathname.startsWith('/blog/')
+    ? window.location.pathname.replace('/blog/', '').replace(/\/$/, '')
+    : null;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
 
@@ -409,7 +417,7 @@ export default function App() {
       {page === "posillipo" && <PosillpoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "chiaia" && <ChiaiaPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "centro-storico" && <CentroStoricoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
-      {page === "blog" && <BlogPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "blog" && <BlogPage navigate={navigate} initialSlug={blogSlug} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
 
       {!STANDALONE_PAGES.includes(page) && <Footer navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
     </div>

@@ -32,6 +32,7 @@ import Costruttori from "../src/pages/Costruttori.jsx";
 import ZeroVincoli60Page from "../src/ZeroVincoli60Page.jsx";
 import ConsulenteMutuoNapoliPage from "../src/pages/ConsulenteMutuoNapoli.jsx";
 import VendiCasaVomeroPage from "../src/pages/VendiCasaVomero.jsx";
+import BlogPage from "../src/pages/BlogPage.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
 
 const PAGES = {
@@ -57,6 +58,20 @@ const PAGES = {
   "comincia": CominciaQuiPage,
   "contatti": ContactPage,
   "lavora-con-noi": CarrieraPage,
+  "blog": BlogPage,
+  "blog-come-vendere-casa-napoli-guida-completa": BlogPage,
+  "blog-tasse-costi-vendita-casa-napoli-2026": BlogPage,
+  "blog-trovare-agente-immobiliare-napoli": BlogPage,
+  "blog-documenti-vendita-immobile-napoli": BlogPage,
+  "blog-tassi-bce-giugno-2026-mutui": BlogPage,
+  "blog-prezzi-case-napoli-2026": BlogPage,
+  "blog-valutazione-immobile-napoli": BlogPage,
+  "blog-acquisto-prima-casa-napoli-guida": BlogPage,
+  "blog-agenzia-immobiliare-napoli-come-scegliere": BlogPage,
+  "blog-come-vendere-casa-napoli": BlogPage,
+  "blog-mutuo-prima-casa-napoli": BlogPage,
+  "blog-migliori-quartieri-abitare-napoli": BlogPage,
+  "blog-vendere-casa-senza-agenzia-napoli": BlogPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -68,7 +83,20 @@ const CON_FOOTER = new Set([
   'index', 'comincia', 'chi-siamo', 'contatti', 'lavora-con-noi',
   'vomero', 'chiaia', 'posillipo', 'centro-storico',
   'zero-vincoli-60', 'consulente-mutuo-napoli', 'vendi-casa-vomero',
-  'costruttori', 'valuta-il-tuo-immobile',
+  'costruttori', 'valuta-il-tuo-immobile', 'blog',
+  'blog-come-vendere-casa-napoli-guida-completa',
+  'blog-tasse-costi-vendita-casa-napoli-2026',
+  'blog-trovare-agente-immobiliare-napoli',
+  'blog-documenti-vendita-immobile-napoli',
+  'blog-tassi-bce-giugno-2026-mutui',
+  'blog-prezzi-case-napoli-2026',
+  'blog-valutazione-immobile-napoli',
+  'blog-acquisto-prima-casa-napoli-guida',
+  'blog-agenzia-immobiliare-napoli-come-scegliere',
+  'blog-come-vendere-casa-napoli',
+  'blog-mutuo-prima-casa-napoli',
+  'blog-migliori-quartieri-abitare-napoli',
+  'blog-vendere-casa-senza-agenzia-napoli',
 ]);
 const PAGE_PROPS = {
   "vomero": { navigate: noop, colors: COLORS },
@@ -84,6 +112,20 @@ const PAGE_PROPS = {
   "comincia": { colors: COLORS },
   "contatti": { navigate: noop, colors: COLORS },
   "lavora-con-noi": { colors: COLORS },
+  "blog": { navigate: noop, colors: COLORS },
+  "blog-come-vendere-casa-napoli-guida-completa": { navigate: noop, colors: COLORS, initialSlug: "come-vendere-casa-napoli-guida-completa" },
+  "blog-tasse-costi-vendita-casa-napoli-2026": { navigate: noop, colors: COLORS, initialSlug: "tasse-costi-vendita-casa-napoli-2026" },
+  "blog-trovare-agente-immobiliare-napoli": { navigate: noop, colors: COLORS, initialSlug: "trovare-agente-immobiliare-napoli" },
+  "blog-documenti-vendita-immobile-napoli": { navigate: noop, colors: COLORS, initialSlug: "documenti-vendita-immobile-napoli" },
+  "blog-tassi-bce-giugno-2026-mutui": { navigate: noop, colors: COLORS, initialSlug: "tassi-bce-giugno-2026-mutui" },
+  "blog-prezzi-case-napoli-2026": { navigate: noop, colors: COLORS, initialSlug: "prezzi-case-napoli-2026" },
+  "blog-valutazione-immobile-napoli": { navigate: noop, colors: COLORS, initialSlug: "valutazione-immobile-napoli" },
+  "blog-acquisto-prima-casa-napoli-guida": { navigate: noop, colors: COLORS, initialSlug: "acquisto-prima-casa-napoli-guida" },
+  "blog-agenzia-immobiliare-napoli-come-scegliere": { navigate: noop, colors: COLORS, initialSlug: "agenzia-immobiliare-napoli-come-scegliere" },
+  "blog-come-vendere-casa-napoli": { navigate: noop, colors: COLORS, initialSlug: "come-vendere-casa-napoli" },
+  "blog-mutuo-prima-casa-napoli": { navigate: noop, colors: COLORS, initialSlug: "mutuo-prima-casa-napoli" },
+  "blog-migliori-quartieri-abitare-napoli": { navigate: noop, colors: COLORS, initialSlug: "migliori-quartieri-abitare-napoli" },
+  "blog-vendere-casa-senza-agenzia-napoli": { navigate: noop, colors: COLORS, initialSlug: "vendere-casa-senza-agenzia-napoli" },
 };
 
 export function renderSsrPage(slug) {

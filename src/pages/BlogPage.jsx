@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const ARTICLES = [
+export const ARTICLES = [
   {
     slug: "come-vendere-casa-napoli-guida-completa",
     title: "Come vendere casa a Napoli: guida completa per vender velocemente",
@@ -916,44 +916,55 @@ const ARTICLES = [
   }
 ];
 
-export default function BlogPage({ navigate, colors }) {
+export default function BlogPage({ navigate, colors, initialSlug = null }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
-  const [selectedArticle, setSelectedArticle] = useState(null);
+  const [selectedArticle, setSelectedArticle] = useState(initialSlug);
 
-  useEffect(() => {
-    // Blog schema
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "Blog",
-      "name": "Blog Immobiliare HUB Napoli",
-      "description": "Articoli e guide pratiche sul mercato immobiliare di Napoli: vendere casa, mutui, quartieri e molto altro.",
-      "url": "https://www.fondocasahub.com/blog",
-      "publisher": {
-        "@type": "Organization",
-        "name": "HUB – FC Punto Hub Srl",
-        "url": "https://www.fondocasahub.com"
-      },
-      "blogPost": ARTICLES.map(a => ({
+  const AUTORE = { "@type": "Organization", "name": "FC Punto Hub Srl", "url": "https://www.fondocasahub.com" };
+
+  const articoloCorrente = ARTICLES.find((a) => a.slug === selectedArticle);
+  const schema = articoloCorrente
+    ? {
+        "@context": "https://schema.org",
         "@type": "BlogPosting",
-        "headline": a.title,
-        "description": a.excerpt,
-        "datePublished": a.date,
-        "author": { "@type": "Organization", "name": "HUB Napoli" },
-        "url": `https://www.fondocasahub.com/blog/${a.slug}`
-      }))
-    };
-    const script = document.createElement('script');
-    script.type = 'application/ld+json';
-    script.id = 'schema-blog';
-    script.textContent = JSON.stringify(schema);
-    document.head.appendChild(script);
-    return () => { const el = document.getElementById('schema-blog'); if (el) el.remove(); };
-  }, []);
+        "headline": articoloCorrente.title,
+        "description": articoloCorrente.excerpt,
+        "datePublished": articoloCorrente.date,
+        "dateModified": articoloCorrente.date,
+        "author": AUTORE,
+        "publisher": {
+          "@type": "Organization",
+          "name": "FC Punto Hub Srl",
+          "logo": { "@type": "ImageObject", "url": "https://www.fondocasahub.com/logo-hub.png" },
+        },
+        "mainEntityOfPage": `https://www.fondocasahub.com/blog/${articoloCorrente.slug}`,
+        "inLanguage": "it-IT",
+      }
+    : {
+        "@context": "https://schema.org",
+        "@type": "Blog",
+        "name": "Blog Immobiliare HUB Napoli",
+        "description": "Articoli e guide pratiche sul mercato immobiliare di Napoli: vendere casa, mutui, quartieri e molto altro.",
+        "url": "https://www.fondocasahub.com/blog",
+        "publisher": { "@type": "Organization", "name": "FC Punto Hub Srl", "url": "https://www.fondocasahub.com" },
+        "blogPost": ARTICLES.map((a) => ({
+          "@type": "BlogPosting",
+          "headline": a.title,
+          "description": a.excerpt,
+          "datePublished": a.date,
+          "author": AUTORE,
+          "url": `https://www.fondocasahub.com/blog/${a.slug}`,
+        })),
+      };
 
   if (selectedArticle) {
     const art = ARTICLES.find(a => a.slug === selectedArticle);
     return (
       <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "64px 32px" }}>
           <button
             onClick={() => setSelectedArticle(null)}
@@ -988,6 +999,10 @@ export default function BlogPage({ navigate, colors }) {
 
   return (
     <div style={{ background: CREAM, color: NAVY, fontFamily: "'Jost', sans-serif", paddingTop: 80 }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+        />
       {/* Hero */}
       <section style={{ background: NAVY_DEEP, color: CREAM, padding: "64px 32px 56px", textAlign: "center" }}>
         <div style={{ maxWidth: 700, margin: "0 auto" }}>

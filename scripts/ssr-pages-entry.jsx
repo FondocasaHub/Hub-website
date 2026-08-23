@@ -27,7 +27,7 @@ import { COLORS } from "../src/config/colors.js";
 
 // La home vive dentro App.jsx (componente HomePage) e riceve le stesse props
 // delle pagine quartiere: navigate + palette.
-import { HomePage } from "../src/App.jsx";
+import { HomePage, ChiSiamoPage, CominciaQuiPage, ContactPage, CarrieraPage, Footer } from "../src/App.jsx";
 import Costruttori from "../src/pages/Costruttori.jsx";
 import ZeroVincoli60Page from "../src/ZeroVincoli60Page.jsx";
 import ConsulenteMutuoNapoliPage from "../src/pages/ConsulenteMutuoNapoli.jsx";
@@ -53,11 +53,23 @@ const PAGES = {
   "zero-vincoli-60": ZeroVincoli60Page,
   "consulente-mutuo-napoli": ConsulenteMutuoNapoliPage,
   "vendi-casa-vomero": VendiCasaVomeroPage,
+  "chi-siamo": ChiSiamoPage,
+  "comincia": CominciaQuiPage,
+  "contatti": ContactPage,
+  "lavora-con-noi": CarrieraPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
 // serve solo a non far esplodere il render degli onClick.
 const noop = () => {};
+
+// Le landing di quartiere hanno gia' un footer proprio: qui solo le altre.
+const CON_FOOTER = new Set([
+  'index', 'comincia', 'chi-siamo', 'contatti', 'lavora-con-noi',
+  'vomero', 'chiaia', 'posillipo', 'centro-storico',
+  'zero-vincoli-60', 'consulente-mutuo-napoli', 'vendi-casa-vomero',
+  'costruttori', 'valuta-il-tuo-immobile',
+]);
 const PAGE_PROPS = {
   "vomero": { navigate: noop, colors: COLORS },
   "chiaia": { navigate: noop, colors: COLORS },
@@ -68,6 +80,10 @@ const PAGE_PROPS = {
   "zero-vincoli-60": { navigate: noop, colors: COLORS },
   "consulente-mutuo-napoli": { navigate: noop, colors: COLORS },
   "vendi-casa-vomero": { navigate: noop, colors: COLORS },
+  "chi-siamo": { colors: COLORS },
+  "comincia": { colors: COLORS },
+  "contatti": { navigate: noop, colors: COLORS },
+  "lavora-con-noi": { colors: COLORS },
 };
 
 export function renderSsrPage(slug) {
@@ -79,7 +95,14 @@ export function renderSsrPage(slug) {
     React.createElement(
       HelmetProvider,
       { context: helmetContext },
-      React.createElement(Component, PAGE_PROPS[slug] || undefined)
+      React.createElement(
+        React.Fragment,
+        null,
+        React.createElement(Component, PAGE_PROPS[slug] || undefined),
+        CON_FOOTER.has(slug)
+          ? React.createElement(Footer, { navigate: () => {}, colors: COLORS })
+          : null,
+      )
     )
   );
   const { helmet } = helmetContext;

@@ -62,6 +62,11 @@ export const SSR_PAGES = [
   { slug: 'zero-vincoli-60', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'consulente-mutuo-napoli', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'vendi-casa-vomero', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  // Pagine istituzionali e funnel: title e canonical arrivano da postbuild.js
+  { slug: 'chi-siamo', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'comincia', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'contatti', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'lavora-con-noi', contentOnly: true, expectTypes: ['RealEstateAgent'] },
 ];
 
 function bundleEntry() {

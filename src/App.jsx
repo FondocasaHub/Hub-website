@@ -2380,10 +2380,6 @@ export function Footer({ navigate, colors }) {
           <div>
             <h4 style={{ fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Quartieri</h4>
             <div style={{ fontSize: 14, color: "rgba(245,239,228,0.75)", lineHeight: 2 }}>
-              <div style={{ cursor: "pointer" }} onClick={() => navigate("vomero")}>Vomero</div>
-              <div style={{ cursor: "pointer" }} onClick={() => navigate("posillipo")}>Posillipo</div>
-              <div style={{ cursor: "pointer" }} onClick={() => navigate("chiaia")}>Chiaia</div>
-              <div style={{ cursor: "pointer" }} onClick={() => navigate("centro-storico")}>Centro Storico</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("zero-vincoli-60")}>Zero Vincoli 60</div>
               <div style={{ cursor: "pointer", color: GOLD, fontWeight: 600 }} onClick={() => navigate("costruttori")}>Divisione Cantieri ↗</div>
             </div>

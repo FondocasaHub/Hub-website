@@ -322,7 +322,7 @@ export default function App() {
         <div style={{ maxWidth: 1280, margin: "0 auto", padding: "16px 32px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
           <div style={{ display: "flex", alignItems: "center", gap: 14, cursor: "pointer" }} onClick={() => navigate("home")}>
             <div className="logo-container" style={{ width: 52, height: 52 }}>
-              <img src={HUB_LOGO} alt="HUB" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+              <img src={HUB_LOGO} alt="HUB FondoCasa: agenzia immobiliare, creditizia e assicurativa a Napoli" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
             </div>
             <div style={{ color: CREAM }}>
               <div style={{ fontSize: 10, letterSpacing: 2.5, color: GOLD, textTransform: "uppercase", marginBottom: 3, fontWeight: 500 }}>FondoCasa Hub</div>
@@ -800,7 +800,7 @@ export function HomePage({ navigate, colors }) {
           <div style={{ maxWidth: 920 }}>
             {/* Logo HUB */}
             <div className="fade-up" style={{ animationDelay: "0.05s", marginBottom: 40 }}>
-              <img src="/logo-hub.png" alt="HUB Logo" width="120" height="120" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }} />
+              <img src="/logo-hub.png" alt="Logo HUB FondoCasa Napoli Vomero" width="120" height="120" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }} />
             </div>
 
             <div className="fade-up" style={{ animationDelay: "0.1s", opacity: 0 }}>
@@ -1423,7 +1423,7 @@ export function ChiSiamoPage({ colors }) {
           <div className="grid-team-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))", gap: 28 }}>
             {filteredTeam.map((p, i) => (
               <div key={i} className="team-card">
-                <img src={TEAM_PHOTOS[p.foto]} alt={p.nome} />
+                <img src={TEAM_PHOTOS[p.foto]} alt={`${p.nome}, ${p.ruolo} di FC Punto Hub Napoli Vomero`} loading="lazy" />
                 <div style={{ padding: "20px 22px 24px" }}>
                   <div style={{ fontSize: 10, letterSpacing: 1.8, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 6 }}>{p.area}</div>
                   <div className="serif" style={{ fontSize: "1.15rem", fontWeight: 700, color: NAVY, lineHeight: 1.2, marginBottom: 4 }}>{p.nome}</div>
@@ -2335,7 +2335,7 @@ export function Footer({ navigate, colors }) {
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 14, marginBottom: 24 }}>
               <div className="logo-container" style={{ width: 64, height: 64 }}>
-                <img src={HUB_LOGO} alt="HUB" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
+                <img src={HUB_LOGO} alt="HUB FondoCasa: agenzia immobiliare, creditizia e assicurativa a Napoli" style={{ width: "100%", height: "100%", objectFit: "contain" }} />
               </div>
               <div>
                 <div style={{ fontSize: 11, letterSpacing: 2.5, color: GOLD, textTransform: "uppercase", marginBottom: 4, fontWeight: 500 }}>FondoCasa Hub</div>

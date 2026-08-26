@@ -231,7 +231,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         </button>
 
         <div style={{ textAlign: 'center', lineHeight: 1.2, display: 'flex', alignItems: 'center', gap: 12, justifyContent: 'center' }}>
-          <img src="/logo-zv60.png" alt="ZV60" style={{ width: 32, height: 32 }} />
+          <img src="/logo-zv60.png" alt="Logo del programma Zero Vincoli 60" style={{ width: 32, height: 32 }} />
           <div>
             <div style={{ color: GOLD, fontWeight: 700, fontSize: 13, letterSpacing: '0.12em' }}>HUB</div>
             <div style={{ color: '#fff', fontWeight: 600, fontSize: 12, letterSpacing: '0.06em' }}>FondoCasa Hub</div>
@@ -287,7 +287,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             display: 'flex',
             justifyContent: 'center',
           }}>
-            <img src="/logo-zv60.png" alt="Zero Vincoli 60 Logo" width="180" height="180" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }} />
+            <img src="/logo-zv60.png" alt="Zero Vincoli 60: vendi casa a Napoli senza vincoli" width="180" height="180" style={{ filter: 'drop-shadow(0 8px 24px rgba(212, 175, 55, 0.25))' }} />
           </div>
 
           {/* Badge */}

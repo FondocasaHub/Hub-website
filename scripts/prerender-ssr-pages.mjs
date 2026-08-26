@@ -70,8 +70,6 @@ export const SSR_PAGES = [
   { slug: 'blog-prezzi-case-napoli-2026', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-valutazione-immobile-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-acquisto-prima-casa-napoli-guida', contentOnly: true, expectTypes: ['BlogPosting'] },
-  { slug: 'blog-agenzia-immobiliare-napoli-come-scegliere', contentOnly: true, expectTypes: ['BlogPosting'] },
-  { slug: 'blog-come-vendere-casa-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-mutuo-prima-casa-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-migliori-quartieri-abitare-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-vendere-casa-senza-agenzia-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },

@@ -24,6 +24,16 @@
       "source": "/centro-storico",
       "destination": "/agenzia-immobiliare-centro-storico-napoli",
       "permanent": true
+    },
+    {
+      "source": "/blog/come-vendere-casa-napoli",
+      "destination": "/blog/come-vendere-casa-napoli-guida-completa",
+      "permanent": true
+    },
+    {
+      "source": "/blog/agenzia-immobiliare-napoli-come-scegliere",
+      "destination": "/blog/trovare-agente-immobiliare-napoli",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -142,14 +152,6 @@
     {
       "source": "/blog/acquisto-prima-casa-napoli-guida",
       "destination": "/blog-acquisto-prima-casa-napoli-guida.html"
-    },
-    {
-      "source": "/blog/agenzia-immobiliare-napoli-come-scegliere",
-      "destination": "/blog-agenzia-immobiliare-napoli-come-scegliere.html"
-    },
-    {
-      "source": "/blog/come-vendere-casa-napoli",
-      "destination": "/blog-come-vendere-casa-napoli.html"
     },
     {
       "source": "/blog/mutuo-prima-casa-napoli",

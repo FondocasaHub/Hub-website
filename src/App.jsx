@@ -2169,20 +2169,20 @@ export function ContactPage({ navigate, colors }) {
             </h3>
             <div style={{ borderRadius: 8, overflow: "hidden", border: `1px solid rgba(10,31,61,0.12)`, boxShadow: "0 4px 24px rgba(10,31,61,0.08)" }}>
               <iframe
-                title="HUB Napoli – Via Pietro Mascagni 35"
-                src="https://maps.google.com/maps?q=Via+Pietro+Mascagni+35+Napoli+80128&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                title="FC Punto Hub Napoli Vomero – Via Pietro Mascagni 35"
+                src="https://maps.google.com/maps?q=Fc+Punto+Hub+Napoli+Vomero+FondoCasa+Hub,+Via+Pietro+Mascagni+35,+80128+Napoli&t=&z=17&ie=UTF8&iwloc=&output=embed"
                 width="100%"
                 height="380"
                 style={{ border: 0, display: "block" }}
                 allowFullScreen=""
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-                aria-label="Mappa sede HUB Napoli – Via Pietro Mascagni 35"
+                aria-label="Mappa della sede FC Punto Hub Napoli Vomero, Via Pietro Mascagni 35"
               />
             </div>
             <div style={{ display: "flex", gap: 24, marginTop: 16, flexWrap: "wrap" }}>
               <a
-                href="https://maps.google.com/?q=Via+Pietro+Mascagni+35+Napoli"
+                href="https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "#b68a39", fontSize: 14, fontWeight: 600, textDecoration: "none" }}
@@ -2190,7 +2190,7 @@ export function ContactPage({ navigate, colors }) {
                 Apri in Google Maps →
               </a>
               <a
-                href="https://maps.apple.com/?q=Via+Pietro+Mascagni+35+Napoli"
+                href="https://maps.apple.com/?q=Fc+Punto+Hub+Napoli+Vomero&ll=40.8446157,14.2207702"
                 target="_blank"
                 rel="noopener noreferrer"
                 style={{ color: "#b68a39", fontSize: 14, fontWeight: 600, textDecoration: "none" }}

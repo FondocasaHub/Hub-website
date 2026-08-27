@@ -38,7 +38,8 @@ const TEAM_PHOTOS = [
   "/images/team-6.jpg",
   "/images/team-7.jpg",
   "/images/team-8.jpg",
-  "/images/team-9.jpg"
+  "/images/team-9.jpg",
+  "/images/team-10.jpg"
 ];
 
 // === DATI TEAM (placeholder - sostituire con nomi reali) ===
@@ -52,7 +53,8 @@ const TEAM = [
   { foto: 0, nome: "Sara Calvino",      nome1: "Sara",      ruolo: "Buyer Agent",                         area: "Immobiliare", iniziali: "SC",  tel: "3667380144", email: "sara.calvino@fondocasa.it" },
   { foto: 5, nome: "Angela Chiocca",    nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AC",  tel: "3355259648", email: "angela.chiocca@fondocasa.it" },
   { foto: 4, nome: "Sonia Cappiello",   nome1: "Sonia",     ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "SCa", tel: "3295826352", email: "sonia.cappiello@fondocasa.it" },
-  { foto: 1, nome: "Francesco Terrin",  nome1: "Francesco", ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "FT",  tel: "3389625687", email: "francesco.terrin@fondocasa.it" }
+  { foto: 1, nome: "Francesco Terrin",  nome1: "Francesco", ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "FT",  tel: "3389625687", email: "francesco.terrin@fondocasa.it" },
+  { foto: 10, nome: "Angela Spavone",   nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AS" }
 ];
 
 // === TESTIMONIANZE REALI (Google) ===
@@ -2159,6 +2161,24 @@ export function ContactPage({ navigate, colors }) {
                 </p>
                 <button className="btn-outline" style={{ marginTop: 18, padding: "14px 24px", borderRadius: 3, border: "1px solid rgba(193,154,91,0.4)", background: "transparent", color: CREAM, cursor: "pointer", textTransform: "uppercase", fontSize: 12, letterSpacing: 1.2 }} onClick={() => navigate("home")}>Torna alla home</button>
               </div>
+            </div>
+          </div>
+
+          {/* Foto della sede */}
+          <div style={{ marginTop: 56 }}>
+            <h3 className="serif" style={{ fontSize: "1.6rem", fontWeight: 700, color: NAVY, marginBottom: 20 }}>
+              La nostra sede al Vomero
+            </h3>
+            <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 16 }}>
+              {[
+                { src: "/images/agenzia-vomero-esterno.jpg", alt: "Ingresso dell'agenzia FondoCasa Hub in Via Pietro Mascagni 35 al Vomero, Napoli" },
+                { src: "/images/agenzia-vomero-vetrina-mascagni.jpg", alt: "Vetrina dell'agenzia immobiliare FondoCasa Hub al Vomero con gli immobili in vendita" },
+                { src: "/images/agenzia-vomero-interno-postazioni.jpg", alt: "Interno dell'agenzia FondoCasa Hub al Vomero: le postazioni dei consulenti immobiliari" },
+                { src: "/images/agenzia-vomero-sala-attesa.jpg", alt: "Sala d'attesa dell'agenzia FondoCasa Hub al Vomero, Napoli" },
+              ].map((f) => (
+                <img key={f.src} src={f.src} alt={f.alt} loading="lazy" width="800" height="533"
+                  style={{ width: "100%", height: 200, objectFit: "cover", borderRadius: 8, border: "1px solid rgba(10,31,61,0.12)" }} />
+              ))}
             </div>
           </div>
 

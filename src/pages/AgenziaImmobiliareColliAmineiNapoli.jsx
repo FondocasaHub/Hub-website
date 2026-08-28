@@ -51,10 +51,17 @@ export default function AgenziaImmobiliareColliAmineiNapoli() {
         "La domanda arriva soprattutto da famiglie che lavorano nella zona ospedaliera o negli uffici limitrofi, e da chi cerca un buon collegamento metro verso il centro mantenendo prezzi più accessibili rispetto alle zone collinari più centrali. È inoltre un quartiere di interesse per chi investe in immobili da destinare alla locazione a personale sanitario o universitario, vista la vicinanza ai grandi ospedali cittadini e la buona disponibilità di mezzi pubblici su gomma e su ferro.",
         "Per chi vende casa ai Colli Aminei, la documentazione richiesta riguarda soprattutto la regolarità catastale e urbanistica dei condomini più datati. Un immobile ben posizionato rispetto alla fermata metro e con documentazione in ordine si distingue rapidamente dalla concorrenza, in una zona dove il collegamento ai trasporti pesa molto sulle scelte degli acquirenti. Anche lo stato delle parti comuni del condominio — ascensore, facciata, impianti — incide in modo significativo sulla velocità di vendita, più che in edifici di pregio dove prevale il valore della singola unità.",
       ]}
+      priceTableTitle="Valori del venduto per strada"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della strada; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Via Nicolardi", tipico: "2.898 €/mq", massimo: "3.300 €/mq" },
+        { via: "Viale Colli Aminei", tipico: "2.864 €/mq", massimo: "3.157 €/mq" },
+        { via: "Viale Farnese", tipico: "2.800 €/mq", massimo: "3.200 €/mq" },
+      ]}
       faq={[
         {
           q: "Quanto vale un appartamento ai Colli Aminei?",
-          a: "I Colli Aminei sono generalmente più accessibili rispetto a Vomero, Chiaia e Posillipo. Il valore cambia in base alla strada, allo stato dell'immobile e alla vicinanza alla metropolitana. Richiedi una valutazione gratuita per una stima basata sulle vendite reali della tua zona.",
+          a: "I Colli Aminei sono generalmente più accessibili rispetto a Vomero, Chiaia e Posillipo. Sul venduto che seguiamo, in via Nicolardi circa il 70% delle compravendite si chiude intorno a 2.898 €/mq con punte fino a 3.300, in viale Colli Aminei intorno a 2.864 €/mq con punte fino a 3.157, in viale Farnese intorno a 2.800 €/mq con punte fino a 3.200. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "I Colli Aminei sono ben collegati al centro di Napoli?",

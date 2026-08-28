@@ -51,10 +51,17 @@ export default function AgenziaImmobiliareChiaiaNapoli() {
         "La domanda arriva sia da acquirenti napoletani di fascia alta sia da chi investe in immobili da destinare alla locazione turistica o residenziale, vista la forte attrattività turistica e commerciale della zona. Prima di procedere con un investimento a scopo locativo è comunque opportuno verificare la normativa comunale e condominiale aggiornata, che negli ultimi anni ha introdotto vincoli più stringenti in diverse aree della città. Non mancano infine acquirenti stranieri, attratti dalla combinazione di centralità, mare e patrimonio storico che rende Chiaia difficilmente paragonabile ad altre zone della città.",
         "Per chi vende un immobile a Chiaia, la documentazione storica dell'edificio richiede spesso un'attenzione particolare, trattandosi in molti casi di palazzi vincolati o con vincoli paesaggistici legati alla vicinanza al lungomare. Un'agenzia con esperienza specifica nella gestione di questi aspetti riduce i tempi di due diligence e protegge sia il venditore sia l'acquirente da sorprese in fase di rogito.",
       ]}
+      priceTableTitle="Valori del venduto per strada"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della strada; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Via dei Mille", tipico: "4.802 €/mq", massimo: "7.153 €/mq" },
+        { via: "Piazza dei Martiri", tipico: "4.500 €/mq", massimo: "6.000 €/mq" },
+        { via: "Via Mergellina", tipico: "4.293 €/mq", massimo: "5.862 €/mq" },
+      ]}
       faq={[
         {
           q: "Quanto vale un appartamento a Chiaia?",
-          a: "Chiaia è tra le zone più costose di Napoli, con valori mediamente tra 4.000 e 7.000 €/mq, che variano molto in base a vista, piano e stato dell'immobile. Richiedi una valutazione gratuita per una stima precisa.",
+          a: "Dipende molto dalla strada, dalla vista e dal piano. Sul venduto che seguiamo, in via dei Mille circa il 70% delle compravendite si chiude intorno a 4.802 €/mq con punte fino a 7.153, in piazza dei Martiri intorno a 4.500 €/mq con punte fino a 6.000, in via Mergellina intorno a 4.293 €/mq con punte fino a 5.862. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "Qual è la differenza tra Chiaia e Riviera di Chiaia?",

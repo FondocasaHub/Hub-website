@@ -51,10 +51,17 @@ export default function AgenziaImmobiliareArenellaNapoli() {
         "La domanda arriva soprattutto da famiglie che cercano più metratura rispetto al Vomero centrale mantenendo un accesso rapido ai suoi servizi, scuole e collegamenti: un profilo di acquirente che valuta il quartiere come alternativa più accessibile senza rinunciare alla collina. Non mancano anche giovani coppie al primo acquisto, attratte da un mercato con margini di trattativa spesso più ampi rispetto al Vomero centrale.",
         "Per chi vende, la preparazione documentale resta il passaggio più delicato, specialmente negli edifici più datati dove nel tempo possono essersi accumulate difformità catastali minori. Verificare la regolarità urbanistica prima di mettere l'immobile sul mercato evita rallentamenti in fase di rogito e rafforza la posizione negoziale del venditore, soprattutto in una zona dove il confronto con altre proposte simili è frequente.",
       ]}
+      priceTableTitle="Valori del venduto per strada"
+      priceTableNote="Valori rilevati sul venduto reale seguito e monitorato dalla nostra agenzia, non su stime da portale. Il valore ricorrente è quello a cui si chiude circa il 70% delle compravendite della strada; la punta massima è il valore più alto registrato. Per una stima riferita al tuo immobile serve un sopralluogo."
+      priceTable={[
+        { via: "Via Piscicelli", tipico: "3.415 €/mq", massimo: "4.078 €/mq" },
+        { via: "Via San Giacomo dei Capri", tipico: "3.300 €/mq", massimo: "4.079 €/mq" },
+        { via: "Via Domenico Fontana", tipico: "3.066 €/mq", massimo: "4.093 €/mq" },
+      ]}
       faq={[
         {
           q: "Quanto vale un appartamento all'Arenella?",
-          a: "Generalmente meno del Vomero centrale, ma comunque in una fascia medio-alta per Napoli. Il valore cambia sensibilmente da una strada all'altra e in base a piano, ascensore e stato dell'immobile. Richiedi una valutazione gratuita per una stima basata sulle vendite reali della tua zona.",
+          a: "Generalmente meno del Vomero centrale, ma comunque in una fascia medio-alta per Napoli. Sul venduto che seguiamo, in via Piscicelli circa il 70% delle compravendite si chiude intorno a 3.415 €/mq, in via San Giacomo dei Capri intorno a 3.300 e in via Domenico Fontana intorno a 3.066, con punte che in tutte e tre superano i 4.000. Richiedi una valutazione gratuita per una stima riferita al tuo immobile.",
         },
         {
           q: "L'Arenella è considerata parte del Vomero?",

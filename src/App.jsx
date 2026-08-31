@@ -2148,7 +2148,7 @@ export function ContactPage({ navigate, colors }) {
               <div style={{ marginBottom: 24 }}>
                 <h4 style={{ fontSize: 12, letterSpacing: 2.5, textTransform: "uppercase", color: GOLD, marginBottom: 12 }}>Orari</h4>
                 <p style={{ color: "rgba(245,239,228,0.7)", fontSize: 14, lineHeight: 1.7 }}>
-                  Lun-Ven 09:00-19:00<br />Sab 09:00-13:00
+                  Lun-Ven 09:00-19:00<br />Sab 09:30-13:00
                 </p>
               </div>
               <div>

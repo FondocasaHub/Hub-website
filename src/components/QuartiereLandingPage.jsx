@@ -505,6 +505,7 @@ export default function QuartiereLandingPage({
         <div className="q-footer-info" style={{textAlign:"right"}}>
           {ADDRESS}, {POSTAL_CODE} {CITY}<br/>
           <a href={`tel:${PHONE}`} style={{color:"#C9A84C",textDecoration:"none"}}>Tel. {PHONE_DISPLAY}</a><br/>
+          <a href="https://wa.me/393924579047" target="_blank" rel="noopener noreferrer" style={{color:"#C9A84C",textDecoration:"none"}}>WhatsApp Store 392 457 9047</a><br/>
           fondocasahub.com | WeUnit – OAM M28
         </div>
       </footer>

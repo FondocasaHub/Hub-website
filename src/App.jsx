@@ -44,7 +44,7 @@ const TEAM_PHOTOS = [
 
 // === DATI TEAM (placeholder - sostituire con nomi reali) ===
 const TEAM = [
-  { foto: 9, nome: "Nicola Nigido",     nome1: "Nicola",    ruolo: "CEO e Store Manager",                 area: "Direzione",   iniziali: "NN",  tel: "3937882334", email: "nicola.nigido@fondocasa.it" },
+  { foto: 9, nome: "Nicola Nigido",     nome1: "Nicola",    ruolo: "CEO e Store Manager",                 area: "Direzione",   iniziali: "NN",  tel: "3924579047", email: "nicola.nigido@fondocasa.it" },
   { foto: 8, nome: "Avv. Carlo Mosca",  nome1: "Carlo",     ruolo: "Responsabile Team Legale",            area: "Immobiliare", iniziali: "CM",  tel: "3289258010", email: "carlo.mosca@fondocasa.it" },
   { foto: 7, nome: "Vincenzo Esposito", nome1: "Vincenzo",  ruolo: "Team Manager",                        area: "Immobiliare", iniziali: "VE",  tel: "3518392699", email: "vincenzo.esposito@fondocasa.it" },
   { foto: 6, nome: "Vincenzo Di Pinto", nome1: "Vincenzo",  ruolo: "Consulente del Credito e Resp. Aste", area: "Creditizio",  iniziali: "VDP", tel: "3776765500", email: "vincenzo.dipinto@fondocasa.it" },
@@ -2374,6 +2374,7 @@ export function Footer({ navigate, colors }) {
               Via Pietro Mascagni, 35<br/>
               80128 Napoli<br/>
               <a href="tel:+3908118653202" style={{ color: "inherit", textDecoration: "none" }}>Tel. 081 18653202</a><br/>
+              <a href="https://wa.me/393924579047" target="_blank" rel="noopener noreferrer" style={{ color: "inherit", textDecoration: "none" }}>WhatsApp Store 392 457 9047</a><br/>
               na.vomero@fondocasa.it
             </div>
           </div>

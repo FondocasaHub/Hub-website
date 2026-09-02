@@ -57,7 +57,8 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
           "name": "HUB – FC Punto Hub Srl",
           "url": "https://www.fondocasahub.com",
           "telephone": "+3908118653202",
-          "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" }
+          "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "addressRegion": "NA", "postalCode": "80128", "addressCountry": "IT" },
+          "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw"
         },
         "areaServed": [{ "@type": "City", "name": "Napoli" }, { "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Posillipo" }]
       },

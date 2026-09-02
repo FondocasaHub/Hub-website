@@ -31,7 +31,7 @@ const ADDRESS = "Via Pietro Mascagni, 35";
 const CITY = "Napoli";
 const POSTAL_CODE = "80128";
 // Coordinate della sede (Via Pietro Mascagni 35, Vomero) — stesse di index.html.
-const DEFAULT_GEO = { lat: 40.851773, lng: 14.268124 };
+const DEFAULT_GEO = { lat: 40.8446157, lng: 14.2207702 };
 
 const styles = `
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap');
@@ -272,10 +272,12 @@ export default function QuartiereLandingPage({
       "@type": "PostalAddress",
       "streetAddress": ADDRESS,
       "addressLocality": CITY,
+      "addressRegion": "NA",
       "postalCode": POSTAL_CODE,
       "addressCountry": "IT",
     },
     "geo": { "@type": "GeoCoordinates", "latitude": geo.lat, "longitude": geo.lng },
+    "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
     // Il quartiere target della pagina è sempre il primo elemento (massima rilevanza SEO
     // per questa landing); le altre zone realmente coperte seguono via alsoServesAreas.
     "areaServed": [quartiere, ...alsoServesAreas].map((name) => ({ "@type": "Place", name })),

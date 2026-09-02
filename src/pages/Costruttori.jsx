@@ -264,9 +264,9 @@ export default function Costruttori() {
 
         {/* ── GEO TAGS ── */}
         <meta name="geo.region" content="IT-NA" />
-        <meta name="geo.placename" content="Napoli" />
-        <meta name="geo.position" content="40.8359;14.2488" />
-        <meta name="ICBM" content="40.8359, 14.2488" />
+        <meta name="geo.placename" content="Napoli, Vomero" />
+        <meta name="geo.position" content="40.8446157;14.2207702" />
+        <meta name="ICBM" content="40.8446157, 14.2207702" />
 
         {/* ── JSON-LD: Service ── */}
         <script type="application/ld+json">{JSON.stringify({
@@ -290,9 +290,10 @@ export default function Costruttori() {
             },
             "geo": {
               "@type": "GeoCoordinates",
-              "latitude": 40.8359,
-              "longitude": 14.2488
+              "latitude": 40.8446157,
+              "longitude": 14.2207702
             },
+            "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
             "areaServed": [
               {"@type": "Country", "name": "Italia", "identifier": "IT"},
               {"@type": "City", "name": "Napoli"},

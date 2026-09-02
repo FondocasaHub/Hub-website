@@ -24,10 +24,12 @@ export default function VomeroPage({ navigate, colors }) {
       "@type": "PostalAddress",
       "streetAddress": "Via Pietro Mascagni, 35",
       "addressLocality": "Napoli",
+      "addressRegion": "NA",
       "postalCode": "80128",
       "addressCountry": "IT"
     },
-    "geo": { "@type": "GeoCoordinates", "latitude": 40.851773, "longitude": 14.268124 },
+    "geo": { "@type": "GeoCoordinates", "latitude": 40.8446157, "longitude": 14.2207702 },
+    "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
     "areaServed": [{ "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Vomero Alto" }, { "@type": "Place", "name": "Belvedere" }]
   };
   const breadcrumb = {

@@ -293,6 +293,7 @@ export default function Costruttori() {
               "latitude": 40.8359,
               "longitude": 14.2488
             },
+            "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
             "areaServed": [
               {"@type": "Country", "name": "Italia", "identifier": "IT"},
               {"@type": "City", "name": "Napoli"},

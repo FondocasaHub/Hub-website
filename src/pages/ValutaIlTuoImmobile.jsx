@@ -229,9 +229,11 @@ export default function ValutaIlTuoImmobile() {
         "@type": "PostalAddress",
         "streetAddress": "Via Pietro Mascagni, 35",
         "addressLocality": "Napoli",
+        "addressRegion": "NA",
         "postalCode": "80128",
         "addressCountry": "IT",
       },
+      "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
     },
     "areaServed": { "@type": "City", "name": "Napoli" },
     "offers": {

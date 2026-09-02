@@ -18,7 +18,8 @@ export default function ChiaiaPage({ navigate, colors }) {
     "description": "Agenzia immobiliare nel quartiere Chiaia di Napoli. HUB segue compravendite, mutui e assicurazioni per immobili a Chiaia e Mergellina.",
     "url": "https://www.fondocasahub.com/chiaia",
     "telephone": PHONE,
-    "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "postalCode": "80128", "addressCountry": "IT" },
+    "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "addressRegion": "NA", "postalCode": "80128", "addressCountry": "IT" },
+    "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw",
     "areaServed": [{ "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Riviera di Chiaia" }, { "@type": "Place", "name": "Via dei Mille" }]
   };
   const breadcrumb = {

@@ -13,8 +13,8 @@ export default function AgenziaImmobiliareArenellaNapoli() {
       slug="arenella"
       heroEyebrow="Agenzia Immobiliare a Napoli, Arenella"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Arenella</span>.</>}
-      heroSubtitle="Compra o vendi casa all'Arenella con un'agenzia radicata sulla collina del Vomero da 26 anni. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
-      heroPills={["26 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa all'Arenella con un'agenzia radicata sulla collina del Vomero da 27 anni. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
+      heroPills={["27 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Vomero", "Chiaia", "Posillipo", "Fuorigrotta", "Colli Aminei"]}
       nearbyAreas={[
         { name: "Vomero", slug: "vomero" },
@@ -25,7 +25,7 @@ export default function AgenziaImmobiliareArenellaNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni sulla collina del Vomero",
+          title: "27 anni sulla collina del Vomero",
           desc: "Sede in Via Pietro Mascagni 35, a pochi passi dall'Arenella: conosciamo i valori reali della zona, non le medie cittadine.",
         },
         {
@@ -78,7 +78,7 @@ export default function AgenziaImmobiliareArenellaNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Arenella | FondoCasa Hub",
-        description: "Compra o vendi casa a Napoli, zona Arenella, con FondoCasa Hub: 26 anni di esperienza e conoscenza diretta del quartiere. Richiedi una valutazione gratuita.",
+        description: "Compra o vendi casa a Napoli, zona Arenella, con FondoCasa Hub: 27 anni di esperienza e conoscenza diretta del quartiere. Richiedi una valutazione gratuita.",
       }}
     />
   );

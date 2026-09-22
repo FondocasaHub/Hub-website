@@ -56,7 +56,7 @@ export default function VomeroPage({ navigate, colors }) {
             <span style={{ color: GOLD }}>è in buone mani</span>
           </h1>
           <p style={{ fontSize: 18, lineHeight: 1.8, opacity: 0.85, marginBottom: 40 }}>
-            HUB è presente al Vomero di Napoli da oltre 26 anni in Via Pietro Mascagni 35.
+            HUB è presente al Vomero di Napoli da oltre 27 anni in Via Pietro Mascagni 35.
             Compravendita immobiliare, mediazione creditizia e consulenza assicurativa sotto lo stesso tetto.
           </p>
           <button
@@ -85,7 +85,7 @@ export default function VomeroPage({ navigate, colors }) {
           vendere o comprare casa al Vomero richiede una conoscenza profonda del mercato locale e un metodo professionale.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
-          HUB – FC Punto Hub Srl opera al Vomero da oltre 26 anni con sede in <strong>Via Pietro Mascagni 35</strong>.
+          HUB – FC Punto Hub Srl opera al Vomero da oltre 27 anni con sede in <strong>Via Pietro Mascagni 35</strong>.
           Il nostro team di 10 professionisti conosce ogni microzona: da Vomero Alto a Belvedere, da Antignano a Piazza degli Artisti.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 40 }}>

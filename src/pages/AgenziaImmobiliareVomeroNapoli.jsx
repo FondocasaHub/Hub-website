@@ -4,7 +4,7 @@ import QuartiereLandingPage from "../components/QuartiereLandingPage";
  * Landing "agenzia immobiliare a Napoli, Vomero".
  *
  * Nota contenuti: i fatti riutilizzati da altre pagine del sito (indirizzo,
- * 26 anni di attività, rating Google 5.0, funicolari) sono reali. Le cifre
+ * 27 anni di attività, rating Google 5.0, funicolari) sono reali. Le cifre
  * di mercato (fasce di prezzo, tempi medi di vendita) NON sono verificate:
  * restano tra [PLACEHOLDER: ...] e vanno sostituite con dati reali e
  * aggiornati appena disponibili — vedi segnalazione in chat.
@@ -17,8 +17,8 @@ export default function AgenziaImmobiliareVomeroNapoli() {
       slug="vomero"
       heroEyebrow="Agenzia Immobiliare a Napoli, Vomero"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Vomero</span>.</>}
-      heroSubtitle="Compra o vendi casa al Vomero con un'agenzia che vive il quartiere da 26 anni. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
-      heroPills={["26 anni al Vomero", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa al Vomero con un'agenzia che vive il quartiere da 27 anni. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
+      heroPills={["27 anni al Vomero", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Chiaia", "Posillipo", "Fuorigrotta", "Soccavo", "Centro Storico"]}
       nearbyAreas={[
         { name: "Arenella", slug: "arenella" },
@@ -29,7 +29,7 @@ export default function AgenziaImmobiliareVomeroNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni nello stesso quartiere",
+          title: "27 anni nello stesso quartiere",
           desc: "Sede storica in Via Pietro Mascagni 35: conosciamo ogni traversa e ogni condominio del Vomero.",
         },
         {
@@ -82,7 +82,7 @@ export default function AgenziaImmobiliareVomeroNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Vomero | FondoCasa Hub",
-        description: "Compra o vendi casa a Napoli, zona Vomero, con FondoCasa Hub: 26 anni di esperienza nel quartiere e valutazione gratuita. Contattaci per una consulenza.",
+        description: "Compra o vendi casa a Napoli, zona Vomero, con FondoCasa Hub: 27 anni di esperienza nel quartiere e valutazione gratuita. Contattaci per una consulenza.",
       }}
     />
   );

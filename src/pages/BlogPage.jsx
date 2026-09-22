@@ -11,7 +11,7 @@ export const ARTICLES = [
     content: `
       <h2>Come vendere casa a Napoli: la guida definitiva</h2>
       <p>Vendere una casa a Napoli non è solo una questione di prezzo. È una strategia che richiede preparazione, conoscenza del mercato locale e decisioni intelligenti in ogni fase. Questa guida ti porterà passo dopo passo attraverso il processo di vendita, dalle scelte iniziali fino al rogito.</p>
-      <p>HUB, con 26 anni di esperienza nel mercato napoletano, ha aiutato migliaia di famiglie a vendere le loro case velocemente e al giusto prezzo. Ecco il metodo dei 7 pilastri che abbiamo sviluppato.</p>
+      <p>HUB, con 27 anni di esperienza nel mercato napoletano, ha aiutato migliaia di famiglie a vendere le loro case velocemente e al giusto prezzo. Ecco il metodo dei 7 pilastri che abbiamo sviluppato.</p>
 
       <h3>Fase 1: La preparazione - Rendere la casa pronta alla vendita</h3>
       <p>La prima impressione è cruciale. Gli acquirenti decidono se una casa "piace" nei primi 15 secondi di visita. Prima di metterla sul mercato:</p>
@@ -85,7 +85,7 @@ export const ARTICLES = [
       </ul>
 
       <h3>Gli errori più comuni che rallentano la vendita</h3>
-      <p>Basandoci su 26 anni di esperienza, ecco i 5 errori che le persone commettono più spesso:</p>
+      <p>Basandoci su 27 anni di esperienza, ecco i 5 errori che le persone commettono più spesso:</p>
       <ol>
         <li><strong>Prezzo non realistico:</strong> il 40% delle case che restano sul mercato sono sopravvalutate di 10-20%.</li>
         <li><strong>Documentazione incompleta:</strong> un documento mancante può bloccare tutto per mesi.</li>
@@ -121,7 +121,7 @@ export const ARTICLES = [
       <p><strong>Via Pietro Mascagni 35 - Vomero, Napoli</strong><br/>
       <strong>Tel. 081 18653202</strong><br/>
       <strong>WhatsApp</strong> - scrivici direttamente per una risposta veloce</p>
-      <p>Siamo qui da 26 anni. Aiutiamo le famiglie napoletane a vendere velocemente, proteggendo i loro diritti ogni passo del cammino.</p>
+      <p>Siamo qui da 27 anni. Aiutiamo le famiglie napoletane a vendere velocemente, proteggendo i loro diritti ogni passo del cammino.</p>
     `
   },
   {
@@ -386,10 +386,10 @@ export const ARTICLES = [
         <li><strong>Commissione:</strong> solitamente 2-4% condiviso tra agente del venditore e agente dell'acquirente. Che sia scritto in nero su bianco.</li>
       </ul>
 
-      <h3>HUB: 26 anni di esperienza nel tuo quartiere</h3>
+      <h3>HUB: 27 anni di esperienza nel tuo quartiere</h3>
       <p>HUB ha 10 professionisti che vivono e lavorano a Napoli dal 1999. Conosciamo ogni microzona, ogni costruttore, ogni tipo di immobile.</p>
       <p>Se cerchi un agente che conosce davvero il tuo quartiere e sa come vendere velocemente, contattaci per una consulenza gratuita. Ti spiegheremo come funzioniamo e cosa faremo per la TUA casa specifica.</p>
-      <p>Non promettiamo miracoli. Promettiamo trasparenza, professionalità e risultati basati su 26 anni di mercato napoletano.</p>
+      <p>Non promettiamo miracoli. Promettiamo trasparenza, professionalità e risultati basati su 27 anni di mercato napoletano.</p>
     `
   },
   {
@@ -540,7 +540,7 @@ export const ARTICLES = [
       <p><strong>Consiglio:</strong> Non aspettare il momento della vendita per raccogliere documenti. Raccoglili oggi, verifica con un geometra, risolvi i problemi. Quando deciderai di vendere, sarai pronto in 24 ore.</p>
 
       <h3>HUB ti aiuta nella documentazione</h3>
-      <p>La documentazione è il nostro pane quotidiano. In 26 anni, abbiamo risolto migliaia di irregolarità immobiliari a Napoli. Se hai domande su quali documenti servono per la TUA casa specifica, contattaci per una consulenza gratuita.</p>
+      <p>La documentazione è il nostro pane quotidiano. In 27 anni, abbiamo risolto migliaia di irregolarità immobiliari a Napoli. Se hai domande su quali documenti servono per la TUA casa specifica, contattaci per una consulenza gratuita.</p>
       <p>Non sottovalutare questa fase: una vendita veloce parte da una documentazione completa e regolare.</p>
     `
   },

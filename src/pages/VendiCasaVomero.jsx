@@ -41,9 +41,9 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
     <>
       <Helmet>
         <title>Vendi Casa al Vomero Napoli | FondoCasa Hub</title>
-        <meta name="description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci." />
+        <meta name="description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 27 anni di esperienza nel quartiere. Contattaci." />
         <meta property="og:title" content="Vendi Casa al Vomero Napoli | FondoCasa Hub" />
-        <meta property="og:description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci." />
+        <meta property="og:description" content="Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 27 anni di esperienza nel quartiere. Contattaci." />
         <meta property="og:url" content="https://www.fondocasahub.com/vendi-casa-vomero" />
       </Helmet>
 
@@ -51,7 +51,7 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
         {/* Hero Section */}
         <section style={{ background: `linear-gradient(135deg, ${NAVY} 0%, ${NAVY_DEEP} 100%)`, color: CREAM, padding: '100px 20px', textAlign: 'center' }}>
           <h1 style={{ fontSize: '42px', fontWeight: 700, marginBottom: 20, fontFamily: 'Jost' }}>Vendi Casa al Vomero con FondoCasa Hub</h1>
-          <p style={{ fontSize: '18px', maxWidth: 600, margin: '0 auto', opacity: 0.9 }}>Valutazione gratuita, piano marketing dedicato e la sicurezza di 26 anni di esperienza nel quartiere.</p>
+          <p style={{ fontSize: '18px', maxWidth: 600, margin: '0 auto', opacity: 0.9 }}>Valutazione gratuita, piano marketing dedicato e la sicurezza di 27 anni di esperienza nel quartiere.</p>
         </section>
 
         {/* Perché scegliere FondoCasa Hub */}
@@ -59,7 +59,7 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
           <h2 style={{ fontSize: '32px', fontWeight: 700, textAlign: 'center', marginBottom: 60, color: NAVY, fontFamily: 'Jost' }}>Perché scegliere FondoCasa Hub</h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 40 }}>
             {[
-              { icon: '📅', title: '26 Anni di Esperienza', desc: 'Dal 1998 aiutiamo i venditori al Vomero. Conosciamo il mercato, i prezzi e le migliori strategie di vendita.' },
+              { icon: '📅', title: '27 Anni di Esperienza', desc: 'Dal 1998 aiutiamo i venditori al Vomero. Conosciamo il mercato, i prezzi e le migliori strategie di vendita.' },
               { icon: '💳', title: 'Mutui Integrati con WeUnit', desc: 'Se l\'acquirente ha bisogno di un mutuo, WeUnit lo supporta. Tutto in un unico ecosistema integrato.' },
               { icon: '⚡', title: 'Zero Vincoli 60', desc: 'Programma speciale: se non vendiamo la tua casa in 60 giorni, siamo noi a offrirvi una soluzione.' },
             ].map((item, i) => (

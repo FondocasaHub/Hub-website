@@ -4,7 +4,7 @@ import { Helmet } from "react-helmet-async";
 const MAKE_WEBHOOK = "https://hook.eu1.make.com/f5y10qwk1czp77a9vbgk9e2vxqpoyycg";
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap');
+  /* Font caricato da index.html (link preconnect+stylesheet), non più via @import qui */
 
   .c-root { font-family: 'Jost', sans-serif; background: #0A1628; color: #F8F8F8; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 

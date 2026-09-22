@@ -34,7 +34,7 @@ const POSTAL_CODE = "80128";
 const DEFAULT_GEO = { lat: 40.8446157, lng: 14.2207702 };
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap');
+  /* Font caricato da index.html (link preconnect+stylesheet), non più via @import qui */
 
   .q-root { font-family: 'Jost', sans-serif; background: #0A1628; color: #F8F8F8; overflow-x: hidden; -webkit-font-smoothing: antialiased; }
 
@@ -339,7 +339,7 @@ export default function QuartiereLandingPage({
             <p className="q-hero-areas">Operativi anche a {alsoServesAreas.join(", ")}.</p>
           )}
           <div className="q-pills">
-            {(heroPills || ["26 anni di esperienza", "Valutazione gratuita", quartiere]).map((p, i) => (
+            {(heroPills || ["27 anni di esperienza", "Valutazione gratuita", quartiere]).map((p, i) => (
               <span key={i} className={`q-pill ${i === 0 ? "q-pill-gold" : ""}`}>{p}</span>
             ))}
           </div>

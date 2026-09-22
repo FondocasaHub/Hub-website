@@ -16,8 +16,8 @@ export default function AgenziaImmobiliareCentroStoricoNapoli() {
       slug="centro-storico"
       heroEyebrow="Agenzia Immobiliare a Napoli, Centro Storico"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Centro Storico</span>.</>}
-      heroSubtitle="Compra o vendi casa nel Centro Storico di Napoli con un'agenzia con 26 anni di esperienza sul mercato cittadino. Valutazione gratuita su dati reali del venduto e servizio integrato immobiliare, mutuo e assicurazione."
-      heroPills={["26 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa nel Centro Storico di Napoli con un'agenzia con 27 anni di esperienza sul mercato cittadino. Valutazione gratuita su dati reali del venduto e servizio integrato immobiliare, mutuo e assicurazione."
+      heroPills={["27 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Vomero", "Chiaia", "Posillipo", "Arenella", "Fuorigrotta", "Colli Aminei"]}
       nearbyAreas={[
         { name: "Chiaia", slug: "chiaia" },
@@ -28,8 +28,8 @@ export default function AgenziaImmobiliareCentroStoricoNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni sul mercato di Napoli",
-          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche nel Centro Storico, con un metodo collaudato in 26 anni di attività.",
+          title: "27 anni sul mercato di Napoli",
+          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche nel Centro Storico, con un metodo collaudato in 27 anni di attività.",
         },
         {
           icon: "📊",
@@ -80,7 +80,7 @@ export default function AgenziaImmobiliareCentroStoricoNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Centro Storico | FondoCasa Hub",
-        description: "Compra o vendi casa nel Centro Storico di Napoli con FondoCasa Hub: 26 anni di esperienza e valori del venduto reale per strada. Richiedi una consulenza gratuita.",
+        description: "Compra o vendi casa nel Centro Storico di Napoli con FondoCasa Hub: 27 anni di esperienza e valori del venduto reale per strada. Richiedi una consulenza gratuita.",
       }}
     />
   );

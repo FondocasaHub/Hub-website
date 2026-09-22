@@ -59,7 +59,7 @@ const EMPTY_FORM = {
 };
 
 const styles = `
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Jost:wght@300;400;500;600&display=swap');
+  /* Font caricato da index.html (link preconnect+stylesheet), non più via @import qui */
 
   .v-root { font-family: 'Jost', sans-serif; background: #0A1628; color: #F8F8F8; min-height: 100vh; -webkit-font-smoothing: antialiased; }
 

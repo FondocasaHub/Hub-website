@@ -13,8 +13,8 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
       slug="fuorigrotta"
       heroEyebrow="Agenzia Immobiliare a Napoli, Fuorigrotta"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Fuorigrotta</span>.</>}
-      heroSubtitle="Compra o vendi casa a Fuorigrotta con un'agenzia con 26 anni di esperienza sul mercato immobiliare di Napoli. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
-      heroPills={["26 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa a Fuorigrotta con un'agenzia con 27 anni di esperienza sul mercato immobiliare di Napoli. Valutazione gratuita e servizio integrato immobiliare, mutuo e assicurazione."
+      heroPills={["27 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Vomero", "Chiaia", "Posillipo", "Arenella", "Colli Aminei"]}
       nearbyAreas={[
         { name: "Posillipo", slug: "posillipo" },
@@ -25,8 +25,8 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni sul mercato di Napoli",
-          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche a Fuorigrotta, con un metodo collaudato in 26 anni di attività.",
+          title: "27 anni sul mercato di Napoli",
+          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche a Fuorigrotta, con un metodo collaudato in 27 anni di attività.",
         },
         {
           icon: "📊",
@@ -78,7 +78,7 @@ export default function AgenziaImmobiliareFuorigrottaNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Fuorigrotta | FondoCasa Hub",
-        description: "Compra o vendi casa a Napoli, zona Fuorigrotta, con FondoCasa Hub: 26 anni di esperienza e conoscenza del quartiere. Richiedi una valutazione gratuita.",
+        description: "Compra o vendi casa a Napoli, zona Fuorigrotta, con FondoCasa Hub: 27 anni di esperienza e conoscenza del quartiere. Richiedi una valutazione gratuita.",
       }}
     />
   );

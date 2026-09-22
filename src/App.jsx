@@ -189,8 +189,8 @@ export default function App() {
 
   // SEO: sync browser URL and meta tags with current page
   const PAGE_META = {
-    'home': { title: 'Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub', desc: 'A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile.' },
-    'chi-siamo': { title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Scopri il team FondoCasa Hub: 26 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.' },
+    'home': { title: 'Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub', desc: 'A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 27 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile.' },
+    'chi-siamo': { title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Scopri il team FondoCasa Hub: 27 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.' },
     'metodo': { title: 'Metodo dei 7 Pilastri per Vendere Casa | FondoCasa Hub', desc: 'Vendi casa senza sorprese con il Metodo dei 7 Pilastri: due diligence, marketing dedicato e gestione di mutuo e assicurazione. Scopri come funziona.' },
     'contatti': { title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub', desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9-13. Richiedi una consulenza gratuita.' },
     'comincia': { title: 'Valutazione Gratuita Immobile Napoli | FondoCasa Hub', desc: 'Richiedi la valutazione gratuita del tuo immobile a Napoli: analisi di mercato precisa e risposta entro 24 ore dal team FondoCasa Hub. Inizia subito.' },
@@ -200,7 +200,7 @@ export default function App() {
     'note-legali': { title: 'Note Legali e Dati Societari | FondoCasa Hub', desc: 'Informazioni societarie, condizioni d\'uso e avvertenze legali di FC Punto Hub Srl, titolare del sito FondoCasa Hub. Consulta tutti i dettagli societari.' },
     'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub', desc: 'Vendi casa a Napoli in 60 giorni con l\'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più.' },
     'grazie': { title: 'Richiesta Ricevuta | FondoCasa Hub', desc: 'Grazie per averci contattato: un consulente FondoCasa Hub ti richiamerà entro 24 ore per la tua richiesta su casa, mutuo o assicurazione a Napoli.' },
-    'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.' },
+    'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 27 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.' },
     'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | FondoCasa Hub', desc: 'Vuoi comprare o vendere casa a Posillipo? FondoCasa Hub conosce il mercato locale e offre valutazioni gratuite con consulenza su mutuo e assicurazione.' },
     'chiaia': { title: 'Agenzia Immobiliare Chiaia Napoli | FondoCasa Hub', desc: 'FondoCasa Hub segue compravendite immobiliari a Chiaia, Napoli: valutazione gratuita del tuo immobile e assistenza fino al rogito. Richiedi una consulenza.' },
     'centro-storico': { title: 'Agenzia Immobiliare Centro Storico Napoli | FondoCasa Hub', desc: 'Acquista o vendi casa nel Centro Storico di Napoli con FondoCasa Hub: consulenza immobiliare, mutuo e assicurazione integrati. Richiedi info gratuite.' },
@@ -432,7 +432,7 @@ export default function App() {
 function GlobalStyles({ NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM }) {
   return (
     <style>{`
-      @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Jost:wght@300;400;500;600;700&display=swap');
+      /* Font caricato da index.html (link preconnect+stylesheet), non più via @import qui */
       * { margin: 0; padding: 0; box-sizing: border-box; }
       html { scroll-behavior: smooth; }
       body { font-family: 'Jost', sans-serif; }
@@ -824,7 +824,7 @@ export function HomePage({ navigate, colors }) {
               fontSize: "1.25rem", lineHeight: 1.6, color: "rgba(245,239,228,0.85)",
               maxWidth: 760, marginBottom: 44, fontWeight: 300, opacity: 0
             }}>
-              A Napoli, da 26 anni, riuniamo sotto lo stesso tetto vendita immobiliare, mediazione creditizia e consulenza assicurativa.
+              A Napoli, da 27 anni, riuniamo sotto lo stesso tetto vendita immobiliare, mediazione creditizia e consulenza assicurativa.
               Grazie a strumenti digitali innovativi e a un metodo strutturato, oggi operiamo con efficacia in <strong>tutta la città</strong> —
               dal Vomero al centro storico, da Chiaia al Vomero Alto, da Posillipo ai Camaldoli.
             </p>
@@ -986,7 +986,7 @@ export function HomePage({ navigate, colors }) {
           </div>
           <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fill, minmax(240px, 1fr))", gap: 20 }}>
             {[
-              { slug: "vomero", nome: "Vomero", desc: "Il quartiere residenziale più richiesto di Napoli. HUB ha sede qui da 26 anni.", prezzo: "3.500 – 5.500 €/mq" },
+              { slug: "vomero", nome: "Vomero", desc: "Il quartiere residenziale più richiesto di Napoli. HUB ha sede qui da 27 anni.", prezzo: "3.500 – 5.500 €/mq" },
               { slug: "arenella", nome: "Arenella", desc: "La collina a ridosso del Vomero: stessa qualità della vita, prezzi più accessibili.", prezzo: null },
               { slug: "chiaia", nome: "Chiaia", desc: "Il quartiere più elegante di Napoli, tra Riviera e Via dei Mille.", prezzo: "4.000 – 7.000 €/mq" },
               { slug: "posillipo", nome: "Posillipo", desc: "Il segmento premium di Napoli: ville con vista mare e appartamenti esclusivi.", prezzo: "5.000 – 12.000 €/mq" },
@@ -1199,7 +1199,7 @@ function NewsletterSection({ colors }) {
 const FAQS = [
   {
     q: "Qual è la migliore agenzia immobiliare al Vomero di Napoli?",
-    a: "HUB – FC Punto Hub Srl è una delle agenzie immobiliari di riferimento al Vomero di Napoli, con 26 anni di attività in Via Pietro Mascagni 35. Opera con il brand Fondocasa per la compravendita immobiliare, WeUnit per la mediazione creditizia e Henia per la consulenza assicurativa, offrendo un servizio integrato che ha assistito oltre 3.898 famiglie."
+    a: "HUB – FC Punto Hub Srl è una delle agenzie immobiliari di riferimento al Vomero di Napoli, con 27 anni di attività in Via Pietro Mascagni 35. Opera con il brand Fondocasa per la compravendita immobiliare, WeUnit per la mediazione creditizia e Henia per la consulenza assicurativa, offrendo un servizio integrato che ha assistito oltre 3.898 famiglie."
   },
   {
     q: "Come vendere casa a Napoli senza problemi?",
@@ -1231,7 +1231,7 @@ const FAQS = [
   },
   {
     q: "Cos'è il metodo dei 7 Pilastri di HUB?",
-    a: "Il metodo dei 7 Pilastri è l'approccio strutturato che HUB applica a ogni compravendita immobiliare: 1) analisi documentale e due diligence, 2) valutazione di mercato precisa, 3) piano di marketing dedicato, 4) qualificazione degli acquirenti, 5) negoziazione protetta, 6) gestione di mutuo e assicurazione in parallelo, 7) assistenza fino al rogito e oltre. Un metodo costruito in 26 anni che riduce i tempi di vendita e protegge venditore e acquirente in ogni fase."
+    a: "Il metodo dei 7 Pilastri è l'approccio strutturato che HUB applica a ogni compravendita immobiliare: 1) analisi documentale e due diligence, 2) valutazione di mercato precisa, 3) piano di marketing dedicato, 4) qualificazione degli acquirenti, 5) negoziazione protetta, 6) gestione di mutuo e assicurazione in parallelo, 7) assistenza fino al rogito e oltre. Un metodo costruito in 27 anni che riduce i tempi di vendita e protegge venditore e acquirente in ogni fase."
   },
   {
     q: "Perché scegliere HUB rispetto a un'agenzia immobiliare tradizionale?",
@@ -1337,7 +1337,7 @@ export function ChiSiamoPage({ colors }) {
         <div style={{ maxWidth: 1100, margin: "0 auto", textAlign: "center" }}>
           <span className="badge-gold">Chi siamo</span>
           <h1 className="serif h1-resp" style={{ fontSize: "3.6rem", fontWeight: 700, color: CREAM, marginTop: 24, marginBottom: 24, lineHeight: 1.1 }}>
-            Un team. <span className="gold-text">Un metodo.</span><br/>26 anni di risultati.
+            Un team. <span className="gold-text">Un metodo.</span><br/>27 anni di risultati.
           </h1>
           <div className="gold-line" style={{ width: 80, margin: "0 auto 24px" }} />
           <p style={{ color: "rgba(245,239,228,0.85)", fontSize: "1.15rem", lineHeight: 1.7, maxWidth: 720, margin: "0 auto" }}>
@@ -1358,7 +1358,7 @@ export function ChiSiamoPage({ colors }) {
             </div>
             <div style={{ color: "rgba(10,31,61,0.8)", fontSize: 16, lineHeight: 1.8 }}>
               <p style={{ marginBottom: 16 }}>
-                <strong>Tutto è cominciato 26 anni fa</strong>, con l'idea che vendere casa non potesse essere un atto improvvisato. Doveva essere un metodo. Negli anni abbiamo visto migliaia di trattative, capito gli errori più costosi che fanno perdere decine di migliaia di euro ai proprietari, e costruito una procedura che oggi chiamiamo <strong>i 7 Pilastri dell'Hub</strong>.
+                <strong>Tutto è cominciato 27 anni fa</strong>, con l'idea che vendere casa non potesse essere un atto improvvisato. Doveva essere un metodo. Negli anni abbiamo visto migliaia di trattative, capito gli errori più costosi che fanno perdere decine di migliaia di euro ai proprietari, e costruito una procedura che oggi chiamiamo <strong>i 7 Pilastri dell'Hub</strong>.
               </p>
               <p style={{ marginBottom: 16 }}>
                 <strong>Poi è arrivata la sinergia con WeUnit</strong>: la consulenza creditizia integrata che ci permette di portarti acquirenti già pre-qualificati, con il mutuo istruito prima della proposta. Niente più trattative chiuse e poi saltate.
@@ -1520,7 +1520,7 @@ function MetodoPage({ navigate, colors }) {
     { n: "02", title: "Servizio Fotografico Professionale", short: "Il 95% decide nei primi 3 secondi.", desc: "Fotografo professionista, ottiche grandangolari, post-produzione cinematografica. Le foto del tuo immobile devono fermare il dito sullo schermo. Niente cellulare, niente compromessi." },
     { n: "03", title: "Home Staging Strategico", short: "Vendere uno spazio, non una stanza vuota.", desc: "Suggerimenti operativi su luce, declutter, neutralizzazione. Quando serve, intervento di home staging professionale per immobili di pregio. Un investimento minimo che alza il prezzo finale." },
     { n: "04", title: "Marketing Multicanale Targettizzato", short: "Trovare il compratore giusto, non aspettarlo.", desc: "Campagne Meta Ads geolocalizzate, database interno di acquirenti pre-qualificati, portali premium, network agenzia. Il tuo immobile arriva davanti a chi può davvero comprarlo." },
-    { n: "05", title: "Pre-qualificazione Mortgage WeUnit", short: "Solo compratori con mutuo già istruito.", desc: "Grazie a WeUnit, ogni acquirente che ti portiamo è già passato dal nostro consulente creditizio. Niente trattative chiuse e poi saltate per mutuo negato. 26 anni di esperienza nel credito immobiliare al servizio della tua vendita." },
+    { n: "05", title: "Pre-qualificazione Mortgage WeUnit", short: "Solo compratori con mutuo già istruito.", desc: "Grazie a WeUnit, ogni acquirente che ti portiamo è già passato dal nostro consulente creditizio. Niente trattative chiuse e poi saltate per mutuo negato. 27 anni di esperienza nel credito immobiliare al servizio della tua vendita." },
     { n: "06", title: "Negoziazione Strutturata", short: "Un metodo, non improvvisazione.", desc: "Real Value Method: tecnica di negoziazione documentata, gestione delle proposte multiple, protezione del prezzo. Ogni trattativa è seguita personalmente dal Store Manager." },
     { n: "07", title: "Assistenza Notarile Completa", short: "Dalla proposta al rogito, mano nella mano.", desc: "Ti accompagniamo in ogni passaggio: verifica documentale, gestione tecnico, scelta del notaio, presenza all'atto. Non vendiamo case, gestiamo patrimoni." }
   ];
@@ -1899,7 +1899,7 @@ export function CarrieraPage({ colors }) {
             {[
               { n: "01", t: "Formazione continua", d: "Onboarding strutturato + formazione mensile su acquisizione, negoziazione e digitale. Cresci con il metodo, non per tentativi." },
               { n: "02", t: "Più trattative chiuse", d: "Quando porti un acquirente, il nostro mediatore creditizio WeUnit lo pre-qualifica subito. Meno trattative saltano per mutuo negato, più chiusure reali." },
-              { n: "03", t: "Brand riconosciuto", d: "Lavori sotto un'insegna leader del Vomero con 26 anni di storia, oggi presente in tutta Napoli. I clienti ti aprono la porta perché sanno chi siamo." },
+              { n: "03", t: "Brand riconosciuto", d: "Lavori sotto un'insegna leader del Vomero con 27 anni di storia, oggi presente in tutta Napoli. I clienti ti aprono la porta perché sanno chi siamo." },
               { n: "04", t: "Strumenti digitali", d: "CRM avanzato, fotografo, materiale marketing, campagne adv già attive. Tu ti concentri sulle relazioni, noi a tutto il resto." },
               { n: "05", t: "Affiancamento operativo", d: "Team Manager dedicato (Vincenzo Esposito guida il Team 2): supporto in trattativa, sviluppo personale costante." },
               { n: "06", t: "Servizio completo al cliente", d: "Offri immobile, mutuo e assicurazione tramite un unico hub. Il cliente percepisce più valore, tu chiudi più mandati." }

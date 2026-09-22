@@ -66,7 +66,7 @@ Il Team di FondoCasa Hub</p>
 
 <p>Mi chiamo <strong>CEO Nicola Nigido</strong>, e ho aiutato 500+ persone a trovare casa a Napoli.</p>
 
-<p>In questi 26 anni, ho visto di tutto. Ma conosco UNO sbaglio che accade SEMPRE.</p>
+<p>In questi 27 anni, ho visto di tutto. Ma conosco UNO sbaglio che accade SEMPRE.</p>
 
 <p>Gli acquirenti vanno su Immobiliare.it, vedono la casa dei loro sogni, la amano, portano la famiglia a vederla... e SOLO DOPO parlano con una banca.</p>
 
@@ -193,7 +193,7 @@ CEO Nicola Nigido</p>
 
 <p>Specialmente se hai un agente immobiliare che parla la loro lingua.</p>
 
-<p>Io parlo il loro linguaggio da 26 anni.</p>
+<p>Io parlo il loro linguaggio da 27 anni.</p>
 
 <p>So cosa cercano, cosa temono, come convincerli a dirti "sì."</p>
 

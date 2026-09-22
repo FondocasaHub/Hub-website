@@ -7,6 +7,13 @@
     <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
     <link rel="apple-touch-icon" href="/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!-- Font: preconnect + link invece di @import CSS-in-JS, per evitare la
+         catena di richieste in serie (HTML -> CSS -> @import -> font) ed
+         essere presente anche nell'HTML statico prerenderizzato -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&family=Jost:wght@300;400;500;600;700&display=swap">
     <link rel="canonical" href="https://www.fondocasahub.com/" />
     <link rel="alternate" hreflang="it" href="https://www.fondocasahub.com/" />
     <link rel="alternate" hreflang="it-IT" href="https://www.fondocasahub.com/" />
@@ -16,7 +23,7 @@
     <!-- SEO Primary Meta Tags -->
     <title>Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub</title>
     <meta name="title" content="Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub" />
-    <meta name="description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
+    <meta name="description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 27 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
     <meta name="author" content="FC Punto Hub Srl" />
     <meta name="geo.region" content="IT-NA" />
     <meta name="geo.placename" content="Napoli, Vomero" />
@@ -27,7 +34,7 @@
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://www.fondocasahub.com/" />
     <meta property="og:title" content="Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub" />
-    <meta property="og:description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
+    <meta property="og:description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 27 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
     <meta property="og:locale" content="it_IT" />
     <meta property="og:image" content="https://www.fondocasahub.com/og-image.jpg" />
     <meta property="og:image:width" content="1200" />
@@ -38,7 +45,7 @@
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://www.fondocasahub.com/" />
     <meta property="twitter:title" content="Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub" />
-    <meta property="twitter:description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
+    <meta property="twitter:description" content="A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 27 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile." />
     <meta property="twitter:image" content="https://www.fondocasahub.com/og-image.jpg" />
 
     <!-- Google Search Console Verification -->
@@ -46,7 +53,7 @@
     <!-- End Google Search Console Verification -->
 
     <!-- Iubenda Cookie Solution -->
-    <script type="text/javascript" src="https://embeds.iubenda.com/widgets/be5222a0-c9b4-4227-9bfc-f8251d8daaa6.js"></script>
+    <script type="text/javascript" async src="https://embeds.iubenda.com/widgets/be5222a0-c9b4-4227-9bfc-f8251d8daaa6.js"></script>
     <!-- End Iubenda Cookie Solution -->
 
     <!-- Google Consent Mode v2 – defaults negati, Iubenda aggiorna dopo consenso -->
@@ -81,7 +88,7 @@
       "@type": ["RealEstateAgent", "LocalBusiness"],
       "name": "HUB - Fondocasa Hub",
       "alternateName": "FC Punto Hub Srl",
-      "description": "Hub Immobiliare, Creditizio e Assicurativo a Napoli. 26 anni di esperienza nel Vomero, Posillipo, Centro Storico e tutta Napoli.",
+      "description": "Hub Immobiliare, Creditizio e Assicurativo a Napoli. 27 anni di esperienza nel Vomero, Posillipo, Centro Storico e tutta Napoli.",
       "url": "https://www.fondocasahub.com",
       "logo": "https://www.fondocasahub.com/logo-hub.png",
       "image": [
@@ -176,7 +183,7 @@
         "@context": "https://schema.org",
         "@type": "WebPage",
         "name": "HUB | Agenzia Immobiliare, Mutui e Assicurazioni a Napoli",
-        "description": "HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 26 anni al Vomero, Posillipo, Chiaia e tutta Napoli.",
+        "description": "HUB Napoli: agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. 27 anni al Vomero, Posillipo, Chiaia e tutta Napoli.",
         "url": "https://www.fondocasahub.com/",
         "inLanguage": "it-IT",
         "isPartOf": { "@type": "WebSite", "url": "https://www.fondocasahub.com" },
@@ -216,7 +223,7 @@
       <!-- Fallback statico per crawler senza JavaScript -->
       <noscript>
         <h1>HUB – Immobiliare · Creditizio · Assicurativo a Napoli</h1>
-        <p>A Napoli da 26 anni. Agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. Vomero, Posillipo, Centro Storico e tutta Napoli.</p>
+        <p>A Napoli da 27 anni. Agenzia immobiliare, mediazione creditizia e consulenza assicurativa integrata. Vomero, Posillipo, Centro Storico e tutta Napoli.</p>
         <address>
           Via Pietro Mascagni, 35 – 80128 Napoli<br>
           Tel: <a href="tel:+3908118653202">081 18653202</a><br>

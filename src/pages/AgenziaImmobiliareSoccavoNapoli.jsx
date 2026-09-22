@@ -14,8 +14,8 @@ export default function AgenziaImmobiliareSoccavoNapoli() {
       slug="soccavo"
       heroEyebrow="Agenzia Immobiliare a Napoli, Soccavo"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Soccavo</span>.</>}
-      heroSubtitle="Compra o vendi casa a Soccavo con un'agenzia con 26 anni di esperienza sul mercato di Napoli. Valutazione gratuita su dati reali del venduto e servizio integrato immobiliare, mutuo e assicurazione."
-      heroPills={["26 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa a Soccavo con un'agenzia con 27 anni di esperienza sul mercato di Napoli. Valutazione gratuita su dati reali del venduto e servizio integrato immobiliare, mutuo e assicurazione."
+      heroPills={["27 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Vomero", "Chiaia", "Posillipo", "Arenella", "Fuorigrotta", "Colli Aminei", "Centro Storico"]}
       nearbyAreas={[
         { name: "Fuorigrotta", slug: "fuorigrotta" },
@@ -26,8 +26,8 @@ export default function AgenziaImmobiliareSoccavoNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni sul mercato di Napoli",
-          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche a Soccavo, con un metodo collaudato in 26 anni di attività.",
+          title: "27 anni sul mercato di Napoli",
+          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo compravendite anche a Soccavo, con un metodo collaudato in 27 anni di attività.",
         },
         {
           icon: "📊",
@@ -78,7 +78,7 @@ export default function AgenziaImmobiliareSoccavoNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Soccavo | FondoCasa Hub",
-        description: "Compra o vendi casa a Soccavo, Napoli, con FondoCasa Hub: 26 anni di esperienza e valori del venduto reale per strada. Richiedi una consulenza gratuita.",
+        description: "Compra o vendi casa a Soccavo, Napoli, con FondoCasa Hub: 27 anni di esperienza e valori del venduto reale per strada. Richiedi una consulenza gratuita.",
       }}
     />
   );

@@ -8,7 +8,7 @@ const path = require('path');
 const PAGE_META = {
   '/chi-siamo': {
     title: 'Chi Siamo | HUB Napoli – Fondocasa, WeUnit, Henia',
-    desc: 'Scopri il team di HUB Napoli: 26 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa a Napoli.',
+    desc: 'Scopri il team di HUB Napoli: 27 anni di esperienza immobiliare, creditizia e assicurativa al Vomero. FC Punto Hub Srl – professionisti della casa a Napoli.',
     canonical: 'https://www.fondocasahub.com/chi-siamo'
   },
   '/il-nostro-metodo': {
@@ -33,7 +33,7 @@ const PAGE_META = {
   },
   '/vomero': {
     title: 'Agenzia Immobiliare Vomero Napoli | HUB – Compravendita e Mutui',
-    desc: 'HUB è la tua agenzia immobiliare di riferimento al Vomero di Napoli. Compravendita, mutui e assicurazioni. Via Pietro Mascagni 35 – da 26 anni nel quartiere.',
+    desc: 'HUB è la tua agenzia immobiliare di riferimento al Vomero di Napoli. Compravendita, mutui e assicurazioni. Via Pietro Mascagni 35 – da 27 anni nel quartiere.',
     canonical: 'https://www.fondocasahub.com/vomero'
   },
   '/posillipo': {

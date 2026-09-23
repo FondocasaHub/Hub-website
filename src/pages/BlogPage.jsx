@@ -26,7 +26,7 @@ export const ARTICLES = [
       <p>Al termine dei 60 giorni decidi tu. Se sei soddisfatto proseguiamo fino alla vendita alle stesse condizioni. Se non lo sei, o se non abbiamo svolto tutte le attività previste, recedi senza penali e senza costi, senza dover giustificare la scelta.</p>
 
       <h2>Cosa non promettiamo</h2>
-      <p>Non garantiamo la vendita in 60 giorni: nessuna agenzia seria può farlo, perché dipende da mercato, prezzo e immobile. Garantiamo per iscritto una cosa diversa e verificabile: la libertà di andartene se il servizio non è all'altezza.</p>
+      <p>Non garantiamo la vendita in 60 giorni: nessuna agenzia seria può farlo, perché dipende da mercato, prezzo e immobile. Garantiamo per iscritto una cosa diversa e verificabile: l'applicazione completa del nostro metodo e del nostro processo, come da capitolato, e la libertà di andartene se il servizio non è all'altezza.</p>
 
       <h2>Quanto costa</h2>
       <p>Nulla fino al rogito. Nessuna spesa anticipata, nessun costo di attivazione, nessuna penale in caso di recesso nei termini. La provvigione si paga solo a vendita conclusa.</p>
@@ -143,9 +143,9 @@ export const ARTICLES = [
         <li><strong>Assistenza fino al rogito e oltre:</strong> supporto legale e fiscale fino a che il trasferimento non è ufficiale.</li>
       </ol>
 
-      <h3>Zero Vincoli 60: se vuoi vendere ancora più velocemente</h3>
-      <p>Se hai fretta (trasferimento per lavoro, separazione, situazione economica difficile), abbiamo una soluzione speciale:</p>
-      <p><strong>Zero Vincoli 60:</strong> la tua casa si vende in 60 giorni garantito. Nessun vincolo contrattuale, nessun rischio. Se non vendiamo, non paghi nulla. Come funziona? Lo spieghiamo di persona.</p>
+      <h3>Zero Vincoli 60: se vuoi vendere senza restare vincolato</h3>
+      <p>Se temi di restare bloccato per mesi con un'agenzia che non lavora davvero sull'immobile, abbiamo una soluzione specifica:</p>
+      <p><strong>Zero Vincoli 60:</strong> non garantiamo la vendita in 60 giorni, ma garantiamo l'applicazione completa del nostro metodo e del nostro processo, come da capitolato. Se al termine dei 60 giorni non sei soddisfatto, o se non abbiamo svolto tutte le attività previste, recedi senza penali e senza costi. Come funziona? Lo spieghiamo di persona.</p>
 
       <h3>Domande frequenti</h3>
       <p><strong>Quanto tempo ci vuole a vendere una casa a Napoli?</strong><br/>In media, 45-90 giorni se il prezzo è realistico e la documentazione è completa. Sopravvalutate o con difetti: 6-12 mesi o più.</p>
@@ -875,7 +875,7 @@ export const ARTICLES = [
       <p>HUB offre una soluzione che nella vendita privata non esiste: Zero Vincoli 60. Affidi l'incarico e resti libero: se entro 60 giorni non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste dal contratto, puoi recedere senza penali e senza costi.</p>
 
       <h3>Conclusione</h3>
-      <p>La vendita privata può sembrare conveniente sulla carta, ma i rischi e il tempo richiesto spesso superano il risparmio sulla provvigione. Con HUB hai la certezza del risultato e la tranquillità di un servizio professionale e garantito.</p>
+      <p>La vendita privata può sembrare conveniente sulla carta, ma i rischi e il tempo richiesto spesso superano il risparmio sulla provvigione. Con HUB hai la certezza di un metodo applicato per intero, come da capitolato, e la tranquillità di un servizio professionale.</p>
     `
   }
 ];

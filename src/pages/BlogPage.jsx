@@ -2,6 +2,43 @@ import React, { useState, useEffect } from "react";
 
 export const ARTICLES = [
   {
+    slug: "zero-vincoli-60-prorogata-31-dicembre-2026",
+    title: "Zero Vincoli 60 è prorogata fino al 31 dicembre 2026",
+    excerpt: "Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.",
+    date: "2026-09-23",
+    category: "Vendere Casa",
+    readTime: "3 min",
+    content: `
+      <p>Zero Vincoli 60 doveva chiudersi il 30 settembre. Visto il riscontro ricevuto dai proprietari di Napoli, abbiamo deciso di prolungarla di tre mesi: chi vuole vendere casa può aderire fino al 31 dicembre 2026, alle stesse condizioni.</p>
+
+      <h2>Perché l'abbiamo creata</h2>
+      <p>Il motivo principale per cui molti proprietari non firmano un incarico in esclusiva è la paura di restare bloccati per mesi con un'agenzia che non lavora davvero sull'immobile. <a href="/zero-vincoli-60">Zero Vincoli 60</a> nasce per togliere questo rischio: ti chiediamo l'esclusiva, ma ti diamo 60 giorni per giudicare il nostro lavoro.</p>
+
+      <h2>Come funziona</h2>
+      <p>Firmi un mandato in esclusiva con una clausola di uscita anticipata. Nei primi 60 giorni dal lancio dell'annuncio seguiamo un piano di attività scritto nel contratto:</p>
+      <ul>
+        <li>verifica documentale dell'immobile prima della pubblicazione;</li>
+        <li>valutazione basata sulle vendite reali della zona, non sulle quotazioni medie;</li>
+        <li>servizio fotografico professionale;</li>
+        <li>annuncio pubblicato sui principali portali;</li>
+        <li>piano di promozione dedicato.</li>
+      </ul>
+      <p>Al termine dei 60 giorni decidi tu. Se sei soddisfatto proseguiamo fino alla vendita alle stesse condizioni. Se non lo sei, o se non abbiamo svolto tutte le attività previste, recedi senza penali e senza costi, senza dover giustificare la scelta.</p>
+
+      <h2>Cosa non promettiamo</h2>
+      <p>Non garantiamo la vendita in 60 giorni: nessuna agenzia seria può farlo, perché dipende da mercato, prezzo e immobile. Garantiamo per iscritto una cosa diversa e verificabile: la libertà di andartene se il servizio non è all'altezza.</p>
+
+      <h2>Quanto costa</h2>
+      <p>Nulla fino al rogito. Nessuna spesa anticipata, nessun costo di attivazione, nessuna penale in caso di recesso nei termini. La provvigione si paga solo a vendita conclusa.</p>
+
+      <h2>Chi può aderire</h2>
+      <p>L'accesso dipende dalle caratteristiche dell'immobile: non tutti rientrano. Lo verifichiamo durante la <a href="/comincia">valutazione gratuita</a> e te lo diciamo subito, prima di qualsiasi firma. Operiamo su Napoli e provincia, con sede in Via Pietro Mascagni 35 al Vomero; la fase iniziale si può gestire anche da remoto.</p>
+
+      <h2>Come richiederla</h2>
+      <p>Compila la richiesta su <a href="/zero-vincoli-60">/zero-vincoli-60</a> oppure chiamaci allo <a href="tel:+3908118653202">081 18653202</a> o scrivici su WhatsApp al <a href="https://wa.me/393924579047">392 457 9047</a>. Hai tempo fino al 31 dicembre 2026.</p>
+    `
+  },
+  {
     slug: "come-vendere-casa-napoli-guida-completa",
     title: "Come vendere casa a Napoli: guida completa per vender velocemente",
     excerpt: "Guida definitiva per vendere casa a Napoli. Dalla preparazione all'annuncio, dalla gestione delle visite alla chiusura della vendita: tutti i passi per vendere velocemente e al miglior prezzo.",
@@ -910,6 +947,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
               .replace(/<ul>/g, `<ul style="padding-left:24px;margin-bottom:20px">`)
               .replace(/<li>/g, `<li style="margin-bottom:8px">`)
               .replace(/<p>/g, `<p style="margin-bottom:20px">`)
+              .replace(/<a href=/g, `<a style="color:${GOLD};font-weight:600;text-decoration:underline" href=`)
             }}
           />
           <div style={{ marginTop: 48, padding: 32, background: NAVY_DEEP, borderRadius: 4, color: CREAM, textAlign: "center" }}>

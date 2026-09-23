@@ -70,6 +70,7 @@ const PAGES = {
   "blog-mutuo-prima-casa-napoli": BlogPage,
   "blog-migliori-quartieri-abitare-napoli": BlogPage,
   "blog-vendere-casa-senza-agenzia-napoli": BlogPage,
+  "blog-zero-vincoli-60-prorogata-31-dicembre-2026": BlogPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -93,6 +94,7 @@ const CON_FOOTER = new Set([
   'blog-mutuo-prima-casa-napoli',
   'blog-migliori-quartieri-abitare-napoli',
   'blog-vendere-casa-senza-agenzia-napoli',
+  'blog-zero-vincoli-60-prorogata-31-dicembre-2026',
 ]);
 const PAGE_PROPS = {
   "vomero": { navigate: noop, colors: COLORS },
@@ -120,6 +122,7 @@ const PAGE_PROPS = {
   "blog-mutuo-prima-casa-napoli": { navigate: noop, colors: COLORS, initialSlug: "mutuo-prima-casa-napoli" },
   "blog-migliori-quartieri-abitare-napoli": { navigate: noop, colors: COLORS, initialSlug: "migliori-quartieri-abitare-napoli" },
   "blog-vendere-casa-senza-agenzia-napoli": { navigate: noop, colors: COLORS, initialSlug: "vendere-casa-senza-agenzia-napoli" },
+  "blog-zero-vincoli-60-prorogata-31-dicembre-2026": { navigate: noop, colors: COLORS, initialSlug: "zero-vincoli-60-prorogata-31-dicembre-2026" },
 };
 
 export function renderSsrPage(slug) {

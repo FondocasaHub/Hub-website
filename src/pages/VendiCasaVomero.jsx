@@ -61,7 +61,7 @@ export default function VendiCasaVomeroPage({ navigate, colors }) {
             {[
               { icon: '📅', title: '26 Anni di Esperienza', desc: 'Dal 1998 aiutiamo i venditori al Vomero. Conosciamo il mercato, i prezzi e le migliori strategie di vendita.' },
               { icon: '💳', title: 'Mutui Integrati con WeUnit', desc: 'Se l\'acquirente ha bisogno di un mutuo, WeUnit lo supporta. Tutto in un unico ecosistema integrato.' },
-              { icon: '⚡', title: 'Zero Vincoli 60', desc: 'Programma speciale: se non vendiamo la tua casa in 60 giorni, siamo noi a offrirvi una soluzione.' },
+              { icon: '⚡', title: 'Zero Vincoli 60', desc: 'Metodo e processo garantiti da capitolato: se dopo 60 giorni non sei soddisfatto, o se non abbiamo svolto le attività previste, recedi senza penali.' },
             ].map((item, i) => (
               <div key={i} style={{ background: 'white', padding: 40, borderRadius: 8, boxShadow: '0 4px 20px rgba(13,27,62,0.08)', textAlign: 'center' }}>
                 <div style={{ fontSize: 48, marginBottom: 20 }}>{item.icon}</div>

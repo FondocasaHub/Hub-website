@@ -198,7 +198,7 @@ export default function App() {
     'privacy': { title: 'Informativa sulla Privacy | FondoCasa Hub', desc: 'Scopri come FondoCasa Hub tratta i tuoi dati personali nel rispetto del GDPR: raccolta, uso e conservazione delle informazioni. Leggi l\'informativa completa.' },
     'cookie': { title: 'Cookie Policy del Sito | FondoCasa Hub', desc: 'Informazioni sui cookie tecnici e di terze parti utilizzati dal sito fondocasahub.com e su come gestire le tue preferenze. Consulta i dettagli completi.' },
     'note-legali': { title: 'Note Legali e Dati Societari | FondoCasa Hub', desc: 'Informazioni societarie, condizioni d\'uso e avvertenze legali di FC Punto Hub Srl, titolare del sito FondoCasa Hub. Consulta tutti i dettagli societari.' },
-    'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub', desc: 'Vendi casa a Napoli in 60 giorni con l\'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più.' },
+    'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub', desc: 'Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026.' },
     'grazie': { title: 'Richiesta Ricevuta | FondoCasa Hub', desc: 'Grazie per averci contattato: un consulente FondoCasa Hub ti richiamerà entro 24 ore per la tua richiesta su casa, mutuo o assicurazione a Napoli.' },
     'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.' },
     'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | FondoCasa Hub', desc: 'Vuoi comprare o vendere casa a Posillipo? FondoCasa Hub conosce il mercato locale e offre valutazioni gratuite con consulenza su mutuo e assicurazione.' },
@@ -742,7 +742,7 @@ function PromoZeroVincoli() {
           maxWidth: 620, margin: "0 auto 40px", fontWeight: 300,
         }}>
           Affidaci la vendita della tua casa. Dopo 60 giorni decidi tu.<br />
-          <strong style={{ color: CREAM, fontWeight: 600 }}>Senza penali. Senza costi nascosti. Solo risultati.</strong>
+          <strong style={{ color: CREAM, fontWeight: 600 }}>Senza penali. Senza costi nascosti. Metodo garantito da capitolato.</strong>
         </p>
 
         <a

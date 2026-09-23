@@ -91,8 +91,8 @@ const PAGE_META = {
     canonical: 'https://www.fondocasahub.com/costruttori'
   },
   'zero-vincoli-60': {
-    title: 'Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub',
-    desc: "Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più.",
+    title: 'Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub',
+    desc: "Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026.",
     canonical: 'https://www.fondocasahub.com/zero-vincoli-60'
   },
   'blog-come-vendere-casa-napoli-guida-completa': {

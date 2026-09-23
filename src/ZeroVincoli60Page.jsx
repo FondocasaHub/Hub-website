@@ -5,7 +5,7 @@ import { trackFormSubmit } from './utils/trackingEvents';
 const FAQ_ZV60 = [
   { q: "Fino a quando posso aderire a Zero Vincoli 60?", a: "La promozione è stata prorogata fino al 31 dicembre 2026. Vale per gli incarichi sottoscritti entro quella data, sempre previa verifica dell'idoneità dell'immobile in fase di valutazione. Le condizioni restano le stesse: 60 giorni per giudicare il nostro lavoro e recesso senza penali se non sei soddisfatto o se non abbiamo svolto le attività previste dal contratto." },
   { q: "Cos'è Zero Vincoli 60?", a: "È un mandato in esclusiva di 6 mesi con una clausola di uscita anticipata. Nei primi 60 giorni dal lancio dell'annuncio seguiamo un piano di attività definito nel contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere senza penali e senza costi." },
-  { q: "Zero Vincoli 60 garantisce la vendita in 60 giorni?", a: "No, e non lo promettiamo. Nessuna agenzia seria può garantire una vendita entro una data: dipende dal mercato, dal prezzo e dall'immobile. Quello che garantiamo per iscritto è diverso e verificabile: se il servizio non è all'altezza, dopo 60 giorni sei libero di andartene senza pagare nulla." },
+  { q: "Zero Vincoli 60 garantisce la vendita in 60 giorni?", a: "No, e non lo promettiamo. Nessuna agenzia seria può garantire una vendita entro una data: dipende dal mercato, dal prezzo e dall'immobile. Quello che garantiamo per iscritto è diverso e verificabile: l'applicazione completa del nostro metodo e del nostro processo, come da capitolato. Se non lo rispettiamo, o se il servizio non è all'altezza, dopo 60 giorni sei libero di andartene senza pagare nulla." },
   { q: "Cosa comprende il piano di attività dei primi 60 giorni?", a: "Verifica documentale dell'immobile prima della pubblicazione, valutazione basata sulle vendite reali della zona, servizio fotografico professionale, annuncio pubblicato sui principali portali e piano di promozione dedicato. Sono le attività che, se non svolte, ti danno diritto a recedere." },
   { q: "Cosa significa mandato in esclusiva?", a: "Significa che siamo l'unica agenzia autorizzata a promuovere il tuo immobile. È la condizione che ci permette di investire davvero su fotografie, promozione e tempo dedicato: senza esclusiva nessuna agenzia mette risorse serie su un immobile che potrebbe vendere qualcun altro." },
   { q: "Cosa succede dopo i 60 giorni?", a: "Decidi tu. Se sei soddisfatto del lavoro proseguiamo insieme fino alla vendita, alle stesse condizioni. Se non lo sei, ti liberiamo dal mandato senza penali, senza discussioni e senza costi: non devi giustificare la scelta." },
@@ -67,7 +67,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
       {
         "@context": "https://schema.org",
         "@type": "WebPage",
-        "name": "Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub",
+        "name": "Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub",
         "url": "https://www.fondocasahub.com/zero-vincoli-60",
         "inLanguage": "it-IT",
         "isPartOf": { "@type": "WebSite", "url": "https://www.fondocasahub.com" },
@@ -196,16 +196,16 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
   return (
     <div style={{ fontFamily: "'Jost', sans-serif", color: NAVY, overflowX: 'hidden' }}>
       <Helmet>
-        <title>Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub</title>
-        <meta name="description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
-        <meta property="og:title" content="Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub" />
-        <meta property="og:description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
+        <title>Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub</title>
+        <meta name="description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
+        <meta property="og:title" content="Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub" />
+        <meta property="og:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
         <meta property="og:url" content="https://www.fondocasahub.com/zero-vincoli-60" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="it_IT" />
         <meta name="twitter:card" content="summary" />
-        <meta name="twitter:title" content="Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub" />
-        <meta name="twitter:description" content="Vendi casa a Napoli in 60 giorni con l'incarico esclusivo Zero Vincoli 60: nessuna penale, massima libertà. Oltre 3.200 famiglie assistite. Scopri di più." />
+        <meta name="twitter:title" content="Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub" />
+        <meta name="twitter:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
       </Helmet>
 
       {/* ── MINI NAV ── */}
@@ -845,7 +845,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
           }}>
             Se entro 60 giorni dal lancio dell'annuncio non sei soddisfatto del nostro lavoro —
             per qualsiasi motivo — ti liberiamo dal mandato.{' '}
-            <strong style={{ color: '#fff' }}>Nessuna penale, nessuna discussione. Solo risultati.</strong>
+            <strong style={{ color: '#fff' }}>Nessuna penale, nessuna discussione. Metodo e processo garantiti da capitolato.</strong>
           </p>
         </div>
       </section>

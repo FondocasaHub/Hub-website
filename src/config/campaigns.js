@@ -65,9 +65,9 @@ export const CAMPAIGNS_STRATEGY = {
         'mandato esclusivo napoli',
       ],
       landingPage: 'https://fondocasahub.com/zero-vincoli-60',
-      adHeadline1: 'Zero Vincoli 60 - Vendi in 60 Giorni',
+      adHeadline1: 'Zero Vincoli 60: Zero Penali',
       adHeadline2: 'Nessun Rischio, Nessuna Penale',
-      adDescription: 'Se non vendiamo entro 60 giorni, ti liberiamo gratis. Scopri come funziona.',
+      adDescription: 'Metodo garantito da capitolato. Dopo 60 giorni, se non sei soddisfatto, esci senza penali.',
       conversionEvent: 'zero_vincoli_60',
     },
 

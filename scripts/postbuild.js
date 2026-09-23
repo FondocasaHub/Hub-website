@@ -159,6 +159,11 @@ const PAGE_META = {
     title: 'Vendere Casa senza Agenzia a Napoli | FondoCasa Hub',
     desc: "Vendita privata o tramite agenzia? Costi, rischi e opportunità per chi vuole vendere casa a Napoli senza intermediari. Leggi l'analisi di FondoCasa Hub.",
     canonical: 'https://www.fondocasahub.com/blog/vendere-casa-senza-agenzia-napoli'
+  },
+  'blog-zero-vincoli-60-prorogata-31-dicembre-2026': {
+    title: 'Zero Vincoli 60 prorogata al 31 dicembre 2026 | HUB Napoli',
+    desc: 'Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.',
+    canonical: 'https://www.fondocasahub.com/blog/zero-vincoli-60-prorogata-31-dicembre-2026'
   }
 };
 

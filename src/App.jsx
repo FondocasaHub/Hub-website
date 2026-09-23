@@ -728,7 +728,7 @@ function PromoZeroVincoli() {
           borderRadius: 2,
           marginBottom: 28,
           fontWeight: 600,
-        }}>◆ Promo esclusiva · Valida fino al 30 settembre 2026 ◆</span>
+        }}>◆ Promo esclusiva · Valida fino al 31 dicembre 2026 ◆</span>
 
         <h2 className="serif" style={{
           fontSize: "3.2rem", fontWeight: 700, color: CREAM,

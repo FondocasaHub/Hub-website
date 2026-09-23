@@ -60,7 +60,7 @@ export const SSR_PAGES = [
   { slug: 'comincia', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'contatti', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'lavora-con-noi', contentOnly: true, expectTypes: ['RealEstateAgent'] },
-  // Blog: l'elenco e i 13 articoli, ognuno col proprio BlogPosting
+  // Blog: l'elenco e i 12 articoli, ognuno col proprio BlogPosting
   { slug: 'blog', contentOnly: true, expectTypes: ['Blog'] },
   { slug: 'blog-come-vendere-casa-napoli-guida-completa', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-tasse-costi-vendita-casa-napoli-2026', contentOnly: true, expectTypes: ['BlogPosting'] },
@@ -73,6 +73,7 @@ export const SSR_PAGES = [
   { slug: 'blog-mutuo-prima-casa-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-migliori-quartieri-abitare-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-vendere-casa-senza-agenzia-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
+  { slug: 'blog-zero-vincoli-60-prorogata-31-dicembre-2026', contentOnly: true, expectTypes: ['BlogPosting'] },
 
 ];
 

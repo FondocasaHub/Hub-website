@@ -3,6 +3,7 @@ import { Helmet } from 'react-helmet-async';
 import { trackFormSubmit } from './utils/trackingEvents';
 
 const FAQ_ZV60 = [
+  { q: "Fino a quando posso aderire a Zero Vincoli 60?", a: "La promozione è stata prorogata fino al 31 dicembre 2026. Vale per gli incarichi sottoscritti entro quella data, sempre previa verifica dell'idoneità dell'immobile in fase di valutazione. Le condizioni restano le stesse: 60 giorni per giudicare il nostro lavoro e recesso senza penali se non sei soddisfatto o se non abbiamo svolto le attività previste dal contratto." },
   { q: "Cos'è Zero Vincoli 60?", a: "È un mandato in esclusiva di 6 mesi con una clausola di uscita anticipata. Nei primi 60 giorni dal lancio dell'annuncio seguiamo un piano di attività definito nel contratto: se al termine non sei soddisfatto del servizio, o se non abbiamo svolto tutte le attività previste, puoi recedere senza penali e senza costi." },
   { q: "Zero Vincoli 60 garantisce la vendita in 60 giorni?", a: "No, e non lo promettiamo. Nessuna agenzia seria può garantire una vendita entro una data: dipende dal mercato, dal prezzo e dall'immobile. Quello che garantiamo per iscritto è diverso e verificabile: se il servizio non è all'altezza, dopo 60 giorni sei libero di andartene senza pagare nulla." },
   { q: "Cosa comprende il piano di attività dei primi 60 giorni?", a: "Verifica documentale dell'immobile prima della pubblicazione, valutazione basata sulle vendite reali della zona, servizio fotografico professionale, annuncio pubblicato sui principali portali e piano di promozione dedicato. Sono le attività che, se non svolte, ti danno diritto a recedere." },
@@ -60,7 +61,17 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
           "address": { "@type": "PostalAddress", "streetAddress": "Via Pietro Mascagni, 35", "addressLocality": "Napoli", "addressRegion": "NA", "postalCode": "80128", "addressCountry": "IT" },
           "hasMap": "https://www.google.com/maps/place/?q=place_id:ChIJ9QSKiKcJOxMRO3--jorfbQw"
         },
-        "areaServed": [{ "@type": "City", "name": "Napoli" }, { "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Posillipo" }]
+        "areaServed": [{ "@type": "City", "name": "Napoli" }, { "@type": "Place", "name": "Vomero" }, { "@type": "Place", "name": "Chiaia" }, { "@type": "Place", "name": "Posillipo" }],
+        "offers": { "@type": "Offer", "validThrough": "2026-12-31", "areaServed": "Napoli" }
+      },
+      {
+        "@context": "https://schema.org",
+        "@type": "WebPage",
+        "name": "Zero Vincoli 60: Vendi Casa in 60 Giorni | FondoCasa Hub",
+        "url": "https://www.fondocasahub.com/zero-vincoli-60",
+        "inLanguage": "it-IT",
+        "isPartOf": { "@type": "WebSite", "url": "https://www.fondocasahub.com" },
+        "dateModified": "2026-09-23"
       },
       {
         "@context": "https://schema.org",
@@ -304,7 +315,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             letterSpacing: '0.1em',
             marginBottom: 40,
           }}>
-            ◆ Promo esclusiva · Online only · Valida fino al 30 settembre 2026 ◆
+            ◆ Promo esclusiva · Online only · Valida fino al 31 dicembre 2026 ◆
           </div>
 
           {/* H1 */}
@@ -966,7 +977,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
             letterSpacing: '0.12em',
             marginBottom: 24,
           }}>
-            ZERO VINCOLI 60 · VALIDA FINO AL 30 SETTEMBRE 2026
+            ZERO VINCOLI 60 · VALIDA FINO AL 31 DICEMBRE 2026
           </div>
           <h2 className="serif" style={{
             fontSize: 'clamp(32px, 5vw, 52px)',

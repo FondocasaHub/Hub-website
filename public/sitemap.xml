@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://www.fondocasahub.com/</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.fondocasahub.com/zero-vincoli-60</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://www.fondocasahub.com/blog</loc>
-    <lastmod>2026-05-26</lastmod>
+    <lastmod>2026-09-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,6 +49,12 @@
     <priority>0.5</priority>
   </url>
   <!-- Blog Articles -->
+  <url>
+    <loc>https://www.fondocasahub.com/blog/zero-vincoli-60-prorogata-31-dicembre-2026</loc>
+    <lastmod>2026-09-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://www.fondocasahub.com/blog/come-vendere-casa-napoli-guida-completa</loc>
     <lastmod>2026-06-14</lastmod>

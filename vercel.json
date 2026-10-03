@@ -170,6 +170,10 @@
       "destination": "/blog-zero-vincoli-60-prorogata-31-dicembre-2026.html"
     },
     {
+      "source": "/cercacasa",
+      "destination": "/cercacasa.html"
+    },
+    {
       "source": "/privacy",
       "destination": "/privacy.html"
     },

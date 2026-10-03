@@ -1,0 +1,459 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cerca Casa a Napoli | FondoCasa Hub</title>
+<meta name="description" content="Cerchi casa a Napoli? Compila la scheda di ricerca FondoCasa Hub: zona, budget, mutuo o vendita della tua casa attuale. Ti ricontattiamo entro 24 ore.">
+<link rel="canonical" href="https://www.fondocasahub.com/cercacasa">
+<meta property="og:title" content="Cerca Casa a Napoli | FondoCasa Hub">
+<meta property="og:description" content="Raccontaci che casa cerchi e come intendi acquistarla: ti proponiamo solo immobili in linea con il tuo budget.">
+<meta property="og:url" content="https://www.fondocasahub.com/cercacasa">
+<meta property="og:image" content="https://www.fondocasahub.com/og-image.jpg">
+<meta property="og:type" content="website">
+<link rel="icon" type="image/png" href="/favicon-32x32.png">
+<style>
+  /* Layout: colonna unica da modulo, intestazione navy con filo oro, sezioni a pannello, riepilogo budget evidenziato */
+  :root{
+    --navy-900:#101b2f; --navy-700:#1c2d4a;
+    --gold-500:#b6913f; --gold-600:#9c7a30; --gold-100:#f0e6cf; --gold-50:#f8f3e6;
+    --paper:#f4f5f8; --panel:#ffffff;
+    --ink:#16202f; --ink-soft:#4b5566;
+    --line:#d8dce3; --line-soft:#e8ebf0;
+    --ok:#2f6b4a;
+    --font-display: ui-serif, 'Iowan Old Style', 'Palatino Linotype', Georgia, serif;
+    --font-body: ui-sans-serif, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --navy-900:#0a1220; --navy-700:#16233a;
+      --gold-500:#c9a35a; --gold-600:#d8b874; --gold-100:#3a3020; --gold-50:#1d1a14;
+      --paper:#0d1420; --panel:#121b2c;
+      --ink:#e9ecf2; --ink-soft:#a7b0c0;
+      --line:#2a3550; --line-soft:#212c44;
+      --ok:#7cc49c;
+      color-scheme:dark;
+    }
+  }
+  :root[data-theme="dark"]{
+    --navy-900:#0a1220; --navy-700:#16233a;
+    --gold-500:#c9a35a; --gold-600:#d8b874; --gold-100:#3a3020; --gold-50:#1d1a14;
+    --paper:#0d1420; --panel:#121b2c;
+    --ink:#e9ecf2; --ink-soft:#a7b0c0;
+    --line:#2a3550; --line-soft:#212c44;
+    --ok:#7cc49c;
+    color-scheme:dark;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--paper);color:var(--ink);font-family:var(--font-body);line-height:1.5;-webkit-font-smoothing:antialiased}
+  .page{max-width:880px;margin:0 auto;padding-inline:16px;padding-block:0 56px}
+
+  .masthead{background:linear-gradient(160deg,var(--navy-900),var(--navy-700));color:#f4f1e8;margin:0 -16px 24px;padding:32px 24px 24px;border-bottom:3px solid var(--gold-500)}
+  .brand{display:flex;align-items:center;gap:10px;font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:#e6d6ae;margin-bottom:18px}
+  .brand img{height:30px;width:auto}
+  .masthead h1{font-family:var(--font-display);font-weight:500;font-size:clamp(26px,4vw,36px);margin:0 0 6px;text-wrap:balance}
+  .masthead p{margin:0;max-width:60ch;color:#c7cedb;font-size:15px}
+  .meta{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--gold-500);border:1px solid var(--gold-500);margin-top:22px}
+  .meta .cell{background:#101b2f;padding:10px 14px;min-width:0}
+  .meta label{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:#e6d6ae;margin-bottom:5px}
+  .meta input,.meta select{width:100%;background:transparent;border:none;border-bottom:1px solid rgba(244,241,232,.35);color:#f4f1e8;font:inherit;font-size:14.5px;padding:2px 0 5px}
+  .meta select option{color:#16202f}
+  .meta input::placeholder{color:rgba(244,241,232,.45)}
+  .meta input:focus,.meta select:focus{outline:none;border-bottom-color:var(--gold-500)}
+
+  section.block{background:var(--panel);border:1px solid var(--line);margin-bottom:16px}
+  .head{display:flex;align-items:baseline;gap:12px;padding:14px 20px;border-bottom:1px solid var(--line-soft)}
+  .head .num{font-family:var(--font-display);font-size:13px;color:var(--gold-600);letter-spacing:.06em}
+  .head h2{font-family:var(--font-display);font-weight:500;font-size:19px;margin:0}
+  .head .hint{margin-left:auto;font-size:12px;color:var(--ink-soft);text-align:right}
+  .body{padding:18px 20px 22px;display:grid;gap:18px}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px 22px}
+  .grid.c3{grid-template-columns:repeat(3,1fr)}
+  .span2{grid-column:span 2}
+  .field{min-width:0}
+  .field label,.legend{display:block;font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:6px}
+  .field input,.field select,.field textarea{width:100%;background:transparent;border:none;border-bottom:1px solid var(--line);color:var(--ink);font:inherit;font-size:14.5px;padding:4px 2px 8px;font-variant-numeric:tabular-nums}
+  .field textarea{border:1px solid var(--line);border-radius:2px;padding:8px 10px;min-height:64px;resize:vertical}
+  .field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold-500)}
+  .cf{text-transform:uppercase;letter-spacing:.08em}
+  .euro{position:relative}
+  .euro input{padding-left:18px}
+  .euro::before{content:"€";position:absolute;left:2px;bottom:9px;color:var(--ink-soft);font-size:14px}
+
+  .opts{display:flex;flex-wrap:wrap;gap:8px 18px}
+  .opt{display:flex;align-items:center;gap:7px;font-size:14px}
+  .opt input{accent-color:var(--gold-600);width:16px;height:16px}
+
+  /* modalità di acquisto */
+  .modes{display:grid;gap:12px}
+  .mode{border:1px solid var(--line);border-radius:3px}
+  .mode > label.toggle{display:flex;align-items:center;gap:10px;padding:12px 14px;cursor:pointer;font-weight:600;font-size:15px}
+  .mode > label.toggle input{accent-color:var(--gold-600);width:18px;height:18px}
+  .mode > label.toggle small{font-weight:400;color:var(--ink-soft);font-size:12.5px;margin-left:auto;text-align:right}
+  .mode.on{border-color:var(--gold-500);background:var(--gold-50)}
+  .mode .detail{padding:4px 14px 16px 42px}
+  .note{font-size:12.5px;color:var(--ink-soft);border-left:2px solid var(--gold-500);padding-left:10px;margin:0}
+
+  /* budget */
+  .budget{border:1px solid var(--gold-500);background:var(--gold-50);padding:16px 18px;display:grid;gap:12px}
+  .budget .row{display:flex;justify-content:space-between;gap:12px;font-size:14px;font-variant-numeric:tabular-nums}
+  .budget .row span:first-child{color:var(--ink-soft)}
+  .budget .total{border-top:1px solid var(--gold-500);padding-top:10px;display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+  .budget .total span:first-child{font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold-600)}
+  .budget .total strong{font-family:var(--font-display);font-size:28px;font-weight:500;font-variant-numeric:tabular-nums}
+  .bar{display:flex;height:8px;border-radius:4px;overflow:hidden;background:var(--line-soft)}
+  .bar i{display:block;height:100%}
+  .b1{background:var(--gold-500)} .b2{background:var(--navy-700)} .b3{background:#8a9bb3}
+  .keys{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--ink-soft)}
+  .keys span::before{content:"";display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  .k1::before{background:var(--gold-500)} .k2::before{background:var(--navy-700)} .k3::before{background:#8a9bb3}
+  .check{font-size:13px}
+  .check.warn{color:#b0552c}
+  .check.good{color:var(--ok)}
+
+  .actions{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-top:24px}
+  .actions .foot{font-size:12px;color:var(--ink-soft)}
+  .btns{display:flex;gap:10px;flex-wrap:wrap}
+  button{font:inherit;font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:10px 18px;cursor:pointer;border:1px solid var(--gold-500)}
+  .primary{background:#101b2f;color:#f4f1e8}
+  .ghost{background:transparent;color:var(--ink)}
+  button:focus-visible{outline:2px solid var(--gold-500);outline-offset:2px}
+  #copied{font-size:13px;color:var(--ok)}
+  #fallback{width:100%;min-height:160px;font:13px/1.45 ui-monospace,Menlo,monospace;margin-top:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);padding:10px}
+
+  @media (max-width:620px){
+    .grid,.grid.c3,.meta{grid-template-columns:1fr}
+    .span2{grid-column:span 1}
+    .mode .detail{padding-left:14px}
+    .mode > label.toggle small{display:none}
+  }
+  .head a,.opt a{color:var(--gold-600)}
+  details.consult{background:var(--panel);border:1px dashed var(--line);margin:8px 0 16px}
+  details.consult summary{cursor:pointer;padding:14px 20px;font-family:var(--font-display);font-size:16px;color:var(--ink-soft);list-style:none}
+  details.consult summary::-webkit-details-marker{display:none}
+  details.consult summary .num{color:var(--gold-600);margin-right:6px}
+  details.consult[open] summary{border-bottom:1px solid var(--line-soft)}
+  #sendmsg{font-size:14px;margin-top:10px}
+  #sendmsg.ok{color:var(--ok)} #sendmsg.err{color:#b0552c}
+  .field.missing input{border-bottom-color:#b0552c}
+  .thanks{background:var(--panel);border:1px solid var(--gold-500);padding:28px 24px;margin-top:8px}
+  .thanks h2{font-family:var(--font-display);font-weight:500;font-size:24px;margin:0 0 8px}
+  .thanks p{margin:0 0 6px;color:var(--ink-soft)}
+  @media print{
+    details.consult{display:block}
+    #send,#sendmsg{display:none!important}
+    body{background:#fff}
+    .actions .btns,#copied,#fallback{display:none!important}
+    .masthead,.meta .cell{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    section.block{break-inside:avoid}
+    .mode .detail{display:block!important}
+  }
+</style>
+</head>
+<body>
+
+
+<div class="page">
+  <header class="masthead">
+    <div class="brand"><img src="/logo-hub.png" alt="FC Punto Hub"> FC Punto Hub · FondoCasa Hub</div>
+    <h1>Cerca casa con noi</h1>
+    <p>Raccontaci che casa cerchi e come intendi acquistarla. Ti proponiamo solo immobili in linea con il tuo budget e ti ricontattiamo entro 24 ore.</p>
+  </header>
+
+  <section class="block">
+    <div class="head"><span class="num">A</span><h2>Dati personali</h2></div>
+    <div class="body">
+      <div class="grid">
+        <div class="field"><label for="nome">Nome</label><input id="nome" type="text" autocomplete="given-name"></div>
+        <div class="field"><label for="cognome">Cognome</label><input id="cognome" type="text" autocomplete="family-name"></div>
+        <div class="field span2"><label for="cf">Codice fiscale</label><input id="cf" class="cf" type="text" maxlength="16" placeholder="16 caratteri"></div>
+        <div class="field"><label for="tel">Telefono</label><input id="tel" type="tel" autocomplete="tel" placeholder="+39 …"></div>
+        <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="nome@esempio.it"></div>
+        <div class="field span2"><label for="cointestatario">Eventuale cointestatario (nome, cognome, codice fiscale)</label><input id="cointestatario" type="text"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="head"><span class="num">B</span><h2>Immobile ricercato</h2></div>
+    <div class="body">
+      <div class="grid c3">
+        <div class="field span2"><label for="zone">Zone di interesse</label><input id="zone" type="text" placeholder="es. Vomero, Arenella, Colli Aminei"></div>
+        <div class="field"><label for="tipologia">Tipologia</label>
+          <select id="tipologia"><option value="">Seleziona…</option><option>Appartamento</option><option>Attico</option><option>Villa / villetta</option><option>Loft</option><option>Box / posto auto</option><option>Locale commerciale</option><option>Ufficio</option></select>
+        </div>
+        <div class="field"><label for="mq">Superficie (mq)</label><input id="mq" type="text" placeholder="es. 80–110"></div>
+        <div class="field"><label for="locali">Locali / camere</label><input id="locali" type="text" placeholder="es. 4 locali, 2 camere"></div>
+        <div class="field"><label for="bagni">Bagni</label><input id="bagni" type="text"></div>
+      </div>
+      <div>
+        <span class="legend">Dotazioni richieste</span>
+        <div class="opts" id="dotazioni">
+          <label class="opt"><input type="checkbox" id="d1" value="Ascensore"> Ascensore</label>
+          <label class="opt"><input type="checkbox" id="d2" value="Balcone / terrazzo"> Balcone / terrazzo</label>
+          <label class="opt"><input type="checkbox" id="d3" value="Box / posto auto"> Box / posto auto</label>
+          <label class="opt"><input type="checkbox" id="d4" value="Giardino"> Giardino</label>
+          <label class="opt"><input type="checkbox" id="d5" value="Cantina"> Cantina</label>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="field"><label for="finalita">Finalità</label>
+          <select id="finalita"><option value="">Seleziona…</option><option>Prima casa</option><option>Cambio casa</option><option>Investimento a reddito</option><option>Casa per un figlio</option><option>Casa vacanza</option></select>
+        </div>
+        <div class="field"><label for="tempi">Tempistiche di acquisto</label>
+          <select id="tempi"><option value="">Seleziona…</option><option>Subito</option><option>Entro 3 mesi</option><option>Entro 6 mesi</option><option>Oltre 6 mesi</option></select>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="head"><span class="num">C</span><h2>Come acquista</h2><span class="hint">più voci combinabili</span></div>
+    <div class="body">
+      <div class="modes">
+        <div class="mode" id="mode-propri">
+          <label class="toggle"><input type="checkbox" id="chk-propri"> Mezzi propri <small>liquidità disponibile</small></label>
+          <div class="detail" hidden>
+            <div class="grid">
+              <div class="field euro"><label for="propri">Importo disponibile</label><input id="propri" type="text" inputmode="numeric" placeholder="0"></div>
+              <div class="field"><label for="propri-prov">Provenienza</label>
+                <select id="propri-prov"><option value="">Seleziona…</option><option>Risparmi</option><option>Donazione / aiuto familiare</option><option>Liquidazione / TFR</option><option>Altro</option></select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mode" id="mode-mutuo">
+          <label class="toggle"><input type="checkbox" id="chk-mutuo"> Mutuo <small>finanziamento bancario</small></label>
+          <div class="detail" hidden>
+            <div class="grid">
+              <div class="field euro"><label for="mutuo">Importo mutuo previsto</label><input id="mutuo" type="text" inputmode="numeric" placeholder="0"></div>
+              <div class="field"><label for="mutuo-stato">Situazione</label>
+                <select id="mutuo-stato"><option value="">Seleziona…</option><option>Già deliberato / pre-delibera</option><option>In istruttoria in banca</option><option>Ancora da valutare</option></select>
+              </div>
+              <div class="field"><label for="mutuo-banca">Banca (se già individuata)</label><input id="mutuo-banca" type="text"></div>
+              <div class="field"><label for="reddito">Reddito netto mensile nucleo</label><input id="reddito" type="text" inputmode="numeric" placeholder="€"></div>
+            </div>
+            <label class="opt" style="margin-top:14px"><input type="checkbox" id="weunit"> Vorrei una consulenza mutuo gratuita con WeUnit</label>
+          </div>
+        </div>
+
+        <div class="mode" id="mode-vende">
+          <label class="toggle"><input type="checkbox" id="chk-vende"> Deve vendere un immobile <small>il ricavato finanzia l'acquisto</small></label>
+          <div class="detail" hidden>
+            <div class="grid">
+              <div class="field span2"><label for="vende-ind">Indirizzo immobile da vendere</label><input id="vende-ind" type="text"></div>
+              <div class="field euro"><label for="vende-ideale">Valore ideale di realizzo (quanto vorresti ricavare)</label><input id="vende-ideale" type="text" inputmode="numeric" placeholder="0"></div>
+              <div class="field euro"><label for="vende-res">Mutuo residuo da estinguere</label><input id="vende-res" type="text" inputmode="numeric" placeholder="0"></div>
+              <div class="field"><label for="vende-stato">Stato della vendita</label>
+                <select id="vende-stato"><option value="">Seleziona…</option><option>Da mettere in vendita</option><option>Già in vendita con altra agenzia</option><option>Già in vendita con noi</option><option>Proposta accettata / compromesso</option></select>
+              </div>
+              <div class="field span2"><label for="vende-vincolo">Acquisto vincolato alla vendita?</label>
+                <select id="vende-vincolo"><option value="">Seleziona…</option><option>Sì, l'acquisto è vincolato alla vendita</option><option>No, può acquistare anche prima di vendere</option></select>
+              </div>
+            </div>
+            <label class="opt" style="margin-top:14px"><input type="checkbox" id="valutazione"> Vorrei una valutazione gratuita della casa che devo vendere</label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="head"><span class="num">D</span><h2>Budget complessivo</h2><span class="hint">calcolato dalla sezione C</span></div>
+    <div class="body">
+      <div class="budget">
+        <div class="row"><span>Mezzi propri</span><span id="r-propri">€ 0</span></div>
+        <div class="row"><span>Mutuo</span><span id="r-mutuo">€ 0</span></div>
+        <div class="row"><span>Ricavo netto dalla vendita <small>(valore ideale di realizzo meno mutuo residuo)</small></span><span id="r-vende">€ 0</span></div>
+        <div class="bar" aria-hidden="true"><i class="b1" id="bar1"></i><i class="b2" id="bar2"></i><i class="b3" id="bar3"></i></div>
+        <div class="keys"><span class="k1">Mezzi propri</span><span class="k2">Mutuo</span><span class="k3">Vendita</span></div>
+        <div class="total"><span>Budget complessivo</span><strong id="r-tot">€ 0</strong></div>
+      </div>
+      <div class="grid">
+        <div class="field euro"><label for="dichiarato">Budget massimo che vuoi spendere</label><input id="dichiarato" type="text" inputmode="numeric" placeholder="0"></div>
+        <div class="field euro"><label for="ideale">Prezzo ideale</label><input id="ideale" type="text" inputmode="numeric" placeholder="0"></div>
+      </div>
+      <p class="check" id="check">Inserisci gli importi per vedere il budget complessivo.</p>
+      <p class="note">Considera anche le spese accessorie (notaio, imposte, provvigione, eventuale istruttoria mutuo) prima di fissare la fascia di prezzo delle proposte.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="head"><span class="num">E</span><h2>Note e consensi</h2></div>
+    <div class="body">
+      <div class="field"><label for="note">Note</label><textarea id="note" placeholder="Esigenze particolari, chi decide insieme a te, disponibilità per le visite…"></textarea></div>
+      <div class="opts" style="flex-direction:column;gap:8px">
+        <label class="opt"><input type="checkbox" id="p1"> Ho letto l'<a href="/privacy" target="_blank" rel="noopener">informativa privacy</a> e acconsento al trattamento dei dati per la mediazione immobiliare (necessario)</label>
+        <label class="opt"><input type="checkbox" id="p2"> Consenso all'invio di proposte immobiliari via email, SMS e WhatsApp</label>
+        <label class="opt"><input type="checkbox" id="p3"> Consenso alla comunicazione dei dati a mediatori creditizi per la valutazione del mutuo</label>
+      </div>
+    </div>
+  </section>
+
+  <details class="block consult" id="consulente">
+    <summary><span class="num">✦</span> Riservato al consulente FC Punto Hub</summary>
+    <div class="body">
+      <div class="grid c3">
+        <div class="field"><label for="m-data">Data</label><input id="m-data" type="date"></div>
+        <div class="field"><label for="m-agente">Consulente</label><input id="m-agente" type="text" placeholder="Nome e cognome"></div>
+        <div class="field"><label for="m-fonte">Fonte del contatto</label>
+          <select id="m-fonte"><option value="">Seleziona…</option><option>Immobiliare.it</option><option>Idealista</option><option>Sito web</option><option>Social</option><option>Passaggio in agenzia</option><option>Cartello / vetrina</option><option>Passaparola</option><option>Altro</option></select>
+        </div>
+      </div>
+      <div class="btns">
+        <button class="ghost" id="print" type="button" onclick="window.print()">Stampa / PDF</button>
+        <button class="ghost" id="copy" type="button">Copia riepilogo</button>
+        <button class="ghost" id="reset" type="button">Svuota scheda</button>
+      </div>
+      <p id="copied" hidden></p>
+      <textarea id="fallback" hidden readonly></textarea>
+    </div>
+  </details>
+
+  <div class="actions">
+    <span class="foot">FC Punto Hub Srl · Via Pietro Mascagni 35, Vomero, Napoli · 081 18653202 · P.IVA 01924140096</span>
+    <div class="btns">
+      <button class="primary" id="send" type="button">Invia la richiesta</button>
+    </div>
+  </div>
+  <p id="sendmsg" role="status" hidden></p>
+</div>
+
+<script>
+(function(){
+  const $ = id => document.getElementById(id);
+  const num = v => { const n = parseFloat(String(v||'').replace(/\./g,'').replace(/[^\d,]/g,'').replace(',','.')); return isNaN(n)?0:n; };
+  const eur = n => '€ ' + Math.round(n).toLocaleString('it-IT');
+
+  ['propri','mutuo','vende'].forEach(k=>{
+    const chk = $('chk-'+k), box = $('mode-'+k);
+    const sync = () => { box.classList.toggle('on', chk.checked); box.querySelector('.detail').hidden = !chk.checked; calc(); };
+    chk.addEventListener('change', sync); sync();
+  });
+
+  function calc(){
+    const p = $('chk-propri').checked ? num($('propri').value) : 0;
+    const m = $('chk-mutuo').checked ? num($('mutuo').value) : 0;
+    const base = num($('vende-ideale').value);
+    const v = $('chk-vende').checked ? Math.max(0, base - num($('vende-res').value)) : 0;
+    const t = p+m+v;
+    $('r-propri').textContent = eur(p); $('r-mutuo').textContent = eur(m); $('r-vende').textContent = eur(v); $('r-tot').textContent = eur(t);
+    $('bar1').style.width = t ? (p/t*100)+'%' : '0'; $('bar2').style.width = t ? (m/t*100)+'%' : '0'; $('bar3').style.width = t ? (v/t*100)+'%' : '0';
+    const d = num($('dichiarato').value), c = $('check');
+    c.className = 'check';
+    if (!t || !d) { c.textContent = 'Inserisci gli importi per vedere il budget complessivo.'; }
+    else if (d > t) { c.classList.add('warn'); c.textContent = 'Il budget massimo indicato supera di ' + eur(d-t) + ' le risorse indicate: verificare copertura (mutuo più alto o altre entrate).'; }
+    else { c.classList.add('good'); c.textContent = 'Il budget massimo è coperto dalle risorse indicate.'; }
+    return {p,m,v,t};
+  }
+  document.querySelectorAll('input,select').forEach(el => el.addEventListener('input', calc));
+
+  function riepilogo(){
+    const r = calc(), val = id => ($(id).value||'').trim();
+    const sel = id => val(id) || '—';
+    const modi = [];
+    if ($('chk-propri').checked) modi.push('Mezzi propri ' + eur(r.p) + (val('propri-prov')?' ('+val('propri-prov')+')':''));
+    if ($('chk-mutuo').checked) modi.push('Mutuo ' + eur(r.m) + (val('mutuo-stato')?' – '+val('mutuo-stato'):'') + (val('mutuo-banca')?' – '+val('mutuo-banca'):'') + ($('weunit').checked?' – richiede consulenza WeUnit':''));
+    if ($('chk-vende').checked) modi.push('Vendita immobile in ' + (val('vende-ind')||'—')
+      + ' | Valore ideale di realizzo: ' + (val('vende-ideale')?eur(num(val('vende-ideale'))):'—')
+      + ' | Mutuo residuo: ' + (val('vende-res')?eur(num(val('vende-res'))):'—')
+      + ' | Ricavo netto: ' + eur(r.v)
+      + (val('vende-stato')?' | '+val('vende-stato'):'')
+      + ' | Vincolo: ' + (val('vende-vincolo')||'—'));
+    const dot = [...document.querySelectorAll('#dotazioni input:checked')].map(i=>i.value).join(', ');
+    return [
+      'SCHEDA ACQUIRENTE – FC Punto Hub',
+      'Data: ' + sel('m-data') + ' | Consulente: ' + sel('m-agente') + ' | Fonte: ' + sel('m-fonte'),
+      '',
+      'Cliente: ' + [val('nome'), val('cognome')].join(' ').trim(),
+      'Codice fiscale: ' + sel('cf').toUpperCase(),
+      'Telefono: ' + sel('tel') + ' | Email: ' + sel('email'),
+      val('cointestatario') ? 'Cointestatario: ' + val('cointestatario') : '',
+      '',
+      'Cerca: ' + sel('tipologia') + ' – zone ' + sel('zone') + ' – ' + sel('mq') + ' mq – ' + sel('locali') + ' – bagni ' + sel('bagni'),
+      'Dotazioni: ' + (dot||'—') + ' | Finalità: ' + sel('finalita') + ' | Tempi: ' + sel('tempi'),
+      '',
+      'Modalità di acquisto:', ...(modi.length ? modi.map(x=>'• '+x) : ['• —']),
+      '',
+      'BUDGET COMPLESSIVO: ' + eur(r.t),
+      'Budget dichiarato: ' + (val('dichiarato')?eur(num(val('dichiarato'))):'—') + ' | Prezzo ideale: ' + (val('ideale')?eur(num(val('ideale'))):'—'),
+      val('note') ? '\nNote: ' + val('note') : ''
+    ].filter((l,i,a)=> l!=='' || a[i-1]!=='').join('\n');
+  }
+
+  $('copy').addEventListener('click', () => {
+    const text = riepilogo(), msg = $('copied'), fb = $('fallback');
+    const done = () => { msg.hidden = false; msg.textContent = 'Riepilogo copiato: incollalo su WhatsApp, email o gestionale.'; fb.hidden = true; };
+    const fail = () => { fb.hidden = false; fb.value = text; fb.focus(); fb.select(); msg.hidden = false; msg.textContent = 'Copia automatica non disponibile: il testo è selezionato qui sotto, copialo a mano.'; };
+    try { navigator.clipboard.writeText(text).then(done, fail); } catch(e){ fail(); }
+  });
+
+  let armed = false;
+  $('reset').addEventListener('click', e => {
+    if (!armed){ armed = true; e.target.textContent = 'Conferma svuota'; setTimeout(()=>{armed=false; e.target.textContent='Svuota scheda';}, 3000); return; }
+    document.querySelectorAll('input,select,textarea').forEach(el => { if (el.type==='checkbox') el.checked=false; else el.value=''; el.dispatchEvent(new Event('change')); });
+    armed = false; e.target.textContent = 'Svuota scheda'; $('copied').hidden = true; $('fallback').hidden = true; calc();
+  });
+
+  try { const d = $('m-data'); if (!d.value) d.valueAsDate = new Date(); } catch(e){}
+
+  const WEBHOOK_ACQUIRENTI = "https://hook.eu1.make.com/lkvlgk1e2yr78s3o2nt2l24h2qbt8f56";
+  $('send').addEventListener('click', async () => {
+    const msg = $('sendmsg'), btn = $('send');
+    const req = ['nome','cognome','tel','email'];
+    let missing = req.filter(id => !$(id).value.trim());
+    req.forEach(id => $(id).closest('.field').classList.toggle('missing', missing.includes(id)));
+    msg.hidden = false; msg.className = 'err';
+    if (missing.length){ msg.textContent = 'Compila nome, cognome, telefono ed email per inviare la richiesta.'; $(missing[0]).focus(); return; }
+    if (!/^\S+@\S+\.\S+$/.test($('email').value.trim())){ msg.textContent = "Controlla l'indirizzo email."; $('email').focus(); return; }
+    if (!$('p1').checked){ msg.textContent = "Per inviare serve il consenso al trattamento dei dati."; $('p1').focus(); return; }
+    const r = calc(), v = id => ($(id).value||'').trim();
+    btn.disabled = true; btn.textContent = 'Invio in corso…'; msg.hidden = true;
+    const modi = [];
+    if ($('chk-propri').checked) modi.push('Mezzi propri');
+    if ($('chk-mutuo').checked) modi.push('Mutuo');
+    if ($('chk-vende').checked) modi.push('Vendita immobile');
+    const payload = {
+      categoria: 'Cerca casa – Scheda completa',
+      nome: (v('nome') + ' ' + v('cognome')).trim(),
+      email: v('email'),
+      telefono: v('tel'),
+      budget: r.t ? Math.round(r.t).toLocaleString('it-IT') + ' €' : (v('dichiarato') || '—'),
+      mq: v('mq') || '—',
+      indirizzo_immobile: v('zone') || '—',
+      note: riepilogo(),
+      nome_solo: v('nome'), cognome: v('cognome'), codice_fiscale: v('cf').toUpperCase(),
+      zone: v('zone'), tipologia: v('tipologia'), tempistiche: v('tempi'), finalita: v('finalita'),
+      modalita_acquisto: modi.join(', ') || '—',
+      mezzi_propri: r.p, mutuo: r.m, ricavo_vendita: r.v, budget_complessivo: r.t,
+      richiede_consulenza_weunit: $('weunit') ? $('weunit').checked : false,
+      acquisto_vincolato_vendita: v('vende-vincolo') || '—',
+      consenso_marketing: $('p2').checked, consenso_mediatori_credito: $('p3').checked,
+      consulente: v('m-agente'), fonte: v('m-fonte') || 'Sito web /cercacasa',
+      origine: 'cercacasa',
+      _subject: 'Cerca casa (scheda completa) – HUB Napoli',
+      _replyto: v('email')
+    };
+    try {
+      const res = await fetch(WEBHOOK_ACQUIRENTI, { method:'POST', headers:{'Content-Type':'application/json', Accept:'application/json'}, body: JSON.stringify(payload) });
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      try { window.dataLayer && window.dataLayer.push({event:'lead_cercacasa'}); } catch(e){}
+      const box = document.createElement('div');
+      box.className = 'thanks';
+      box.innerHTML = '<h2>Grazie, richiesta ricevuta</h2><p>Un nostro consulente ti ricontatterà entro 24 ore lavorative.</p><p>Per urgenze chiama lo 081 18653202 o scrivici su WhatsApp al 392 457 9047.</p>';
+      document.querySelector('.actions').replaceWith(box);
+      box.scrollIntoView({behavior:'smooth', block:'center'});
+    } catch (err) {
+      btn.disabled = false; btn.textContent = 'Invia la richiesta';
+      msg.hidden = false; msg.className = 'err';
+      msg.textContent = "Invio non riuscito. Riprova tra poco oppure chiamaci allo 081 18653202.";
+    }
+  });
+  calc();
+})();
+</script>
+
+</body>
+</html>

@@ -296,6 +296,7 @@ export default function App() {
     { id: "home", label: "Home" },
     { id: "chi-siamo", label: "Chi siamo" },
     { id: "metodo", label: "Il nostro metodo" },
+    { id: "cercacasa", label: "Cerca casa", href: "/cercacasa" },
     { id: "blog", label: "Blog" },
     { id: "contatti", label: "Contatti" },
     { id: "comincia", label: "Comincia da qui", highlight: true },
@@ -347,6 +348,15 @@ export default function App() {
                 >
                   {item.label}
                 </button>
+              ) : item.href ? (
+                <a
+                  key={item.id}
+                  href={item.href}
+                  className="nav-link"
+                  style={{ color: CREAM, textDecoration: "none" }}
+                >
+                  {item.label}
+                </a>
               ) : (
                 <span
                   key={item.id}
@@ -372,7 +382,15 @@ export default function App() {
         {/* Mobile menu */}
         {mobileMenu && (
           <div style={{ background: NAVY_DEEP, padding: "20px 32px", display: "flex", flexDirection: "column", gap: 16, borderTop: `1px solid rgba(193,154,91,0.2)` }}>
-            {navItems.map(item => (
+            {navItems.map(item => item.href ? (
+              <a
+                key={item.id}
+                href={item.href}
+                style={{ color: CREAM, fontSize: 16, padding: "8px 0", textDecoration: "none" }}
+              >
+                {item.label}
+              </a>
+            ) : (
               <span
                 key={item.id}
                 onClick={() => navigate(item.id)}

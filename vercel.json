@@ -186,6 +186,14 @@
       "destination": "/note-legali.html"
     },
     {
+      "source": "/area-agenti",
+      "destination": "/area-agenti/index.html"
+    },
+    {
+      "source": "/area-agenti/:path*",
+      "destination": "/area-agenti/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api/not-found"
     }
@@ -212,7 +220,7 @@
         },
         {
           "key": "Content-Security-Policy-Report-Only",
-          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googletagmanager.com https://cdn.iubenda.com https://embeds.iubenda.com https://9c72d01c.sibforms.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://hook.eu1.make.com https://formspree.io https://9c72d01c.sibforms.com; frame-src https://9c72d01c.sibforms.com https://embeds.iubenda.com https://www.youtube.com https://maps.google.com; form-action 'self' https://formspree.io https://hook.eu1.make.com https://9c72d01c.sibforms.com"
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://*.googletagmanager.com https://cdn.iubenda.com https://embeds.iubenda.com https://9c72d01c.sibforms.com https://script.google.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: https:; connect-src 'self' https://iymxkvrgkhfaqcyxjsyz.supabase.co https://*.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com https://hook.eu1.make.com https://formspree.io https://9c72d01c.sibforms.com; frame-src https://9c72d01c.sibforms.com https://embeds.iubenda.com https://www.youtube.com https://maps.google.com; form-action 'self' https://formspree.io https://hook.eu1.make.com https://9c72d01c.sibforms.com"
         }
       ]
     },
@@ -222,6 +230,32 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/area-agenti/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    },
+    {
+      "source": "/area-agenti",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
         }
       ]
     }

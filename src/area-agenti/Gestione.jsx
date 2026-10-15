@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { supabase, BUCKET, CARTELLE, RUOLI, REPARTI } from "./supabase";
+import { GestioneComunicazioni } from "./Comunicazioni.jsx";
 
 const LINK_INVITO = "https://supabase.com/dashboard/project/iymxkvrgkhfaqcyxjsyz/auth/users";
 
@@ -8,7 +9,7 @@ export default function Gestione({ profilo, onAggiorna }) {
   const schede = [
     { id: "utenti", label: "Utenti" },
     { id: "strumenti", label: "Strumenti" },
-    { id: "avvisi", label: "Avvisi" },
+    { id: "avvisi", label: "Comunicazioni" },
     { id: "documenti", label: "Documenti" },
   ];
   return (
@@ -24,7 +25,7 @@ export default function Gestione({ profilo, onAggiorna }) {
       </div>
       {scheda === "utenti" && <Utenti io={profilo} />}
       {scheda === "strumenti" && <Strumenti onAggiorna={onAggiorna} />}
-      {scheda === "avvisi" && <Avvisi />}
+      {scheda === "avvisi" && <GestioneComunicazioni profilo={profilo} />}
       {scheda === "documenti" && <CaricaDocumenti />}
     </>
   );
@@ -207,74 +208,6 @@ function Strumenti({ onAggiorna }) {
         <div className="aa-form-campo">Visibile a<RuoliCheck valore={nuovo.ruoli} onChange={(v) => setNuovo({ ...nuovo, ruoli: v })} /></div>
         <button className="aa-btn aa-btn-pieno">Aggiungi</button>
       </form>
-    </section>
-  );
-}
-
-/* ---------------- AVVISI ---------------- */
-function Avvisi() {
-  const [lista, setLista] = useState([]);
-  const [nuovo, setNuovo] = useState({ titolo: "", testo: "", scade_il: "", ruoli: RUOLI.map((r) => r.id) });
-  const [vista, mostra] = useMessaggio();
-
-  const carica = useCallback(() => {
-    supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false })
-      .then(({ data }) => setLista(data || []));
-  }, []);
-  useEffect(carica, [carica]);
-
-  const pubblica = async (e) => {
-    e.preventDefault();
-    const { error } = await supabase.from("avvisi").insert({ ...nuovo, scade_il: nuovo.scade_il || null });
-    if (error) return mostra(error.message, true);
-    setNuovo({ titolo: "", testo: "", scade_il: "", ruoli: RUOLI.map((r) => r.id) });
-    mostra("Avviso pubblicato"); carica();
-  };
-
-  const elimina = async (a) => {
-    if (!window.confirm(`Eliminare l'avviso "${a.titolo}"?`)) return;
-    const { error } = await supabase.from("avvisi").delete().eq("id", a.id);
-    if (error) return mostra(error.message, true);
-    carica();
-  };
-
-  return (
-    <section className="aa-card">
-      <p className="aa-nota">Gli avvisi compaiono nella home di chi ha uno dei ruoli scelti, fino alla data di scadenza.</p>
-      {vista}
-      <form className="aa-form" onSubmit={pubblica}>
-        <label>Titolo<input value={nuovo.titolo} onChange={(e) => setNuovo({ ...nuovo, titolo: e.target.value })} required /></label>
-        <label>Testo<textarea rows={3} value={nuovo.testo} onChange={(e) => setNuovo({ ...nuovo, testo: e.target.value })} /></label>
-        <label>Scade il (facoltativo)<input type="date" value={nuovo.scade_il} onChange={(e) => setNuovo({ ...nuovo, scade_il: e.target.value })} /></label>
-        <div className="aa-form-campo">Visibile a
-          <div className="aa-ruoli">
-            {RUOLI.map((r) => (
-              <label key={r.id}>
-                <input type="checkbox" checked={nuovo.ruoli.includes(r.id)}
-                  onChange={(e) => setNuovo({ ...nuovo, ruoli: e.target.checked ? [...nuovo.ruoli, r.id] : nuovo.ruoli.filter((x) => x !== r.id) })} />
-                {r.nome}
-              </label>
-            ))}
-          </div>
-        </div>
-        <button className="aa-btn aa-btn-pieno">Pubblica</button>
-      </form>
-
-      <ul className="aa-lista-avvisi">
-        {lista.map((a) => (
-          <li key={a.id}>
-            <div>
-              <strong>{a.titolo}</strong>
-              <span className="aa-nota">
-                {new Date(a.pubblicato_il).toLocaleDateString("it-IT")}
-                {a.scade_il ? ` · scade il ${new Date(a.scade_il).toLocaleDateString("it-IT")}` : ""}
-                {" · "}{a.ruoli.join(", ")}
-              </span>
-            </div>
-            <button className="aa-link aa-link-rosso" onClick={() => elimina(a)}>Elimina</button>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }

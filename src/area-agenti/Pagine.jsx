@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase, BUCKET, CARTELLE } from "./supabase";
+import { BoxComunicazioni } from "./Comunicazioni.jsx";
 import { PIANO_INSERIMENTO, AGENDA, GIORNI, ROUTINE_LISTING, OBIETTIVI_LISTING } from "./contenuti";
 
 const NOMI_RUOLO = { admin: "Admin", manager: "Manager", agente: "Agente", credito: "Consulente del credito", staff: "Staff" };
@@ -33,12 +34,6 @@ function Icona({ nome }) {
 
 /* ---------------- HOME ---------------- */
 export function Home({ profilo, vai, isManager }) {
-  const [avvisi, setAvvisi] = useState([]);
-  useEffect(() => {
-    supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false }).limit(5)
-      .then(({ data }) => setAvvisi(data || []));
-  }, []);
-
   const oggi = new Date().getDay(); // 0 domenica ... 6 sabato
   const agendaOggi = AGENDA.filter((a) => a.giorno === oggi || (a.giorno === 0 && oggi >= 1 && oggi <= 5));
   const nome = (profilo.nome || "").split(" ")[0];
@@ -60,16 +55,6 @@ export function Home({ profilo, vai, isManager }) {
         testo="Tutto quello che ti serve per lavorare, in un unico posto."
       />
 
-      {avvisi.length > 0 && (
-        <section className="aa-avvisi">
-          {avvisi.map((a) => (
-            <article key={a.id} className="aa-avviso">
-              <strong>{a.titolo}</strong>
-              {a.testo && <p>{a.testo}</p>}
-            </article>
-          ))}
-        </section>
-      )}
 
       <div className="aa-griglia">
         {riquadri.map((r) => (
@@ -81,6 +66,8 @@ export function Home({ profilo, vai, isManager }) {
         ))}
       </div>
 
+      <div className="aa-due-colonne">
+      <BoxComunicazioni vai={vai} />
       <section className="aa-card">
         <h2 className="aa-h2">Oggi in agenda</h2>
         {agendaOggi.length === 0 ? (
@@ -93,6 +80,7 @@ export function Home({ profilo, vai, isManager }) {
           </ul>
         )}
       </section>
+      </div>
     </>
   );
 }
@@ -157,7 +145,7 @@ export function Cartella({ cartella }) {
   );
 }
 
-export function Documenti() {
+export function Documenti({ vai }) {
   const [cartelle, setCartelle] = useState(null);
   useEffect(() => {
     Promise.all(CARTELLE.map((c) =>
@@ -168,6 +156,13 @@ export function Documenti() {
   return (
     <>
       <Intestazione occhiello="Archivio" titolo="Documenti" testo="Vedi solo le cartelle abilitate per il tuo ruolo. I link ai file scadono dopo 5 minuti: non inoltrarli." />
+      <button className="aa-card aa-cartella-link" onClick={() => vai("comunicazioni")}>
+        <div>
+          <h2 className="aa-h2">Comunicazioni</h2>
+          <p className="aa-nota">Circolari e avvisi dello store con i loro allegati</p>
+        </div>
+        <span className="aa-link">Apri →</span>
+      </button>
       {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => <Cartella key={c.id} cartella={c} />)}
     </>
   );

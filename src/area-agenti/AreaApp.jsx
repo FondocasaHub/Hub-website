@@ -3,6 +3,7 @@ import { supabase, LINK_TYPE, LINK_ERROR } from "./supabase";
 import { Accesso, NuovaPassword } from "./Accesso.jsx";
 import { Home, Documenti, Istruzioni, Crm, Produttivita, AreaManager } from "./Pagine.jsx";
 import Gestione from "./Gestione.jsx";
+import { PaginaComunicazioni } from "./Comunicazioni.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 
 const BASE = "/area-agenti";
@@ -104,7 +105,8 @@ export default function AreaApp() {
 
   let contenuto;
   switch (pagina) {
-    case "documenti": contenuto = <Documenti />; break;
+    case "documenti": contenuto = <Documenti vai={vai} />; break;
+    case "comunicazioni": contenuto = <PaginaComunicazioni />; break;
     case "istruzioni": contenuto = <Istruzioni strumenti={strumenti} />; break;
     case "crm": contenuto = <Crm strumenti={crm} />; break;
     case "produttivita": contenuto = <Produttivita strumenti={produttivita} />; break;
@@ -113,6 +115,7 @@ export default function AreaApp() {
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
     default:
+      if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
       contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} />;
   }

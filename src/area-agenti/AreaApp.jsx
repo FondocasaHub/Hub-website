@@ -4,6 +4,7 @@ import { Accesso, NuovaPassword } from "./Accesso.jsx";
 import { Home, Documenti, Istruzioni, Crm, Produttivita, AreaManager } from "./Pagine.jsx";
 import Gestione from "./Gestione.jsx";
 import { PaginaComunicazioni } from "./Comunicazioni.jsx";
+import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 
 const BASE = "/area-agenti";
@@ -113,8 +114,11 @@ export default function AreaApp() {
     case "manager": contenuto = isManager ? <AreaManager /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
+    case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
+    case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
     default:
+      if (/^compensi\/\d+$/.test(pagina)) { contenuto = <DettaglioReport id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
       contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} />;
@@ -149,6 +153,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
     { id: "istruzioni", label: "Istruzioni" },
     { id: "crm", label: "CRM" },
     { id: "richieste", label: "Richieste" },
+    { id: "compensi", label: "Compensi" },
   ];
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });
   if (isAdmin) voci.push({ id: "gestione", label: "Gestione" });
@@ -168,7 +173,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
         </button>
 
         <nav className={`aa-nav ${menuMobile ? "aperto" : ""}`}>
-          {voci.slice(0, 5).map((v) => (
+          {voci.slice(0, 6).map((v) => (
             <button key={v.id} className={pagina === v.id || (v.id && pagina.startsWith(v.id + "/")) ? "attivo" : ""} onClick={() => clic(v.id)}>{v.label}</button>
           ))}
 
@@ -190,7 +195,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
             )}
           </div>
 
-          {voci.slice(5).map((v) => (
+          {voci.slice(6).map((v) => (
             <button key={v.id} className={pagina === v.id ? "attivo" : ""} onClick={() => clic(v.id)}>{v.label}</button>
           ))}
 

@@ -22,6 +22,7 @@ const ICONE = {
   crm: "M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1 M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M20 19v-1a4 4 0 0 0-3-3.9 M15 4.1a3 3 0 0 1 0 5.8",
   produttivita: "M4 6h16 M4 12h16 M4 18h10 M18 16l2 2-2 2",
   richieste: "M4 4h16v12H8l-4 4z M8 9h8 M8 12h5",
+  compensi: "M4 7h16v10H4z M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M7 10v4 M17 10v4",
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
 };
 function Icona({ nome }) {
@@ -43,6 +44,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "istruzioni", titolo: "Istruzioni e inserimento", testo: "Piano di inserimento, agenda e regole dello store", icona: "istruzioni" },
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
+    { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la fattura all'Amministrazione", icona: "compensi" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });

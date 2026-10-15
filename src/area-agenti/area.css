@@ -277,3 +277,26 @@ a { color: inherit; }
 .aa-cartella-link { width: 100%; display: flex; justify-content: space-between; align-items: center; text-align: left; cursor: pointer; border-left: 4px solid var(--gold); }
 .aa-cartella-link:hover { border-color: var(--gold); }
 .aa-form .aa-ruoli label { display: flex; align-items: center; gap: 6px; font-weight: 400; color: var(--testo); font-size: 14px; }
+
+/* ---------- Report compensi ---------- */
+.aa-stato-da-approvare { background: #FBF0DC; color: #8A5A12; }
+.aa-stato-da-correggere { background: #F7E4E1; color: var(--rosso); }
+.aa-stato-approvato { background: #E8EEF8; color: #23408A; }
+.aa-stato-verificato { background: #EDE7F6; color: #4A2F86; }
+.aa-stato-pagato { background: #E3F1E8; color: var(--verde); }
+.aa-operazioni { display: grid; gap: 12px; margin-bottom: 14px; }
+.aa-operazione { display: grid; grid-template-columns: 34px 1fr auto; gap: 12px; align-items: start; padding: 14px; border: 1px solid var(--linea); border-radius: 10px; background: #fff; }
+.aa-operazione-n { width: 30px; height: 30px; border-radius: 50%; background: var(--cream); display: grid; place-items: center; font-weight: 600; color: var(--navy); }
+.aa-calcolo { padding: 10px 12px; border-radius: 8px; background: var(--cream); font-size: 17px; font-weight: 600; color: var(--navy); letter-spacing: 0; font-variant-numeric: tabular-nums; }
+.aa-totali { display: flex; justify-content: flex-end; gap: 28px; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--linea); flex-wrap: wrap; }
+.aa-totali div { display: grid; text-align: right; }
+.aa-totali span { font-size: 13px; color: var(--tenue); }
+.aa-totali strong { font-size: 20px; font-variant-numeric: tabular-nums; }
+.aa-totale-compenso strong { font-family: "Playfair Display", serif; font-size: 28px; color: var(--navy); }
+.aa-passi { list-style: none; display: flex; gap: 0; margin: 0 0 20px; padding: 0; counter-reset: p; }
+.aa-passi li { flex: 1; position: relative; padding: 10px 8px 0; border-top: 4px solid var(--linea); font-size: 13px; font-weight: 600; color: var(--tenue); }
+.aa-passi li.fatto { border-top-color: var(--gold); color: var(--navy); }
+@media (max-width: 600px) {
+  .aa-operazione { grid-template-columns: 1fr; }
+  .aa-operazione-n { display: none; }
+}

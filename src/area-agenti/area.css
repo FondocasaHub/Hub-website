@@ -301,3 +301,20 @@ a { color: inherit; }
   .aa-operazione { grid-template-columns: 1fr; }
   .aa-operazione-n { display: none; }
 }
+
+/* Fatturato / registro incassi */
+.aa-kpi { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 14px; margin-bottom: 20px; }
+.aa-kpi-box { background: var(--carta); border: 1px solid var(--linea); border-radius: 12px; padding: 16px 18px; box-shadow: var(--ombra); display: flex; flex-direction: column; gap: 4px; }
+.aa-kpi-box span { font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--tenue); font-weight: 600; }
+.aa-kpi-box strong { font-family: "Playfair Display", serif; font-size: 26px; color: var(--navy); line-height: 1.15; }
+.aa-kpi-box small { color: var(--tenue); font-size: 13px; }
+.aa-kpi-forte { background: var(--navy); border-color: var(--navy); }
+.aa-kpi-forte span, .aa-kpi-forte small { color: rgba(245, 239, 228, 0.75); }
+.aa-kpi-forte strong { color: var(--cream); }
+.aa-kpi-oro { border-left: 4px solid var(--gold); }
+.aa-testo-rosso { color: var(--rosso); }
+.aa-riga-dettaglio > td { background: rgba(193, 154, 91, 0.08); }
+.aa-tabella-quote { margin: 4px 0 8px; }
+.aa-tabella-quote td { padding: 6px 10px; font-size: 14px; }
+.aa-quota-hub td { color: var(--tenue); }
+.aa-anteprima { margin-top: 16px; padding: 12px 14px; border: 1px dashed var(--linea); border-radius: 10px; }

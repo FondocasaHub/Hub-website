@@ -17,6 +17,7 @@ function Intestazione({ occhiello, titolo, testo }) {
 
 
 const ICONE = {
+  openhouse: "M3 11l9-7 9 7 M5 10v10h14V10 M10 20v-6h4v6",
   documenti: "M7 3h7l5 5v13H7z M14 3v5h5 M10 13h6 M10 17h6",
   istruzioni: "M9 11l2 2 4-4 M5 4h14v16H5z",
   crm: "M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1 M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M20 19v-1a4 4 0 0 0-3-3.9 M15 4.1a3 3 0 0 1 0 5.8",
@@ -45,6 +46,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
+    { id: "social", titolo: "Social immobili", testo: "Appena acquisito, Open House, Prezzo ribassato, Venduto: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });

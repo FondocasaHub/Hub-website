@@ -86,4 +86,4 @@ export const etichettaPeriodo = (inizio, fine) => {
   return a.getDate() === 1 && b.getDate() >= 28 && a.getMonth() === b.getMonth() ? mese : `${a.getDate()}–${b.getDate()} ${mese}`;
 };
 
-export const STATI_REPORT = ["da approvare", "da correggere", "approvato", "verificato", "pagato"];
+export const STATI_REPORT = ["da approvare", "da correggere", "approvato", "autorizzato", "verificato", "pagato"];

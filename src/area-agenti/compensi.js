@@ -20,25 +20,29 @@ export const LIVELLI = [
 const FATT = "Fatturato HUB incassato (€)";
 
 export const VOCI = {
-  new: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 23 }],
-  junior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 33 }],
-  senior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 43 }],
+  new: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 23 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 13 }],
+  junior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 33 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 23 }],
+  senior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 43 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 33 }],
   team_manager: [
     { id: "prod", etichetta: "Produzione personale", base: FATT, pct: 46 },
+    { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 36 },
+    { id: "ov_buyer_b", etichetta: "Override su vendita della Buyer da richiesta generica", base: "Fatturato lato acquirente (€)", pct: 23 },
     { id: "ov_new", etichetta: "Override su operazione di un New del team", base: FATT, pct: 23 },
     { id: "ov_junior", etichetta: "Override su operazione di un Junior del team", base: FATT, pct: 13 },
     { id: "ov_senior", etichetta: "Override su operazione di un Senior del team", base: FATT, pct: 3 },
   ],
   store_manager: [
     { id: "prod", etichetta: "Vendite dirette", base: FATT, pct: 51 },
+    { id: "prod_segn", etichetta: "Vendita diretta su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 41 },
     { id: "ov_store", etichetta: "Override sul fatturato dello store", base: FATT, pct: 5 },
     { id: "ov_new", etichetta: "Override Team Manager su operazione di un New del tuo team", base: FATT, pct: 23 },
     { id: "ov_junior", etichetta: "Override Team Manager su operazione di un Junior del tuo team", base: FATT, pct: 13 },
     { id: "ov_senior", etichetta: "Override Team Manager su operazione di un Senior del tuo team", base: FATT, pct: 3 },
+    { id: "ov_buyer_b", etichetta: "Override Team Manager su vendita della Buyer da richiesta generica", base: "Fatturato lato acquirente (€)", pct: 23 },
   ],
   buyer: [
     { id: "a_listing", etichetta: "Richiesta specifica su listing del team", base: "Fatturato totale dell'operazione (€)", pct: 5 },
-    { id: "b_generica", etichetta: "Acquirente da richiesta generica (sito, contatti)", base: "Fatturato personale lato acquirente (€)", pct: 28 },
+    { id: "b_generica", etichetta: "Vendita da richiesta generica (sito, contatti) — come un New", base: "Fatturato lato acquirente (€)", pct: 28 },
     { id: "c_segnalazione", etichetta: "Segnalazione incarico di vendita", base: "Fatturato lato venditore (€)", pct: 10 },
     { id: "lead_mutuo", etichetta: "Lead WeUnit con mutuo erogato", base: "Numero di lead", fisso: 100 },
     { id: "lead_prestito", etichetta: "Lead WeUnit prestito / cessione del quinto erogati", base: "Numero di lead", fisso: 50 },

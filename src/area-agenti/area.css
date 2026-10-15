@@ -318,3 +318,4 @@ a { color: inherit; }
 .aa-tabella-quote td { padding: 6px 10px; font-size: 14px; }
 .aa-quota-hub td { color: var(--tenue); }
 .aa-anteprima { margin-top: 16px; padding: 12px 14px; border: 1px dashed var(--linea); border-radius: 10px; }
+.aa-riga-esclusa td { opacity: 0.45; }

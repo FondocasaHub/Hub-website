@@ -94,11 +94,37 @@ export function NuovoReport({ profilo, vai }) {
   const voci = VOCI[livello] || [];
   const elencoPeriodi = useMemo(() => periodi(livello), [livello]);
   const [periodo, setPeriodo] = useState(0);
-  const [righe, setRighe] = useState([rigaVuota(voci[0])]);
+  const [righe, setRighe] = useState([]);
+  const [registro, setRegistro] = useState(null);   // quote del collaboratore dal registro incassi
+  const [esclusi, setEsclusi] = useState([]);
   const [fatture, setFatture] = useState([]);
   const [note, setNote] = useState("");
   const [dichiaro, setDichiaro] = useState(false);
   const [stato, setStato] = useState({ invio: false, msg: "", errore: "" });
+
+  useEffect(() => {
+    const p = elencoPeriodi[periodo];
+    if (!p) return;
+    setRegistro(null); setEsclusi([]);
+    (async () => {
+      const [{ data: inc }, { data: miei }] = await Promise.all([
+        supabase.from("incassi").select("id, data_incasso, cliente, indirizzo, lato, importo, quote")
+          .contains("beneficiari", [profilo.id]).gte("data_incasso", p.inizio).lte("data_incasso", p.fine).order("data_incasso"),
+        supabase.from("report_compensi").select("stato, operazioni").eq("utente", profilo.id),
+      ]);
+      const giaUsati = new Set();
+      (miei || []).filter((r) => r.stato !== "da correggere").forEach((r) => (r.operazioni || []).forEach((o) => o.incasso_id && giaUsati.add(`${o.incasso_id}|${o.etichetta}`)));
+      const out = [];
+      (inc || []).forEach((i) => (i.quote || []).filter((q) => q.chi === profilo.id).forEach((q) => {
+        const chiave = `${i.id}|${q.voce}`;
+        out.push({ chiave, incasso_id: i.id, data_incasso: i.data_incasso, riferimento: `${i.cliente}${i.indirizzo ? " · " + i.indirizzo : ""}`,
+          tipo: `Lato ${String(i.lato).toLowerCase()}`, voce: "registro", etichetta: q.voce, base: Number(i.importo), aliquota: q.pct, fisso: null,
+          compenso: Number(q.importo), gia: giaUsati.has(chiave) });
+      }));
+      setRegistro(out);
+      setEsclusi(out.filter((r) => r.gia).map((r) => r.chiave));
+    })();
+  }, [periodo, elencoPeriodi, profilo.id]);
 
   if (!livello) {
     return (
@@ -112,14 +138,17 @@ export function NuovoReport({ profilo, vai }) {
 
   const voceDi = (id) => voci.find((v) => v.id === id);
   const calcolate = righe.map((r) => ({ ...r, compenso: calcola(voceDi(r.voce), r.base) }));
-  const totFatt = calcolate.filter((r) => !voceDi(r.voce)?.fisso).reduce((s, r) => s + (Number(r.base) || 0), 0);
-  const totComp = calcolate.reduce((s, r) => s + r.compenso, 0);
+  const dalRegistro = (registro || []).filter((r) => !esclusi.includes(r.chiave));
+  const incassiUnici = new Map(dalRegistro.map((r) => [r.incasso_id, r.base]));
+  const totFatt = [...incassiUnici.values()].reduce((s, v) => s + v, 0) + calcolate.filter((r) => !voceDi(r.voce)?.fisso).reduce((s, r) => s + (Number(r.base) || 0), 0);
+  const totComp = dalRegistro.reduce((s, r) => s + r.compenso, 0) + calcolate.reduce((s, r) => s + r.compenso, 0);
   const setRiga = (i, k, v) => setRighe(righe.map((r, j) => (j === i ? { ...r, [k]: v } : r)));
 
   const invia = async (e) => {
     e.preventDefault();
     if (!fatture.length) return setStato({ ...stato, errore: "Allega la pro-forma (obbligatoria, circolare 01/2026)." });
     if (!dichiaro) return setStato({ ...stato, errore: "Conferma la dichiarazione in fondo al modulo." });
+    if (!dalRegistro.length && !calcolate.length) return setStato({ ...stato, errore: "Nessuna operazione nel report." });
     if (calcolate.some((r) => !(Number(r.base) > 0))) return setStato({ ...stato, errore: "Ogni riga deve avere un importo maggiore di zero." });
 
     setStato({ invio: true, msg: "Caricamento pro-forma…", errore: "" });
@@ -135,10 +164,13 @@ export function NuovoReport({ profilo, vai }) {
 
     setStato({ invio: true, msg: "Invio del report…", errore: "" });
     const p = elencoPeriodi[periodo];
-    const operazioni = calcolate.map((r) => {
-      const v = voceDi(r.voce);
-      return { ...r, etichetta: v.etichetta, base_descrizione: v.base, aliquota: v.pct ?? null, fisso: v.fisso ?? null, base: Number(r.base) };
-    });
+    const operazioni = [
+      ...dalRegistro.map(({ chiave, gia, ...r }) => ({ ...r, base_descrizione: "Importo incassato (registro)" })),
+      ...calcolate.map((r) => {
+        const v = voceDi(r.voce);
+        return { ...r, etichetta: v.etichetta, base_descrizione: v.base, aliquota: v.pct ?? null, fisso: v.fisso ?? null, base: Number(r.base) };
+      }),
+    ];
     const { data: rep, error } = await supabase.from("report_compensi").insert({
       periodo_inizio: p.inizio, periodo_fine: p.fine, operazioni, allegati, note,
       totale_fatturato: Math.round(totFatt * 100) / 100, totale_compenso: Math.round(totComp * 100) / 100,
@@ -174,6 +206,32 @@ export function NuovoReport({ profilo, vai }) {
 
         <section className="aa-card aa-sezione">
           <h2 className="aa-h2"><span className="aa-sezione-n">02</span>Operazioni incassate</h2>
+          <p className="aa-nota">Dal registro incassi dello Store Manager: importi già calcolati, non modificabili. Se manca un'operazione o un importo non torna, avvisa lo Store Manager.</p>
+          {registro === null ? <p className="aa-nota">Caricamento del registro…</p> : registro.length === 0 ? (
+            <p className="aa-box-info">Nel registro non ci sono operazioni a tuo nome per questo periodo.</p>
+          ) : (
+            <div className="aa-scorri">
+              <table className="aa-tabella">
+                <thead><tr><th></th><th>Incasso</th><th>Cliente / immobile</th><th>Voce</th><th>Incassato</th><th>Compenso</th></tr></thead>
+                <tbody>
+                  {registro.map((r) => {
+                    const dentro = !esclusi.includes(r.chiave);
+                    return (
+                      <tr key={r.chiave} className={dentro ? "" : "aa-riga-esclusa"}>
+                        <td><input type="checkbox" checked={dentro} onChange={() => setEsclusi(dentro ? [...esclusi, r.chiave] : esclusi.filter((k) => k !== r.chiave))} /></td>
+                        <td>{new Date(r.data_incasso).toLocaleDateString("it-IT")}</td>
+                        <td>{r.riferimento}<br /><small className="aa-nota">{r.tipo}{r.gia ? " · già in un altro report" : ""}</small></td>
+                        <td>{r.etichetta}<br /><small className="aa-nota">{r.aliquota}%</small></td>
+                        <td>{euro(r.base)}</td>
+                        <td><strong>{euro(r.compenso)}</strong></td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
+            </div>
+          )}
+          <p className="aa-nota" style={{ marginTop: 16 }}><strong>Altre voci</strong> (solo se non sono nel registro, es. bonus Lead WeUnit):</p>
           <div className="aa-operazioni">
             {calcolate.map((r, i) => {
               const v = voceDi(r.voce);
@@ -201,12 +259,12 @@ export function NuovoReport({ profilo, vai }) {
                     <div className="aa-campo"><span>Compenso {v?.fisso != null ? `(${euro(v.fisso)} cad.)` : `(${v?.pct}%)`}</span>
                       <div className="aa-calcolo">{euro(r.compenso)}</div></div>
                   </div>
-                  {righe.length > 1 && <button type="button" className="aa-link aa-link-rosso" onClick={() => setRighe(righe.filter((_, j) => j !== i))}>Togli</button>}
+                  {<button type="button" className="aa-link aa-link-rosso" onClick={() => setRighe(righe.filter((_, j) => j !== i))}>Togli</button>}
                 </div>
               );
             })}
           </div>
-          <button type="button" className="aa-btn" onClick={() => setRighe([...righe, rigaVuota(voci[0])])}>+ Aggiungi operazione</button>
+          <button type="button" className="aa-btn" onClick={() => setRighe([...righe, rigaVuota(voci[0])])}>+ Aggiungi voce manuale</button>
           <div className="aa-totali">
             <div><span>Totale fatturato</span><strong>{euro(totFatt)}</strong></div>
             <div className="aa-totale-compenso"><span>Totale compenso</span><strong>{euro(totComp)}</strong></div>

@@ -6,7 +6,7 @@
 // Secrets da impostare in Supabase → Edge Functions → Secrets:
 //   BREVO_SMTP_USER  (es. ab908a001@smtp-brevo.com)
 //   BREVO_SMTP_PASS  (chiave SMTP di Brevo — la inserisce solo l'Admin)
-// SUPABASE_URL, SUPABASE_ANON_KEY e SUPABASE_SERVICE_ROLE_KEY sono già disponibili.
+// La funzione agisce sempre con il token di chi la chiama (regole RLS): non usa la chiave segreta.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
@@ -41,21 +41,21 @@ Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   try {
     const { id } = await req.json();
-    const url = Deno.env.get("SUPABASE_URL")!;
-    // Client con il token dell'agente: può leggere solo le proprie richieste (RLS)
-    const comeUtente = createClient(url, Deno.env.get("SUPABASE_ANON_KEY")!, {
+    const url = Deno.env.get("SUPABASE_URL") ?? "https://iymxkvrgkhfaqcyxjsyz.supabase.co";
+    const chiavePubblica = Deno.env.get("SUPABASE_ANON_KEY") ?? "sb_publishable_NBu5yxfOtUSRW-ZYFL4JgQ_QBOxIVYT";
+    // Client con il token di chi chiama: legge solo ciò che le regole RLS gli consentono
+    const comeUtente = createClient(url, chiavePubblica, {
       global: { headers: { Authorization: req.headers.get("Authorization") ?? "" } },
     });
     const { data: r, error } = await comeUtente.from("richieste_marketing").select("*").eq("id", id).maybeSingle();
     if (error || !r) return risposta({ errore: "Richiesta non trovata" }, 404);
     if (r.email_inviata_il) return risposta({ ok: true, gia_inviata: true });
 
-    // Client di servizio: link firmati agli allegati (7 giorni) e segno "email inviata"
-    const admin = createClient(url, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+    // Link firmati agli allegati, validi 7 giorni
     const allegati: { percorso: string; nome: string; tipo: string }[] = r.allegati ?? [];
     const link: string[] = [];
     for (const a of allegati) {
-      const { data } = await admin.storage.from("richieste").createSignedUrl(a.percorso, 60 * 60 * 24 * 7);
+      const { data } = await comeUtente.storage.from("richieste").createSignedUrl(a.percorso, 60 * 60 * 24 * 7);
       if (data) link.push(`<li><a href="${data.signedUrl}">${esc(a.nome)}</a> <span style="color:#5B6577">(${esc(a.tipo)})</span></li>`);
     }
 
@@ -97,7 +97,7 @@ Deno.serve(async (req) => {
     });
     await smtp.close();
 
-    await admin.from("richieste_marketing").update({ email_inviata_il: new Date().toISOString() }).eq("id", r.id);
+    await comeUtente.rpc("segna_email_inviata", { rid: r.id });
     return risposta({ ok: true });
   } catch (e) {
     return risposta({ errore: String(e?.message ?? e) }, 500);

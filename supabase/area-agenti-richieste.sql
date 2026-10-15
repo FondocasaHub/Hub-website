@@ -56,3 +56,12 @@ create policy "allegati: vedo i miei, marketing/manager/admin tutti" on storage.
   using (bucket_id = 'richieste' and (((storage.foldername(name))[1] = auth.uid()::text and public.mio_ruolo() is not null) or public.gestisco_marketing()));
 create policy "allegati: solo admin elimina" on storage.objects
   for delete to authenticated using (bucket_id = 'richieste' and public.sono_admin());
+
+-- Segna l'email come inviata (chiamata dalla funzione notifica-marketing con il token di chi invia)
+create or replace function public.segna_email_inviata(rid bigint) returns void
+language sql security definer set search_path = public as $$
+  update public.richieste_marketing set email_inviata_il = now()
+  where id = rid and (utente = auth.uid() or public.gestisco_marketing())
+$$;
+revoke execute on function public.segna_email_inviata(bigint) from public, anon;
+grant execute on function public.segna_email_inviata(bigint) to authenticated;

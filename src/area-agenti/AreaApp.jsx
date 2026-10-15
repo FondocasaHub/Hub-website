@@ -7,6 +7,7 @@ import { PaginaComunicazioni } from "./Comunicazioni.jsx";
 import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 import Fatturato from "./Fatturato.jsx";
+import Social from "./Social.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -115,6 +116,7 @@ export default function AreaApp() {
     case "manager": contenuto = isManager ? <AreaManager /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
+    case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
     case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;

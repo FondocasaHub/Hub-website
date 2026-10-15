@@ -20,12 +20,12 @@ export const LIVELLI = [
 const FATT = "Fatturato HUB incassato (€)";
 
 export const VOCI = {
-  new: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 23 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 13 }],
-  junior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 33 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 23 }],
-  senior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 43 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 33 }],
+  new: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 23 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (aliquota + 5% − 10% alla Buyer)", base: "Fatturato lato venditore (€)", pct: 18 }],
+  junior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 33 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (aliquota + 5% − 10% alla Buyer)", base: "Fatturato lato venditore (€)", pct: 28 }],
+  senior: [{ id: "prod", etichetta: "Produzione personale", base: FATT, pct: 43 }, { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (aliquota + 5% − 10% alla Buyer)", base: "Fatturato lato venditore (€)", pct: 38 }],
   team_manager: [
     { id: "prod", etichetta: "Produzione personale", base: FATT, pct: 46 },
-    { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 36 },
+    { id: "prod_segn", etichetta: "Produzione personale su incarico segnalato dalla Buyer (aliquota + 5% − 10% alla Buyer)", base: "Fatturato lato venditore (€)", pct: 41 },
     { id: "ov_buyer_b", etichetta: "Override su vendita della Buyer da richiesta generica", base: "Fatturato lato acquirente (€)", pct: 23 },
     { id: "ov_new", etichetta: "Override su operazione di un New del team", base: FATT, pct: 23 },
     { id: "ov_junior", etichetta: "Override su operazione di un Junior del team", base: FATT, pct: 13 },
@@ -33,7 +33,7 @@ export const VOCI = {
   ],
   store_manager: [
     { id: "prod", etichetta: "Vendite dirette", base: FATT, pct: 51 },
-    { id: "prod_segn", etichetta: "Vendita diretta su incarico segnalato dalla Buyer (−10%)", base: "Fatturato lato venditore (€)", pct: 41 },
+    { id: "prod_segn", etichetta: "Vendita diretta su incarico segnalato dalla Buyer (aliquota + 5% − 10% alla Buyer)", base: "Fatturato lato venditore (€)", pct: 46 },
     { id: "ov_store", etichetta: "Override sul fatturato dello store", base: FATT, pct: 5 },
     { id: "ov_new", etichetta: "Override Team Manager su operazione di un New del tuo team", base: FATT, pct: 23 },
     { id: "ov_junior", etichetta: "Override Team Manager su operazione di un Junior del tuo team", base: FATT, pct: 13 },

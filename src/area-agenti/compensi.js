@@ -32,6 +32,9 @@ export const VOCI = {
   store_manager: [
     { id: "prod", etichetta: "Produzione personale", base: FATT, pct: 51 },
     { id: "ov_store", etichetta: "Override su operazione dello store", base: FATT, pct: 5 },
+    { id: "ov_new", etichetta: "Override Team Manager su operazione di un New (se anche TM)", base: FATT, pct: 23 },
+    { id: "ov_junior", etichetta: "Override Team Manager su operazione di un Junior (se anche TM)", base: FATT, pct: 13 },
+    { id: "ov_senior", etichetta: "Override Team Manager su operazione di un Senior (se anche TM)", base: FATT, pct: 3 },
   ],
   buyer: [
     { id: "a_listing", etichetta: "Richiesta specifica su listing del team", base: "Fatturato totale dell'operazione (€)", pct: 5 },

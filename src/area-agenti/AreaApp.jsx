@@ -6,6 +6,7 @@ import Gestione from "./Gestione.jsx";
 import { PaginaComunicazioni } from "./Comunicazioni.jsx";
 import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
+import Fatturato from "./Fatturato.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -114,6 +115,7 @@ export default function AreaApp() {
     case "manager": contenuto = isManager ? <AreaManager /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
+    case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
     case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
@@ -155,6 +157,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
     { id: "richieste", label: "Richieste" },
     { id: "compensi", label: "Compensi" },
   ];
+  voci.push({ id: "fatturato", label: "Fatturato" });
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });
   if (isAdmin) voci.push({ id: "gestione", label: "Gestione" });
 

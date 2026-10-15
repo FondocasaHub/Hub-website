@@ -45,7 +45,7 @@ export function ElencoReport({ profilo, vai }) {
         <div>
           <p className="aa-occhiello">Amministrazione</p>
           <h1 className="aa-titolo">Report provvigioni e compensi</h1>
-          <p className="aa-sottotitolo">Il report del periodo, con la fattura allegata, va approvato dal Team Manager e poi arriva all'Amministrazione.</p>
+          <p className="aa-sottotitolo">Il report del periodo, con la pro-forma allegata, va approvato dal Team Manager e poi arriva all'Amministrazione.</p>
         </div>
         {!isAmm && <button className="aa-btn aa-btn-pieno" onClick={() => vai("compensi/nuovo")}>+ Nuovo report</button>}
       </div>
@@ -117,11 +117,11 @@ export function NuovoReport({ profilo, vai }) {
 
   const invia = async (e) => {
     e.preventDefault();
-    if (!fatture.length) return setStato({ ...stato, errore: "Allega la fattura (obbligatoria, circolare 01/2026)." });
+    if (!fatture.length) return setStato({ ...stato, errore: "Allega la pro-forma (obbligatoria, circolare 01/2026)." });
     if (!dichiaro) return setStato({ ...stato, errore: "Conferma la dichiarazione in fondo al modulo." });
     if (calcolate.some((r) => !(Number(r.base) > 0))) return setStato({ ...stato, errore: "Ogni riga deve avere un importo maggiore di zero." });
 
-    setStato({ invio: true, msg: "Caricamento fattura…", errore: "" });
+    setStato({ invio: true, msg: "Caricamento pro-forma…", errore: "" });
     const { data: { user } } = await supabase.auth.getUser();
     const pratica = crypto.randomUUID();
     const allegati = [];
@@ -213,10 +213,10 @@ export function NuovoReport({ profilo, vai }) {
         </section>
 
         <section className="aa-card aa-sezione">
-          <h2 className="aa-h2"><span className="aa-sezione-n">03</span>Fattura e note</h2>
+          <h2 className="aa-h2"><span className="aa-sezione-n">03</span>Pro-forma e note</h2>
           <div className="aa-griglia-campi">
             <div className="aa-allegato">
-              <label className="aa-btn aa-upload">+ Fattura (PDF) *<input type="file" accept="application/pdf,image/*" multiple onChange={(e) => { setFatture([...fatture, ...Array.from(e.target.files || [])]); e.target.value = ""; }} /></label>
+              <label className="aa-btn aa-upload">+ Pro-forma (PDF) *<input type="file" accept="application/pdf,image/*" multiple onChange={(e) => { setFatture([...fatture, ...Array.from(e.target.files || [])]); e.target.value = ""; }} /></label>
               <ul>{fatture.map((x, i) => <li key={i}>{x.name} <button type="button" className="aa-link aa-link-rosso" onClick={() => setFatture(fatture.filter((_, j) => j !== i))}>togli</button></li>)}</ul>
             </div>
             <label className="aa-campo aa-campo-largo"><span>Note per Team Manager e Amministrazione</span>
@@ -337,6 +337,9 @@ export function DettaglioReport({ id, profilo, vai }) {
       {r.stato === "approvato" && !r.email_amministrazione_il && (possoApprovare || isAmm) && (
         <div className="aa-errore aa-riga"><span>L'email all'Amministrazione non risulta inviata.</span><button className="aa-btn aa-btn-piccolo" onClick={reinvia}>Invia di nuovo</button></div>
       )}
+      {r.stato === "verificato" && (
+        <p className="aa-info">Report verificato dall'Amministrazione: ora il collaboratore emette la fattura elettronica a FC Punto Hub Srl, identica alla pro-forma, e ne invia copia a contabilita2@fondocasa.com.</p>
+      )}
       {msg.testo && <p className={msg.errore ? "aa-errore" : "aa-info"}>{msg.testo}</p>}
 
       <section className="aa-card">
@@ -364,7 +367,7 @@ export function DettaglioReport({ id, profilo, vai }) {
       </section>
 
       <section className="aa-card">
-        <h2 className="aa-h2">Fattura</h2>
+        <h2 className="aa-h2">Pro-forma</h2>
         <ul className="aa-file">
           {(r.allegati || []).map((a) => (
             <li key={a.percorso}><button onClick={() => apriFile(a.percorso)}><span className="aa-file-nome">{a.nome}</span><span className="aa-file-dim">{(a.dimensione / 1024 / 1024).toFixed(1)} MB</span></button></li>

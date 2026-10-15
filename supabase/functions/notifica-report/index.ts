@@ -76,7 +76,7 @@ ${righe}
         const { data: s } = await db.storage.from("compensi").createSignedUrl(a.percorso, 60 * 60 * 24 * 30);
         if (s) link.push(`<li><a href="${s.signedUrl}">${esc(a.nome)}</a></li>`);
       }
-      linkFatture = `<p style="font-size:13px"><strong>Fattura</strong></p><ul style="font-size:13px">${link.join("") || "<li>—</li>"}</ul><p style="font-size:12px;color:#5B6577">I link alla fattura valgono 30 giorni; il report resta consultabile nell'Area Agenti.</p>`;
+      linkFatture = `<p style="font-size:13px"><strong>Pro-forma</strong></p><ul style="font-size:13px">${link.join("") || "<li>—</li>"}</ul><p style="font-size:12px;color:#5B6577">I link alla pro-forma valgono 30 giorni; il report resta consultabile nell'Area Agenti.</p>`;
     }
 
     const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">

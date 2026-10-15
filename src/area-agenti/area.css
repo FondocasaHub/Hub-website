@@ -282,6 +282,7 @@ a { color: inherit; }
 .aa-stato-da-approvare { background: #FBF0DC; color: #8A5A12; }
 .aa-stato-da-correggere { background: #F7E4E1; color: var(--rosso); }
 .aa-stato-approvato { background: #E8EEF8; color: #23408A; }
+.aa-stato-autorizzato { background: #E0F0F2; color: #1F6670; }
 .aa-stato-verificato { background: #EDE7F6; color: #4A2F86; }
 .aa-stato-pagato { background: #E3F1E8; color: var(--verde); }
 .aa-operazioni { display: grid; gap: 12px; margin-bottom: 14px; }

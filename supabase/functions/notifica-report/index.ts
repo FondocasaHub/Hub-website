@@ -1,6 +1,7 @@
 // Edge Function "notifica-report"
 // destinatario = "tm": avvisa il Team Manager che c'è un report da approvare.
-// destinatario = "amministrazione": invia il report approvato a contabilita2@fondocasa.com,
+// destinatario = "sm": avvisa lo Store Manager che c'è un report approvato da autorizzare.
+// destinatario = "amministrazione": invia il report autorizzato a contabilita2@fondocasa.com,
 //   in copia na.vomero@fondocasa.it, lo Store Manager e il collaboratore (circolare 01/2026).
 // Usa gli stessi secrets di notifica-marketing (BREVO_SMTP_USER / BREVO_SMTP_PASS) e
 // agisce con il token di chi la chiama (regole RLS).
@@ -63,14 +64,23 @@ ${righe}
       to = (email ?? []).filter(Boolean);
       if (!to.length) return risposta({ ok: true, nessun_approvatore: true });
       oggetto = `Report compensi da approvare — ${r.nome}, ${periodo(r.periodo_inizio, r.periodo_fine)}`;
-      intro = `<strong>${esc(r.nome)}</strong> ha inviato il report del periodo <strong>${periodo(r.periodo_inizio, r.periodo_fine)}</strong>. Verificalo e approvalo nell'Area Agenti: solo dopo la tua approvazione arriva all'Amministrazione.`;
+      intro = `<strong>${esc(r.nome)}</strong> ha inviato il report del periodo <strong>${periodo(r.periodo_inizio, r.periodo_fine)}</strong>. Verificalo e approvalo nell'Area Agenti: dopo la tua approvazione passa allo Store Manager per l'autorizzazione.`;
+    } else if (destinatario === "sm") {
+      if (r.stato !== "approvato") return risposta({ errore: "Report non in attesa di autorizzazione" }, 400);
+      const { data: email } = await db.rpc("email_store_manager", { rid: r.id });
+      to = (email ?? []).filter(Boolean);
+      if (!to.length) return risposta({ ok: true, nessun_store_manager: true });
+      oggetto = `Report compensi da autorizzare — ${r.nome}, ${periodo(r.periodo_inizio, r.periodo_fine)} — ${euro(r.totale_compenso)}`;
+      intro = `Il report di <strong>${esc(r.nome)}</strong> per il periodo <strong>${periodo(r.periodo_inizio, r.periodo_fine)}</strong> è stato approvato da <strong>${esc(r.approvato_da)}</strong>. Autorizzalo nell'Area Agenti: solo dopo la tua autorizzazione arriva all'Amministrazione.` +
+        (r.nota_tm ? `<br><em>Nota del Team Manager:</em> ${esc(r.nota_tm)}` : "");
     } else {
-      if (!["approvato", "verificato", "pagato"].includes(r.stato)) return risposta({ errore: "Report non ancora approvato" }, 400);
+      if (!["autorizzato", "verificato", "pagato"].includes(r.stato)) return risposta({ errore: "Report non ancora autorizzato" }, 400);
       to = [AMMINISTRAZIONE];
       cc = [...COPIA, r.email].filter((x, i, a) => x && a.indexOf(x) === i);
       oggetto = `Report compensi n. ${r.id} — ${r.nome}, ${periodo(r.periodo_inizio, r.periodo_fine)} — ${euro(r.totale_compenso)}`;
-      intro = `Report provvigioni di <strong>${esc(r.nome)}</strong> per il periodo <strong>${periodo(r.periodo_inizio, r.periodo_fine)}</strong>, approvato da <strong>${esc(r.approvato_da)}</strong> il ${data(r.approvato_il)}.` +
-        (r.nota_tm ? `<br><em>Nota del Team Manager:</em> ${esc(r.nota_tm)}` : "");
+      intro = `Report provvigioni di <strong>${esc(r.nome)}</strong> per il periodo <strong>${periodo(r.periodo_inizio, r.periodo_fine)}</strong>, approvato da <strong>${esc(r.approvato_da)}</strong> il ${data(r.approvato_il)} e autorizzato da <strong>${esc(r.autorizzato_da)}</strong> il ${data(r.autorizzato_il)}. Dopo la verifica il collaboratore emette la fattura elettronica identica alla pro-forma.` +
+        (r.nota_tm ? `<br><em>Nota del Team Manager:</em> ${esc(r.nota_tm)}` : "") +
+        (r.nota_sm ? `<br><em>Nota dello Store Manager:</em> ${esc(r.nota_sm)}` : "");
       const link: string[] = [];
       for (const a of r.allegati ?? []) {
         const { data: s } = await db.storage.from("compensi").createSignedUrl(a.percorso, 60 * 60 * 24 * 30);
@@ -97,7 +107,7 @@ ${righe}
     await smtp.send({ from: MITTENTE, to, cc: cc.length ? cc : undefined, replyTo: r.email, subject: oggetto, content: "auto", html });
     await smtp.close();
 
-    await db.rpc("segna_email_report", { rid: r.id, destinatario: destinatario === "tm" ? "tm" : "amministrazione" });
+    await db.rpc("segna_email_report", { rid: r.id, destinatario: destinatario === "tm" || destinatario === "sm" ? destinatario : "amministrazione" });
     return risposta({ ok: true });
   } catch (e) {
     return risposta({ errore: String((e as Error)?.message ?? e) }, 500);

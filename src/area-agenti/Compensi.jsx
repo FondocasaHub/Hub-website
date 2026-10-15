@@ -34,8 +34,9 @@ export function ElencoReport({ profilo, vai }) {
   const schede = [];
   if (!isAmm) schede.push({ id: "miei", label: "I miei report", filtro: (r) => r.utente === profilo.id });
   if (isManager) schede.push({ id: "approvare", label: "Da approvare", filtro: (r) => r.utente !== profilo.id && r.stato === "da approvare" });
+  if (isAdmin) schede.push({ id: "autorizzare", label: "Da autorizzare", filtro: (r) => r.stato === "approvato" });
   if (isManager) schede.push({ id: "team", label: isAdmin ? "Tutti" : "Il mio team", filtro: (r) => r.utente !== profilo.id });
-  if (isAmm || isAdmin) schede.push({ id: "amministrazione", label: "Amministrazione", filtro: (r) => ["approvato", "verificato", "pagato"].includes(r.stato) });
+  if (isAmm || isAdmin) schede.push({ id: "amministrazione", label: "Amministrazione", filtro: (r) => ["autorizzato", "verificato", "pagato"].includes(r.stato) });
   const scheda = schede.find((s) => s.id === vista) || schede[0];
   const visibili = (lista || []).filter(scheda.filtro);
 
@@ -45,7 +46,7 @@ export function ElencoReport({ profilo, vai }) {
         <div>
           <p className="aa-occhiello">Amministrazione</p>
           <h1 className="aa-titolo">Report provvigioni e compensi</h1>
-          <p className="aa-sottotitolo">Il report del periodo, con la pro-forma allegata, va approvato dal Team Manager e poi arriva all'Amministrazione.</p>
+          <p className="aa-sottotitolo">Il report del periodo, con la pro-forma allegata, va approvato dal Team Manager, autorizzato dallo Store Manager e poi arriva all'Amministrazione.</p>
         </div>
         {!isAmm && <button className="aa-btn aa-btn-pieno" onClick={() => vai("compensi/nuovo")}>+ Nuovo report</button>}
       </div>
@@ -257,15 +258,31 @@ export function DettaglioReport({ id, profilo, vai }) {
 
   const mostra = (testo, errore = false) => setMsg({ testo, errore });
 
+  const isAdmin = profilo.ruolo === "admin";
+
+  const avvisa = async (destinatario, ok) => {
+    const { error } = await supabase.functions.invoke("notifica-report", { body: { id: Number(id), destinatario } });
+    const chi = destinatario === "sm" ? "allo Store Manager" : "all'Amministrazione";
+    mostra(error ? `${ok}, ma l'email ${chi} non è partita: usa “Invia di nuovo”.` : `${ok} e inviato ${chi}.`, !!error);
+  };
+
   const decidi = async (approvato) => {
     if (!approvato && !nota.trim()) return mostra("Scrivi nella nota cosa va corretto.", true);
-    mostra(approvato ? "Approvazione e invio all'Amministrazione…" : "Invio della richiesta di correzione…");
+    mostra(approvato ? "Approvazione in corso…" : "Invio della richiesta di correzione…");
     const { error } = await supabase.rpc("approva_report", { rid: Number(id), approvato, nota: nota || null });
     if (error) return mostra(error.message, true);
-    if (approvato) {
-      const { error: errEmail } = await supabase.functions.invoke("notifica-report", { body: { id: Number(id), destinatario: "amministrazione" } });
-      mostra(errEmail ? "Approvato, ma l'email all'Amministrazione non è partita: usa “Invia di nuovo”." : "Approvato e inviato all'Amministrazione.", !!errEmail);
-    } else mostra("Report rimandato al collaboratore per la correzione.");
+    if (approvato) await avvisa(isAdmin ? "amministrazione" : "sm", isAdmin ? "Approvato e autorizzato" : "Approvato");
+    else mostra("Report rimandato al collaboratore per la correzione.");
+    setNota(""); carica();
+  };
+
+  const autorizza = async (ok) => {
+    if (!ok && !nota.trim()) return mostra("Scrivi nella nota cosa va corretto.", true);
+    mostra(ok ? "Autorizzazione in corso…" : "Invio della richiesta di correzione…");
+    const { error } = await supabase.rpc("autorizza_report", { rid: Number(id), autorizzato: ok, nota: nota || null });
+    if (error) return mostra(error.message, true);
+    if (ok) await avvisa("amministrazione", "Autorizzato");
+    else mostra("Report rimandato al collaboratore per la correzione.");
     setNota(""); carica();
   };
 
@@ -275,17 +292,18 @@ export function DettaglioReport({ id, profilo, vai }) {
     mostra(`Report segnato come “${nuovo}”.`); setNota(""); carica();
   };
 
-  const reinvia = async () => {
+  const reinvia = async (destinatario) => {
     mostra("Invio in corso…");
-    const { error } = await supabase.functions.invoke("notifica-report", { body: { id: Number(id), destinatario: "amministrazione" } });
-    mostra(error ? "L'email non è partita: avvisa l'Admin." : "Email inviata all'Amministrazione.", !!error);
+    const { error } = await supabase.functions.invoke("notifica-report", { body: { id: Number(id), destinatario } });
+    mostra(error ? "L'email non è partita: avvisa l'Admin." : "Email inviata.", !!error);
     carica();
   };
 
   if (r === undefined) return <p className="aa-nota">Caricamento…</p>;
   if (r === null) return <section className="aa-card"><p>Report non trovato.</p><button className="aa-btn" onClick={() => vai("compensi")}>Torna ai report</button></section>;
 
-  const passi = ["da approvare", "approvato", "verificato", "pagato"];
+  const passi = ["da approvare", "approvato", "autorizzato", "verificato", "pagato"];
+  const nomiPassi = { "da approvare": "Inviato", approvato: "Approvato TM", autorizzato: "Autorizzato SM", verificato: "Verificato", pagato: "Pagato" };
   const indice = r.stato === "da correggere" ? 0 : passi.indexOf(r.stato);
 
   return (
@@ -303,11 +321,12 @@ export function DettaglioReport({ id, profilo, vai }) {
       {query.get("inviato") && <p className="aa-info">Report inviato. Il Team Manager lo vede in “Da approvare” ed è stato avvisato via email.</p>}
 
       <ol className="aa-passi">
-        {passi.map((p, i) => <li key={p} className={i <= indice && r.stato !== "da correggere" ? "fatto" : ""}>{p === "da approvare" ? "Inviato" : p[0].toUpperCase() + p.slice(1)}</li>)}
+        {passi.map((p, i) => <li key={p} className={i <= indice && r.stato !== "da correggere" ? "fatto" : ""}>{nomiPassi[p]}</li>)}
       </ol>
 
-      {r.stato === "da correggere" && <p className="aa-errore"><strong>Da correggere</strong> — {r.nota_tm} ({r.approvato_da}). Compila un nuovo report con le correzioni.</p>}
+      {r.stato === "da correggere" && <p className="aa-errore"><strong>Da correggere</strong> — {r.nota_sm || r.nota_tm} ({r.nota_sm ? r.autorizzato_da : r.approvato_da}). Compila un nuovo report con le correzioni.</p>}
       {r.nota_tm && r.stato !== "da correggere" && <p className="aa-box-info"><strong>Nota del Team Manager ({r.approvato_da}):</strong> {r.nota_tm}</p>}
+      {r.nota_sm && r.stato !== "da correggere" && <p className="aa-box-info"><strong>Nota dello Store Manager ({r.autorizzato_da}):</strong> {r.nota_sm}</p>}
       {r.nota_amministrazione && <p className="aa-box-info"><strong>Nota dell'Amministrazione:</strong> {r.nota_amministrazione}</p>}
 
       {possoApprovare && ["da approvare", "da correggere"].includes(r.stato) && (
@@ -317,25 +336,41 @@ export function DettaglioReport({ id, profilo, vai }) {
             <input value={nota} onChange={(e) => setNota(e.target.value)} placeholder="es. manca l'operazione di via Cilea" /></label>
           <div className="aa-riga" style={{ marginTop: 12 }}>
             <button className="aa-btn" onClick={() => decidi(false)}>Rimanda per correzione</button>
-            <button className="aa-btn aa-btn-pieno" onClick={() => decidi(true)}>Approva e invia all'Amministrazione</button>
+            <button className="aa-btn aa-btn-pieno" onClick={() => decidi(true)}>{isAdmin ? "Approva, autorizza e invia all'Amministrazione" : "Approva e invia allo Store Manager"}</button>
           </div>
         </section>
       )}
 
-      {isAmm && ["approvato", "verificato", "pagato"].includes(r.stato) && (
+      {isAdmin && r.stato === "approvato" && (
+        <section className="aa-card aa-gestione-stato">
+          <h2 className="aa-h2">Autorizzazione Store Manager</h2>
+          <p className="aa-nota">Approvato da {r.approvato_da} il {dataIT(r.approvato_il)}.</p>
+          <label className="aa-campo"><span>Nota (obbligatoria se rimandi per correzione)</span>
+            <input value={nota} onChange={(e) => setNota(e.target.value)} /></label>
+          <div className="aa-riga" style={{ marginTop: 12 }}>
+            <button className="aa-btn" onClick={() => autorizza(false)}>Rimanda per correzione</button>
+            <button className="aa-btn aa-btn-pieno" onClick={() => autorizza(true)}>Autorizza e invia all'Amministrazione</button>
+          </div>
+        </section>
+      )}
+
+      {isAmm && ["autorizzato", "verificato", "pagato"].includes(r.stato) && (
         <section className="aa-card aa-gestione-stato">
           <h2 className="aa-h2">Amministrazione</h2>
           <label className="aa-campo"><span>Nota per il collaboratore</span>
             <input value={nota} onChange={(e) => setNota(e.target.value)} placeholder="es. pagamento con bonifico del 20/10" /></label>
           <div className="aa-riga" style={{ marginTop: 12 }}>
-            <button className="aa-btn" onClick={() => lavora("verificato")} disabled={r.stato !== "approvato"}>Segna verificato</button>
-            <button className="aa-btn aa-btn-pieno" onClick={() => lavora("pagato")} disabled={r.stato === "pagato"}>Segna pagato</button>
+            <button className="aa-btn" onClick={() => lavora("verificato")} disabled={r.stato !== "autorizzato"}>Segna verificato</button>
+            <button className="aa-btn aa-btn-pieno" onClick={() => lavora("pagato")} disabled={r.stato !== "verificato"}>Segna pagato</button>
           </div>
         </section>
       )}
 
-      {r.stato === "approvato" && !r.email_amministrazione_il && (possoApprovare || isAmm) && (
-        <div className="aa-errore aa-riga"><span>L'email all'Amministrazione non risulta inviata.</span><button className="aa-btn aa-btn-piccolo" onClick={reinvia}>Invia di nuovo</button></div>
+      {r.stato === "approvato" && !r.email_sm_il && possoApprovare && (
+        <div className="aa-errore aa-riga"><span>L'email allo Store Manager non risulta inviata.</span><button className="aa-btn aa-btn-piccolo" onClick={() => reinvia("sm")}>Invia di nuovo</button></div>
+      )}
+      {r.stato === "autorizzato" && !r.email_amministrazione_il && (possoApprovare || isAmm) && (
+        <div className="aa-errore aa-riga"><span>L'email all'Amministrazione non risulta inviata.</span><button className="aa-btn aa-btn-piccolo" onClick={() => reinvia("amministrazione")}>Invia di nuovo</button></div>
       )}
       {r.stato === "verificato" && (
         <p className="aa-info">Report verificato dall'Amministrazione: ora il collaboratore emette la fattura elettronica a FC Punto Hub Srl, identica alla pro-forma, e ne invia copia a contabilita2@fondocasa.com.</p>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { supabase, BUCKET, CARTELLE, RUOLI, REPARTI } from "./supabase";
 import { GestioneComunicazioni } from "./Comunicazioni.jsx";
+import { LIVELLI } from "./compensi";
 
 const LINK_INVITO = "https://supabase.com/dashboard/project/iymxkvrgkhfaqcyxjsyz/auth/users";
 
@@ -59,7 +60,7 @@ function Utenti({ io }) {
       return mostra("Non puoi togliere a te stesso il ruolo Admin o disattivarti.", true);
     }
     const { error } = await supabase.from("profiles")
-      .update({ nome: u.nome, ruolo: u.ruolo, reparto: u.reparto || null, team: u.team || null, attivo: u.attivo })
+      .update({ nome: u.nome, ruolo: u.ruolo, reparto: u.reparto || null, livello: u.livello || null, team: u.team || null, attivo: u.attivo })
       .eq("id", u.id);
     if (error) return mostra(error.message, true);
     mostra(`Salvato: ${u.nome || u.email}`);
@@ -81,7 +82,7 @@ function Utenti({ io }) {
       {vista}
       <div className="aa-scorri">
         <table className="aa-tabella aa-tabella-edit">
-          <thead><tr><th>Nome</th><th>Email</th><th>Ruolo</th><th>Reparto</th><th>Team</th><th>Attivo</th><th></th></tr></thead>
+          <thead><tr><th>Nome</th><th>Email</th><th>Ruolo</th><th>Reparto</th><th>Livello compensi</th><th>Team</th><th>Attivo</th><th></th></tr></thead>
           <tbody>
             {utenti.map((u) => (
               <tr key={u.id} className={u.attivo ? "" : "aa-spento"}>
@@ -95,6 +96,12 @@ function Utenti({ io }) {
                 <td>
                   <select value={u.reparto || ""} onChange={(e) => cambia(u.id, "reparto", e.target.value)}>
                     {REPARTI.map((r) => <option key={r.id} value={r.id}>{r.nome}</option>)}
+                  </select>
+                </td>
+                <td>
+                  <select value={u.livello || ""} onChange={(e) => cambia(u.id, "livello", e.target.value)}>
+                    <option value="">—</option>
+                    {LIVELLI.map((l) => <option key={l.id} value={l.id}>{l.nome}</option>)}
                   </select>
                 </td>
                 <td><input value={u.team || ""} onChange={(e) => cambia(u.id, "team", e.target.value)} placeholder="Es. Team Nigido" /></td>

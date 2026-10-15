@@ -42,8 +42,8 @@ export const VOCI = {
   ],
   buyer: [
     { id: "a_listing", etichetta: "Richiesta specifica su listing del team", base: "Fatturato totale dell'operazione (€)", pct: 5 },
-    { id: "b_generica", etichetta: "Vendita da richiesta generica (sito, contatti) — come un New", base: "Fatturato lato acquirente (€)", pct: 28 },
-    { id: "c_segnalazione", etichetta: "Segnalazione incarico di vendita", base: "Fatturato lato venditore (€)", pct: 10 },
+    { id: "b_generica", etichetta: "Vendita all'acquirente (richiesta generica, anche su incarico da lei segnalato) — come un New", base: "Fatturato lato acquirente (€)", pct: 28 },
+    { id: "c_segnalazione", etichetta: "Segnalazione incarico di vendita (10% scalato al listing)", base: "Fatturato lato venditore (€)", pct: 10 },
     { id: "lead_mutuo", etichetta: "Lead WeUnit con mutuo erogato", base: "Numero di lead", fisso: 100 },
     { id: "lead_prestito", etichetta: "Lead WeUnit prestito / cessione del quinto erogati", base: "Numero di lead", fisso: 50 },
   ],

@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { supabase, BUCKET, CARTELLE } from "./supabase";
+import { BoxComunicazioni } from "./Comunicazioni.jsx";
 import { PIANO_INSERIMENTO, AGENDA, GIORNI, ROUTINE_LISTING, OBIETTIVI_LISTING } from "./contenuti";
 
 const NOMI_RUOLO = { admin: "Admin", manager: "Manager", agente: "Agente", credito: "Consulente del credito", staff: "Staff" };
@@ -20,6 +21,7 @@ const ICONE = {
   istruzioni: "M9 11l2 2 4-4 M5 4h14v16H5z",
   crm: "M16 19v-1a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v1 M10 10a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M20 19v-1a4 4 0 0 0-3-3.9 M15 4.1a3 3 0 0 1 0 5.8",
   produttivita: "M4 6h16 M4 12h16 M4 18h10 M18 16l2 2-2 2",
+  richieste: "M4 4h16v12H8l-4 4z M8 9h8 M8 12h5",
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
 };
 function Icona({ nome }) {
@@ -32,12 +34,6 @@ function Icona({ nome }) {
 
 /* ---------------- HOME ---------------- */
 export function Home({ profilo, vai, isManager }) {
-  const [avvisi, setAvvisi] = useState([]);
-  useEffect(() => {
-    supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false }).limit(5)
-      .then(({ data }) => setAvvisi(data || []));
-  }, []);
-
   const oggi = new Date().getDay(); // 0 domenica ... 6 sabato
   const agendaOggi = AGENDA.filter((a) => a.giorno === oggi || (a.giorno === 0 && oggi >= 1 && oggi <= 5));
   const nome = (profilo.nome || "").split(" ")[0];
@@ -46,6 +42,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "documenti", titolo: "Documenti", testo: "Modulistica, procedure e materiali del tuo ruolo", icona: "documenti" },
     { id: "istruzioni", titolo: "Istruzioni e inserimento", testo: "Piano di inserimento, agenda e regole dello store", icona: "istruzioni" },
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
+    { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });
@@ -58,16 +55,6 @@ export function Home({ profilo, vai, isManager }) {
         testo="Tutto quello che ti serve per lavorare, in un unico posto."
       />
 
-      {avvisi.length > 0 && (
-        <section className="aa-avvisi">
-          {avvisi.map((a) => (
-            <article key={a.id} className="aa-avviso">
-              <strong>{a.titolo}</strong>
-              {a.testo && <p>{a.testo}</p>}
-            </article>
-          ))}
-        </section>
-      )}
 
       <div className="aa-griglia">
         {riquadri.map((r) => (
@@ -79,6 +66,8 @@ export function Home({ profilo, vai, isManager }) {
         ))}
       </div>
 
+      <div className="aa-due-colonne">
+      <BoxComunicazioni vai={vai} />
       <section className="aa-card">
         <h2 className="aa-h2">Oggi in agenda</h2>
         {agendaOggi.length === 0 ? (
@@ -91,6 +80,7 @@ export function Home({ profilo, vai, isManager }) {
           </ul>
         )}
       </section>
+      </div>
     </>
   );
 }
@@ -155,7 +145,7 @@ export function Cartella({ cartella }) {
   );
 }
 
-export function Documenti() {
+export function Documenti({ vai }) {
   const [cartelle, setCartelle] = useState(null);
   useEffect(() => {
     Promise.all(CARTELLE.map((c) =>
@@ -166,6 +156,13 @@ export function Documenti() {
   return (
     <>
       <Intestazione occhiello="Archivio" titolo="Documenti" testo="Vedi solo le cartelle abilitate per il tuo ruolo. I link ai file scadono dopo 5 minuti: non inoltrarli." />
+      <button className="aa-card aa-cartella-link" onClick={() => vai("comunicazioni")}>
+        <div>
+          <h2 className="aa-h2">Comunicazioni</h2>
+          <p className="aa-nota">Circolari e avvisi dello store con i loro allegati</p>
+        </div>
+        <span className="aa-link">Apri →</span>
+      </button>
       {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => <Cartella key={c.id} cartella={c} />)}
     </>
   );

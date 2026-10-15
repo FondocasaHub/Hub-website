@@ -3,6 +3,8 @@ import { supabase, LINK_TYPE, LINK_ERROR } from "./supabase";
 import { Accesso, NuovaPassword } from "./Accesso.jsx";
 import { Home, Documenti, Istruzioni, Crm, Produttivita, AreaManager } from "./Pagine.jsx";
 import Gestione from "./Gestione.jsx";
+import { PaginaComunicazioni } from "./Comunicazioni.jsx";
+import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -55,7 +57,7 @@ export default function AreaApp() {
 
   const vai = (p) => {
     window.history.pushState({}, "", p ? `${BASE}/${p}` : BASE);
-    setPagina(p);
+    setPagina(p.split("?")[0]);
     window.scrollTo({ top: 0 });
   };
 
@@ -97,18 +99,25 @@ export default function AreaApp() {
 
   const isAdmin = profilo.ruolo === "admin";
   const isManager = isAdmin || profilo.ruolo === "manager";
+  const gestoreMarketing = isManager || (profilo.ruolo === "staff" && profilo.reparto === "marketing");
   const crm = strumenti.filter((s) => s.categoria === "crm");
   const produttivita = strumenti.filter((s) => s.categoria === "produttivita");
 
   let contenuto;
   switch (pagina) {
-    case "documenti": contenuto = <Documenti />; break;
+    case "documenti": contenuto = <Documenti vai={vai} />; break;
+    case "comunicazioni": contenuto = <PaginaComunicazioni />; break;
     case "istruzioni": contenuto = <Istruzioni strumenti={strumenti} />; break;
     case "crm": contenuto = <Crm strumenti={crm} />; break;
     case "produttivita": contenuto = <Produttivita strumenti={produttivita} />; break;
     case "manager": contenuto = isManager ? <AreaManager /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
-    default: contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} />;
+    case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
+    case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
+    default:
+      if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
+      if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
+      contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} />;
   }
 
   return (
@@ -139,6 +148,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
     { id: "documenti", label: "Documenti" },
     { id: "istruzioni", label: "Istruzioni" },
     { id: "crm", label: "CRM" },
+    { id: "richieste", label: "Richieste" },
   ];
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });
   if (isAdmin) voci.push({ id: "gestione", label: "Gestione" });
@@ -158,8 +168,8 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
         </button>
 
         <nav className={`aa-nav ${menuMobile ? "aperto" : ""}`}>
-          {voci.slice(0, 4).map((v) => (
-            <button key={v.id} className={pagina === v.id ? "attivo" : ""} onClick={() => clic(v.id)}>{v.label}</button>
+          {voci.slice(0, 5).map((v) => (
+            <button key={v.id} className={pagina === v.id || (v.id && pagina.startsWith(v.id + "/")) ? "attivo" : ""} onClick={() => clic(v.id)}>{v.label}</button>
           ))}
 
           <div className="aa-tendina-wrap">
@@ -180,7 +190,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
             )}
           </div>
 
-          {voci.slice(4).map((v) => (
+          {voci.slice(5).map((v) => (
             <button key={v.id} className={pagina === v.id ? "attivo" : ""} onClick={() => clic(v.id)}>{v.label}</button>
           ))}
 

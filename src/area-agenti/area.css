@@ -207,3 +207,73 @@ a { color: inherit; }
 @keyframes aa-gira { to { transform: rotate(360deg); } }
 .aa-riquadro > .aa-riquadro-icona { color: var(--gold-bright); }
 .aa-agenda-larga span { min-width: 280px; }
+
+/* ---------- Richieste / Modulo Ingaggio Marketing ---------- */
+.aa-intestazione-azione { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; }
+.aa-conta { display: inline-block; margin-left: 6px; background: var(--cream); border-radius: 10px; padding: 0 7px; font-size: 12px; color: var(--tenue); }
+.aa-tabella-click tbody tr { cursor: pointer; }
+.aa-tabella-click tbody tr:hover td { background: var(--cream); }
+.aa-stato { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 13px; font-weight: 600; white-space: nowrap; text-transform: capitalize; }
+.aa-stato-grande { font-size: 15px; padding: 6px 14px; }
+.aa-stato-ricevuta { background: #E8EEF8; color: #23408A; }
+.aa-stato-in-lavorazione { background: #FBF0DC; color: #8A5A12; }
+.aa-stato-completata { background: #E3F1E8; color: var(--verde); }
+.aa-stato-respinta { background: #F7E4E1; color: var(--rosso); }
+.aa-sezione-n { display: inline-grid; place-items: center; min-width: 34px; height: 26px; margin-right: 10px; border-radius: 6px; background: var(--navy); color: var(--gold-bright); font-family: "Jost", sans-serif; font-size: 13px; font-weight: 600; vertical-align: 3px; }
+.aa-griglia-campi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px 16px; }
+.aa-campo { display: grid; gap: 6px; align-content: start; font-size: 13px; font-weight: 600; letter-spacing: 0.02em; color: var(--tenue); }
+.aa-campo > span em, .aa-spunta-grande em { color: var(--rosso); font-style: normal; }
+.aa-campo-largo { grid-column: 1 / -1; }
+.aa-campo input:not([type="checkbox"]):not([type="radio"]):not([type="file"]), .aa-campo select, .aa-campo textarea {
+  width: 100%; padding: 10px 12px; border: 1px solid rgba(10, 31, 61, 0.2); border-radius: 8px; background: #fff; color: var(--testo); font-size: 16px; font-weight: 400; letter-spacing: 0;
+}
+.aa-campo input:focus, .aa-campo select:focus, .aa-campo textarea:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+.aa-campo textarea { resize: vertical; }
+.aa-spunte { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px 16px; }
+.aa-spunte label, .aa-radio label { display: flex; align-items: center; gap: 8px; font-size: 15px; font-weight: 400; color: var(--testo); letter-spacing: 0; }
+.aa-spunte input, .aa-radio input, .aa-spunta-grande input { width: 18px; height: 18px; accent-color: var(--navy); flex: 0 0 auto; }
+.aa-radio { display: flex; flex-wrap: wrap; gap: 8px 24px; }
+.aa-allegato { grid-column: 1 / -1; display: flex; gap: 16px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--linea); }
+.aa-allegato .aa-btn { min-width: 150px; }
+.aa-allegato ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; font-size: 14px; }
+.aa-allegato li { display: flex; gap: 10px; align-items: baseline; }
+.aa-clausola { background: var(--cream); border-radius: 8px; padding: 12px 14px; font-size: 14px; color: var(--tenue); margin: 0; }
+.aa-spunta-grande { grid-column: 1 / -1; display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; }
+.aa-firma { margin: 0; padding: 10px 12px; border: 1px dashed rgba(10, 31, 61, 0.25); border-radius: 8px; font-weight: 400; font-size: 14px; color: var(--testo); letter-spacing: 0; }
+.aa-modulo-azioni { display: flex; justify-content: flex-end; gap: 12px; position: sticky; bottom: 0; background: var(--cream); border-top: 1px solid var(--linea); padding: 12px 0; z-index: 5; }
+.aa-modulo-azioni .aa-btn-pieno { min-width: 240px; }
+.aa-dati { display: grid; grid-template-columns: minmax(160px, 34%) 1fr; margin: 0; }
+.aa-dati dt, .aa-dati dd { margin: 0; padding: 8px 0; border-bottom: 1px solid var(--linea); }
+.aa-dati dt { color: var(--tenue); font-size: 14px; padding-right: 16px; }
+.aa-dati dd { white-space: pre-line; }
+.aa-riga { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+@media (max-width: 800px) {
+  .aa-griglia-campi { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 560px) {
+  .aa-griglia-campi, .aa-spunte { grid-template-columns: 1fr; }
+  .aa-dati { grid-template-columns: 1fr; }
+  .aa-dati dt { border-bottom: 0; padding-bottom: 0; }
+  .aa-allegato { flex-direction: column; }
+  .aa-modulo-azioni { flex-direction: column-reverse; }
+  .aa-modulo-azioni .aa-btn { width: 100%; }
+}
+
+/* ---------- Comunicazioni ---------- */
+.aa-due-colonne { display: grid; grid-template-columns: 3fr 2fr; gap: 20px; align-items: start; }
+.aa-due-colonne > .aa-card { margin-bottom: 0; }
+@media (max-width: 900px) { .aa-due-colonne { grid-template-columns: 1fr; } }
+.aa-card-testa { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.aa-com-lista li { cursor: pointer; align-items: flex-start; }
+.aa-com-lista li:hover strong { color: var(--gold); }
+.aa-com-lista span { min-width: 64px !important; }
+.aa-com-anteprima { margin: 2px 0 0; color: var(--tenue); font-size: 14px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.aa-nuova { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 10px; background: var(--gold); color: #fff; font-size: 11px; font-style: normal; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; vertical-align: 2px; }
+.aa-com-testo { white-space: pre-line; margin: 0 0 12px; }
+.aa-com-attiva { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(193, 154, 91, 0.35); }
+.aa-com-allegati { display: flex; flex-wrap: wrap; gap: 8px; }
+.aa-chip { background: var(--cream); border: 1px solid var(--linea); border-radius: 20px; padding: 6px 14px; font-size: 14px; font-weight: 500; }
+.aa-chip:hover { border-color: var(--gold); }
+.aa-cartella-link { width: 100%; display: flex; justify-content: space-between; align-items: center; text-align: left; cursor: pointer; border-left: 4px solid var(--gold); }
+.aa-cartella-link:hover { border-color: var(--gold); }
+.aa-form .aa-ruoli label { display: flex; align-items: center; gap: 6px; font-weight: 400; color: var(--testo); font-size: 14px; }

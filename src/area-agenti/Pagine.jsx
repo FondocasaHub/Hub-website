@@ -46,7 +46,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
-    { id: "social", titolo: "Social immobili", testo: "Appena acquisito, Open House, Prezzo ribassato, Venduto: immagini e testi pronti", icona: "openhouse" },
+    { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });

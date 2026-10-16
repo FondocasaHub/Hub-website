@@ -334,3 +334,4 @@ a { color: inherit; }
 .aa-oh-testo { border: 1px solid var(--linea); border-radius: 10px; padding: 14px; background: #fff; }
 .aa-oh-testo pre { white-space: pre-wrap; font-family: Jost, sans-serif; font-size: 14px; line-height: 1.5; margin: 10px 0 0; max-height: 320px; overflow: auto; }
 .aa-schede-tipi { margin-bottom: 18px; }
+.aa-stile { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; } .aa-stile > span { font-size: 13px; font-weight: 600; color: var(--tenue); text-transform: uppercase; letter-spacing: .06em; }

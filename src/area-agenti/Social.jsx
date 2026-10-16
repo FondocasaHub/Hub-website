@@ -436,7 +436,104 @@ function disegnaAuguri(canvas, f, festa, foto, logo) {
   ctx.textAlign = "left";
 }
 
-function testiAuguri(festa) {
+const ALLEGRO = {
+  halloween: { bg: ["#2B0F45", "#7A1FA2", "#FF7A00"], testo: "#FFF3E0", accento: "#FFB703", titolo: "Buon Halloween!", sotto: "Dolcetto o scherzetto? Noi scegliamo… casa nuova!",
+    icone: ["🎃", "👻", "🦇", "🕸️", "🍬", "🌙", "🕷️"], grandi: ["🎃", "👻"], coriandoli: ["#FF7A00", "#FFB703", "#B5179E", "#7BD389"],
+    testo2: "Dolcetto o scherzetto? Da noi niente scherzetti: solo case da sogno! 🎃👻 Buon Halloween da tutto il team!" },
+  natale: { bg: ["#7A0019", "#C1121F", "#0B6E4F"], testo: "#FFFFFF", accento: "#FFD166", titolo: "Buon Natale!", sotto: "Sotto l'albero? Le chiavi di casa nuova!",
+    icone: ["🎄", "🎁", "⛄", "❄️", "🦌", "🔔", "⭐", "🍪"], grandi: ["🎄", "🎁"], coriandoli: ["#FFD166", "#FFFFFF", "#06D6A0", "#EF476F"],
+    testo2: "Sotto l'albero quest'anno? Le chiavi di casa nuova! 🎄🎁 Buon Natale a voi e alle vostre famiglie!" },
+  capodanno: { bg: ["#140C3A", "#3A0CA3", "#7B2FF7"], testo: "#FFFFFF", accento: "#FFD60A", titolo: "Buon 2027!", sotto: "Nuovo anno, nuova casa? Brindiamo insieme!",
+    icone: ["🎆", "🥂", "🎉", "✨", "🍾", "🎇", "🎊"], grandi: ["🥂", "🎉"], coriandoli: ["#FFD60A", "#F72585", "#4CC9F0", "#FFFFFF", "#80FFDB"],
+    testo2: "Nuovo anno, nuova casa? 🥂 Brindiamo insieme a un 2027 pieno di traguardi! Buon anno da tutto il team!" },
+  befana: { bg: ["#2D1E6B", "#5A3E9B", "#F2A541"], testo: "#FFFFFF", accento: "#FFD166", titolo: "Viva la Befana!", sotto: "Quest'anno nella calza… le chiavi di casa!",
+    icone: ["🧹", "🧦", "🍬", "🍭", "⭐", "🌙", "🍫"], grandi: ["🧦", "🧹"], coriandoli: ["#FFD166", "#F28482", "#84DCC6", "#FFFFFF"],
+    testo2: "Quest'anno nella calza… le chiavi di casa! 🧦🍬 Buona Befana a grandi e piccini!" },
+  sanvalentino: { bg: ["#C9184A", "#FF4D6D", "#FF8FA3"], testo: "#FFFFFF", accento: "#FFF0F3", titolo: "Buon San Valentino!", sotto: "Casa è dove c'è il tuo cuore.",
+    icone: ["❤️", "💕", "💘", "🌹", "💌", "🥰", "🎈"], grandi: ["💘", "🌹"], coriandoli: ["#FFFFFF", "#FFCCD5", "#FFB3C1", "#C9184A"],
+    testo2: "Casa è dove c'è il tuo cuore ❤️ A chi cerca il nido perfetto per due: buon San Valentino!" },
+  pasqua: { bg: ["#BDE0FE", "#CDF5E6", "#FFF1C1"], testo: "#2B2D6E", accento: "#FF6B9A", titolo: "Buona Pasqua!", sotto: "Una sorpresa nell'uovo? Una casa nuova!",
+    icone: ["🐣", "🐰", "🥚", "🌷", "🌼", "🐥", "🦋"], grandi: ["🐰", "🐣"], coriandoli: ["#FF6B9A", "#FFD166", "#7BD389", "#8EC5FF"],
+    testo2: "Una sorpresa nell'uovo? Magari una casa nuova! 🐣🌷 Buona Pasqua a tutti voi!" },
+};
+
+function disegnaAuguriAllegro(canvas, f, festa, foto, logo) {
+  const { w, h } = f; canvas.width = w; canvas.height = h;
+  const ctx = canvas.getContext("2d"); const A = ALLEGRO[festa]; const u = Math.min(w, h) / 100;
+  const oriz = f.tipo === "orizzontale";
+  const g = ctx.createLinearGradient(0, 0, w * 0.4, h);
+  g.addColorStop(0, A.bg[0]); g.addColorStop(0.55, A.bg[1]); g.addColorStop(1, A.bg[2]);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
+  if (foto) { ctx.globalAlpha = 0.35; copri(ctx, foto, 0, 0, w, h); ctx.globalAlpha = 1; }
+  const r = caso(festa.length * 104729 + w + h);
+  const safeB = f.tipo === "tiktok" ? 430 : f.tipo === "storia" ? 300 : 0;
+  const centro = oriz ? h * 0.42 : (h - safeB) * 0.44;
+  const libero = (x, y, m) => Math.abs(x - w / 2) > w * (oriz ? 0.3 : 0.38) + m || Math.abs(y - centro) > h * (oriz ? 0.3 : 0.2) + m;
+  // coriandoli
+  for (let i = 0; i < 90; i++) {
+    const x = r() * w, y = r() * h; ctx.fillStyle = A.coriandoli[i % A.coriandoli.length]; ctx.globalAlpha = 0.55 + r() * 0.4;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(r() * Math.PI);
+    if (i % 3) ctx.fillRect(-0.5 * u, -0.25 * u, 1 * u, 0.5 * u); else { ctx.beginPath(); ctx.arc(0, 0, 0.4 * u, 0, Math.PI * 2); ctx.fill(); }
+    ctx.restore();
+  }
+  ctx.globalAlpha = 1;
+  // icone sparse
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  let k = 0, t = 0;
+  while (k < (oriz ? 12 : 16) && t < 600) {
+    t++; const s = (oriz ? 7 : 6) * u * (0.6 + r() * 0.8), x = s / 2 + r() * (w - s), y = s / 2 + r() * (h - s);
+    if (!libero(x, y, s * 0.4) || y > h - safeB - 14 * u && Math.abs(x - w / 2) < 22 * u) continue;
+    ctx.save(); ctx.translate(x, y); ctx.rotate((r() - 0.5) * 0.7); ctx.font = `${s}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+    ctx.fillText(A.icone[k % A.icone.length], 0, 0); ctx.restore(); k++;
+  }
+  // due illustrazioni grandi
+  const big = oriz ? 22 * u : 20 * u;
+  ctx.font = `${big}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
+  if (oriz) { ctx.fillText(A.grandi[0], w * 0.1, h * 0.5); ctx.fillText(A.grandi[1], w * 0.9, h * 0.5); }
+  else { ctx.fillText(A.grandi[0], w * 0.22, centro - 25 * u); ctx.fillText(A.grandi[1], w * 0.78, centro - 25 * u); }
+  // titolo
+  const ts = oriz ? 12 * u : f.tipo === "quadrato" ? 11 * u : 11.5 * u;
+  ctx.font = `700 ${ts}px Fredoka, Jost, sans-serif`;
+  const righe = avvolgi(ctx, A.titolo, w * (oriz ? 0.62 : 0.86));
+  let y = centro - ((righe.length - 1) * ts) / 2;
+  righe.forEach((rr) => {
+    ctx.lineJoin = "round"; ctx.lineWidth = ts * 0.12; ctx.strokeStyle = "rgba(0,0,0,0.25)"; ctx.strokeText(rr, w / 2 + ts * 0.04, y + ts * 0.06);
+    ctx.fillStyle = A.testo; ctx.fillText(rr, w / 2, y); y += ts;
+  });
+  // sottotitolo in etichetta
+  const ss = oriz ? 4.2 * u : 3.8 * u;
+  ctx.font = `600 ${ss}px Fredoka, Jost, sans-serif`;
+  const righeS = avvolgi(ctx, A.sotto, w * (oriz ? 0.56 : 0.72)).slice(0, 2);
+  const bw = Math.max(...righeS.map((x) => ctx.measureText(x).width)) + ss * 2.4, bh = righeS.length * ss * 1.3 + ss * 1.2;
+  y += ss * 0.2;
+  ctx.fillStyle = A.accento; ctx.beginPath(); ctx.roundRect(w / 2 - bw / 2, y - ss * 0.2, bw, bh, bh / 2); ctx.fill();
+  ctx.fillStyle = festa === "pasqua" ? "#FFFFFF" : festa === "sanvalentino" ? "#C9184A" : "#1B1B3A";
+  righeS.forEach((rr, i) => ctx.fillText(rr, w / 2, y - ss * 0.2 + ss * 1.25 + i * ss * 1.3));
+  // firma in pillola scura
+  const lh = oriz ? 9 * u : 7 * u, fy = h - safeB - (oriz ? 7 * u : 7 * u);
+  ctx.font = `600 ${oriz ? 2.8 * u : 2.4 * u}px Jost, sans-serif`;
+  const firma = "FC PUNTO HUB · FONDOCASA HUB";
+  const lw = logo ? lh * logo.width / logo.height : 0, tw = ctx.measureText(firma).width;
+  const pw = lw + tw + 7 * u, ph = lh + 3 * u;
+  ctx.fillStyle = festa === "pasqua" ? "rgba(43,45,110,0.88)" : "rgba(0,0,0,0.32)";
+  ctx.beginPath(); ctx.roundRect(w / 2 - pw / 2, fy - ph / 2, pw, ph, ph / 2); ctx.fill();
+  if (logo) ctx.drawImage(logo, w / 2 - pw / 2 + 2.5 * u, fy - lh / 2, lw, lh);
+  ctx.fillStyle = "#FFFFFF"; ctx.textAlign = "left"; ctx.fillText(firma, w / 2 - pw / 2 + 4.5 * u + lw, fy + 0.1 * u);
+  ctx.textBaseline = "alphabetic";
+}
+
+function testiAuguri(festa, stile = "elegante") {
+  if (stile === "allegro") {
+    const A = ALLEGRO[festa], F = FESTE[festa];
+    const tag = { halloween: "#halloween #happyhalloween", natale: "#buonnatale #natale", capodanno: "#buonanno #2027 #capodanno", befana: "#befana #epifania", sanvalentino: "#sanvalentino #love", pasqua: "#buonapasqua #pasqua" }[festa];
+    return [
+      { id: "fb", nome: "Facebook · post", testo: `${A.testo2}\n\n🏡 FC Punto Hub · FondoCasa Hub – Via Pietro Mascagni 35, Vomero` },
+      { id: "ig", nome: "Instagram · post", testo: `${A.testo2}\n\n📍 Via Pietro Mascagni 35, Vomero\n\n${tag} #napoli #vomero #fondocasa #fcpuntohub #casa #immobiliare` },
+      { id: "storia", nome: "Storia · testo e sticker", testo: `${A.titolo} ${F.emoji}\nSticker "Sondaggio": Casa nuova nel 2027? Sì 🙋 / Ci penso 🤔` },
+      { id: "linkedin", nome: "LinkedIn · post", testo: `${A.titolo} ${F.emoji}\n\n${A.testo2}\n\n${tag.replace(/#(\w)/g, (m, c) => "#" + c.toUpperCase())} #RealEstate #Napoli` },
+      { id: "tiktok", nome: "TikTok · didascalia", testo: `${A.titolo} ${F.emoji} ${A.sotto} ${tag} #napoli #casa #immobiliare #perte` },
+    ];
+  }
   const F = FESTE[festa];
   const firma = "Il team di FC Punto Hub · FondoCasa Hub\n📍 Via Pietro Mascagni 35, Vomero – Napoli";
   const tag = { halloween: "#halloween", natale: "#buonnatale #natale", capodanno: "#buonanno #2027 #capodanno", befana: "#befana #epifania", sanvalentino: "#sanvalentino", pasqua: "#buonapasqua #pasqua" }[festa];
@@ -451,6 +548,7 @@ function testiAuguri(festa) {
 
 function Auguri() {
   const [festa, setFesta] = useState("halloween");
+  const [stile, setStile] = useState("elegante");
   const [foto, setFoto] = useState(null);
   const [logo, setLogo] = useState(null);
   const [pronte, setPronte] = useState(false);
@@ -458,15 +556,17 @@ function Auguri() {
   const tele = useRef({});
   useEffect(() => {
     caricaImmagine(LOGO).then(setLogo).catch(() => setLogo(null));
-    (document.fonts?.ready || Promise.resolve()).then(() => setPronte(true));
+    const fonti = document.fonts ? Promise.all([document.fonts.load('700 40px Fredoka'), document.fonts.load('600 40px Fredoka'), document.fonts.ready]).catch(() => null) : Promise.resolve();
+    fonti.then(() => setPronte(true));
   }, []);
   useEffect(() => {
     if (!pronte) return;
-    FORMATI_AUGURI.forEach((f) => { const c = tele.current[f.id]; if (c) disegnaAuguri(c, f, festa, foto, logo); });
-  }, [festa, foto, logo, pronte]);
+    const disegnaF = stile === "allegro" ? disegnaAuguriAllegro : disegnaAuguri;
+    FORMATI_AUGURI.forEach((f) => { const c = tele.current[f.id]; if (c) disegnaF(c, f, festa, foto, logo); });
+  }, [festa, stile, foto, logo, pronte]);
   const scarica = (f) => new Promise((ok) => {
     tele.current[f.id].toBlob((b) => {
-      const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `auguri-${festa}-${f.id}.jpg`;
+      const a = document.createElement("a"); a.href = URL.createObjectURL(b); a.download = `auguri-${festa}-${stile}-${f.id}.jpg`;
       document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(a.href), 2000); ok();
     }, "image/jpeg", 0.93);
   });
@@ -479,6 +579,12 @@ function Auguri() {
         <h2 className="aa-h2"><span className="aa-sezione-n">01</span>Festività</h2>
         <div className="aa-schede aa-schede-tipi">
           {Object.entries(FESTE).map(([id, f]) => <button key={id} type="button" className={festa === id ? "attivo" : ""} onClick={() => setFesta(id)}>{f.nome}</button>)}
+        </div>
+        <div className="aa-stile">
+          <span>Stile</span>
+          {[["elegante", "Elegante · blu e oro"], ["allegro", "Allegro · colorato e divertente"]].map(([id, nome]) => (
+            <button key={id} type="button" className={`aa-btn aa-btn-piccolo ${stile === id ? "aa-btn-pieno" : ""}`} onClick={() => setStile(id)}>{nome}</button>
+          ))}
         </div>
         <div className="aa-allegato">
           <label className="aa-btn aa-upload">{foto ? "Cambia foto di sfondo" : "+ Foto di sfondo (facoltativa)"}<input type="file" accept="image/*" onChange={(e) => { const fl = e.target.files?.[0]; if (fl) caricaImmagine(URL.createObjectURL(fl)).then(setFoto); }} /></label>
@@ -504,7 +610,7 @@ function Auguri() {
       <section className="aa-card">
         <h2 className="aa-h2"><span className="aa-sezione-n">03</span>Testi da copiare</h2>
         <div className="aa-oh-testi">
-          {testiAuguri(festa).map((t) => (
+          {testiAuguri(festa, stile).map((t) => (
             <div key={t.id} className="aa-oh-testo">
               <div className="aa-riga aa-riga-spazio"><strong>{t.nome}</strong>
                 <button className="aa-btn aa-btn-piccolo" onClick={() => copia(t)}>{copiato === t.id ? "Copiato ✓" : "Copia"}</button></div>

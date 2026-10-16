@@ -50,6 +50,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });
+  if (isManager) riquadri.push({ id: "inserimenti", titolo: "Manuale di inserimento", testo: "Compila online la scheda del nuovo collaboratore e inviala allo Store Manager", icona: "istruzioni" });
 
   return (
     <>
@@ -281,8 +282,8 @@ export function AreaManager({ vai }) {
   return (
     <>
       <Intestazione occhiello="Riservato" titolo="Area Manager" testo="Obiettivi, file della riunione del lunedì, piano compensi e report di team." />
-      <Cartella cartella={CARTELLE.find((c) => c.id === "04-manager")} />
       <LinkInserimento vai={vai} />
+      <Cartella cartella={CARTELLE.find((c) => c.id === "04-manager")} />
     </>
   );
 }

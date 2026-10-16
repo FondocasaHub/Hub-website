@@ -149,7 +149,17 @@ export function Cartella({ cartella }) {
   );
 }
 
-export function Documenti({ vai }) {
+const LinkInserimento = ({ vai }) => (
+  <button className="aa-card aa-cartella-link" onClick={() => vai("inserimenti")}>
+    <div>
+      <h2 className="aa-h2">Manuale di inserimento · online</h2>
+      <p className="aa-nota">Scheda dei 16 step per ogni nuovo collaboratore: la compila il Team Manager, la verifica lo Store Manager</p>
+    </div>
+    <span className="aa-link">Apri →</span>
+  </button>
+);
+
+export function Documenti({ vai, isManager }) {
   const [cartelle, setCartelle] = useState(null);
   useEffect(() => {
     Promise.all(CARTELLE.map((c) =>
@@ -167,7 +177,12 @@ export function Documenti({ vai }) {
         </div>
         <span className="aa-link">Apri →</span>
       </button>
-      {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => <Cartella key={c.id} cartella={c} />)}
+      {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => (
+        <React.Fragment key={c.id}>
+          <Cartella cartella={c} />
+          {c.id === "04-manager" && isManager && <LinkInserimento vai={vai} />}
+        </React.Fragment>
+      ))}
     </>
   );
 }
@@ -262,11 +277,12 @@ export function Produttivita({ strumenti }) {
 }
 
 /* ---------------- AREA MANAGER ---------------- */
-export function AreaManager() {
+export function AreaManager({ vai }) {
   return (
     <>
       <Intestazione occhiello="Riservato" titolo="Area Manager" testo="Obiettivi, file della riunione del lunedì, piano compensi e report di team." />
       <Cartella cartella={CARTELLE.find((c) => c.id === "04-manager")} />
+      <LinkInserimento vai={vai} />
     </>
   );
 }

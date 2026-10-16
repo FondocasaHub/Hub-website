@@ -335,3 +335,22 @@ a { color: inherit; }
 .aa-oh-testo pre { white-space: pre-wrap; font-family: Jost, sans-serif; font-size: 14px; line-height: 1.5; margin: 10px 0 0; max-height: 320px; overflow: auto; }
 .aa-schede-tipi { margin-bottom: 18px; }
 .aa-stile { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; margin-bottom: 16px; } .aa-stile > span { font-size: 13px; font-weight: 600; color: var(--tenue); text-transform: uppercase; letter-spacing: .06em; }
+
+/* Manuale di inserimento */
+.aa-stato-in-corso { background: #E8EEF8; color: #23408A; }
+.aa-stato-da-verificare { background: #FBF0DC; color: #8A5A12; }
+.aa-stato-da-rivedere { background: #F7E4E1; color: var(--rosso); }
+.aa-fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+.aa-textarea { width: 100%; padding: 10px 12px; border: 1px solid var(--linea); border-radius: 8px; font: inherit; background: #fff; }
+.aa-barra-avanz { width: 120px; height: 6px; background: var(--linea); border-radius: 3px; overflow: hidden; margin-bottom: 4px; }
+.aa-barra-avanz span { display: block; height: 100%; background: var(--gold); }
+.aa-step-lista { list-style: none; margin: 8px 0 0; padding: 0; }
+.aa-step-lista li { display: grid; grid-template-columns: 64px 1fr 260px; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--linea); align-items: start; }
+.aa-step-lista li.fatto .aa-step-testo strong { color: var(--verde); }
+.aa-step-check { display: flex; align-items: center; gap: 8px; font-weight: 700; color: var(--navy); cursor: pointer; }
+.aa-step-check input { width: 22px; height: 22px; accent-color: var(--verde); }
+.aa-step-testo p { margin: 4px 0 0; color: var(--tenue); font-size: 14px; }
+.aa-step-campi { display: grid; grid-template-columns: 1fr 80px; gap: 8px; }
+.aa-step-campi label { display: flex; flex-direction: column; font-size: 12px; color: var(--tenue); gap: 4px; }
+.aa-step-campi input { padding: 7px 8px; border: 1px solid var(--linea); border-radius: 6px; font: inherit; font-size: 14px; background: #fff; }
+@media (max-width: 720px) { .aa-step-lista li { grid-template-columns: 52px 1fr; } .aa-step-campi { grid-column: 2; } }

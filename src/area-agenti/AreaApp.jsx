@@ -8,6 +8,7 @@ import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 import Fatturato from "./Fatturato.jsx";
 import Social from "./Social.jsx";
+import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -108,12 +109,13 @@ export default function AreaApp() {
 
   let contenuto;
   switch (pagina) {
-    case "documenti": contenuto = <Documenti vai={vai} />; break;
+    case "documenti": contenuto = <Documenti vai={vai} isManager={isManager} />; break;
     case "comunicazioni": contenuto = <PaginaComunicazioni />; break;
     case "istruzioni": contenuto = <Istruzioni strumenti={strumenti} />; break;
     case "crm": contenuto = <Crm strumenti={crm} />; break;
     case "produttivita": contenuto = <Produttivita strumenti={produttivita} />; break;
-    case "manager": contenuto = isManager ? <AreaManager /> : <NonAutorizzato vai={vai} />; break;
+    case "manager": contenuto = isManager ? <AreaManager vai={vai} /> : <NonAutorizzato vai={vai} />; break;
+    case "inserimenti": contenuto = isManager ? <ElencoInserimenti profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
@@ -122,6 +124,7 @@ export default function AreaApp() {
     case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
     default:
+      if (/^inserimenti\/\d+$/.test(pagina)) { contenuto = isManager ? <SchedaInserimento id={pagina.split("/")[1]} profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break; }
       if (/^compensi\/\d+$/.test(pagina)) { contenuto = <DettaglioReport id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }

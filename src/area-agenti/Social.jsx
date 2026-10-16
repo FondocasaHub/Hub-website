@@ -376,9 +376,9 @@ function decora(ctx, w, h, tipo, centro) {
     ctx.beginPath(); ctx.ellipse(x, y, k, k * 1.35, (r() - 0.5) * 0.6, 0, Math.PI * 2); ctx.stroke(); });
   if (tipo === "luna") {
     const mx = w * 0.8, my = h * 0.16, mr = 9 * u;
-    ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.fill();
-    ctx.globalCompositeOperation = "destination-out"; ctx.beginPath(); ctx.arc(mx + mr * 0.45, my - mr * 0.25, mr * 0.9, 0, Math.PI * 2); ctx.fill();
-    ctx.globalCompositeOperation = "source-over";
+    ctx.save(); ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.clip();
+    ctx.globalAlpha = 0.85; ctx.beginPath(); ctx.arc(mx, my, mr, 0, Math.PI * 2); ctx.arc(mx + mr * 0.45, my - mr * 0.25, mr * 0.9, 0, Math.PI * 2); ctx.fill("evenodd");
+    ctx.restore();
   }
   if (tipo === "scintille") punti(14, (x, y, s) => { ctx.globalAlpha = 0.35 + r() * 0.4; ctx.lineWidth = Math.max(1.5, 0.18 * u * s); const l = 2.6 * u * s;
     for (let i = 0; i < 12; i++) { const a = (i * Math.PI) / 6; ctx.beginPath(); ctx.moveTo(x + Math.cos(a) * l * 0.35, y + Math.sin(a) * l * 0.35); ctx.lineTo(x + Math.cos(a) * l, y + Math.sin(a) * l); ctx.stroke(); } });

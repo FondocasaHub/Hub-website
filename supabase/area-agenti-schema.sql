@@ -126,4 +126,4 @@ insert into public.strumenti (nome, url, categoria, descrizione, ordine) values
   ('euromq', 'https://desk.euromq.it/auth/login', 'produttivita', 'Valutazioni immobiliari in autonomia', 1),
   ('Getrix', 'https://www.getrix.it/', 'produttivita', 'Gestionale annunci e pubblicazione sui portali', 2),
   ('Idealista', 'https://www.idealista.it/', 'produttivita', 'Portale annunci e richieste clienti', 3),
-  ('RealMaps', 'https://realmapsbeta.portalerealmaps.it/login', 'produttivita', 'Trova numeri di telefono', 4);
+  ('RealMaps', 'https://portalerealmaps.it/', 'produttivita', 'Trova numeri di telefono', 4);

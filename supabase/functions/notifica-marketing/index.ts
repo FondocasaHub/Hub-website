@@ -27,6 +27,9 @@ const risposta = (corpo: unknown, status = 200) =>
 const esc = (v: unknown) =>
   String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
 
+const ascii = (v: unknown) =>
+  String(v ?? "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\x20-\x7E]/g, "-").replace(/\s+/g, " ").trim();
+
 const SEZIONI: [string, [string, string][]][] = [
   ["01 · Dati agente", [["agente_nome", "Nome e cognome"], ["agente_team", "Team"], ["data_richiesta", "Data richiesta"], ["agente_cell", "Cellulare"], ["agente_email", "Email"]]],
   ["02 · Dati immobile", [["codice_annuncio", "Codice annuncio"], ["contratto", "Contratto"], ["prezzo", "Prezzo richiesto (€)"], ["indirizzo", "Indirizzo"], ["zona", "Quartiere / Comune"], ["proprietario_nome", "Proprietario"], ["proprietario_tel", "Telefono proprietario"]]],
@@ -91,7 +94,9 @@ Deno.serve(async (req) => {
       to: DESTINATARIO,
       cc: COPIA,
       replyTo: r.agente_email,
-      subject: `Ingaggio Marketing n. ${r.id} — ${r.codice_annuncio} · ${r.indirizzo} (${r.agente_nome})`,
+      // Oggetto solo ASCII e corto: con accenti e trattini lunghi la codifica di denomailer
+      // supera la lunghezza di riga e Brevo rifiuta la mail ("554 Header parsing error").
+      subject: ascii(`Ingaggio Marketing n. ${r.id} - ${r.codice_annuncio} - ${r.indirizzo} (${r.agente_nome})`).slice(0, 150),
       content: "auto",
       html,
     });

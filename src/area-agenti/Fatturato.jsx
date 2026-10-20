@@ -4,6 +4,7 @@ import { euro } from "./compensi";
 import { ALIQUOTE, TIPOLOGIE, ripartisci, buyerDi, elencoMesi, intervallo, notaPagamento } from "./incassi";
 
 const dataIT = (iso) => (iso ? new Date(iso).toLocaleDateString("it-IT") : "");
+const OBIETTIVO_TEAM = 410000; // piano compensi: 1 TM + 1 Senior + 2 Junior + 2 New
 const PRODUTTORI = [...Object.keys(ALIQUOTE), "buyer"];
 
 export default function Fatturato({ profilo }) {
@@ -31,6 +32,15 @@ export default function Fatturato({ profilo }) {
   };
   useEffect(() => { carica(); }, [da, a]);
 
+  // Fatturato per team da inizio anno (solo Store Manager e Amministrazione)
+  const anno = new Date().getFullYear();
+  const [annoRighe, setAnnoRighe] = useState(null);
+  useEffect(() => {
+    if (!vedeRiepilogo) return;
+    supabase.from("incassi").select("team, importo, quote").gte("data_incasso", `${anno}-01-01`).lte("data_incasso", `${anno}-12-31`)
+      .then(({ data }) => setAnnoRighe(data || []));
+  }, [vedeRiepilogo, anno, righe]);
+
   const elimina = async (r) => {
     if (!window.confirm(`Eliminare l'incasso di ${euro(r.importo)} del ${dataIT(r.data_incasso)} (${r.cliente})?`)) return;
     const { error } = await supabase.from("incassi").delete().eq("id", r.id);
@@ -45,6 +55,16 @@ export default function Fatturato({ profilo }) {
   const mie = (r) => (r.quote || []).filter((q) => q.chi === profilo.id).reduce((s, q) => s + Number(q.importo), 0);
   const mioTotale = lista.reduce((s, r) => s + mie(r), 0);
   const hub = lista.reduce((s, r) => s + Number((r.quote || []).find((q) => q.hub)?.importo || 0), 0);
+
+  const quotaHub = (r) => Number((r.quote || []).find((q) => q.hub)?.importo || 0);
+  const teamTab = {};
+  const aggiungi = (r, campo) => {
+    const t = r.team || "Senza team";
+    teamTab[t] = teamTab[t] || { op: 0, periodo: 0, hub: 0, anno: 0 };
+    if (campo === "periodo") { teamTab[t].op += 1; teamTab[t].periodo += Number(r.importo); teamTab[t].hub += quotaHub(r); }
+    else teamTab[t].anno += Number(r.importo);
+  };
+  if (vedeRiepilogo) { lista.forEach((r) => aggiungi(r, "periodo")); (annoRighe || []).forEach((r) => aggiungi(r, "anno")); }
 
   const riepilogo = {};
   if (vedeRiepilogo) lista.forEach((r) => (r.quote || []).filter((q) => !q.hub).forEach((q) => {
@@ -92,12 +112,51 @@ export default function Fatturato({ profilo }) {
 
       <div className="aa-kpi">
         <div className="aa-kpi-box aa-kpi-forte"><span>Incassato nel periodo</span><strong>{euro(totale)}</strong><small>{lista.length} operazioni</small></div>
-        {Object.keys(perTeam).length > 1 && Object.entries(perTeam).map(([t, v]) => (
+        {!vedeRiepilogo && Object.keys(perTeam).length > 1 && Object.entries(perTeam).map(([t, v]) => (
           <div key={t} className="aa-kpi-box"><span>{t}</span><strong>{euro(v)}</strong></div>
         ))}
         {vedeRiepilogo && <div className="aa-kpi-box"><span>Quota FC Punto Hub</span><strong>{euro(hub)}</strong><small>filiera {euro(totale - hub)}</small></div>}
         {!isAmm && <div className="aa-kpi-box aa-kpi-oro"><span>{isMkt ? "Il tuo 4% da fatturare" : "I tuoi compensi nel periodo"}</span><strong>{euro(mioTotale)}</strong></div>}
       </div>
+
+      {vedeRiepilogo && (
+        <section className="aa-card">
+          <h2 className="aa-h2">Fatturato per team</h2>
+          <p className="aa-nota">Periodo selezionato e progressivo {anno}. Obiettivo del piano compensi: {euro(OBIETTIVO_TEAM)} l'anno per team.</p>
+          {Object.keys(teamTab).length === 0 ? <p className="aa-nota">Nessun incasso nel {anno}.</p> : (
+            <div className="aa-scorri">
+              <table className="aa-tabella">
+                <thead><tr><th>Team</th><th>Operazioni</th><th>Fatturato periodo</th><th>% sul periodo</th><th>Quota FC Punto Hub</th><th>Da inizio {anno}</th><th>Obiettivo annuo</th></tr></thead>
+                <tbody>
+                  {Object.entries(teamTab).sort((x, y) => y[1].anno - x[1].anno).map(([t, v]) => {
+                    const pctObj = t === "Senza team" ? null : Math.min(100, (v.anno / OBIETTIVO_TEAM) * 100);
+                    return (
+                      <tr key={t}>
+                        <td><strong>{t}</strong></td>
+                        <td>{v.op}</td>
+                        <td><strong>{euro(v.periodo)}</strong></td>
+                        <td>{totale ? `${Math.round((v.periodo / totale) * 100)}%` : "—"}</td>
+                        <td>{euro(v.hub)}</td>
+                        <td><strong>{euro(v.anno)}</strong></td>
+                        <td>{pctObj === null ? "—" : <><div className="aa-barra-avanz"><span style={{ width: `${pctObj}%` }} /></div><small className="aa-nota">{pctObj.toFixed(1).replace(".", ",")}%</small></>}</td>
+                      </tr>
+                    );
+                  })}
+                  <tr className="aa-riga-totale">
+                    <td><strong>Totale store</strong></td>
+                    <td>{lista.length}</td>
+                    <td><strong>{euro(totale)}</strong></td>
+                    <td>{totale ? "100%" : "—"}</td>
+                    <td>{euro(hub)}</td>
+                    <td><strong>{euro(Object.values(teamTab).reduce((x, v) => x + v.anno, 0))}</strong></td>
+                    <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
 
       {vedeRiepilogo && (
         <section className="aa-card">

@@ -385,3 +385,4 @@ a { color: inherit; }
   .aa-vl-due, .aa-vl-domande { grid-template-columns: 1fr; }
   .aa-vl-tot { grid-template-columns: 1fr 1fr; }
 }
+.aa-riga-totale td { border-top: 2px solid var(--navy); background: var(--cream); }

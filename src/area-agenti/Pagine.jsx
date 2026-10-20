@@ -24,6 +24,7 @@ const ICONE = {
   produttivita: "M4 6h16 M4 12h16 M4 18h10 M18 16l2 2-2 2",
   richieste: "M4 4h16v12H8l-4 4z M8 9h8 M8 12h5",
   compensi: "M4 7h16v10H4z M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M7 10v4 M17 10v4",
+  valutazione: "M3 21h18 M5 21V8l7-5 7 5v13 M9 21v-5h6v5 M9 10h6",
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
 };
 function Icona({ nome }) {
@@ -46,6 +47,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
+    { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
     { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
@@ -150,6 +152,16 @@ export function Cartella({ cartella }) {
   );
 }
 
+const LinkValutazione = ({ vai }) => (
+  <button className="aa-card aa-cartella-link" onClick={() => vai("valutazioni")}>
+    <div>
+      <h2 className="aa-h2">Scheda valutazione immobile · online</h2>
+      <p className="aa-nota">Compilala durante il sopralluogo: si salva nell'area riservata e la scarichi in PDF</p>
+    </div>
+    <span className="aa-link">Apri →</span>
+  </button>
+);
+
 const LinkInserimento = ({ vai }) => (
   <button className="aa-card aa-cartella-link" onClick={() => vai("inserimenti")}>
     <div>
@@ -181,6 +193,7 @@ export function Documenti({ vai, isManager }) {
       {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => (
         <React.Fragment key={c.id}>
           <Cartella cartella={c} />
+          {c.id === "02-agenti" && <LinkValutazione vai={vai} />}
           {c.id === "04-manager" && isManager && <LinkInserimento vai={vai} />}
         </React.Fragment>
       ))}

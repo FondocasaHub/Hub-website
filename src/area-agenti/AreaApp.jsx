@@ -9,6 +9,7 @@ import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste
 import Fatturato from "./Fatturato.jsx";
 import Social from "./Social.jsx";
 import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
+import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -120,11 +121,13 @@ export default function AreaApp() {
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
+    case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
     case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
     default:
       if (/^inserimenti\/\d+$/.test(pagina)) { contenuto = isManager ? <SchedaInserimento id={pagina.split("/")[1]} profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break; }
+      if (/^valutazioni\/\d+$/.test(pagina)) { contenuto = <SchedaValutazione id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^compensi\/\d+$/.test(pagina)) { contenuto = <DettaglioReport id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }

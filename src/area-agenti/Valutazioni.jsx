@@ -77,7 +77,8 @@ export function calcola(d) {
   return { netta, immobile, accessori, commerciale, totale, euroMq: commerciale && valutato ? valutato / commerciale : 0 };
 }
 export const fmtMq = (n) => (n ? n.toLocaleString("it-IT", { maximumFractionDigits: 2 }) : "0");
-export const fmtEur = (n) => (n ? "€ " + Math.round(n).toLocaleString("it-IT") : "—");
+const migliaia = (n) => String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+export const fmtEur = (n) => (n ? "€ " + migliaia(n) : "—");
 
 const oggi = () => new Date().toISOString().slice(0, 10);
 export const dataIT = (iso) => (iso ? new Date(iso + (iso.length === 10 ? "T12:00" : "")).toLocaleDateString("it-IT") : "");
@@ -155,7 +156,7 @@ function RigaMq({ nome, coeff, v = {}, set, onNome, rimuovi }) {
         <span>×</span>
         <input className="aa-vl-in aa-vl-num" inputMode="decimal" value={v.b || ""} placeholder="m" onChange={(e) => set({ ...v, b: e.target.value })} />
       </td>
-      <td className="aa-vl-coeff">{coeff}</td>
+      <td className="aa-vl-coeff">{String(coeff).replace(".", ",")}</td>
       <td>
         {auto ? <strong>{fmtMq(mq)}</strong>
           : <input className="aa-vl-in aa-vl-num" inputMode="decimal" value={v.mq || ""} placeholder="mq" onChange={(e) => set({ ...v, mq: e.target.value })} />}
@@ -394,12 +395,12 @@ export function stampaValutazione(r) {
     return `<tr><td>${esc(nome)}</td><td>${v.a && v.b ? `${esc(v.a)} × ${esc(v.b)}` : ""}</td><td>${coeffF(cf)}</td><td class="n">${mq ? fmtMq(mq) : ""}</td></tr>`;
   }).join("")}</table>`;
   const extraRows = (d.locali_extra || []).map((x) => { const mq = mqRiga(x); return `<tr><td>${esc(x.nome || "Altro")}</td><td>${x.a && x.b ? `${esc(x.a)} × ${esc(x.b)}` : ""}</td><td>1</td><td class="n">${mq ? fmtMq(mq) : ""}</td></tr>`; }).join("");
-  const localiFinal = tabMq("Locali", LOCALI, "locali", (cf) => cf).replace("</table>", extraRows + "</table>");
+  const localiFinal = tabMq("Locali", LOCALI, "locali", (cf) => String(cf).replace(".", ",")).replace("</table>", extraRows + "</table>");
   const accessori = tabMq("Accessori", ACCESSORI, "accessori", () => "0,50");
   const altri = `<table class="t"><tr class="h"><td>Altri accessori</td><td>Mq</td><td>€</td></tr>${ALTRI_ACC.map(([k, n]) => `<tr><td>${n}</td><td class="n">${esc(d.altri?.[k]?.mq)}</td><td class="n">${esc(d.altri?.[k]?.euro)}</td></tr>`).join("")}</table>`;
   const col = (voci, gruppo) => `<table class="kv">${voci.map(([k, l, t]) => riga(l, t === "sino" ? d[gruppo]?.[k] : d[gruppo]?.[k])).join("")}</table>`;
   const p = d.prezzi || {};
-  const prezzi = `<table class="kv">${riga("Prezzo richiesto €", p.richiesto)}${riga("Prezzo valutato €", p.valutato)}${PREZZI_VOCI.map(([k, l]) => riga(l, p[k])).join("")}${riga("Prezzo totale €", c.totale ? Math.round(c.totale).toLocaleString("it-IT") : "")}${riga("Prezzo concordato €", p.concordato)}${riga("Esclusiva", p.escl_dal || p.escl_al ? `dal ${dataIT(p.escl_dal)} al ${dataIT(p.escl_al)}` : "")}${riga("Note", p.note)}</table>`;
+  const prezzi = `<table class="kv">${riga("Prezzo richiesto €", p.richiesto)}${riga("Prezzo valutato €", p.valutato)}${PREZZI_VOCI.map(([k, l]) => riga(l, p[k])).join("")}${riga("Prezzo totale €", c.totale ? migliaia(c.totale) : "")}${riga("Prezzo concordato €", p.concordato)}${riga("Esclusiva", p.escl_dal || p.escl_al ? `dal ${dataIT(p.escl_dal)} al ${dataIT(p.escl_al)}` : "")}${riga("Note", p.note)}</table>`;
   const spunte = (voci, sel, altro) => `<div class="sp">${voci.map((v) => `<span>${(sel || []).includes(v) ? "☑" : "☐"} ${v}</span>`).join("")}${altro ? `<span>Altro: ${esc(altro)}</span>` : ""}</div>`;
   const tratt = (d.trattativa || []).filter((t) => t.data || t.testo);
   const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><title>Valutazione ${esc(r.indirizzo)}</title>

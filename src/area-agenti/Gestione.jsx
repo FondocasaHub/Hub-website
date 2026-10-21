@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useCallback } from "react";
-import { supabase, BUCKET, CARTELLE, RUOLI, REPARTI } from "./supabase";
+import { supabase, BUCKET, CARTELLE, SOTTOCARTELLE, RUOLI, REPARTI } from "./supabase";
 import { GestioneComunicazioni } from "./Comunicazioni.jsx";
 import { LIVELLI } from "./compensi";
 
@@ -259,7 +259,8 @@ function CaricaDocumenti() {
     carica();
   };
 
-  const info = CARTELLE.find((c) => c.id === cartella);
+  const [madre, figlia] = cartella.split("/");
+  const info = figlia ? (SOTTOCARTELLE[madre] || []).find((s) => s.id === figlia) : CARTELLE.find((c) => c.id === cartella);
 
   return (
     <section className="aa-card">
@@ -267,7 +268,10 @@ function CaricaDocumenti() {
       <div className="aa-form aa-form-riga">
         <label>Cartella
           <select value={cartella} onChange={(e) => setCartella(e.target.value)}>
-            {CARTELLE.map((c) => <option key={c.id} value={c.id}>{c.nome}</option>)}
+            {CARTELLE.flatMap((c) => [
+              <option key={c.id} value={c.id}>{c.nome}</option>,
+              ...(SOTTOCARTELLE[c.id] || []).map((s) => <option key={`${c.id}/${s.id}`} value={`${c.id}/${s.id}`}>{c.nome} › {s.nome}</option>),
+            ])}
           </select>
         </label>
         <label className="aa-btn aa-btn-pieno aa-upload">

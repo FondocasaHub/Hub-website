@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { supabase, BUCKET, CARTELLE } from "./supabase";
+import { supabase, BUCKET, CARTELLE, SOTTOCARTELLE } from "./supabase";
 import { BoxComunicazioni } from "./Comunicazioni.jsx";
 import { PIANO_INSERIMENTO, AGENDA, GIORNI, ROUTINE_LISTING, OBIETTIVI_LISTING } from "./contenuti";
 
@@ -48,6 +48,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
+    { id: "incarichi-ricerca", titolo: "Incarico di ricerca", testo: "Buyer Agent: incarico in esclusiva 6 mesi con scheda Cercacasa, lavorazioni ed esiti", icona: "valutazione" },
     { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
@@ -111,15 +112,62 @@ function formatoDimensione(byte) {
   return `${(byte / 1024 / 1024).toFixed(1)} MB`;
 }
 
-export function Cartella({ cartella }) {
+function ElencoFile({ percorso, file, cerca = "" }) {
+  const visibili = (file || []).filter((f) => f.name.toLowerCase().includes(cerca.toLowerCase()));
+  if (file === null) return <p className="aa-nota">Caricamento…</p>;
+  if (visibili.length === 0) return <p className="aa-nota">{file.length === 0 ? "Nessun documento caricato in questa cartella." : "Nessun risultato."}</p>;
+  return (
+    <ul className="aa-file">
+      {visibili.map((f) => (
+        <li key={f.id}>
+          <button onClick={() => apriDocumento(`${percorso}/${f.name}`)}>
+            <span className="aa-file-nome">{f.name}</span>
+            <span className="aa-file-dim">{formatoDimensione(f.metadata?.size)}</span>
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+const elencaFile = (percorso) =>
+  supabase.storage.from(BUCKET).list(percorso, { limit: 500, sortBy: { column: "name", order: "asc" } })
+    .then(({ data }) => (data || []).filter((f) => f.id && !f.name.startsWith(".")));
+
+function Sottocartella({ madre, sotto, vai }) {
+  const [aperta, setAperta] = useState(false);
+  const [file, setFile] = useState(null);
+  const percorso = `${madre}/${sotto.id}`;
+  useEffect(() => { if (aperta && file === null) elencaFile(percorso).then(setFile); }, [aperta, percorso, file]);
+  return (
+    <div className="aa-sottocartella">
+      <button className="aa-sottocartella-testa" onClick={() => setAperta(!aperta)} aria-expanded={aperta}>
+        <span className="aa-sottocartella-icona" aria-hidden="true">{aperta ? "▾" : "▸"}</span>
+        <span><strong>{sotto.nome}</strong><small>{sotto.descr}</small></span>
+      </button>
+      {aperta && (
+        <div className="aa-sottocartella-corpo">
+          {sotto.id === "BUYER AGENT" && (
+            <button className="aa-card aa-cartella-link" onClick={() => vai("incarichi-ricerca")}>
+              <div>
+                <h2 className="aa-h2">Incarico di ricerca immobiliare · online</h2>
+                <p className="aa-nota">Compilalo con il cliente, registra le lavorazioni con data ed esito, stampalo o salvalo in PDF</p>
+              </div>
+              <span className="aa-link">Apri →</span>
+            </button>
+          )}
+          <ElencoFile percorso={percorso} file={file} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+export function Cartella({ cartella, vai }) {
   const [file, setFile] = useState(null);
   const [cerca, setCerca] = useState("");
-  useEffect(() => {
-    supabase.storage.from(BUCKET).list(cartella.id, { limit: 500, sortBy: { column: "name", order: "asc" } })
-      .then(({ data }) => setFile((data || []).filter((f) => f.id && !f.name.startsWith("."))));
-  }, [cartella.id]);
-
-  const visibili = (file || []).filter((f) => f.name.toLowerCase().includes(cerca.toLowerCase()));
+  useEffect(() => { elencaFile(cartella.id).then(setFile); }, [cartella.id]);
+  const sotto = SOTTOCARTELLE[cartella.id] || [];
 
   return (
     <section className="aa-card aa-cartella">
@@ -132,22 +180,8 @@ export function Cartella({ cartella }) {
           <input className="aa-cerca" placeholder="Cerca…" value={cerca} onChange={(e) => setCerca(e.target.value)} />
         )}
       </div>
-      {file === null ? (
-        <p className="aa-nota">Caricamento…</p>
-      ) : visibili.length === 0 ? (
-        <p className="aa-nota">{file.length === 0 ? "Nessun documento caricato in questa cartella." : "Nessun risultato."}</p>
-      ) : (
-        <ul className="aa-file">
-          {visibili.map((f) => (
-            <li key={f.id}>
-              <button onClick={() => apriDocumento(`${cartella.id}/${f.name}`)}>
-                <span className="aa-file-nome">{f.name}</span>
-                <span className="aa-file-dim">{formatoDimensione(f.metadata?.size)}</span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+      {sotto.map((s) => <Sottocartella key={s.id} madre={cartella.id} sotto={s} vai={vai} />)}
+      <ElencoFile percorso={cartella.id} file={file} cerca={cerca} />
     </section>
   );
 }
@@ -192,7 +226,7 @@ export function Documenti({ vai, isManager }) {
       </button>
       {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => (
         <React.Fragment key={c.id}>
-          <Cartella cartella={c} />
+          <Cartella cartella={c} vai={vai} />
           {c.id === "02-agenti" && <LinkValutazione vai={vai} />}
           {c.id === "04-manager" && isManager && <LinkInserimento vai={vai} />}
         </React.Fragment>

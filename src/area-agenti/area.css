@@ -386,3 +386,21 @@ a { color: inherit; }
   .aa-vl-tot { grid-template-columns: 1fr 1fr; }
 }
 .aa-riga-totale td { border-top: 2px solid var(--navy); background: var(--cream); }
+
+/* Sottocartelle dell'archivio */
+.aa-sottocartella { border: 1px solid var(--linea); border-radius: 10px; margin: 8px 0 12px; }
+.aa-sottocartella-testa { width: 100%; display: flex; gap: 10px; align-items: flex-start; background: none; border: 0; padding: 12px 14px; text-align: left; cursor: pointer; }
+.aa-sottocartella-testa strong { display: block; letter-spacing: .04em; }
+.aa-sottocartella-testa small { display: block; color: var(--tenue); font-size: 14px; }
+.aa-sottocartella-icona { color: var(--gold); width: 14px; }
+.aa-sottocartella-corpo { padding: 0 14px 10px 38px; }
+.aa-sottocartella-corpo .aa-cartella-link { margin: 0 0 8px; }
+
+/* Incarichi di ricerca (Buyer Agent) */
+.aa-ir-tag { display: inline-block; padding: 2px 8px; border-radius: 999px; background: var(--cream); font-size: 14px; white-space: nowrap; }
+.aa-ir-ambra { background: #F6E7C6; color: #7A5410; }
+.aa-ir-rosso { background: #F3D9D5; color: var(--rosso); }
+.aa-ir-clausole { margin: 10px 0 0; padding-left: 20px; display: grid; gap: 8px; font-size: 15px; line-height: 1.5; color: var(--testo); }
+.aa-ir-esito.aa-ir-positivo { color: var(--verde); font-weight: 600; }
+.aa-ir-esito.aa-ir-negativo { color: var(--rosso); font-weight: 600; }
+.aa-ir-esito.aa-ir-in-attesa, .aa-ir-esito.aa-ir-da-ricontattare { color: #7A5410; font-weight: 600; }

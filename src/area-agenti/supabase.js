@@ -31,6 +31,14 @@ export const CARTELLE = [
   { id: "06-marketing", nome: "Marketing", descr: "Loghi, template, materiale campagne" },
 ];
 
+// Sottocartelle: stessa visibilità della cartella madre (la regola RLS guarda
+// solo il primo livello del percorso).
+export const SOTTOCARTELLE = {
+  "02-agenti": [
+    { id: "BUYER AGENT", nome: "BUYER AGENT", descr: "Incarichi di ricerca in esclusiva e modulistica acquirenti" },
+  ],
+};
+
 export const RUOLI = [
   { id: "admin", nome: "Admin" },
   { id: "manager", nome: "Manager" },

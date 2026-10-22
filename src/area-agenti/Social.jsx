@@ -17,7 +17,8 @@ export const TIPI = {
 const FORMATI_TUTTI = [
   { id: "fb-evento", nome: "Facebook · copertina evento", w: 1920, h: 1005, tipo: "orizzontale", solo: "openhouse" },
   { id: "fb-link", nome: "Facebook · post orizzontale", w: 1200, h: 630, tipo: "orizzontale", tranne: "openhouse" },
-  { id: "post", nome: "Post Facebook e Instagram (4:5)", w: 1080, h: 1350, tipo: "verticale" },
+  { id: "ig-post", nome: "Instagram · post (3:4, come la griglia)", w: 1080, h: 1440, tipo: "verticale" },
+  { id: "post", nome: "Facebook · post (4:5)", w: 1080, h: 1350, tipo: "verticale" },
   { id: "quadrato", nome: "Post quadrato (1:1)", w: 1080, h: 1080, tipo: "quadrato" },
   { id: "storia", nome: "Storia Facebook e Instagram", w: 1080, h: 1920, tipo: "storia" },
   { id: "tiktok", nome: "TikTok · copertina", w: 1080, h: 1920, tipo: "tiktok" },
@@ -60,12 +61,39 @@ function pillola(ctx, testo, x, y, size) {
   return h;
 }
 
+// Spazio libero in basso nei biglietti di auguri (ritaglio 1:1 di Instagram, interfaccia di storie e TikTok)
+const SAFE_B = { "ig-post": 150, post: 120, storia: 340, tiktok: 440 };
+// Larghezza utile dei testi: nel quadrato la griglia Instagram (3:4) taglia il 12,5% per lato
+const larghezzaUtile = (f, w, base) => (f.tipo === "quadrato" ? Math.min(base, 0.66) : base) * w;
+
+// Margini sicuri per formato: tengono testi e logo fuori dalle zone che Instagram, Facebook e TikTok tagliano
+// (griglia del profilo Instagram in 3:4, ritaglio 1:1 del caricamento, interfaccia di storie e TikTok).
+function margini(f, u) {
+  switch (f.id) {
+    case "ig-post": return { l: 90, r: 90, t: 150, b: 170 };   // 3:4: è già il formato della griglia
+    case "post": return { l: 110, r: 110, t: 150, b: 165 };     // 4:5: griglia 3:4 (−34 px per lato) e ritaglio 1:1 (−135 px sopra e sotto)
+    case "quadrato": return { l: 175, r: 175, t: 70, b: 70 };    // 1:1: la griglia 3:4 taglia 135 px per lato
+    case "storia": return { l: 90, r: 90, t: 250, b: 340 };     // barra in alto e campo risposta in basso
+    case "tiktok": return { l: 150, r: 150, t: 170, b: 440 };   // pulsanti a destra e didascalia in basso
+    default: return { l: 7 * u, r: 7 * u, t: 6 * u, b: 6.5 * u };
+  }
+}
+
+// Riduce il corpo finché il testo sta nella larghezza disponibile (mai sotto il 55%)
+function adatta(ctx, font, testo, size, maxW) {
+  let s = size;
+  ctx.font = font(s);
+  while (ctx.measureText(testo).width > maxW && s > size * 0.55) { s *= 0.95; ctx.font = font(s); }
+  return s;
+}
+
 // Disegna un formato. d = dati del modulo, foto = Image o null, logo = Image
 function disegna(canvas, f, d, foto, logo) {
   const { w, h } = f;
   canvas.width = w; canvas.height = h;
   const ctx = canvas.getContext("2d");
   const oriz = f.tipo === "orizzontale";
+  const centra = !oriz;
   const u = Math.min(w, h) / 100; // unità
 
   // Sfondo: foto + velatura blu
@@ -77,84 +105,126 @@ function disegna(canvas, f, d, foto, logo) {
     g.addColorStop(0, "rgba(6,18,41,0.96)"); g.addColorStop(0.5, "rgba(10,31,61,0.82)"); g.addColorStop(0.78, "rgba(10,31,61,0.15)"); g.addColorStop(1, "rgba(10,31,61,0)");
   } else {
     g = ctx.createLinearGradient(0, 0, 0, h);
-    g.addColorStop(0, "rgba(6,18,41,0.55)"); g.addColorStop(0.22, "rgba(10,31,61,0)"); g.addColorStop(0.45, "rgba(10,31,61,0.25)"); g.addColorStop(0.68, "rgba(10,31,61,0.88)"); g.addColorStop(1, "rgba(6,18,41,0.98)");
+    g.addColorStop(0, "rgba(6,18,41,0.6)"); g.addColorStop(0.2, "rgba(10,31,61,0.05)"); g.addColorStop(0.42, "rgba(10,31,61,0.3)"); g.addColorStop(0.62, "rgba(10,31,61,0.88)"); g.addColorStop(1, "rgba(6,18,41,0.98)");
   }
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
 
-  // Margini (TikTok: zone sicure per interfaccia dell'app)
-  const m = f.tipo === "tiktok" ? { l: 70, r: 170, t: 170, b: 430 } : f.tipo === "storia" ? { l: 80, r: 80, t: 210, b: 300 } : { l: 7 * u, r: 7 * u, t: 6 * u, b: 6.5 * u };
+  const m = margini(f, u);
   const larg = oriz ? w * 0.5 : w - m.l - m.r;
+  const cx = centra ? m.l + larg / 2 : m.l;           // ascissa di riferimento dei testi
+  const xa = (lw) => (centra ? cx - lw / 2 : m.l);     // x di partenza per un elemento largo lw
 
-  // Logo HUB
-  const lh = oriz ? h * 0.2 : f.tipo === "quadrato" ? 15 * u : 17 * u;
-  if (logo) ctx.drawImage(logo, m.l, m.t, lh * (logo.width / logo.height), lh);
-  ctx.font = `500 ${oriz ? h * 0.024 : 2.3 * u}px Jost, sans-serif`;
-  ctx.fillStyle = C.cream; ctx.globalAlpha = 0.9;
-  ctx.fillText("FC PUNTO HUB · VOMERO", m.l + lh * (logo ? logo.width / logo.height : 0) + 1.6 * u, m.t + lh * 0.56);
-  ctx.globalAlpha = 1;
-
-  // Blocco testi, costruito dal basso
-  const s = oriz ? h / 100 : f.tipo === "quadrato" ? 0.9 * u : u;
-  const titoloSize = oriz ? h * 0.075 : 6.6 * s;
-  ctx.font = `700 ${titoloSize}px "Playfair Display", serif`;
-  const righeTitolo = avvolgi(ctx, d.titolo || "Titolo dell'immobile", larg).slice(0, 3);
-
-  const blocchi = [];
-  const T = TIPI[d.tipo];
-  blocchi.push({ tipo: "pill", testo: T.pill, size: oriz ? h * 0.032 : 3 * s });
-  righeTitolo.forEach((r) => blocchi.push({ tipo: "titolo", testo: r, size: titoloSize }));
-  if (d.zona) blocchi.push({ tipo: "zona", testo: d.zona, size: oriz ? h * 0.036 : 3.4 * s });
-  const dettagli = [d.mq && `${d.mq} mq`, d.locali && `${d.locali} locali`, d.bagni && `${d.bagni} ${d.bagni === "1" ? "bagno" : "bagni"}`, d.tipo !== "ribassato" && d.tipo !== "venduto" && d.tipo !== "acquisito" && d.prezzo && `€ ${d.prezzo}`].filter(Boolean).join("  ·  ");
-  if (dettagli) blocchi.push({ tipo: "dett", testo: dettagli, size: oriz ? h * 0.03 : 2.9 * s });
-  const grande = oriz ? h * 0.05 : 4.6 * s, sotto = oriz ? h * 0.034 : 3.3 * s;
-  if (d.tipo === "openhouse") {
-    blocchi.push({ tipo: "data", testo: d.data ? maiusc(dataLunga(d.data)) : "DATA", size: grande });
-    blocchi.push({ tipo: "ora", testo: d.dalle && d.alle ? `dalle ${d.dalle} alle ${d.alle}` : "orario", size: sotto });
-  } else if (d.tipo === "acquisito") {
-    blocchi.push({ tipo: "data", testo: d.prezzo ? `€ ${d.prezzo}` : "NUOVO IN VENDITA", size: grande });
-    blocchi.push({ tipo: "ora", testo: "In esclusiva FC Punto Hub", size: sotto });
-  } else if (d.tipo === "ribassato") {
-    blocchi.push({ tipo: "data", testo: d.prezzo ? `€ ${d.prezzo}` : "€ nuovo prezzo", size: grande });
-    blocchi.push({ tipo: "ora", testo: d.prezzoVecchio ? `invece di € ${d.prezzoVecchio}` : "invece di € …", size: sotto, barrato: d.prezzoVecchio ? `€ ${d.prezzoVecchio}` : "" });
+  // Logo HUB + firma: centrati in alto nei formati verticali, a sinistra in quelli orizzontali
+  const lh = oriz ? h * 0.2 : f.tipo === "quadrato" ? 13 * u : f.tipo === "storia" || f.tipo === "tiktok" ? 15 * u : 14 * u;
+  const lw = logo ? lh * (logo.width / logo.height) : 0;
+  const etichetta = "FC PUNTO HUB · VOMERO";
+  let testaFine;
+  if (centra) {
+    if (logo) ctx.drawImage(logo, cx - lw / 2, m.t, lw, lh);
+    ctx.font = `500 ${2.3 * u}px Jost, sans-serif`; ctx.fillStyle = C.cream; ctx.globalAlpha = 0.9; ctx.textAlign = "center";
+    ctx.fillText(etichetta, cx, m.t + lh + 3.4 * u);
+    ctx.globalAlpha = 1; ctx.textAlign = "left";
+    testaFine = m.t + lh + 5 * u;
   } else {
-    blocchi.push({ tipo: "data", testo: d.giorni ? `VENDUTO IN ${d.giorni} GIORNI` : "VENDUTO", size: grande });
-    blocchi.push({ tipo: "ora", testo: "Grazie per la fiducia!", size: sotto });
+    if (logo) ctx.drawImage(logo, m.l, m.t, lw, lh);
+    ctx.font = `500 ${h * 0.024}px Jost, sans-serif`; ctx.fillStyle = C.cream; ctx.globalAlpha = 0.9;
+    ctx.fillText(etichetta, m.l + lw + 1.6 * u, m.t + lh * 0.56);
+    ctx.globalAlpha = 1;
+    testaFine = m.t + lh;
   }
-  blocchi.push({ tipo: "cta", testo: `${T.cta} · WhatsApp ${d.telefono || WHATSAPP_STORE}`, size: oriz ? h * 0.028 : 2.7 * s });
 
-  const spazio = (b) => b.tipo === "pill" ? b.size * 2.1 + b.size * 0.9 : b.tipo === "titolo" ? b.size * 1.14 : b.tipo === "cta" ? b.size * 3.2 + b.size * 0.6 : b.tipo === "data" ? b.size * 1.6 : b.size * 1.6;
-  const altezza = blocchi.reduce((a, b) => a + spazio(b), 0);
-  let y = oriz ? Math.max(m.t + lh + 4 * s, (h - altezza) / 2 + lh * 0.35) : h - m.b - altezza;
+  // Blocco testi: si costruisce, si misura e, se non entra tra intestazione e margine basso, si riduce
+  const T = TIPI[d.tipo];
+  const costruisci = (k) => {
+    const s = (oriz ? h / 100 : f.tipo === "quadrato" ? 0.9 * u : f.tipo === "storia" || f.tipo === "tiktok" ? 1.12 * u : u) * k;
+    const titoloSize = oriz ? h * 0.075 * k : 6.6 * s;
+    ctx.font = `700 ${titoloSize}px "Playfair Display", serif`;
+    const righeTitolo = avvolgi(ctx, d.titolo || "Titolo dell'immobile", larg).slice(0, 3);
+    const bl = [];
+    bl.push({ tipo: "pill", testo: T.pill, size: oriz ? h * 0.032 * k : 3 * s });
+    righeTitolo.forEach((r) => bl.push({ tipo: "titolo", testo: r, size: titoloSize }));
+    if (d.zona) bl.push({ tipo: "zona", testo: d.zona, size: oriz ? h * 0.036 * k : 3.4 * s });
+    const dettagli = [d.mq && `${d.mq} mq`, d.locali && `${d.locali} locali`, d.bagni && `${d.bagni} ${d.bagni === "1" ? "bagno" : "bagni"}`, d.tipo !== "ribassato" && d.tipo !== "venduto" && d.tipo !== "acquisito" && d.prezzo && `€ ${d.prezzo}`].filter(Boolean).join("  ·  ");
+    if (dettagli) bl.push({ tipo: "dett", testo: dettagli, size: oriz ? h * 0.03 * k : 2.9 * s });
+    const grande = oriz ? h * 0.05 * k : 4.6 * s, sotto = oriz ? h * 0.034 * k : 3.3 * s;
+    if (d.tipo === "openhouse") {
+      bl.push({ tipo: "data", testo: d.data ? maiusc(dataLunga(d.data)) : "DATA", size: grande });
+      bl.push({ tipo: "ora", testo: d.dalle && d.alle ? `dalle ${d.dalle} alle ${d.alle}` : "orario", size: sotto });
+    } else if (d.tipo === "acquisito") {
+      bl.push({ tipo: "data", testo: d.prezzo ? `€ ${d.prezzo}` : "NUOVO IN VENDITA", size: grande });
+      bl.push({ tipo: "ora", testo: "In esclusiva FC Punto Hub", size: sotto });
+    } else if (d.tipo === "ribassato") {
+      bl.push({ tipo: "data", testo: d.prezzo ? `€ ${d.prezzo}` : "€ nuovo prezzo", size: grande });
+      bl.push({ tipo: "ora", testo: d.prezzoVecchio ? `invece di € ${d.prezzoVecchio}` : "invece di € …", size: sotto, barrato: d.prezzoVecchio ? `€ ${d.prezzoVecchio}` : "" });
+    } else {
+      bl.push({ tipo: "data", testo: d.giorni ? `VENDUTO IN ${d.giorni} GIORNI` : "VENDUTO", size: grande });
+      bl.push({ tipo: "ora", testo: "Grazie per la fiducia!", size: sotto });
+    }
+    // CTA su due righe nei formati stretti, così non si rimpicciolisce troppo
+    const cta = `${T.cta} · WhatsApp ${d.telefono || WHATSAPP_STORE}`;
+    const ctaSize = oriz ? h * 0.028 * k : 2.7 * s;
+    ctx.font = `600 ${ctaSize}px Jost, sans-serif`;
+    const ctaRighe = ctx.measureText(cta).width + ctaSize * 2.4 > larg ? [T.cta, `WhatsApp ${d.telefono || WHATSAPP_STORE}`] : [cta];
+    bl.push({ tipo: "cta", righe: ctaRighe, size: ctaSize });
+    return bl;
+  };
+  const spazio = (b) => b.tipo === "pill" ? b.size * 3 : b.tipo === "titolo" ? b.size * 1.14 : b.tipo === "cta" ? b.size * (0.6 + 1.2 + 1.4 * b.righe.length) : b.tipo === "data" ? b.size * 1.75 : b.size * 1.6;
+  let k = 1, blocchi = costruisci(k), altezza = blocchi.reduce((a, b) => a + spazio(b), 0);
+  const disponibile = h - m.b - testaFine - (oriz ? 0 : 2 * u);
+  while (!oriz && altezza > disponibile && k > 0.6) { k *= 0.94; blocchi = costruisci(k); altezza = blocchi.reduce((a, b) => a + spazio(b), 0); }
+  let y = oriz ? Math.max(m.t + lh + 4 * u, (h - altezza) / 2 + lh * 0.35) : Math.max(testaFine + 2 * u, h - m.b - altezza);
 
+  ctx.textAlign = centra ? "center" : "left";
+  const scrivi = (font, colore, testo, size, yy) => {
+    const sz = adatta(ctx, font, testo, size, larg);
+    ctx.fillStyle = colore; ctx.fillText(testo, cx, yy);
+    return sz;
+  };
   blocchi.forEach((b) => {
-    if (b.tipo === "pill") { pillola(ctx, b.testo, m.l, y, b.size); y += b.size * 2.1 + b.size * 0.9; return; }
-    if (b.tipo === "titolo") { ctx.font = `700 ${b.size}px "Playfair Display", serif`; ctx.fillStyle = C.cream; y += b.size; ctx.fillText(b.testo, m.l, y); y += b.size * 0.14; return; }
-    if (b.tipo === "zona") { y += b.size * 0.4; ctx.font = `500 ${b.size}px Jost, sans-serif`; ctx.fillStyle = C.goldBright; y += b.size; ctx.fillText(b.testo, m.l, y); y += b.size * 0.2; return; }
-    if (b.tipo === "dett") { y += b.size * 0.5; ctx.font = `400 ${b.size}px Jost, sans-serif`; ctx.fillStyle = C.cream; y += b.size; ctx.fillText(b.testo, m.l, y); y += b.size * 0.1; return; }
+    if (b.tipo === "pill") {
+      ctx.font = `600 ${b.size}px Jost, sans-serif`;
+      const pw = ctx.measureText(b.testo).width + b.size * 1.8;
+      ctx.textAlign = "left"; pillola(ctx, b.testo, xa(pw), y, b.size); ctx.textAlign = centra ? "center" : "left";
+      y += b.size * 3; return;
+    }
+    if (b.tipo === "titolo") { y += b.size; scrivi((z) => `700 ${z}px "Playfair Display", serif`, C.cream, b.testo, b.size, y); y += b.size * 0.14; return; }
+    if (b.tipo === "zona") { y += b.size * 0.4 + b.size; scrivi((z) => `500 ${z}px Jost, sans-serif`, C.goldBright, b.testo, b.size, y); y += b.size * 0.2; return; }
+    if (b.tipo === "dett") { y += b.size * 0.5 + b.size; scrivi((z) => `400 ${z}px Jost, sans-serif`, C.cream, b.testo, b.size, y); y += b.size * 0.1; return; }
     if (b.tipo === "data") {
       y += b.size * 0.55;
-      ctx.fillStyle = C.gold; ctx.fillRect(m.l, y, b.size * 1.6, Math.max(3, b.size * 0.08));
-      y += b.size * 0.25;
-      ctx.font = `700 ${b.size}px Jost, sans-serif`; ctx.fillStyle = C.cream; y += b.size * 0.95; ctx.fillText(b.testo, m.l, y);
+      const bw = b.size * 1.6;
+      ctx.fillStyle = C.gold; ctx.fillRect(xa(bw), y, bw, Math.max(3, b.size * 0.08));
+      y += b.size * 0.25 + b.size * 0.95;
+      scrivi((z) => `700 ${z}px Jost, sans-serif`, C.cream, b.testo, b.size, y);
       return;
     }
     if (b.tipo === "ora") {
-      ctx.font = `500 ${b.size}px Jost, sans-serif`; ctx.fillStyle = C.goldBright; y += b.size * 1.25; ctx.fillText(b.testo, m.l, y);
+      y += b.size * 1.25;
+      const sz = scrivi((z) => `500 ${z}px Jost, sans-serif`, C.goldBright, b.testo, b.size, y);
       if (b.barrato) {
-        const x0 = m.l + ctx.measureText(b.testo.slice(0, b.testo.length - b.barrato.length)).width, x1 = m.l + ctx.measureText(b.testo).width;
-        ctx.strokeStyle = C.goldBright; ctx.lineWidth = Math.max(2, b.size * 0.08); ctx.beginPath(); ctx.moveTo(x0, y - b.size * 0.32); ctx.lineTo(x1, y - b.size * 0.32); ctx.stroke();
+        const tw = ctx.measureText(b.testo).width, x0 = xa(tw);
+        const xs = x0 + ctx.measureText(b.testo.slice(0, b.testo.length - b.barrato.length)).width;
+        ctx.strokeStyle = C.goldBright; ctx.lineWidth = Math.max(2, sz * 0.08); ctx.beginPath(); ctx.moveTo(xs, y - sz * 0.32); ctx.lineTo(x0 + tw, y - sz * 0.32); ctx.stroke();
       }
       y += b.size * 0.35; return;
     }
     if (b.tipo === "cta") {
       y += b.size * 0.6;
-      ctx.font = `600 ${b.size}px Jost, sans-serif`;
-      const bw = Math.min(larg, ctx.measureText(b.testo).width + b.size * 2.4), bh = b.size * 2.6;
-      ctx.strokeStyle = C.gold; ctx.lineWidth = Math.max(2, b.size * 0.08);
-      ctx.beginPath(); ctx.roundRect(m.l, y, bw, bh, b.size * 0.4); ctx.stroke();
-      ctx.fillStyle = C.cream; ctx.textBaseline = "middle"; ctx.fillText(b.testo, m.l + b.size * 1.2, y + bh / 2 + 1, bw - b.size * 2.4); ctx.textBaseline = "alphabetic";
+      const font = (z) => `600 ${z}px Jost, sans-serif`;
+      let sz = b.size;
+      b.righe.forEach((r) => { sz = Math.min(sz, adatta(ctx, font, r, b.size, larg - b.size * 2.4)); });
+      ctx.font = font(sz);
+      const tw = Math.max(...b.righe.map((r) => ctx.measureText(r).width));
+      const bw = Math.min(larg, tw + sz * 2.4), bh = sz * (1.2 + 1.4 * b.righe.length);
+      ctx.strokeStyle = C.gold; ctx.lineWidth = Math.max(2, sz * 0.08);
+      ctx.beginPath(); ctx.roundRect(xa(bw), y, bw, bh, sz * 0.4); ctx.stroke();
+      ctx.fillStyle = C.cream; ctx.textBaseline = "middle";
+      const x = centra ? cx : m.l + sz * 1.2;
+      b.righe.forEach((r, i) => ctx.fillText(r, x, y + sz * 0.6 + sz * 1.4 * (i + 0.5) + 1));
+      ctx.textBaseline = "alphabetic";
     }
   });
+  ctx.textAlign = "left";
 }
 
 function testi(d) {
@@ -298,6 +368,7 @@ function SocialImmobili() {
           <h2 className="aa-h2"><span className="aa-sezione-n">02</span>Immagini</h2>
           <button className="aa-btn aa-btn-pieno" onClick={scaricaTutti} disabled={!foto}>Scarica tutte</button>
         </div>
+        <p className="aa-nota aa-oh-consiglio"><strong>Instagram:</strong> usa il formato <strong>3:4</strong>, che è quello della griglia del profilo. Quando carichi la foto tocca l'icona con le due frecce in basso a sinistra, così Instagram non la ritaglia a quadrato. Le scritte sono comunque tenute lontane dai bordi che le app tagliano.</p>
         <div className="aa-oh-griglia">
           {formatiPer(d.tipo).map((f) => (
             <figure key={f.id} className={`aa-oh-formato aa-oh-${f.tipo}`}>
@@ -345,7 +416,8 @@ const FESTE = {
 };
 
 const FORMATI_AUGURI = [
-  { id: "post", nome: "Post Facebook e Instagram (4:5)", w: 1080, h: 1350, tipo: "verticale" },
+  { id: "ig-post", nome: "Instagram · post (3:4, come la griglia)", w: 1080, h: 1440, tipo: "verticale" },
+  { id: "post", nome: "Facebook · post (4:5)", w: 1080, h: 1350, tipo: "verticale" },
   { id: "quadrato", nome: "Post quadrato (1:1)", w: 1080, h: 1080, tipo: "quadrato" },
   { id: "storia", nome: "Storia Facebook e Instagram", w: 1080, h: 1920, tipo: "storia" },
   { id: "tiktok", nome: "TikTok · copertina", w: 1080, h: 1920, tipo: "tiktok" },
@@ -400,7 +472,7 @@ function disegnaAuguri(canvas, f, festa, foto, logo) {
   ctx.strokeStyle = C.gold; ctx.globalAlpha = 0.55; ctx.lineWidth = Math.max(2, 0.25 * u);
   const ins = 3.2 * u; ctx.strokeRect(ins, ins, w - 2 * ins, h - 2 * ins); ctx.globalAlpha = 1;
 
-  const safeB = f.tipo === "tiktok" ? 430 : f.tipo === "storia" ? 300 : 0;
+  const safeB = SAFE_B[f.id] || 0;
   const centro = oriz ? h * 0.44 : (h - safeB) * 0.46;
   decora(ctx, w, h, F.decor, centro);
 
@@ -414,7 +486,7 @@ function disegnaAuguri(canvas, f, festa, foto, logo) {
   // titolo
   const ts = oriz ? 13 * s : f.tipo === "quadrato" ? 11.5 * s : 11 * s;
   ctx.font = `700 ${ts}px "Playfair Display", serif`; ctx.fillStyle = C.cream;
-  const righe = avvolgi(ctx, F.titolo, w * (oriz ? 0.8 : 0.82));
+  const righe = avvolgi(ctx, F.titolo, larghezzaUtile(f, w, oriz ? 0.8 : 0.82));
   let y = centro - ((righe.length - 1) * ts * 1.05) / 2 + ts * 0.3;
   righe.forEach((rr) => { ctx.fillText(rr, w / 2, y); y += ts * 1.05; });
   // filetto
@@ -424,7 +496,7 @@ function disegnaAuguri(canvas, f, festa, foto, logo) {
   const ss = oriz ? 4 * s : 3.5 * s;
   ctx.font = `400 italic ${ss}px "Playfair Display", serif`; ctx.fillStyle = C.cream;
   y += ss * 2;
-  avvolgi(ctx, F.sotto, w * (oriz ? 0.7 : 0.74)).slice(0, 3).forEach((rr) => { ctx.fillText(rr, w / 2, y); y += ss * 1.35; });
+  avvolgi(ctx, F.sotto, larghezzaUtile(f, w, oriz ? 0.7 : 0.74) * (f.tipo === "quadrato" ? 0.92 : 1)).slice(0, 3).forEach((rr) => { ctx.fillText(rr, w / 2, y); y += ss * 1.35; });
   // firma
   const fy = h - safeB - (oriz ? 9 * s : 9 * u);
   const lh = oriz ? 11 * s : 8.5 * u;
@@ -466,7 +538,7 @@ function disegnaAuguriAllegro(canvas, f, festa, foto, logo) {
   ctx.fillStyle = g; ctx.fillRect(0, 0, w, h);
   if (foto) { ctx.globalAlpha = 0.35; copri(ctx, foto, 0, 0, w, h); ctx.globalAlpha = 1; }
   const r = caso(festa.length * 104729 + w + h);
-  const safeB = f.tipo === "tiktok" ? 430 : f.tipo === "storia" ? 300 : 0;
+  const safeB = SAFE_B[f.id] || 0;
   const centro = oriz ? h * 0.42 : (h - safeB) * 0.44;
   const libero = (x, y, m) => Math.abs(x - w / 2) > w * (oriz ? 0.3 : 0.38) + m || Math.abs(y - centro) > h * (oriz ? 0.3 : 0.2) + m;
   // coriandoli
@@ -490,11 +562,11 @@ function disegnaAuguriAllegro(canvas, f, festa, foto, logo) {
   const big = oriz ? 22 * u : 20 * u;
   ctx.font = `${big}px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif`;
   if (oriz) { ctx.fillText(A.grandi[0], w * 0.1, h * 0.5); ctx.fillText(A.grandi[1], w * 0.9, h * 0.5); }
-  else { ctx.fillText(A.grandi[0], w * 0.22, centro - 25 * u); ctx.fillText(A.grandi[1], w * 0.78, centro - 25 * u); }
+  else { const gx = f.tipo === "quadrato" ? 0.3 : 0.22; ctx.fillText(A.grandi[0], w * gx, centro - 25 * u); ctx.fillText(A.grandi[1], w * (1 - gx), centro - 25 * u); }
   // titolo
   const ts = oriz ? 12 * u : f.tipo === "quadrato" ? 11 * u : 11.5 * u;
   ctx.font = `700 ${ts}px Fredoka, Jost, sans-serif`;
-  const righe = avvolgi(ctx, A.titolo, w * (oriz ? 0.62 : 0.86));
+  const righe = avvolgi(ctx, A.titolo, larghezzaUtile(f, w, oriz ? 0.62 : 0.86));
   let y = centro - ((righe.length - 1) * ts) / 2;
   righe.forEach((rr) => {
     ctx.lineJoin = "round"; ctx.lineWidth = ts * 0.12; ctx.strokeStyle = "rgba(0,0,0,0.25)"; ctx.strokeText(rr, w / 2 + ts * 0.04, y + ts * 0.06);
@@ -503,7 +575,7 @@ function disegnaAuguriAllegro(canvas, f, festa, foto, logo) {
   // sottotitolo in etichetta
   const ss = oriz ? 4.2 * u : 3.8 * u;
   ctx.font = `600 ${ss}px Fredoka, Jost, sans-serif`;
-  const righeS = avvolgi(ctx, A.sotto, w * (oriz ? 0.56 : 0.72)).slice(0, 2);
+  const righeS = avvolgi(ctx, A.sotto, larghezzaUtile(f, w, oriz ? 0.56 : 0.72) * (f.tipo === "quadrato" ? 0.92 : 1)).slice(0, 2);
   const bw = Math.max(...righeS.map((x) => ctx.measureText(x).width)) + ss * 2.4, bh = righeS.length * ss * 1.3 + ss * 1.2;
   y += ss * 0.2;
   ctx.fillStyle = A.accento; ctx.beginPath(); ctx.roundRect(w / 2 - bw / 2, y - ss * 0.2, bw, bh, bh / 2); ctx.fill();
@@ -597,6 +669,7 @@ function Auguri() {
           <h2 className="aa-h2"><span className="aa-sezione-n">02</span>Immagini</h2>
           <button className="aa-btn aa-btn-pieno" onClick={scaricaTutti}>Scarica tutte</button>
         </div>
+        <p className="aa-nota aa-oh-consiglio"><strong>Instagram:</strong> usa il formato <strong>3:4</strong>, che è quello della griglia del profilo. Quando carichi la foto tocca l'icona con le due frecce in basso a sinistra, così Instagram non la ritaglia a quadrato. Le scritte sono comunque tenute lontane dai bordi che le app tagliano.</p>
         <div className="aa-oh-griglia">
           {FORMATI_AUGURI.map((f) => (
             <figure key={f.id} className={`aa-oh-formato aa-oh-${f.tipo}`}>

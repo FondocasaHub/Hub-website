@@ -404,3 +404,4 @@ a { color: inherit; }
 .aa-ir-esito.aa-ir-positivo { color: var(--verde); font-weight: 600; }
 .aa-ir-esito.aa-ir-negativo { color: var(--rosso); font-weight: 600; }
 .aa-ir-esito.aa-ir-in-attesa, .aa-ir-esito.aa-ir-da-ricontattare { color: #7A5410; font-weight: 600; }
+.aa-oh-consiglio { background: var(--cream); border-radius: 8px; padding: 10px 12px; margin: 0 0 14px; }

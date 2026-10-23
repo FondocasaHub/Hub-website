@@ -1,0 +1,7 @@
+data;agenzia;portale;id_annuncio;via;civico;zona;mq;prezzo;prezzo_iniziale;classe_energetica;stato;primo_avvistamento;titolo;descrizione
+2026-10-26;tempocasa-vomero;immobiliare.it;TC101;Via Anton Giulio Barrili;10;Vomero;95;399.000;450.000;G;online;2026-05-04;Quadrilocale luminoso;Esempio
+2026-10-26;remax-vomero;immobiliare.it;RM88;Via Anton Giulio Barrili;3;Vomero;71;335.000;335.000;G;online;2026-10-24;Trilocale;Esempio
+2026-10-26;remax-vomero;immobiliare.it;RM55;Via Cimarosa;80;Vomero;110;600.000;640.000;E;sotto offerta;2026-06-01;Panoramico;Esempio
+2026-10-26;fondocasa-hub;immobiliare.it;FCH001;Via Luca Giordano;40;Vomero;100;480.000;480.000;F;online;2026-09-01;Quadrilocale;Esempio
+2026-10-26;fondocasa-hub;idealista;FCH001;Via Luca Giordano;40;Vomero;100;470.000;480.000;;online;2026-09-01;Vera occasione quadrilocale;Esempio
+2026-10-26;fondocasa-hub;immobiliare.it;FCH002;Via Merliani;5;Vomero;80;350.000;350.000;;online;2026-10-20;Trilocale;Esempio

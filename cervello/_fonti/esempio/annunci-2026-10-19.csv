@@ -1,0 +1,8 @@
+data;agenzia;portale;id_annuncio;via;civico;zona;mq;prezzo;prezzo_iniziale;classe_energetica;stato;primo_avvistamento;titolo;descrizione
+2026-10-19;tempocasa-vomero;immobiliare.it;TC101;Via Anton Giulio Barrili;10;Vomero;95;420.000;450.000;G;online;2026-05-04;Quadrilocale luminoso;Esempio
+2026-10-19;gabetti-vomero;immobiliare.it;GB22;Via Anton Giulio Barrili;24;Vomero;120;560.000;560.000;F;online;2026-08-20;Ampio 5 locali;Esempio
+2026-10-19;tecnocasa-vomero;idealista;TN7;Via Anton Giulio Barrili;3;Vomero;70;330.000;330.000;;online;2026-03-11;Trilocale;Esempio
+2026-10-19;remax-vomero;immobiliare.it;RM55;Via Cimarosa;80;Vomero;110;600.000;640.000;E;online;2026-06-01;Panoramico;Esempio
+2026-10-19;leonardo;immobiliare.it;LE9;Via Kerbaker;15;Vomero;85;390.000;390.000;G;online;2026-09-15;Trilocale;Esempio
+2026-10-19;fondocasa-hub;immobiliare.it;FCH001;Via Luca Giordano;40;Vomero;100;480.000;480.000;F;online;2026-09-01;Quadrilocale;Esempio
+2026-10-19;fondocasa-hub;idealista;FCH001;Via Luca Giordano;40;Vomero;100;470.000;480.000;F;online;2026-09-01;Quadrilocale;Esempio

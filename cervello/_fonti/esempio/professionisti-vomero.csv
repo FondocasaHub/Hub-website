@@ -1,0 +1,7 @@
+nome;categoria;studio;indirizzo;telefono;email;fonte
+Notaio Mario Esempio;notaio;Studio Notarile Esempio;Via Scarlatti 1;081 000 0001;studio@esempio.it;google maps
+Dott. Mario Esempio;;Studio Notarile Esempio;Via Scarlatti 1;+39 081 0000001;;pagine gialle
+Avv. Lucia Prova;;Studio Legale Prova;Via Cilea 2;081 000 0002;lucia@prova.it;ordine avvocati
+Condominio Servizi Esempio;amministratore;;Via Bernini 3;333 0000003;info@condesempio.it;google maps
+Geom. Paolo Test;;Studio Tecnico Test;Via Merliani 4;081 000 0004;;google maps
+Lucia Prova;avvocato;;Via Cilea 2;;lucia@prova.it;linkedin

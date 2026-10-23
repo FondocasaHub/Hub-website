@@ -1,0 +1,24 @@
+{
+  "_nota": "Parametri del Cervello. Gli script li leggono da qui: cambiali solo in questo file.",
+  "anno": 2026,
+  "obiettivi_annui": {
+    "provvigioni_euro": 1200000,
+    "incarichi": 50,
+    "vendite": 40
+  },
+  "obiettivo_per_team_euro": 410000,
+  "settimane_lavorative": 46,
+  "tassi_conversione": {
+    "_nota": "Valori iniziali da sostituire con quelli reali di Vendilo dopo 3 mesi di dati.",
+    "valutazioni_per_incarico": 2.5,
+    "incarichi_per_vendita": 1.25,
+    "appuntamenti_per_valutazione": 1.3,
+    "telefonate_per_appuntamento": 40
+  },
+  "lint": {
+    "giorni_pagina_vecchia": 90,
+    "giorni_decisione_aperta": 14
+  },
+  "parole_vietate_annunci": ["occasione", "affare", "imperdibile", "svendo", "prezzo trattabile", "vero affare", "unico"],
+  "portali": ["immobiliare.it", "idealista", "casa.it", "subito", "sito agenzia"]
+}

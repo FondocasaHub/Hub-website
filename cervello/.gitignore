@@ -1,0 +1,10 @@
+# Dati grezzi con dati personali: restano sul Mac / Drive, non su Git
+_fonti/*
+!_fonti/README.md
+!_fonti/esempio/
+# Note generate che contengono nomi e telefoni di proprietari
+04 Acquisizione/Scaduti/*.md
+!04 Acquisizione/Scaduti/README.md
+# Impostazioni locali di Obsidian
+.obsidian/workspace*.json
+.trash/

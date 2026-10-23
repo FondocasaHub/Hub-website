@@ -104,7 +104,7 @@ export function PaginaComunicazioni({ id }) {
 }
 
 /* ---------- Gestione (solo Admin) ---------- */
-const VUOTA = () => ({ titolo: "", testo: "", scade_il: "", ruoli: RUOLI.map((r) => r.id) });
+const VUOTA = () => ({ titolo: "", testo: "", scade_il: "", ruoli: RUOLI.map((r) => r.id), email: true });
 
 export function GestioneComunicazioni({ profilo }) {
   const [lista, setLista] = useState([]);
@@ -139,8 +139,38 @@ export function GestioneComunicazioni({ profilo }) {
     }
     if (allegati.length) await supabase.from("avvisi").update({ allegati }).eq("id", c.id);
 
-    setNuova(VUOTA()); setFile([]);
-    avvisa("Comunicazione pubblicata");
+    let esito = "Comunicazione pubblicata";
+    if (nuova.email) {
+      setStato({ invio: true, msg: "Invio email di avviso…", errore: false });
+      const r = await inviaEmail(c.id, false);
+      esito += r.errore ? ` — email non inviata: ${r.errore}` : ` — email inviata a ${r.inviate} collaboratori`;
+      setNuova(VUOTA()); setFile([]);
+      avvisa(esito, !!r.errore);
+    } else {
+      setNuova(VUOTA()); setFile([]);
+      avvisa(esito);
+    }
+    carica();
+  };
+
+  const inviaEmail = async (id, forza) => {
+    const { data, error } = await supabase.functions.invoke("notifica-comunicazione", { body: { id, forza } });
+    if (error) {
+      let msg = error.message;
+      try { const b = await error.context?.json(); if (b?.errore) msg = b.errore; } catch { /* risposta non JSON */ }
+      return { errore: msg };
+    }
+    if (data?.errore) return { errore: data.errore };
+    const falliti = data?.falliti?.length ? ` (non recapitate: ${data.falliti.join(", ")})` : "";
+    return { inviate: (data?.inviate ?? 0) + falliti };
+  };
+
+  const reinvia = async (c) => {
+    const gia = c.email_inviata_il ? ` L'avviso è già stato inviato il ${new Date(c.email_inviata_il).toLocaleDateString("it-IT")}.` : "";
+    if (!window.confirm(`Inviare l'email di avviso per "${c.titolo}" a tutti i collaboratori dei ruoli scelti?${gia}`)) return;
+    setStato({ invio: true, msg: "Invio email di avviso…", errore: false });
+    const r = await inviaEmail(c.id, true);
+    avvisa(r.errore ? `Email non inviata: ${r.errore}` : `Email inviata a ${r.inviate} collaboratori`, !!r.errore);
     carica();
   };
 
@@ -184,6 +214,12 @@ export function GestioneComunicazioni({ profilo }) {
             ))}
           </div>
         </div>
+        <div className="aa-ruoli">
+          <label>
+            <input type="checkbox" checked={nuova.email} onChange={(e) => setNuova({ ...nuova, email: e.target.checked })} />
+            Avvisa via email i collaboratori dei ruoli scelti
+          </label>
+        </div>
         <button className="aa-btn aa-btn-pieno" disabled={stato.invio}>{stato.invio ? stato.msg : "Pubblica comunicazione"}</button>
       </form>
 
@@ -198,9 +234,14 @@ export function GestioneComunicazioni({ profilo }) {
                 {c.scade_il ? ` · in evidenza fino al ${new Date(c.scade_il).toLocaleDateString("it-IT")}` : ""}
                 {` · ${c.ruoli.join(", ")}`}
                 {c.allegati?.length ? ` · 📎 ${c.allegati.length}` : ""}
+                {c.email_inviata_il ? ` · ✉ email inviata il ${new Date(c.email_inviata_il).toLocaleDateString("it-IT")} a ${c.email_destinatari ?? "?"}` : " · ✉ email non inviata"}
               </span>
             </div>
-            <button className="aa-link aa-link-rosso" onClick={() => elimina(c)}>Elimina</button>
+            <div>
+              <button className="aa-link" onClick={() => reinvia(c)} disabled={stato.invio}>{c.email_inviata_il ? "Reinvia email" : "Invia email"}</button>
+              {" "}
+              <button className="aa-link aa-link-rosso" onClick={() => elimina(c)}>Elimina</button>
+            </div>
           </li>
         ))}
       </ul>

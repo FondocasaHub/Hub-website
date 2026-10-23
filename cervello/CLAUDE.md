@@ -21,7 +21,10 @@ Lavori dentro questo vault Obsidian. Rispondi sempre in italiano, frasi brevi, n
 6. **Napoli, non Roma.** Zone, esempi e vie sono quelli di Napoli elencati in [[01 Agenzia/Zone]].
 7. **Privacy e norme.** Dati personali di proprietari e clienti solo in `_fonti/` e nelle note escluse da
    Git. Nei testi per il pubblico niente nomi di privati. Rispetta [[02 Procedure/Annunci a norma]].
-8. Parametri (obiettivi, tassi di conversione, parole vietate): `_config/parametri.json`.
+8. **Non toccare il sito né l'Area Agenti.** Si lavora solo dentro `cervello/`. Mai modificare file fuori da
+   questa cartella (`src/`, `api/`, `area-agenti/`, `supabase/`, `public/`, configurazioni del sito), nemmeno
+   per portarci testi o dati: i testi per il sito restano note nel vault e li pubblica una persona.
+9. Parametri (obiettivi, tassi di conversione, parole vietate): `_config/parametri.json`.
    Competitor: [[_config/competitor]].
 
 ## Comandi
@@ -97,7 +100,7 @@ e versione breve per ManyChat/Instagram. Salva in `07 Marketing/Guide/`.
 
 ### `pagina zona [zona]`
 Testo per la pagina di zona del sito (prezzi, venduti, agente di riferimento, vie principali) con
-`_modelli/Pagina zona.md`. Il sito è nel repo padre (`src/pages/`, componente `QuartiereLandingPage`).
+`_modelli/Pagina zona.md`, salvato in `07 Marketing/Pagine zona/`. Resta una nota: il sito non si modifica.
 
 ### `domanda: …`
 Rispondi cercando nel vault (decisioni, riunioni, numeri, vie). Struttura: risposta in 3 righe, poi le prove

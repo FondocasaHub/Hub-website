@@ -35,10 +35,6 @@ Vedi `AI_AGENT_PLAN.md` per il piano di:
 - automazione risposte email e WhatsApp
 - processo di consulenza telefonica
 
-## Il Cervello di FondoCasa Hub
-Base di conoscenza dell'agenzia (vault Obsidian) in `cervello/`: metodo, procedure, comandi per Claude e
-script per scaduti, analisi per via, obiettivi, contraddizioni e controllo del venerdì. Vedi `cervello/README.md`.
-
 ## Contatti
 **FC Punto Hub Srl**
 Via Pietro Mascagni, 35 · 80128 Napoli

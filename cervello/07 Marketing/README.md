@@ -9,7 +9,6 @@
 Annunci: un solo modello, in [[02 Procedure/Annunci a norma]].
 
 ## Pagine di zona del sito
-Le pagine sono nel repo del sito (`src/pages/AgenziaImmobiliare*Napoli.jsx`, componente
-`QuartiereLandingPage`). Oggi condividono gran parte del testo. Il piano: una nota per zona in
-`Pagine zona/` con i dati veri (da `analisi via` ed euromq), poi Claude porta il testo nella pagina del sito.
+Il Cervello prepara solo il testo: una nota per zona in `Pagine zona/` con i dati veri (da `analisi via` ed
+euromq). Il sito non viene toccato: il testo lo pubblica una persona.
 Ordine: Vomero, Arenella, Chiaia, Posillipo, poi le altre ([[01 Agenzia/Zone]]).

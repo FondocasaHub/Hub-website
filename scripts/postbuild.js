@@ -82,7 +82,7 @@ const PAGE_META = {
   },
   'consulente-mutuo-napoli': {
     title: 'Consulente Mutuo Napoli | FondoCasa Hub',
-    desc: 'Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): consulenza gratuita tra 6 banche partner per mutuo prima casa o surroga. Richiedi informazioni.',
+    desc: 'Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): prequalifica gratuita tra oltre 20 banche, delibera media in 20 giorni. Prima casa, under 36, surroga e altro.',
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   },
   'costruttori': {

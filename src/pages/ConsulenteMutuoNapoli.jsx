@@ -57,7 +57,13 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
     'telephone': '+3908118653202',
     'areaServed': 'Campania',
     'serviceType': ['Mutuo', 'Surroga', 'Mutuo acquisto e ristrutturazione', 'Cessione del quinto', 'Prestito Personale'],
-    'founder': { '@type': 'Organization', 'name': 'FondoCasa Hub' }
+    'founder': { '@type': 'Organization', 'name': 'FondoCasa Hub' },
+    'hasOfferCatalog': {
+      '@type': 'OfferCatalog',
+      'name': 'Mutui e finanziamenti WeUnit',
+      'itemListElement': ['Acquisto prima casa', 'Under 36 Consap al 100%', 'Acquisto seconda casa', 'Acquisto + ristrutturazione', 'Sostituzione + acquisto', 'Surroga', 'Mutuo liquidità', 'Sostituzione + liquidità', 'Consolidamento debiti', 'Cessione del quinto', 'Prestiti personali', 'Voucher Mutuo']
+        .map((n) => ({ '@type': 'Offer', 'itemOffered': { '@type': 'Service', 'name': n } })),
+    },
   };
 
   return (

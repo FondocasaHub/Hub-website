@@ -44,8 +44,8 @@ export default function AgenziaImmobiliareVomeroNapoli() {
         },
         {
           icon: "⭐",
-          title: "Recensioni verificate 5/5",
-          desc: "Decine di famiglie del Vomero ci hanno scelto, con recensioni verificate a 5 stelle su Google.",
+          title: "Recensioni a 5 stelle su Google",
+          desc: "Decine di famiglie del Vomero ci hanno scelto, con recensioni a 5 stelle su Google.",
         },
       ]}
       marketText={[

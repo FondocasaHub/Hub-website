@@ -96,8 +96,7 @@ language sql stable security definer set search_path = public as $$
     when cartella = '03-credito' then public.mio_ruolo() in ('manager','credito')
     when cartella = '04-manager' then public.mio_ruolo() = 'manager'
     when cartella = '05-amministrazione' then public.mio_ruolo() = 'staff' and public.mio_reparto() = 'amministrazione'
-    when cartella = '06-marketing' then public.mio_ruolo() in ('manager','agente')
-                                      or (public.mio_ruolo() = 'staff' and public.mio_reparto() = 'marketing')
+    when cartella = '06-marketing' then true  -- aperta a tutti i ruoli dal 25/10/2026
     else false
   end
 $$;

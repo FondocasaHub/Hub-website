@@ -28,7 +28,7 @@ export const CARTELLE = [
   { id: "03-credito", nome: "Credito", descr: "Modulistica mutui, banche convenzionate" },
   { id: "04-manager", nome: "Manager", descr: "Obiettivi, riunione del lunedì, piano compensi, report" },
   { id: "05-amministrazione", nome: "Amministrazione", descr: "Rendiconti provvigionali, fatturazione" },
-  { id: "06-marketing", nome: "Marketing", descr: "Loghi, template, materiale campagne" },
+  { id: "06-marketing", nome: "Marketing", descr: "Loghi, template, brochure e materiale campagne — per tutti" },
 ];
 
 // Sottocartelle: stessa visibilità della cartella madre (la regola RLS guarda

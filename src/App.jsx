@@ -13,6 +13,8 @@ import BlogPage from "./pages/BlogPage";
 import { COLORS } from "./config/colors";
 import VendiCasaVomeroPage from "./pages/VendiCasaVomero";
 import ConsulenteMutuoNapoliPage from "./pages/ConsulenteMutuoNapoli";
+import ServizioLanding from "./pages/ServizioLanding";
+import { ASTE, RISTRUTTURA } from "./pages/serviziContenuti";
 import CostruttoPage from "./pages/Costruttori";
 import AgenziaImmobiliareVomeroNapoli from "./pages/AgenziaImmobiliareVomeroNapoli";
 import AgenziaImmobiliareArenellaNapoli from "./pages/AgenziaImmobiliareArenellaNapoli";
@@ -117,6 +119,8 @@ const URL_TO_PAGE = {
   '/costruttori': 'costruttori',
   '/vendi-casa-vomero': 'vendi-casa-vomero',
   '/consulente-mutuo-napoli': 'consulente-mutuo-napoli',
+  '/aste-immobiliari-napoli': 'aste-immobiliari-napoli',
+  '/ristruttura-e-rivendi': 'ristruttura-e-rivendi',
   '/agenzia-immobiliare-vomero-napoli': 'agenzia-immobiliare-vomero-napoli',
   '/agenzia-immobiliare-arenella-napoli': 'agenzia-immobiliare-arenella-napoli',
   '/agenzia-immobiliare-chiaia-napoli': 'agenzia-immobiliare-chiaia-napoli',
@@ -192,7 +196,7 @@ export default function App() {
     'home': { title: 'Agenzia Immobiliare e Mutui Napoli | FondoCasa Hub', desc: 'A Napoli, immobiliare, mutuo e assicurazione con un solo interlocutore: 26 anni di esperienza al Vomero. Richiedi una valutazione gratuita del tuo immobile.' },
     'chi-siamo': { title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Scopri il team FondoCasa Hub: 26 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.' },
     'metodo': { title: 'Metodo dei 7 Pilastri per Vendere Casa | FondoCasa Hub', desc: 'Vendi casa senza sorprese con il Metodo dei 7 Pilastri: due diligence, marketing dedicato e gestione di mutuo e assicurazione. Scopri come funziona.' },
-    'contatti': { title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub', desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9-13. Richiedi una consulenza gratuita.' },
+    'contatti': { title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub', desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9:30-13. Richiedi una consulenza gratuita.' },
     'comincia': { title: 'Valutazione Gratuita Immobile Napoli | FondoCasa Hub', desc: 'Richiedi la valutazione gratuita del tuo immobile a Napoli: analisi di mercato precisa e risposta entro 24 ore dal team FondoCasa Hub. Inizia subito.' },
     'carriera': { title: 'Lavora con Noi: Agenti Immobiliari Napoli | FondoCasa Hub', desc: 'Cerchi lavoro nel settore immobiliare a Napoli? Candidati come agente, consulente creditizio o assicurativo nel team FondoCasa Hub. Posizioni aperte.' },
     'privacy': { title: 'Informativa sulla Privacy | FondoCasa Hub', desc: 'Scopri come FondoCasa Hub tratta i tuoi dati personali nel rispetto del GDPR: raccolta, uso e conservazione delle informazioni. Leggi l\'informativa completa.' },
@@ -221,6 +225,8 @@ export default function App() {
     'costruttori': '/costruttori',
     'vendi-casa-vomero': '/vendi-casa-vomero',
     'consulente-mutuo-napoli': '/consulente-mutuo-napoli',
+    'aste-immobiliari-napoli': '/aste-immobiliari-napoli',
+    'ristruttura-e-rivendi': '/ristruttura-e-rivendi',
     'agenzia-immobiliare-vomero-napoli': '/agenzia-immobiliare-vomero-napoli',
     'agenzia-immobiliare-arenella-napoli': '/agenzia-immobiliare-arenella-napoli',
     'agenzia-immobiliare-chiaia-napoli': '/agenzia-immobiliare-chiaia-napoli',
@@ -242,6 +248,7 @@ export default function App() {
   // updateMeta() non deve sovrascriverli con i meta della home.
   const PAGES_WITH_OWN_HELMET = [
     'costruttori', 'vendi-casa-vomero', 'consulente-mutuo-napoli',
+    'aste-immobiliari-napoli', 'ristruttura-e-rivendi',
     'agenzia-immobiliare-vomero-napoli', 'agenzia-immobiliare-arenella-napoli',
     'agenzia-immobiliare-chiaia-napoli', 'agenzia-immobiliare-posillipo-napoli',
     'agenzia-immobiliare-fuorigrotta-napoli', 'agenzia-immobiliare-colli-aminei-napoli',
@@ -432,6 +439,8 @@ export default function App() {
       {page === "valuta-il-tuo-immobile" && <ValutaIlTuoImmobile />}
       {page === "vendi-casa-vomero" && <VendiCasaVomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "consulente-mutuo-napoli" && <ConsulenteMutuoNapoliPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "aste-immobiliari-napoli" && <ServizioLanding navigate={navigate} dati={ASTE} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
+      {page === "ristruttura-e-rivendi" && <ServizioLanding navigate={navigate} dati={RISTRUTTURA} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "grazie" && <GraziePage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "vomero" && <VomeroPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "posillipo" && <PosillpoPage navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
@@ -1529,7 +1538,7 @@ export function ChiSiamoPage({ colors }) {
 // =====================================================
 // METODO
 // =====================================================
-function MetodoPage({ navigate, colors }) {
+export function MetodoPage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
   const [activePillar, setActivePillar] = useState(0);
 
@@ -1618,6 +1627,53 @@ function MetodoPage({ navigate, colors }) {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Team per ruolo, regia HUB, Open House */}
+      <section style={{ padding: "100px 32px", background: "white" }}>
+        <div style={{ maxWidth: 1100, margin: "0 auto" }}>
+          <div style={{ textAlign: "center", marginBottom: 56 }}>
+            <span className="badge-gold" style={{ background: "rgba(10,31,61,0.05)", color: NAVY, borderColor: "rgba(193,154,91,0.4)" }}>Un consulente per ogni ruolo</span>
+            <h2 className="serif h2-resp" style={{ fontSize: "2.4rem", fontWeight: 700, marginTop: 20, lineHeight: 1.1 }}>
+              Ognuno fa una cosa sola. <em style={{ color: GOLD }}>E la fa al meglio.</em>
+            </h2>
+            <p style={{ color: "rgba(10,31,61,0.7)", fontSize: "1.05rem", lineHeight: 1.7, maxWidth: 720, margin: "20px auto 0" }}>
+              Dietro ogni immobile lavora un team di specialisti, coordinati da un'unica regia: l'Hub. Manager e Store Manager controllano tempi, attività e rispetto delle procedure, pratica per pratica.
+            </p>
+          </div>
+          <div className="grid-3-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 24 }}>
+            {[
+              { r: "Listing Agent", t: "Dalla parte di chi vende", d: "Valuta l'immobile sul venduto reale, definisce prezzo e strategia e segue il proprietario fino al rogito." },
+              { r: "Buyer Agent", t: "Dalla parte di chi compra", d: "Ascolta le esigenze, seleziona solo gli immobili in linea e accompagna l'acquirente in trattativa." },
+              { r: "Consulente del credito", t: "Il mutuo, prima della casa", d: "Verifica la fattibilità del mutuo con WeUnit: chi visita il tuo immobile è già prequalificato." },
+              { r: "Marketing", t: "L'immobile, al suo meglio", d: "Foto e video professionali, drone, virtual tour, rendering con IA e campagne ads mirate sui social." },
+            ].map((x, i) => (
+              <div key={i} style={{ padding: 28, borderLeft: `3px solid ${GOLD}`, background: CREAM, borderRadius: 4 }}>
+                <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 600, marginBottom: 6 }}>{x.r}</div>
+                <h3 className="serif" style={{ fontSize: "1.2rem", fontWeight: 700, color: NAVY, marginBottom: 8 }}>{x.t}</h3>
+                <p style={{ color: "rgba(10,31,61,0.7)", lineHeight: 1.6, fontSize: 14 }}>{x.d}</p>
+              </div>
+            ))}
+          </div>
+          <div className="grid-2-mobile" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 24, marginTop: 24 }}>
+            <div style={{ padding: 32, background: NAVY, color: CREAM, borderRadius: 6 }}>
+              <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 600, marginBottom: 6 }}>Professionisti</div>
+              <h3 className="serif" style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: 10 }}>Una compravendita senza sorprese</h3>
+              <p style={{ color: "rgba(245,239,228,0.8)", lineHeight: 1.7, fontSize: 15 }}>Geometri, architetti e notai verificano la documentazione dell'immobile prima della vendita, non dopo.</p>
+            </div>
+            <div style={{ padding: 32, background: NAVY, color: CREAM, borderRadius: 6 }}>
+              <div style={{ fontSize: 11, letterSpacing: 2, textTransform: "uppercase", color: GOLD, fontWeight: 600, marginBottom: 6 }}>Open House</div>
+              <h3 className="serif" style={{ fontSize: "1.3rem", fontWeight: 700, marginBottom: 10 }}>La vendita diventa un evento</h3>
+              <p style={{ color: "rgba(245,239,228,0.8)", lineHeight: 1.7, fontSize: 15 }}>Agenti, architetti, consulenti del credito e team marketing insieme, in una giornata dedicata al tuo immobile: più visite in poco tempo, acquirenti qualificati, decisioni più rapide.</p>
+            </div>
+          </div>
+          <p style={{ textAlign: "center", marginTop: 40, fontSize: 15, color: "rgba(10,31,61,0.75)" }}>
+            Altri servizi dell'Hub:{" "}
+            <a href="/aste-immobiliari-napoli" onClick={(e) => { e.preventDefault(); navigate("aste-immobiliari-napoli"); }} style={{ color: GOLD, fontWeight: 600 }}>Aste immobiliari</a>{" · "}
+            <a href="/ristruttura-e-rivendi" onClick={(e) => { e.preventDefault(); navigate("ristruttura-e-rivendi"); }} style={{ color: GOLD, fontWeight: 600 }}>Ristruttura e rivendi</a>{" · "}
+            <a href="/consulente-mutuo-napoli" onClick={(e) => { e.preventDefault(); navigate("consulente-mutuo-napoli"); }} style={{ color: GOLD, fontWeight: 600 }}>Consulente mutuo</a>
+          </p>
         </div>
       </section>
 
@@ -2416,9 +2472,12 @@ export function Footer({ navigate, colors }) {
           </div>
 
           <div>
-            <h4 style={{ fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Quartieri</h4>
+            <h4 style={{ fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: GOLD, marginBottom: 20 }}>Servizi</h4>
             <div style={{ fontSize: 14, color: "rgba(245,239,228,0.75)", lineHeight: 2 }}>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("zero-vincoli-60")}>Zero Vincoli 60</div>
+              {[["consulente-mutuo-napoli", "Consulente mutuo"], ["aste-immobiliari-napoli", "Aste immobiliari"], ["ristruttura-e-rivendi", "Ristruttura e rivendi"]].map(([k, l]) => (
+                <a key={k} href={`/${k}`} onClick={(e) => { e.preventDefault(); navigate(k); }} style={{ display: "block", color: "inherit", textDecoration: "none" }}>{l}</a>
+              ))}
               <div style={{ cursor: "pointer", color: GOLD, fontWeight: 600 }} onClick={() => navigate("costruttori")}>Divisione Cantieri ↗</div>
             </div>
           </div>

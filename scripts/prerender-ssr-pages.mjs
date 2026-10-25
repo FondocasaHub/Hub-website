@@ -54,6 +54,9 @@ export const SSR_PAGES = [
   // postbuild.js, che il canonical ce l'ha, e si inietta solo il contenuto.
   { slug: 'zero-vincoli-60', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'consulente-mutuo-napoli', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'aste-immobiliari-napoli', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'ristruttura-e-rivendi', contentOnly: true, expectTypes: ['RealEstateAgent'] },
+  { slug: 'il-nostro-metodo', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'vendi-casa-vomero', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   // Pagine istituzionali e funnel: title e canonical arrivano da postbuild.js
   { slug: 'chi-siamo', contentOnly: true, expectTypes: ['RealEstateAgent'] },

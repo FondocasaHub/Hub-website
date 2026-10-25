@@ -8,7 +8,7 @@ const FAQ_MUTUO = [
   { q: "Come funziona il mutuo al 100% per under 36?", a: "Si appoggia al Fondo di garanzia Consap per la prima casa, che permette a chi ha meno di 36 anni di finanziare l'intero valore dell'immobile invece del consueto 80%. Verifichiamo i requisiti prima di presentare la domanda, così non perdi tempo su una pratica che non passerebbe." },
   { q: "Posso trasferire il mutuo che ho già?", a: "Sì, con la surroga: sposti il mutuo a un altro istituto a condizioni migliori senza costi bancari di istruttoria, perizia o notaio, come previsto dalla legge. Se oltre a migliorare il tasso ti serve anche liquidità aggiuntiva, la strada è la sostituzione con liquidità." },
   { q: "Che differenza c'è tra voi e lo sportello della mia banca?", a: "Lo sportello può proporti solo i prodotti del suo istituto. Noi confrontiamo oltre 20 banche in un unico interlocutore, siamo indipendenti e lavoriamo a provvigione sul risultato: la nostra convenienza coincide con la tua, chiudere la pratica alle condizioni migliori." },
-  { q: "Cos'è il Voucher Mutuo?", a: "È la pre-delibera reddituale ufficiale della banca: sai già che il mutuo è approvato e per quale importo prima ancora di aver trovato casa. Cerchi con il budget certo, tratti da acquirente pronto e vedi gli immobili in anteprima. È una promo stagionale, disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale: verifica sul sito o in agenzia se è attiva." },
+  { q: "Cos'è il Voucher Mutuo?", a: "È la pre-delibera reddituale ufficiale della banca: sai già che il mutuo è approvato e per quale importo prima ancora di aver trovato casa. Cerchi con il budget certo, tratti da acquirente pronto e vedi gli immobili in anteprima. È una promo stagionale, disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale: verifica sul sito o in agenzia se è attiva. La prossima edizione parte il 1° novembre e dura fino al 31 dicembre 2026." },
   { q: "WeUnit è autorizzato?", a: "Sì. WeUnit è iscritto all'OAM, l'Organismo Agenti e Mediatori, con numero M28. La mediazione creditizia è un'attività vigilata e l'iscrizione è verificabile pubblicamente." },
 ];
 
@@ -117,7 +117,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
         {/* Voucher Mutuo */}
         <section style={{ padding: '80px 20px 0', maxWidth: 1000, margin: '0 auto' }}>
           <div style={{ background: 'white', borderRadius: 12, padding: '40px 36px', boxShadow: '0 4px 20px rgba(13,27,62,0.08)', borderLeft: `4px solid ${GOLD}` }}>
-            <div style={{ fontSize: 12, letterSpacing: 2.5, textTransform: 'uppercase', color: GOLD, fontWeight: 700, marginBottom: 8 }}>Promo stagionale</div>
+            <div style={{ fontSize: 12, letterSpacing: 2.5, textTransform: 'uppercase', color: GOLD, fontWeight: 700, marginBottom: 8 }}>Promo stagionale · Dal 1° novembre al 31 dicembre 2026</div>
             <h2 style={{ fontSize: '28px', fontWeight: 700, color: NAVY, marginBottom: 16, fontFamily: 'Jost' }}>Voucher Mutuo</h2>
             <p style={{ fontSize: 16, lineHeight: 1.8, color: '#333', marginBottom: 16 }}>La <strong>pre-delibera reddituale ufficiale della banca</strong>: sai già che il mutuo è approvato e per quale importo, prima ancora di aver trovato casa.</p>
             <ul style={{ fontSize: 15, lineHeight: 1.9, color: '#333', paddingLeft: 20, marginBottom: 16 }}>
@@ -125,7 +125,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
               <li>Tratti da acquirente pronto</li>
               <li>Vedi gli immobili in anteprima, prima della pubblicità</li>
             </ul>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#555' }}>Disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale. Verifica sul sito o in agenzia se la promo è attiva.</p>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#555' }}>Disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale. Verifica sul sito o in agenzia se la promo è attiva. <strong>Prossima edizione: dal 1° novembre al 31 dicembre 2026.</strong></p>
           </div>
         </section>
 

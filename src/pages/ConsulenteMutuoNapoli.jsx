@@ -1,14 +1,14 @@
 import { Helmet } from 'react-helmet-async';
 
 const FAQ_MUTUO = [
-  { q: "Quanto costa la consulenza WeUnit?", a: "La consulenza e la prequalifica sono gratuite: analizziamo il tuo profilo e confrontiamo le offerte senza costi. Solo a mutuo erogato è previsto un compenso di mediazione dall'1% al 3%, in base all'istituto e alla tipologia di pratica, che ti comunichiamo per iscritto prima di procedere. Lavorando sul risultato, abbiamo interesse a chiudere in fretta e bene." },
+  { q: "Quanto costa la consulenza WeUnit?", a: "La consulenza e la prequalifica sono gratuite: analizziamo il tuo profilo e confrontiamo le offerte senza costi. Solo a mutuo erogato è previsto un compenso di mediazione dall'1% al 3% dell'importo erogato, in base all'istituto e alla tipologia di pratica, che ti comunichiamo per iscritto prima di procedere. Lavorando sul risultato, abbiamo interesse a chiudere in fretta e bene." },
   { q: "Quante banche confrontate?", a: "Oltre 20 istituti: BPER Banca, tutte le banche del gruppo ICCREA e diverse banche pi\u00f9 piccole del territorio. Queste ultime spesso sfuggono a chi cerca da solo, ma su Napoli sanno essere molto competitive su tasso e flessibilit\u00e0. Non siamo agenti di una singola banca: le mettiamo a confronto e ti spieghiamo perch\u00e9 una proposta conviene rispetto a un'altra." },
   { q: "Quanto tempo serve per la delibera?", a: "La delibera reddituale arriva mediamente in 20 giorni lavorativi. Dopo quella restano la perizia sull'immobile e la delibera finale, i cui tempi dipendono anche dal perito e dal notaio. Ti aggiorniamo a ogni passaggio, senza che debba essere tu a rincorrere la banca." },
   { q: "Che tipi di mutuo trattate?", a: "Acquisto prima casa, mutuo Consap al 100% per under 36, acquisto seconda casa, acquisto più ristrutturazione, mutuo liquidità, consolidamento debiti, sostituzione più acquisto, surroga e sostituzione più liquidità. Trattiamo anche cessione del quinto e prestiti personali. Nel primo incontro capiamo quale forma tecnica è adatta alla tua situazione." },
   { q: "Come funziona il mutuo al 100% per under 36?", a: "Si appoggia al Fondo di garanzia Consap per la prima casa, che permette a chi ha meno di 36 anni di finanziare l'intero valore dell'immobile invece del consueto 80%. Verifichiamo i requisiti prima di presentare la domanda, così non perdi tempo su una pratica che non passerebbe." },
   { q: "Posso trasferire il mutuo che ho già?", a: "Sì, con la surroga: sposti il mutuo a un altro istituto a condizioni migliori senza costi bancari di istruttoria, perizia o notaio, come previsto dalla legge. Se oltre a migliorare il tasso ti serve anche liquidità aggiuntiva, la strada è la sostituzione con liquidità." },
   { q: "Che differenza c'è tra voi e lo sportello della mia banca?", a: "Lo sportello può proporti solo i prodotti del suo istituto. Noi confrontiamo oltre 20 banche in un unico interlocutore, siamo indipendenti e lavoriamo a provvigione sul risultato: la nostra convenienza coincide con la tua, chiudere la pratica alle condizioni migliori." },
-  { q: "Cos'è il Voucher Mutuo?", a: "È la pre-delibera reddituale ufficiale della banca: sai già che il mutuo è approvato e per quale importo prima ancora di aver trovato casa. Cerchi con il budget certo, tratti da acquirente pronto e vedi gli immobili in anteprima. È una promo stagionale, disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale: contattaci per sapere se è attiva." },
+  { q: "Cos'è il Voucher Mutuo?", a: "È la pre-delibera reddituale ufficiale della banca: sai già che il mutuo è approvato e per quale importo prima ancora di aver trovato casa. Cerchi con il budget certo, tratti da acquirente pronto e vedi gli immobili in anteprima. È una promo stagionale, disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale: verifica sul sito o in agenzia se è attiva." },
   { q: "WeUnit è autorizzato?", a: "Sì. WeUnit è iscritto all'OAM, l'Organismo Agenti e Mediatori, con numero M28. La mediazione creditizia è un'attività vigilata e l'iscrizione è verificabile pubblicamente." },
 ];
 
@@ -125,7 +125,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
               <li>Tratti da acquirente pronto</li>
               <li>Vedi gli immobili in anteprima, prima della pubblicità</li>
             </ul>
-            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#555' }}>Disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale. Contattaci per sapere se la promo è attiva.</p>
+            <p style={{ fontSize: 14, lineHeight: 1.7, color: '#555' }}>Disponibile solo in alcuni periodi dell'anno, in genere nei due mesi che precedono Pasqua e Natale. Verifica sul sito o in agenzia se la promo è attiva.</p>
           </div>
         </section>
 
@@ -181,7 +181,7 @@ export default function ConsulenteMutuoNapoliPage({ navigate, colors }) {
           </div>
         </section>
 
-        <p style={{ fontSize: 12, color: '#777', lineHeight: 1.6, maxWidth: 800, margin: '0 auto', padding: '0 20px 40px', textAlign: 'center' }}>Messaggio pubblicitario con finalità promozionale. Mediazione creditizia WeUnit, iscrizione OAM M28. Consulenza e prequalifica gratuite; a mutuo erogato è previsto un compenso di mediazione dall'1% al 3%, in base all'istituto e alla tipologia di pratica. La concessione del finanziamento è subordinata all'approvazione dell'istituto erogante.</p>
+        <p style={{ fontSize: 12, color: '#777', lineHeight: 1.6, maxWidth: 800, margin: '0 auto', padding: '0 20px 40px', textAlign: 'center' }}>Messaggio pubblicitario con finalità promozionale. Mediazione creditizia WeUnit, iscrizione OAM M28. Consulenza e prequalifica gratuite; a mutuo erogato è previsto un compenso di mediazione dall'1% al 3% dell'importo erogato, in base all'istituto e alla tipologia di pratica. La concessione del finanziamento è subordinata all'approvazione dell'istituto erogante.</p>
 
         {/* CTA Form */}
         <section style={{ background: NAVY, color: CREAM, padding: '80px 20px', textAlign: 'center' }}>

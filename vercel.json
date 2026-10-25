@@ -34,6 +34,11 @@
       "source": "/blog/agenzia-immobiliare-napoli-come-scegliere",
       "destination": "/blog/trovare-agente-immobiliare-napoli",
       "permanent": true
+    },
+    {
+      "source": "/come-vendere-casa-a-napoli",
+      "destination": "/blog/come-vendere-casa-napoli-guida-completa",
+      "permanent": true
     }
   ],
   "rewrites": [

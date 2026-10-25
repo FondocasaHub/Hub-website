@@ -78,6 +78,14 @@
       "destination": "/consulente-mutuo-napoli.html"
     },
     {
+      "source": "/aste-immobiliari-napoli",
+      "destination": "/aste-immobiliari-napoli.html"
+    },
+    {
+      "source": "/ristruttura-e-rivendi",
+      "destination": "/ristruttura-e-rivendi.html"
+    },
+    {
       "source": "/costruttori",
       "destination": "/costruttori.html"
     },

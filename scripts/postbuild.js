@@ -22,7 +22,7 @@ const PAGE_META = {
   },
   'contatti': {
     title: 'Contatti Agenzia Immobiliare Vomero | FondoCasa Hub',
-    desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9-13. Richiedi una consulenza gratuita.',
+    desc: 'Vieni in Via Pietro Mascagni 35 al Vomero o scrivici: rispondiamo entro 24 ore. Aperti lun-ven 9-19, sab 9:30-13. Richiedi una consulenza gratuita.',
     canonical: 'https://www.fondocasahub.com/contatti'
   },
   'comincia': {
@@ -79,6 +79,16 @@ const PAGE_META = {
     title: 'Vendi Casa al Vomero Napoli | FondoCasa Hub',
     desc: 'Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci.',
     canonical: 'https://www.fondocasahub.com/vendi-casa-vomero'
+  },
+  'aste-immobiliari-napoli': {
+    title: 'Aste Immobiliari Napoli: Assistenza Completa | FondoCasa Hub',
+    desc: "Compra casa all'asta a Napoli senza rischi: selezioniamo l'immobile giusto e, con il team legale, ti seguiamo fino all'aggiudicazione, anche con mutuo.",
+    canonical: 'https://www.fondocasahub.com/aste-immobiliari-napoli'
+  },
+  'ristruttura-e-rivendi': {
+    title: 'Ristruttura e Rivendi Casa a Napoli | FondoCasa Hub',
+    desc: 'Valorizza il tuo immobile prima di venderlo: con aziende partner lo ristrutturiamo e lo mettiamo in vendita, senza costi di ristrutturazione a tuo carico.',
+    canonical: 'https://www.fondocasahub.com/ristruttura-e-rivendi'
   },
   'consulente-mutuo-napoli': {
     title: 'Consulente Mutuo Napoli | FondoCasa Hub',

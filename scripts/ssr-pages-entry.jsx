@@ -27,10 +27,12 @@ import { COLORS } from "../src/config/colors.js";
 
 // La home vive dentro App.jsx (componente HomePage) e riceve le stesse props
 // delle pagine quartiere: navigate + palette.
-import { HomePage, ChiSiamoPage, CominciaQuiPage, ContactPage, CarrieraPage, Footer } from "../src/App.jsx";
+import { HomePage, MetodoPage, ChiSiamoPage, CominciaQuiPage, ContactPage, CarrieraPage, Footer } from "../src/App.jsx";
 import Costruttori from "../src/pages/Costruttori.jsx";
 import ZeroVincoli60Page from "../src/ZeroVincoli60Page.jsx";
 import ConsulenteMutuoNapoliPage from "../src/pages/ConsulenteMutuoNapoli.jsx";
+import ServizioLanding from "../src/pages/ServizioLanding.jsx";
+import { ASTE, RISTRUTTURA } from "../src/pages/serviziContenuti.js";
 import VendiCasaVomeroPage from "../src/pages/VendiCasaVomero.jsx";
 import BlogPage from "../src/pages/BlogPage.jsx";
 import ValutaIlTuoImmobile from "../src/pages/ValutaIlTuoImmobile.jsx";
@@ -53,6 +55,9 @@ const PAGES = {
   "costruttori": Costruttori,
   "zero-vincoli-60": ZeroVincoli60Page,
   "consulente-mutuo-napoli": ConsulenteMutuoNapoliPage,
+  "aste-immobiliari-napoli": ServizioLanding,
+  "ristruttura-e-rivendi": ServizioLanding,
+  "il-nostro-metodo": MetodoPage,
   "vendi-casa-vomero": VendiCasaVomeroPage,
   "chi-siamo": ChiSiamoPage,
   "comincia": CominciaQuiPage,
@@ -82,6 +87,7 @@ const CON_FOOTER = new Set([
   'index', 'comincia', 'chi-siamo', 'contatti', 'lavora-con-noi',
   'vomero', 'chiaia', 'posillipo', 'centro-storico',
   'zero-vincoli-60', 'consulente-mutuo-napoli', 'vendi-casa-vomero',
+  'aste-immobiliari-napoli', 'ristruttura-e-rivendi', 'il-nostro-metodo',
   'costruttori', 'valuta-il-tuo-immobile', 'blog',
   'blog-come-vendere-casa-napoli-guida-completa',
   'blog-tasse-costi-vendita-casa-napoli-2026',
@@ -105,6 +111,9 @@ const PAGE_PROPS = {
   // Costruttori non riceve props.
   "zero-vincoli-60": { navigate: noop, colors: COLORS },
   "consulente-mutuo-napoli": { navigate: noop, colors: COLORS },
+  "aste-immobiliari-napoli": { navigate: noop, colors: COLORS, dati: ASTE },
+  "ristruttura-e-rivendi": { navigate: noop, colors: COLORS, dati: RISTRUTTURA },
+  "il-nostro-metodo": { navigate: noop, colors: COLORS },
   "vendi-casa-vomero": { navigate: noop, colors: COLORS },
   "chi-siamo": { colors: COLORS },
   "comincia": { colors: COLORS },

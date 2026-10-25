@@ -61,6 +61,128 @@ const TEAM = [
 
 // === TESTIMONIANZE REALI (Google) ===
 const TESTIMONIALS = [
+  // Testi copiati dalla scheda Google (25/10/2026); […] = parte omessa, nessuna parola cambiata.
+  // Escluse le recensioni lasciate da collaboratori e soci.
+  {
+    nome: "Flavia Gallicchio",
+    iniziali: "FG",
+    rating: 5,
+    testo: "Esperienza davvero positiva con Fondocasa Vomero! Un ringraziamento speciale ad Angela, che mi ha seguita nella vendita della mia casa a Portici con grande professionalità, disponibilità e soprattutto tanta pazienza. Un grazie anche a Nicola per la sua competenza e serietà. Un team affiatato e ben organizzato, che ha curato ogni dettaglio, dal primo sopralluogo allo shooting fotografico e alle ricostruzioni 3D per valorizzare l’immobile, fino alla firma dal notaio. Davvero impeccabili!",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Insane Raux",
+    iniziali: "IR",
+    rating: 5,
+    testo: "Esperienza davvero ottima ✅ Ero decisamente sfiducioso rispetto alle varie Agenzia Immobiliari, ma questo Hub con Leonardo e tutti i professionisti all’interno mi ha fatto ricredere completamente, mi sono sentito supportato in tutto per tutto ed accompagnato in ogni passaggio della vendita.",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Pasquale Alberghini",
+    iniziali: "PA",
+    rating: 5,
+    testo: "Ho venduto un immobile con l’agenzia Fc Punto Hub Napoli Vomero tramite l’agente Annalisa Misuraca ed è stata un’esperienza eccezionale sia per la professionalità che la velocità della vendita del mio immobile. […] Veloce, professionale, brava e la cifra rispettava perfettamente la richiesta iniziale. Top!!!",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Giuseppe Sartore",
+    iniziali: "GS",
+    rating: 5,
+    testo: "Esperienza eccellente. Con vincenzo di pinto, ci ha seguito con grande professionalità occupandosi dell’intera pratica del mutuo, permettendoci di affrontare tutto il percorso senza stress e senza problemi. Grazie al suo supporto siamo riusciti a ottenere il mutuo in circa 3 mesi.",
+    servizio: "Mutuo",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Sara Grappa",
+    iniziali: "SG",
+    rating: 5,
+    testo: "Io e mio marito eravamo estremamente tesi e Ansiosi, non abbiamo mai avuto fiducia nei confronti di nessuna agenzia e ma per la prima volta abbiamo trovato dall’altra parte una persona capace di accogliere tutte i nostri dubbi tutte le nostre paure […] questa Agenzia è stata per noi un luogo dove sentirci al sicuro in un momento così importante della propria vita, come l’acquisto di una casa…",
+    servizio: "Acquisto immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Camillo Didonato",
+    iniziali: "CD",
+    rating: 5,
+    testo: "Ho contattato personalmente l'agenzia e da subito ho instaurato un rapporto di grande fiducia, serietà e collaborazione con l'agente Leonardo. […] Davvero dopo anni di agenti e agenzie dalle tante promesse abbiamo incontrato una persona che è stata sostanza e in definitiva è quasi diventata di \"casa\".",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Filomena Puzo",
+    iniziali: "FP",
+    rating: 5,
+    testo: "Esperienza eccellente dall'inizio alla fine. Ci siamo affidati a FC PUNTO HUB per l'acquisto della nostra casa e non potevamo fare scelta migliore. Il team, e in particolare Vincenzo Esposito ed Angela Chiocca, si sono dimostrati straordinariamente professionali, trasparenti e attenti a ogni dettaglio. Ci hanno guidato passo dopo passo fino al rogito notarile, azzerando ogni nostra preoccupazione.",
+    servizio: "Acquisto immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Antonio Morrone",
+    iniziali: "AM",
+    rating: 5,
+    testo: "Abbiamo venduto casa tramite l'agenzia Fondocasa Hub di via Mascagni al Vomero che si è dimostrata affidabilissima, soprattutto grazie alla professionalità di Annalisa Misuraca che ci ha permesso di raggiungere il nostro scopo in termini economici e soprattutto in tempi brevi.",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Mirko Amalfitano",
+    iniziali: "MA",
+    rating: 5,
+    testo: "Leonardo ci ha seguito nella vendita della casa di famiglia con professionalità e grande disponibilità, guidandoci nelle scelte e indirizzandoci con esperienza. Consigliatissimo!",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Francesca Stanziano",
+    iniziali: "FS",
+    rating: 5,
+    testo: "Conosco questo team di professionisti dell' immobiliare, sono capaci di seguire con attenzione tutte le fasi del processo di vendita e gestione del patrimonio immobiliare. Il reparto mutui e finanziamenti è eccezionale!! Trasparenza e sicurezza le parole d'ordine.",
+    servizio: "Vendita e mutui",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Edoardo",
+    iniziali: "E",
+    rating: 5,
+    testo: "Una bella scoperta, abbiamo trovato persone professionali e competenti. Per la vendita della casa ci siamo interfacciati esclusivamente con Leonardo. Ci ha colpito molto, oltre la professionalità, il fatto che nelle tante problematiche che sono uscite fuori dalla casa, ci ha messo sempre impegno e passione per risolvere gli inconvenienti nonostante la giovane età. Consigliati!",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Roberta Conte",
+    iniziali: "RC",
+    rating: 5,
+    testo: "Esperienza eccellente! Sara e Sonia sono state veloci, professionali e pazienti. Non era semplice la vendita in quanto dislocati in diverse regioni..eppure hanno fatto un gran puzzle con un ottimo lavoro di squadra. Davvero un' agenzia consigliatissima ❤️",
+    servizio: "Vendita immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Claudio Faccenda",
+    iniziali: "CF",
+    rating: 5,
+    testo: "Mi sono affidato ad fc punto hub per l’acquisto di casa e sinceramente non mi aspettavo tutta questa dedizione!!! Professionisti del settore che mi hanno seguito in tutti processi di acquisto e fino alla fine sono stati al mio fianco nel consigliarmi la soluzione migliore. […] ringrazio Angela Chiocca per la grande pazienza e professionalità.",
+    servizio: "Acquisto immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Gabriele Scialo",
+    iniziali: "GS",
+    rating: 5,
+    testo: "Ho acquistato casa tramite Fondocasa Punto Hub Napoli Vomero e mi sono trovato davvero bene. Fin dal primo incontro sono stati disponibili e chiari, spiegandomi ogni passaggio senza complicazioni. Mi hanno seguito dall’inizio fino al rogito con attenzione e professionalità, facendomi sentire tranquillo anche nei momenti più delicati.",
+    servizio: "Acquisto immobile",
+    fonte: "Google Recensioni"
+  },
+  {
+    nome: "Gianfranco Busiello",
+    iniziali: "GB",
+    rating: 5,
+    testo: "Il dott DI PINTO Vincenzo mi ha seguito in tutto e per tutto relativamente alle mie esigenze finanziarie e di stipula. Grande professionalità, empatia col cliente, e soprattutto ottima celerità con cui ha affrontato i vari step da seguire.",
+    servizio: "Mutuo",
+    fonte: "Google Recensioni"
+  },
   {
     nome: "Giovanni Giuliano",
     iniziali: "GG",
@@ -73,7 +195,7 @@ const TESTIMONIALS = [
     nome: "Giuseppe Russo",
     iniziali: "GR",
     rating: 5,
-    testo: "Nico è un grande professionista e un'ottima persona dotato di una grande sensibilità e empatia, ci ha seguito in modo impeccabile, con grande disponibilità, passo per passo nella realizzazione del sogno della nostra vita. Non posso che augurargli il meglio sia nella vita sia nel suo cammino professionale.",
+    testo: "Nico è un grande professionista e un ottima persona dotato di una grande sensibilità e empatia,ci ha seguito in modo impeccabile, con grande disponibilità, passo per passo nella realizzazione del sogno della nostra vita. Non posso che augurargli il meglio sia nella vita sia nel suo cammino professionale.",
     servizio: "Acquisto immobile",
     fonte: "Google Recensioni"
   },
@@ -81,7 +203,7 @@ const TESTIMONIALS = [
     nome: "Federica di Giovanni",
     iniziali: "FG",
     rating: 5,
-    testo: "Nico ed Angela sono persone veramente speciali, professionisti nel loro settore. Ma soprattutto sempre presenti e disponibili in qualsiasi momento. Hanno fatto sì che il mio grande sogno diventasse realtà. Da oggi lo è! Grazie infinite ❤️",
+    testo: "Nico ed Angela sono persone veramente speciali, professionisti nel loro settore. Ma soprattutto sempre presenti e disponibili in qualsiasi momento.. Hanno fatto sì che il mio grande sogno diventasse realtà. Da oggi lo è! Grazie infinite ❤️",
     servizio: "Acquisto immobile",
     fonte: "Google Recensioni"
   },
@@ -89,15 +211,15 @@ const TESTIMONIALS = [
     nome: "Dina Granito",
     iniziali: "DG",
     rating: 5,
-    testo: "Assistenza e attenzione alla persona eccellenti. Ho trovato professionalità, competenza e soprattutto grande umanità. Un'esperienza che consiglio a chiunque cerchi un riferimento serio nel settore immobiliare a Napoli.",
-    servizio: "Cliente",
-    fonte: "Google · Local Guide"
+    testo: "Assistenza e attenzione alla persona eccellenti. Ho trovato professionalità, competenza e soprattutto grande umanità. Grazie a Vincenzo e al suo staff, il mio trasferimento dal nord al sud Italia è stato accompagnato con efficienza, disponibilità e calore umano. Un servizio serio e affidabile, esattamente come dovrebbe essere. Consigliatissimi.",
+    servizio: "Trasferimento",
+    fonte: "Google Recensioni"
   },
   {
     nome: "Ciro Giuliano",
     iniziali: "CG",
     rating: 5,
-    testo: "Cordialità, disponibilità e grande competenza da parte di tutto lo staff di FC Punto Hub. Ho apprezzato la loro professionalità in ogni fase: il mio immobile è stato venduto al prezzo concordato grazie a un servizio al top con strumenti digitali all'avanguardia.",
+    testo: "Cordialità, disponibilità e grande competenza da parte di tutto lo staff di FC Punto Hub. Ho apprezzato la loro professionalità in ogni fase: il mio immobile è stato venduto al prezzo concordato, senza sorprese. Consiglio vivamente questo team a chi cerca serietà ed efficienza.",
     servizio: "Vendita immobile",
     fonte: "Google Recensioni"
   }
@@ -964,7 +1086,7 @@ export function HomePage({ navigate, colors }) {
       <section style={{ padding: "120px 32px", background: CREAM }}>
         <div style={{ maxWidth: 1000, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <span className="badge-gold" style={{ background: "rgba(10,31,61,0.05)", color: NAVY, borderColor: "rgba(193,154,91,0.4)" }}>Recensioni Google verificate</span>
+            <span className="badge-gold" style={{ background: "rgba(10,31,61,0.05)", color: NAVY, borderColor: "rgba(193,154,91,0.4)" }}>Dalle recensioni Google</span>
             <h2 className="serif h2-resp" style={{ fontSize: "2.6rem", fontWeight: 700, marginTop: 24, lineHeight: 1.1 }}>
               Cosa dicono i <em style={{ color: GOLD }}>nostri clienti</em>
             </h2>
@@ -1501,7 +1623,7 @@ export function ChiSiamoPage({ colors }) {
       <section style={{ padding: "100px 32px", background: NAVY, color: CREAM }}>
         <div style={{ maxWidth: 1280, margin: "0 auto" }}>
           <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <span className="badge-gold">Recensioni Google verificate</span>
+            <span className="badge-gold">Dalle recensioni Google</span>
             <h2 className="serif h2-resp" style={{ fontSize: "2.6rem", fontWeight: 700, marginTop: 24, lineHeight: 1.1, color: CREAM }}>
               Le parole dei <span className="gold-text">nostri clienti</span>
             </h2>

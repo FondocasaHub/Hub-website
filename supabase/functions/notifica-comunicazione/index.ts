@@ -1,7 +1,8 @@
 // Edge Function "notifica-comunicazione"
 // Chiamata dall'Area Agenti (solo Admin) dopo la pubblicazione di una comunicazione:
 // invia un'email di avviso a tutti i collaboratori attivi con uno dei ruoli che vedono
-// la comunicazione. Un'email per destinatario (nessun indirizzo esposto agli altri).
+// la comunicazione. Dal 25/10/2026: UN solo invio con i destinatari in copia nascosta
+// (Ccn, a blocchi di 50) — l'invio uno per uno superava i limiti di risorse della funzione.
 // Usa gli stessi secrets di notifica-marketing (BREVO_SMTP_USER / BREVO_SMTP_PASS) e
 // agisce con il token di chi la chiama (regole RLS): solo l'Admin legge tutti i profili
 // e può segnare la comunicazione come notificata.
@@ -54,11 +55,11 @@ Deno.serve(async (req) => {
     const link = `${AREA}/${c.id}`;
     const oggetto = `Nuova comunicazione: ${String(c.titolo).slice(0, 120)}`;
 
-    const corpo = (nome: string) => `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">
+    const corpo = () => `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#FFFDF9;border-radius:10px;overflow:hidden">
 <tr><td style="background:#14213D;padding:18px 20px;color:#F5EFE4;font-size:17px;font-weight:bold">Nuova comunicazione <span style="color:#C19A5B;font-weight:normal">· Area Agenti</span></td></tr>
 <tr><td style="padding:18px 20px;font-size:14px;line-height:1.55">
-<p style="margin:0 0 10px">Ciao ${esc(nome || "")},<br>è stata pubblicata una nuova comunicazione nell'Area Agenti.</p>
+<p style="margin:0 0 10px">Ciao,<br>è stata pubblicata una nuova comunicazione nell'Area Agenti.</p>
 <p style="margin:0 0 6px;font-size:16px;font-weight:bold">${esc(c.titolo)}</p>
 ${c.testo ? `<p style="margin:0">${esc(c.testo)}</p>` : ""}
 ${elencoAllegati}
@@ -73,14 +74,17 @@ ${elencoAllegati}
         auth: { username: Deno.env.get("BREVO_SMTP_USER")!, password: Deno.env.get("BREVO_SMTP_PASS")! },
       },
     });
+    const indirizzi = [...new Set(destinatari.map((p) => p.email.trim().toLowerCase()))];
+    const html = corpo();
     let inviate = 0;
     const falliti: string[] = [];
-    for (const p of destinatari) {
+    for (let i = 0; i < indirizzi.length; i += 50) {
+      const blocco = indirizzi.slice(i, i + 50);
       try {
-        await smtp.send({ from: MITTENTE, to: p.email, subject: oggetto, content: "auto", html: corpo(p.nome) });
-        inviate++;
+        await smtp.send({ from: MITTENTE, to: "info@fondocasahub.com", bcc: blocco, subject: oggetto, content: "auto", html });
+        inviate += blocco.length;
       } catch (_e) {
-        falliti.push(p.email);
+        falliti.push(...blocco);
       }
     }
     await smtp.close();

@@ -42,6 +42,7 @@ const SEZIONI = [
   { id: "roiaffitto", gruppo: "Calcolatori", nome: "ROI affitto" },
   { id: "cedolare", gruppo: "Calcolatori", nome: "Cedolare secca" },
   { id: "imu", gruppo: "Calcolatori", nome: "Tasse sulla casa (IMU)" },
+  { id: "decadenza", gruppo: "Calcolatori", nome: "Perdita dei benefici prima casa" },
 ];
 
 export default function Utility({ profilo }) {
@@ -87,6 +88,7 @@ export default function Utility({ profilo }) {
             {sez === "roiaffitto" && <CalcRoiAffitto />}
             {sez === "cedolare" && <CalcCedolare />}
             {sez === "imu" && <CalcImu />}
+            {sez === "decadenza" && <CalcDecadenza />}
           </section>
         </>
       )}
@@ -635,6 +637,64 @@ function CalcImu() {
         ]} totale={["IMU annua", eur(imu)]} nota={f.uso === "principale" ? "Abitazione principale di lusso: aliquota ridotta e detrazione di 200 €." : ""} />
       )}
       <p className="aa-nota aa-ut-avviso">L'aliquota la decide ogni Comune: 1,06% è il massimo ordinario, 0,6% per l'abitazione principale di lusso. Verifica la delibera del Comune dell'immobile. Le seconde case non affittate nello stesso Comune dell'abitazione principale pagano anche IRPEF sul 50% della rendita.</p>
+    </>
+  );
+}
+
+/* ---------------- Decadenza agevolazioni prima casa ---------------- */
+const TASSO_LEGALE = { 2019: 0.8, 2020: 0.05, 2021: 0.01, 2022: 1.25, 2023: 5, 2024: 2.5, 2025: 2, 2026: 1.6 };
+function interessiLegali(capitale, da, a) {
+  if (!capitale || !da) return 0;
+  let tot = 0, t = new Date(da), fine = new Date(a || oggi());
+  while (t < fine) {
+    const anno = t.getFullYear(), fineAnno = new Date(anno + 1, 0, 1);
+    const fino = fineAnno < fine ? fineAnno : fine;
+    const giorni = (fino - t) / 86400000;
+    tot += capitale * (TASSO_LEGALE[anno] ?? 1.6) / 100 * giorni / 365;
+    t = fino;
+  }
+  return tot;
+}
+function CalcDecadenza() {
+  const [f, set] = useModulo({ venditore: "privato", prezzo: "", rendita: "", data_atto: "", motivo: "vendita", spontaneo: "no", sanzione: "30" });
+  const prezzo = num(f.prezzo), rendita = num(f.rendita);
+  let pagato = 0, dovuto = 0, voce = "", dettaglio = "";
+  if (f.venditore === "privato") {
+    const baseAgev = rendita ? rendita * 1.05 * 110 : prezzo;
+    const baseOrd = rendita ? rendita * 1.05 * 120 : prezzo;
+    pagato = Math.max(1000, baseAgev * 0.02); dovuto = Math.max(1000, baseOrd * 0.09);
+    voce = "Imposta di registro"; dettaglio = rendita ? `Pagato 2% su ${eur0(baseAgev)} · dovuto 9% su ${eur0(baseOrd)} (rendita × 1,05 × 110 → 120)` : "Pagato 2% · dovuto 9% sul prezzo";
+  } else {
+    pagato = prezzo * 0.04; dovuto = prezzo * 0.10;
+    voce = "IVA"; dettaglio = "Pagata al 4% · dovuta al 10%";
+  }
+  const diff = Math.max(0, dovuto - pagato);
+  const sanz = f.spontaneo === "si" ? 0 : diff * num(f.sanzione) / 100;
+  const inter = interessiLegali(diff, f.data_atto, oggi());
+  const pronto = prezzo || rendita;
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Scelta label="Acquisto fatto da" value={f.venditore} onChange={set("venditore")} opzioni={[["privato", "Privato (imposta di registro)"], ["impresa", "Impresa con IVA (nuova costruzione)"]]} />
+        <Campo label="Prezzo di acquisto €" tipo="num" value={f.prezzo} onChange={set("prezzo")} />
+        {f.venditore === "privato" && <Campo label="Rendita catastale € (casa + pertinenze)" tipo="num" value={f.rendita} onChange={set("rendita")} ph="se in atto c'è il prezzo-valore" />}
+        <Campo label="Data dell'atto di acquisto" tipo="date" value={f.data_atto} onChange={set("data_atto")} />
+        <Scelta label="Motivo della decadenza" value={f.motivo} onChange={set("motivo")} largo opzioni={[["vendita", "Vendita entro 5 anni senza riacquisto entro 1 anno"], ["residenza", "Residenza non trasferita nel Comune entro 18 mesi"], ["mendace", "Requisiti dichiarati in atto non veritieri"]]} />
+        <Scelta label="Il cliente si attiva spontaneamente?" value={f.spontaneo} onChange={set("spontaneo")} opzioni={[["no", "No · arriva l'avviso dell'Agenzia"], ["si", "Sì · istanza all'Agenzia entro i termini"]]} />
+        {f.spontaneo === "no" && <Scelta label="Sanzione" value={f.sanzione} onChange={set("sanzione")} opzioni={[["30", "30% (Testo unico del registro)"], ["25", "25% (se si applica la riforma sanzioni 2024)"]]} />}
+      </div>
+      {pronto ? <Risultati righe={[
+        [`${voce} · differenza da versare`, eur0(diff), dettaglio],
+        ["Imposte ipotecaria e catastale", eur0(0), "Fisse: restano uguali anche senza agevolazione"],
+        [f.spontaneo === "si" ? "Sanzione" : `Sanzione ${f.sanzione}%`, eur0(sanz), f.spontaneo === "si" ? "Non dovuta se l'istanza è presentata nei termini" : ""],
+        ["Interessi legali (stima a oggi)", eur0(inter), f.data_atto ? `Dal ${dataIT(f.data_atto)}` : "Inserisci la data dell'atto"],
+      ]} totale={["Totale da pagare (stima)", eur0(diff + sanz + inter)]} /> : <p className="aa-nota">Inserisci il prezzo (e la rendita, se in atto c'è il prezzo-valore).</p>}
+      <p className="aa-nota aa-ut-avviso">
+        {f.motivo === "vendita" && "Si evita la decadenza comprando entro 1 anno dalla vendita un'altra casa da adibire ad abitazione principale (in piena proprietà: non bastano nuda proprietà, preliminare o solo il terreno). Se il cliente sa già che non ricomprerà, può presentare istanza all'Agenzia delle Entrate entro l'anno dalla vendita: paga solo differenza e interessi, senza sanzione. "}
+        {f.motivo === "residenza" && "Se i 18 mesi non sono ancora scaduti, il cliente può revocare la dichiarazione con istanza all'Agenzia delle Entrate e pagare differenza e interessi senza sanzione. "}
+        {f.motivo === "mendace" && "In caso di dichiarazioni non veritiere l'Agenzia recupera differenza, sanzione e interessi; il ravvedimento è possibile prima dell'avviso. "}
+        Stima indicativa: per la sanzione da applicare (30% o 25% dopo la riforma 2024) e il conteggio definitivo serve la verifica del notaio o del commercialista.
+      </p>
     </>
   );
 }

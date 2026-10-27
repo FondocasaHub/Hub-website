@@ -10,6 +10,7 @@ import Fatturato from "./Fatturato.jsx";
 import Social from "./Social.jsx";
 import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
 import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
+import Utility from "./Utility.jsx";
 import { ElencoIncarichiRicerca, SchedaIncaricoRicerca } from "./IncarichiRicerca.jsx";
 
 const BASE = "/area-agenti";
@@ -105,6 +106,7 @@ export default function AreaApp() {
 
   const isAdmin = profilo.ruolo === "admin";
   const isManager = isAdmin || profilo.ruolo === "manager";
+  const vedeUtility = profilo.ruolo !== "staff";
   const gestoreMarketing = isManager || (profilo.ruolo === "staff" && profilo.reparto === "marketing");
   const crm = strumenti.filter((s) => s.categoria === "crm");
   const produttivita = strumenti.filter((s) => s.categoria === "produttivita");
@@ -122,6 +124,7 @@ export default function AreaApp() {
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
+    case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;
     case "incarichi-ricerca": contenuto = <ElencoIncarichiRicerca profilo={profilo} vai={vai} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
@@ -134,13 +137,13 @@ export default function AreaApp() {
       if (/^compensi\/\d+$/.test(pagina)) { contenuto = <DettaglioReport id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
-      contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} />;
+      contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} vedeUtility={vedeUtility} />;
   }
 
   return (
     <div className="aa">
       <Barra profilo={profilo} pagina={pagina} vai={vai} esci={esci}
-        produttivita={produttivita} isManager={isManager} isAdmin={isAdmin} />
+        produttivita={produttivita} isManager={isManager} isAdmin={isAdmin} vedeUtility={vedeUtility} />
       <main className="aa-main">{contenuto}</main>
       <footer className="aa-footer">
         FC Punto Hub Srl · Area riservata ai collaboratori · Via Pietro Mascagni 35, Napoli
@@ -149,7 +152,7 @@ export default function AreaApp() {
   );
 }
 
-function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin }) {
+function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin, vedeUtility }) {
   const [menuMobile, setMenuMobile] = useState(false);
   const [tendina, setTendina] = useState(false);
 
@@ -168,6 +171,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin })
     { id: "richieste", label: "Richieste" },
     { id: "compensi", label: "Compensi" },
   ];
+  if (vedeUtility) voci.push({ id: "utility", label: "Utility" });
   voci.push({ id: "fatturato", label: "Fatturato" });
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });
   if (isAdmin) voci.push({ id: "gestione", label: "Gestione" });

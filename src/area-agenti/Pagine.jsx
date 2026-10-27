@@ -25,6 +25,7 @@ const ICONE = {
   richieste: "M4 4h16v12H8l-4 4z M8 9h8 M8 12h5",
   compensi: "M4 7h16v10H4z M12 10a2 2 0 1 0 0 4 2 2 0 0 0 0-4z M7 10v4 M17 10v4",
   valutazione: "M3 21h18 M5 21V8l7-5 7 5v13 M9 21v-5h6v5 M9 10h6",
+  utility: "M4 4h16v16H4z M8 8h3 M9.5 6.5v3 M13 8h3 M8 15h3 M13 14l3 3 M16 14l-3 3",
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
 };
 function Icona({ nome }) {
@@ -36,7 +37,7 @@ function Icona({ nome }) {
 }
 
 /* ---------------- HOME ---------------- */
-export function Home({ profilo, vai, isManager }) {
+export function Home({ profilo, vai, isManager, vedeUtility }) {
   const oggi = new Date().getDay(); // 0 domenica ... 6 sabato
   const agendaOggi = AGENDA.filter((a) => a.giorno === oggi || (a.giorno === 0 && oggi >= 1 && oggi <= 5));
   const nome = (profilo.nome || "").split(" ")[0];
@@ -52,6 +53,7 @@ export function Home({ profilo, vai, isManager }) {
     { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
+  if (vedeUtility) riquadri.push({ id: "utility", titolo: "Utility", testo: "Moduli chiavi, assegni e proroghe in PDF; calcolo imposte, mutuo, provvigioni, superfici e usufrutto", icona: "utility" });
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });
   if (isManager) riquadri.push({ id: "inserimenti", titolo: "Manuale di inserimento", testo: "Compila online la scheda del nuovo collaboratore e inviala allo Store Manager", icona: "istruzioni" });
 

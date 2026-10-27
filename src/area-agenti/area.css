@@ -405,3 +405,16 @@ a { color: inherit; }
 .aa-ir-esito.aa-ir-negativo { color: var(--rosso); font-weight: 600; }
 .aa-ir-esito.aa-ir-in-attesa, .aa-ir-esito.aa-ir-da-ricontattare { color: #7A5410; font-weight: 600; }
 .aa-oh-consiglio { background: var(--cream); border-radius: 8px; padding: 10px 12px; margin: 0 0 14px; }
+
+/* ---------- Utility ---------- */
+.aa-ut-griglia { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 12px; }
+.aa-ut-voce { text-align: left; background: var(--carta); border: 1px solid var(--linea); border-radius: 10px; padding: 16px 18px; cursor: pointer; display: flex; flex-direction: column; gap: 8px; font: inherit; color: var(--testo); }
+.aa-ut-voce:hover { border-color: var(--gold); box-shadow: var(--ombra); }
+.aa-ut-titolo { margin-bottom: 16px; }
+.aa-ut-azioni { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 18px; }
+.aa-ut-azioni .aa-nota { flex-basis: 100%; margin: 0; }
+.aa-ut-risultati { margin-top: 18px; max-width: 640px; }
+.aa-ut-num { text-align: right; white-space: nowrap; }
+.aa-ut-avviso { margin-top: 10px; font-size: 13px; }
+.aa-ut-tabella { margin-top: 14px; }
+.aa-ut-tabella summary { cursor: pointer; color: var(--navy); font-weight: 600; margin-bottom: 8px; }

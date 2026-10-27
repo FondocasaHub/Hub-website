@@ -236,7 +236,7 @@ function ModuloProroga({ profilo }) {
   const atto = f.atto === "proposta" ? "proposta di acquisto" : "contratto preliminare di compravendita";
   const pdf = () => stampa("Accordo di proroga dei termini", `<h1>Accordo di proroga dei termini</h1><p class="sotto">${esc(atto)} del ${dataIT(f.data_atto)}</p>
 <p>Tra <b>${vuoto(f.venditori, 40)}</b> (parte venditrice) e <b>${vuoto(f.acquirenti, 40)}</b> (parte acquirente), con l'assistenza di ${AZIENDA.nome} in qualità di mediatore,</p>
-<p><b>premesso che</b> in data ${dataIT(f.data_atto)} le parti hanno sottoscritto ${f.atto === "proposta" ? "la proposta di acquisto" : "il contratto preliminare di compravendita"} relativo all'immobile sito in ${vuoto(f.immobile, 40)}, che prevede quale ${TERMINI[f.termine]} la data del <b>${dataIT(f.vecchio)}</b>;</p>
+<p><b>premesso che</b> in data ${dataIT(f.data_atto)} le parti hanno sottoscritto ${f.atto === "proposta" ? "la proposta di acquisto relativa" : "il contratto preliminare di compravendita relativo"} all'immobile sito in ${vuoto(f.immobile, 40)}, che prevede quale ${TERMINI[f.termine]} la data del <b>${dataIT(f.vecchio)}</b>;</p>
 ${f.motivo ? `<p><b>considerato che</b> ${esc(f.motivo)};</p>` : ""}
 <p><b>le parti convengono</b> di prorogare il suddetto termine al <b>${dataIT(f.nuovo)}</b>.</p>
 <p>Restano ferme e invariate tutte le altre condizioni, clausole e pattuizioni ${f.atto === "proposta" ? "della proposta" : "del contratto preliminare"}, che le parti confermano integralmente. Il presente accordo costituisce parte integrante ${f.atto === "proposta" ? "della proposta" : "del contratto preliminare"} sopra richiamato${f.atto === "preliminare" ? " e, ove questo sia stato registrato, ne seguirà la sorte ai fini della registrazione" : ""}.</p>
@@ -308,7 +308,7 @@ function CalcImposte() {
       ];
       tot = registro + 100;
       nota = usaPV ? "Prezzo-valore: con acquirente persona fisica (non in attività d'impresa) le imposte si calcolano sul valore catastale, anche se il prezzo in atto è più alto. In atto va comunque indicato il prezzo reale." : !rendita ? "Inserisci la rendita catastale per applicare il prezzo-valore." : "";
-      if (usaPV && prezzo) righe.push(["Confronto: registro calcolato sul prezzo", eur0(Math.max(1000, prezzo * aliq)), "Solo per mostrare il risparmio del prezzo-valore"]);
+      if (usaPV) nota += ` Calcolato sul prezzo, il registro sarebbe ${eur0(Math.max(1000, prezzo * aliq))}: il prezzo-valore fa risparmiare ${eur0(Math.max(0, Math.max(1000, prezzo * aliq) - registro))}.`;
     } else if (abitazione && !daPrivato) {
       const aliqIva = prima ? 0.04 : f.lusso === "si" ? 0.22 : 0.10;
       const iva = prezzo * aliqIva;

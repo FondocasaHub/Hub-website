@@ -37,6 +37,11 @@ const SEZIONI = [
   { id: "provvigione", gruppo: "Calcolatori", nome: "Provvigione" },
   { id: "superficie", gruppo: "Calcolatori", nome: "Superficie commerciale" },
   { id: "usufrutto", gruppo: "Calcolatori", nome: "Usufrutto e nuda proprietà" },
+  { id: "plusvalenza", gruppo: "Calcolatori", nome: "Imposta sulla plusvalenza" },
+  { id: "roivendita", gruppo: "Calcolatori", nome: "ROI compravendita" },
+  { id: "roiaffitto", gruppo: "Calcolatori", nome: "ROI affitto" },
+  { id: "cedolare", gruppo: "Calcolatori", nome: "Cedolare secca" },
+  { id: "imu", gruppo: "Calcolatori", nome: "Tasse sulla casa (IMU)" },
 ];
 
 export default function Utility({ profilo }) {
@@ -77,6 +82,11 @@ export default function Utility({ profilo }) {
             {sez === "provvigione" && <CalcProvvigione />}
             {sez === "superficie" && <CalcSuperficie />}
             {sez === "usufrutto" && <CalcUsufrutto />}
+            {sez === "plusvalenza" && <CalcPlusvalenza />}
+            {sez === "roivendita" && <CalcRoiVendita />}
+            {sez === "roiaffitto" && <CalcRoiAffitto />}
+            {sez === "cedolare" && <CalcCedolare />}
+            {sez === "imu" && <CalcImu />}
           </section>
         </>
       )}
@@ -437,6 +447,194 @@ function CalcUsufrutto() {
           <tbody>{USUFRUTTO.map(([max, p], i) => <tr key={max}><td>{i ? USUFRUTTO[i - 1][0] + 1 : 0} – {max} anni</td><td>{p}%</td><td>{100 - p}%</td></tr>)}</tbody></table>
       </details>
       <p className="aa-nota aa-ut-avviso">Coefficienti fiscali in vigore nel 2026: il saggio legale è all'1,6%, ma ai fini fiscali si applica il minimo del 2,5% (d.lgs. 139/2024), quindi la tabella resta invariata. Con più usufruttuari si considera il più giovane. L'usufrutto a termine non può valere più di quello vitalizio.</p>
+    </>
+  );
+}
+
+/* ---------------- Plusvalenza ---------------- */
+const anniTra = (a, b) => (a && b ? (new Date(b) - new Date(a)) / (365.25 * 24 * 3600 * 1000) : 0);
+const IRPEF = [["23", "23% (reddito fino a 28.000 €)"], ["33", "33% (da 28.000 a 50.000 €)"], ["43", "43% (oltre 50.000 €)"]];
+function CalcPlusvalenza() {
+  const [f, set] = useModulo({ vendita: "", acquisto: "", spese: "", lavori: "", data_acq: "", data_vend: oggi(), provenienza: "acquisto", principale: "no", superbonus: "no", sb_spese: "", sb_anni: "", irpef: "33" });
+  const anni = anniTra(f.data_acq, f.data_vend);
+  const costiBase = num(f.acquisto) + num(f.spese) + num(f.lavori);
+  let esente = "", sbNonDed = 0;
+  if (f.provenienza === "successione") esente = "Immobile ricevuto per successione: la plusvalenza non è mai tassata.";
+  else if (f.principale === "si") esente = "Abitazione principale per la maggior parte del periodo di possesso: plusvalenza esente.";
+  else if (f.superbonus === "si") {
+    const sbAnni = num(f.sb_anni);
+    if (f.sb_anni !== "" && sbAnni >= 10 && anni > 5) esente = "Oltre 10 anni dalla fine dei lavori Superbonus e oltre 5 dall'acquisto: plusvalenza esente.";
+    else if (f.sb_anni !== "") sbNonDed = num(f.sb_spese) * (sbAnni < 5 ? 1 : 0.5);
+  } else if (anni > 5) esente = `Venduto dopo ${anni.toFixed(1).replace(".", ",")} anni dall'${f.provenienza === "donazione" ? "acquisto del donante" : "acquisto"}: oltre 5 anni la plusvalenza è esente.`;
+  const costi = costiBase - sbNonDed;
+  const plus = Math.max(0, num(f.vendita) - costi);
+  const sost = plus * 0.26, irpef = plus * num(f.irpef) / 100;
+  const pronto = num(f.vendita) && num(f.acquisto) && f.data_acq;
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Campo label="Prezzo di vendita €" tipo="num" value={f.vendita} onChange={set("vendita")} />
+        <Campo label="Prezzo di acquisto €" tipo="num" value={f.acquisto} onChange={set("acquisto")} />
+        <Campo label="Spese di acquisto € (notaio, imposte, agenzia)" tipo="num" value={f.spese} onChange={set("spese")} />
+        <Campo label="Lavori documentati € (fatture e bonifici)" tipo="num" value={f.lavori} onChange={set("lavori")} />
+        <Campo label={f.provenienza === "donazione" ? "Data di acquisto del donante" : "Data di acquisto"} tipo="date" value={f.data_acq} onChange={set("data_acq")} />
+        <Campo label="Data di vendita" tipo="date" value={f.data_vend} onChange={set("data_vend")} />
+        <Scelta label="Provenienza" value={f.provenienza} onChange={set("provenienza")} opzioni={[["acquisto", "Acquisto"], ["donazione", "Donazione"], ["successione", "Successione (eredità)"]]} />
+        <Scelta label="Abitazione principale per la maggior parte del possesso?" value={f.principale} onChange={set("principale")} opzioni={[["no", "No"], ["si", "Sì"]]} />
+        <Scelta label="Lavori con Superbonus?" value={f.superbonus} onChange={set("superbonus")} opzioni={[["no", "No"], ["si", "Sì"]]} />
+        {f.superbonus === "si" && <Campo label="Spese Superbonus €" tipo="num" value={f.sb_spese} onChange={set("sb_spese")} />}
+        {f.superbonus === "si" && <Campo label="Anni dalla fine dei lavori" tipo="num" value={f.sb_anni} onChange={set("sb_anni")} />}
+        <Scelta label="Aliquota IRPEF marginale (per confronto)" value={f.irpef} onChange={set("irpef")} opzioni={IRPEF} />
+      </div>
+      {!pronto ? <p className="aa-nota">Inserisci prezzi e data di acquisto.</p> : esente ? <p className="aa-info aa-ut-risultati">{esente}</p> : (
+        <Risultati righe={[
+          ["Anni di possesso", anni.toFixed(1).replace(".", ",")],
+          ["Costo fiscale riconosciuto", eur0(costi), sbNonDed ? `Esclusi ${eur0(sbNonDed)} di spese Superbonus (${num(f.sb_anni) < 5 ? "lavori finiti da meno di 5 anni" : "50% perché finiti tra 5 e 10 anni fa"})` : "Prezzo + spese di acquisto + lavori documentati"],
+          ["Plusvalenza", eur0(plus)],
+          ["Imposta sostitutiva 26% (al notaio)", eur0(sost)],
+          [`In alternativa IRPEF al ${f.irpef}% (stima)`, eur0(irpef), "Più addizionali regionale e comunale"],
+        ]} totale={["Imposta da pagare con la sostitutiva", eur0(sost)]} nota={plus ? (sost <= irpef ? "Conviene l'imposta sostitutiva: va chiesta al notaio in atto." : "Con questa aliquota conviene dichiararla in IRPEF.") : "Nessuna plusvalenza: non si paga nulla."} />
+      )}
+      <p className="aa-nota aa-ut-avviso">Si paga se si vende entro 5 anni (per le donazioni contano dall'acquisto del donante), salvo abitazione principale per la maggior parte del periodo o immobile ereditato. Con Superbonus: tassabile se si vende entro 10 anni dalla fine dei lavori; le spese Superbonus non si deducono nei primi 5 anni e al 50% dal 5° al 10°. Interessi del mutuo e spese condominiali non si deducono.</p>
+    </>
+  );
+}
+
+/* ---------------- ROI compravendita ---------------- */
+function CalcRoiVendita() {
+  const [f, set] = useModulo({ acquisto: "", spese_acq: "", lavori: "", altri: "", vendita: "", provv_vend: "3", mesi: "12", plus: "si" });
+  const acq = num(f.acquisto), sAcq = num(f.spese_acq), lav = num(f.lavori), alt = num(f.altri), vend = num(f.vendita);
+  const provv = vend * num(f.provv_vend) / 100 * 1.22;
+  const investito = acq + sAcq + lav + alt;
+  const lordo = vend - provv - investito;
+  const imposta = f.plus === "si" ? Math.max(0, vend - (acq + sAcq + lav + provv)) * 0.26 : 0;
+  const netto = lordo - imposta;
+  const roi = investito ? netto / investito * 100 : 0;
+  const mesi = num(f.mesi) || 12;
+  const annuo = investito ? (Math.pow(1 + netto / investito, 12 / mesi) - 1) * 100 : 0;
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Campo label="Prezzo di acquisto €" tipo="num" value={f.acquisto} onChange={set("acquisto")} />
+        <Campo label="Imposte, notaio e agenzia all'acquisto €" tipo="num" value={f.spese_acq} onChange={set("spese_acq")} ph="usa il calcolo imposte" />
+        <Campo label="Ristrutturazione €" tipo="num" value={f.lavori} onChange={set("lavori")} />
+        <Campo label="Altri costi € (condominio, IMU, utenze nel periodo)" tipo="num" value={f.altri} onChange={set("altri")} />
+        <Campo label="Prezzo di rivendita €" tipo="num" value={f.vendita} onChange={set("vendita")} />
+        <Campo label="Provvigione di vendita % (+ IVA)" tipo="num" value={f.provv_vend} onChange={set("provv_vend")} />
+        <Campo label="Durata dell'operazione (mesi)" tipo="num" value={f.mesi} onChange={set("mesi")} />
+        <Scelta label="Plusvalenza tassata al 26%?" value={f.plus} onChange={set("plus")} opzioni={[["si", "Sì (rivendita entro 5 anni)"], ["no", "No (esente)"]]} />
+      </div>
+      {acq && vend ? <Risultati righe={[
+        ["Capitale investito", eur0(investito)],
+        ["Provvigione di vendita (IVA inclusa)", eur0(provv)],
+        ["Utile lordo", eur0(lordo)],
+        ["Imposta sulla plusvalenza", eur0(imposta)],
+        ["Utile netto", eur0(netto)],
+        ["ROI dell'operazione", pct(roi)],
+      ]} totale={[`Rendimento annuo (su ${mesi} mesi)`, pct(annuo)]} nota="Calcolo senza mutuo: con un finanziamento il capitale proprio è minore e il ROI cambia (vanno aggiunti gli interessi)." /> : <p className="aa-nota">Inserisci prezzo di acquisto e di rivendita.</p>}
+    </>
+  );
+}
+
+/* ---------------- ROI affitto ---------------- */
+const REGIMI = [["21", "Cedolare 21% (canone libero 4+4)"], ["10", "Cedolare 10% (canone concordato)"], ["b21", "Affitto breve · 1° immobile 21%"], ["b26", "Affitto breve · 2° immobile 26%"], ["irpef", "IRPEF (aliquota sotto)"]];
+function CalcRoiAffitto() {
+  const [f, set] = useModulo({ acquisto: "", spese_acq: "", lavori: "", canone: "", mesi: "12", spese: "", imu: "", comm: "0", regime: "21", irpef: "33" });
+  const investito = num(f.acquisto) + num(f.spese_acq) + num(f.lavori);
+  const lordoAnno = num(f.canone) * num(f.mesi);
+  const commissioni = lordoAnno * num(f.comm) / 100;
+  const tasse = f.regime === "irpef" ? lordoAnno * 0.95 * num(f.irpef) / 100 : lordoAnno * (f.regime === "10" ? 0.10 : f.regime === "b26" ? 0.26 : 0.21);
+  const netto = lordoAnno - commissioni - num(f.spese) - num(f.imu) - tasse;
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Campo label="Prezzo di acquisto €" tipo="num" value={f.acquisto} onChange={set("acquisto")} />
+        <Campo label="Imposte, notaio e agenzia €" tipo="num" value={f.spese_acq} onChange={set("spese_acq")} />
+        <Campo label="Lavori e arredo €" tipo="num" value={f.lavori} onChange={set("lavori")} />
+        <Campo label="Incasso mensile medio €" tipo="num" value={f.canone} onChange={set("canone")} ph="canone o incasso medio affitti brevi" />
+        <Campo label="Mesi affittati all'anno" tipo="num" value={f.mesi} onChange={set("mesi")} />
+        <Campo label="Spese annue € (condominio, manutenzione, assicurazione, pulizie)" tipo="num" value={f.spese} onChange={set("spese")} />
+        <Campo label="IMU annua €" tipo="num" value={f.imu} onChange={set("imu")} ph="usa il calcolo IMU" />
+        <Campo label="Commissioni portali / gestione %" tipo="num" value={f.comm} onChange={set("comm")} />
+        <Scelta label="Regime fiscale" value={f.regime} onChange={set("regime")} opzioni={REGIMI} />
+        {f.regime === "irpef" && <Scelta label="Aliquota IRPEF marginale" value={f.irpef} onChange={set("irpef")} opzioni={IRPEF} />}
+      </div>
+      {investito && lordoAnno ? <Risultati righe={[
+        ["Capitale investito", eur0(investito)],
+        ["Incasso lordo annuo", eur0(lordoAnno)],
+        ["Rendimento lordo", pct(lordoAnno / investito * 100)],
+        ["Commissioni, spese e IMU", eur0(commissioni + num(f.spese) + num(f.imu))],
+        ["Tasse sul reddito", eur0(tasse)],
+        ["Reddito netto annuo", eur0(netto)],
+        ["Anni per rientrare dell'investimento", netto > 0 ? (investito / netto).toFixed(1).replace(".", ",") : "—"],
+      ]} totale={["Rendimento netto annuo", pct(netto / investito * 100)]} nota="Calcolo senza mutuo e senza rivalutazione dell'immobile." /> : <p className="aa-nota">Inserisci prezzo e incasso mensile.</p>}
+      <p className="aa-nota aa-ut-avviso">Affitti brevi 2026: cedolare 21% su un immobile, 26% dal secondo; da tre immobili in su è attività d'impresa e serve la partita IVA.</p>
+    </>
+  );
+}
+
+/* ---------------- Cedolare secca ---------------- */
+const CONTRATTI = [["libero", "Canone libero 4+4 · 21%"], ["concordato", "Canone concordato 3+2, transitorio, studenti · 10%"], ["b21", "Affitto breve · 1° immobile · 21%"], ["b26", "Affitto breve · 2° immobile · 26%"]];
+function CalcCedolare() {
+  const [f, set] = useModulo({ canone: "", tipo: "libero", irpef: "33", addiz: "2,5" });
+  const anno = num(f.canone) * 12;
+  const aliq = { libero: 0.21, concordato: 0.10, b21: 0.21, b26: 0.26 }[f.tipo];
+  const ced = anno * aliq;
+  const base = anno * 0.95 * (f.tipo === "concordato" ? 0.7 : 1);
+  const irpef = base * (num(f.irpef) + num(f.addiz)) / 100;
+  const breve = f.tipo.startsWith("b");
+  const registro = breve ? 0 : anno * (f.tipo === "concordato" ? 0.7 : 1) * 0.02 / 2;
+  const ordinario = irpef + registro;
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Campo label="Canone mensile €" tipo="num" value={f.canone} onChange={set("canone")} />
+        <Scelta label="Tipo di contratto" value={f.tipo} onChange={set("tipo")} opzioni={CONTRATTI} largo />
+        <Scelta label="Aliquota IRPEF marginale (per confronto)" value={f.irpef} onChange={set("irpef")} opzioni={IRPEF} />
+        <Campo label="Addizionali regionale + comunale %" tipo="num" value={f.addiz} onChange={set("addiz")} />
+      </div>
+      {anno ? <Risultati righe={[
+        ["Canone annuo", eur0(anno)],
+        [`Cedolare secca ${Math.round(aliq * 100)}%`, eur0(ced), "Sostituisce IRPEF, addizionali, imposta di registro e bollo"],
+        ["Regime ordinario · IRPEF + addizionali", eur0(irpef), f.tipo === "concordato" ? "Sul 95% del canone, ridotto di un ulteriore 30% (concordato)" : "Sul 95% del canone"],
+        ...(breve ? [] : [["Regime ordinario · registro (metà a carico del proprietario)", eur0(registro)]]),
+        ["Regime ordinario · totale", eur0(ordinario)],
+      ]} totale={[ced <= ordinario ? "Risparmio con la cedolare secca" : "Costo in più con la cedolare secca", eur0(Math.abs(ordinario - ced))]}
+        nota={ced <= ordinario ? "La cedolare secca conviene." : "Con questo reddito conviene il regime ordinario."} /> : <p className="aa-nota">Inserisci il canone mensile.</p>}
+      <p className="aa-nota aa-ut-avviso">Con la cedolare secca il canone non si aggiorna con l'ISTAT per tutta la durata dell'opzione. Il canone concordato al 10% si applica nei Comuni ad alta tensione abitativa, Napoli compresa, con l'attestazione di un'associazione di categoria.</p>
+    </>
+  );
+}
+
+/* ---------------- IMU ---------------- */
+const CATEGORIE = [["A", "Abitazione (A/2–A/7) e pertinenze C/2, C/6, C/7", 160], ["lusso", "Abitazione di lusso (A/1, A/8, A/9)", 160], ["A10", "Ufficio (A/10)", 80], ["C1", "Negozio (C/1)", 55], ["C3", "Laboratorio (C/3, C/4, C/5)", 140], ["D", "Capannone / albergo (gruppo D)", 65]];
+const USI = [["seconda", "Seconda casa / altro immobile"], ["principale", "Abitazione principale"], ["concordato", "Affittata a canone concordato (-25%)"], ["comodato", "Comodato a figli o genitori (base -50%)"]];
+function CalcImu() {
+  const [f, set] = useModulo({ rendita: "", cat: "A", uso: "seconda", aliquota: "1,06", quota: "100", mesi: "12" });
+  const cat = CATEGORIE.find((c) => c[0] === f.cat);
+  const principaleEsente = f.uso === "principale" && f.cat !== "lusso";
+  const base = num(f.rendita) * 1.05 * cat[2] * (f.uso === "comodato" ? 0.5 : 1);
+  let imu = base * num(f.aliquota) / 100 * num(f.quota) / 100 * num(f.mesi) / 12;
+  if (f.uso === "concordato") imu *= 0.75;
+  if (f.uso === "principale" && f.cat === "lusso") imu = Math.max(0, imu - 200 * num(f.quota) / 100 * num(f.mesi) / 12);
+  return (
+    <>
+      <div className="aa-griglia-campi">
+        <Campo label="Rendita catastale €" tipo="num" value={f.rendita} onChange={set("rendita")} />
+        <Scelta label="Categoria" value={f.cat} onChange={set("cat")} opzioni={CATEGORIE.map(([a, b]) => [a, b])} largo />
+        <Scelta label="Utilizzo" value={f.uso} onChange={(v) => { set("uso")(v); set("aliquota")(v === "principale" ? "0,6" : "1,06"); }} opzioni={USI} />
+        <Campo label="Aliquota comunale %" tipo="num" value={f.aliquota} onChange={set("aliquota")} />
+        <Campo label="Quota di possesso %" tipo="num" value={f.quota} onChange={set("quota")} />
+        <Campo label="Mesi di possesso nell'anno" tipo="num" value={f.mesi} onChange={set("mesi")} />
+      </div>
+      {!num(f.rendita) ? <p className="aa-nota">Inserisci la rendita catastale.</p> : principaleEsente ? <p className="aa-info aa-ut-risultati">Abitazione principale (non di lusso) e relative pertinenze: IMU non dovuta.</p> : (
+        <Risultati righe={[
+          ["Base imponibile", eur0(base), `Rendita × 1,05 × ${cat[2]}${f.uso === "comodato" ? " × 50%" : ""}`],
+          ["Acconto (16 giugno)", eur(imu / 2)],
+          ["Saldo (16 dicembre)", eur(imu / 2)],
+        ]} totale={["IMU annua", eur(imu)]} nota={f.uso === "principale" ? "Abitazione principale di lusso: aliquota ridotta e detrazione di 200 €." : ""} />
+      )}
+      <p className="aa-nota aa-ut-avviso">L'aliquota la decide ogni Comune: 1,06% è il massimo ordinario, 0,6% per l'abitazione principale di lusso. Verifica la delibera del Comune dell'immobile. Le seconde case non affittate nello stesso Comune dell'abitazione principale pagano anche IRPEF sul 50% della rendita.</p>
     </>
   );
 }

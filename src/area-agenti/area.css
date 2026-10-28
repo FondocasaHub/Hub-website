@@ -418,3 +418,5 @@ a { color: inherit; }
 .aa-ut-avviso { margin-top: 10px; font-size: 13px; }
 .aa-ut-tabella { margin-top: 14px; }
 .aa-ut-tabella summary { cursor: pointer; color: var(--navy); font-weight: 600; margin-bottom: 8px; }
+.aa-ut-stampa { display: flex; gap: 12px; align-items: flex-end; flex-wrap: wrap; background: var(--cream); border-radius: 10px; padding: 12px 14px; margin-bottom: 18px; }
+.aa-ut-stampa .aa-campo { flex: 1 1 260px; }

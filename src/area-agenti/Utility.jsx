@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 
 // Utility per agenti e manager: modulistica operativa compilabile (con PDF) e calcolatori.
 // Tutto avviene nel browser: nessun dato viene salvato.
@@ -47,6 +47,7 @@ const SEZIONI = [
 
 export default function Utility({ profilo }) {
   const [sez, setSez] = useState(null);
+  const corpo = useRef(null);
   const attiva = SEZIONI.find((s) => s.id === sez);
   return (
     <>
@@ -75,6 +76,8 @@ export default function Utility({ profilo }) {
           <section className="aa-card aa-sezione">
             <p className="aa-occhiello">{attiva.gruppo}</p>
             <h2 className="aa-h2 aa-ut-titolo">{attiva.nome}</h2>
+            {attiva.gruppo === "Calcolatori" && <BarraStampa titolo={attiva.nome} contenitore={corpo} profilo={profilo} />}
+            <div ref={corpo}>
             {sez === "chiavi" && <ModuloChiavi profilo={profilo} />}
             {sez === "assegno" && <ModuloAssegno profilo={profilo} />}
             {sez === "proroga" && <ModuloProroga profilo={profilo} />}
@@ -89,6 +92,7 @@ export default function Utility({ profilo }) {
             {sez === "cedolare" && <CalcCedolare />}
             {sez === "imu" && <CalcImu />}
             {sez === "decadenza" && <CalcDecadenza />}
+            </div>
           </section>
         </>
       )}
@@ -118,7 +122,7 @@ const useModulo = (iniziale) => {
 };
 
 /* ---------------- stampa PDF ---------------- */
-function stampa(titolo, corpo) {
+function stampa(titolo, corpo, etichetta = "MODULISTICA<br>OPERATIVA") {
   const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><title>${esc(titolo)}</title>
 <style>
 @page{size:A4;margin:16mm 16mm 14mm}
@@ -131,9 +135,13 @@ p{margin:0 0 10px;text-align:justify}table{width:100%;border-collapse:collapse;m
 td,th{border:1px solid #CBD2DD;padding:5px 7px;text-align:left;vertical-align:top}th{background:#F5EFE4;width:34%;font-weight:600}
 .firme{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:34px;font-family:Arial,Helvetica,sans-serif;font-size:9pt}
 .firme div{border-top:1px solid #0A1628;padding-top:5px;margin-top:38px}
-.nota{font-family:Arial,Helvetica,sans-serif;font-size:8pt;color:#5B6577;margin-top:22px;border-top:1px solid #CBD2DD;padding-top:6px}
+.nota{font-family:Arial,Helvetica,sans-serif;font-size:8pt;color:#5B6577;margin-top:14px;border-top:1px solid #CBD2DD;padding-top:6px}
+h2.sez{font-family:Arial,Helvetica,sans-serif;font-size:9pt;letter-spacing:.08em;text-transform:uppercase;background:#0A1628;color:#fff;padding:5px 8px;margin:16px 0 6px}
+table.ris td.n{text-align:right;white-space:nowrap;font-weight:600}table.ris small{color:#5B6577}
+table.ris tr.tot td{background:#0A1628;color:#fff;font-weight:bold;font-size:11pt}
+.esito{font-family:Arial,Helvetica,sans-serif;font-size:10pt;background:#F5EFE4;padding:8px 10px;border-left:3px solid #C19A5B}
 </style></head><body>
-<div class="top"><div><b>FC PUNTO HUB · FONDOCASA HUB</b><small>${AZIENDA.nome} · ${AZIENDA.sede}</small><small>${AZIENDA.dati}</small></div><div class="oro">MODULISTICA<br>OPERATIVA</div></div>
+<div class="top"><div><b>FC PUNTO HUB · FONDOCASA HUB</b><small>${AZIENDA.nome} · ${AZIENDA.sede}</small><small>${AZIENDA.dati}</small></div><div class="oro">${etichetta}</div></div>
 ${corpo}
 <script>window.onload=function(){setTimeout(function(){window.print()},300)}</script>
 </body></html>`;
@@ -696,5 +704,48 @@ function CalcDecadenza() {
         Stima indicativa: per la sanzione da applicare (30% o 25% dopo la riforma 2024) e il conteggio definitivo serve la verifica del notaio o del commercialista.
       </p>
     </>
+  );
+}
+
+/* ---------------- PDF dei calcolatori ---------------- */
+// Legge dalla pagina i dati inseriti e i risultati, e li impagina in un PDF A4 da consegnare al cliente.
+function stampaCalcolo(titolo, el, cliente, profilo) {
+  if (!el) return;
+  const dati = [...el.querySelectorAll("label.aa-campo")].map((l) => {
+    const etich = l.querySelector("span")?.innerText || "";
+    const c = l.querySelector("input, select, textarea");
+    if (!c) return null;
+    let v = c.tagName === "SELECT" ? c.options[c.selectedIndex]?.text : c.value;
+    if (c.type === "date" && v) v = new Date(v + "T12:00").toLocaleDateString("it-IT");
+    return v ? [etich, v] : null;
+  }).filter(Boolean);
+  const ris = el.querySelector(".aa-ut-risultati");
+  const righe = ris ? [...ris.querySelectorAll("tr")].map((tr) => {
+    const td = tr.querySelectorAll("td");
+    const nota = td[0]?.querySelector("small")?.innerText || "";
+    const voce = (td[0]?.innerText || "").replace(nota, "").trim();
+    return { voce, nota, valore: td[1]?.innerText || "", totale: tr.classList.contains("aa-riga-totale") };
+  }) : [];
+  const esito = [...el.querySelectorAll(".aa-ut-risultati > .aa-nota, p.aa-info")].map((p) => p.innerText).filter(Boolean);
+  const avvisi = [...el.querySelectorAll(".aa-ut-avviso")].map((p) => p.innerText).filter(Boolean);
+  const oggiIT = new Date().toLocaleDateString("it-IT");
+  const corpo = `<h1>${esc(titolo)}</h1><p class="sotto">${cliente ? `Preparato per ${esc(cliente)} · ` : ""}Napoli, ${oggiIT}</p>
+<h2>Dati inseriti</h2>
+<table>${dati.map(([a, b]) => `<tr><th>${esc(a)}</th><td>${esc(b)}</td></tr>`).join("")}</table>
+${righe.length ? `<h2>Risultato</h2><table class="ris">${righe.map((r) => `<tr class="${r.totale ? "tot" : ""}"><td>${esc(r.voce)}${r.nota ? `<br><small>${esc(r.nota)}</small>` : ""}</td><td class="n">${esc(r.valore)}</td></tr>`).join("")}</table>` : ""}
+${esito.map((t) => `<p class="esito">${esc(t)}</p>`).join("")}
+${avvisi.map((t) => `<p class="nota">${esc(t)}</p>`).join("")}
+<p class="nota">Calcolo indicativo elaborato da ${esc(profilo.nome || profilo.email)} per ${AZIENDA.nome}: non sostituisce il parere del notaio, del commercialista o della banca. Per informazioni: WhatsApp 392 457 9047 · fondocasahub.com</p>`;
+  stampa(titolo, corpo.replace("<h2>", '<h2 class="sez">').replace(/<h2>/g, '<h2 class="sez">'), "CALCOLO<br>INDICATIVO");
+}
+
+function BarraStampa({ titolo, contenitore, profilo }) {
+  const [cliente, setCliente] = useState("");
+  return (
+    <div className="aa-ut-stampa">
+      <label className="aa-campo"><span>Cliente / pratica (facoltativo, compare nel PDF)</span>
+        <input value={cliente} placeholder="es. Sig. Rossi – Via Scarlatti 100" onChange={(e) => setCliente(e.target.value)} /></label>
+      <button className="aa-btn aa-btn-pieno" onClick={() => stampaCalcolo(titolo, contenitore.current, cliente, profilo)}>Scarica / stampa PDF</button>
+    </div>
   );
 }

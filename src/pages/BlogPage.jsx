@@ -8,57 +8,47 @@ export const ARTICLES = [
     date: "2026-10-31",
     publishedAt: "2026-10-31T09:00:00+01:00",
     category: "Mutui & Credito",
-    readTime: "5 min",
+    readTime: "3 min",
     image: "https://www.fondocasahub.com/images/blog/bce-ottobre-2026.jpg",
     imageAlt: "BCE Francoforte - decisione tassi ottobre 2026 e impatto sui mutui per acquisto casa a Napoli",
-    keywords: "BCE, mutui Napoli, tassi di interesse, WeUnit, consulenza mutuo, Euribor, ottobre 2026",
+    keywords: "BCE, mutui Napoli, tassi di interesse, WeUnit, consulenza mutuo, mutui green, ottobre 2026",
     content: `
-      <p>Il 29 ottobre la Banca Centrale Europea ha confermato il tasso sui depositi al 2,50%, dopo i due rialzi da 25 punti base di giugno e settembre. Per chi sta valutando l'acquisto di una casa a Napoli con il mutuo, questa pausa apre una finestra di stabilità che vale la pena leggere con attenzione.</p>
+      <p>Il 29 ottobre la Banca Centrale Europea ha lasciato i tassi fermi al 2,50%, dopo i due rialzi di giugno e settembre. Ecco cosa ha deciso, perché, e cosa significa per chi vuole comprare casa a Napoli con un mutuo.</p>
 
-      <p>Giovedì 29 ottobre il Consiglio direttivo della BCE si è riunito a Francoforte e ha confermato la pausa sul costo del denaro: tasso sui depositi al <strong>2,50%</strong>, tasso di rifinanziamento principale al <strong>2,65%</strong>, prestiti marginali al <strong>2,90%</strong>. Nessuna novità rispetto al mese scorso, ma una conferma importante dopo i due rialzi di quest'anno (giugno e settembre, +25 punti base ciascuno). La prossima e ultima riunione del 2026 è fissata per il <strong>17 dicembre</strong>.</p>
-      <p>Per chi vive a Napoli e sta pensando di comprare casa — al <a href="/agenzia-immobiliare-vomero-napoli">Vomero</a>, a Chiaia, al Centro Storico o in uno dei quartieri che seguiamo come <strong>HUB</strong> — la domanda è una sola: cosa cambia nella rata del mio mutuo?</p>
-
-      <h2>I numeri che contano (per chi deve chiedere un mutuo oggi)</h2>
-      <p>Prima un chiarimento: il tasso BCE non è il tasso che paghi sul mutuo. La banca parte da un parametro di riferimento (Euribor per il variabile, IRS per il fisso, che si muovono seguendo le decisioni della BCE) e aggiunge il proprio <strong>spread</strong>. Per questo i tassi dei mutui sono più alti del 2,50% fissato a Francoforte. Anche la classe energetica della casa conta: per gli immobili in <strong>classe A e B</strong> le banche offrono i cosiddetti <strong>mutui green</strong>, con spread più bassi.</p>
-      <p>A fine ottobre 2026 lo scenario per chi apre un mutuo è questo:</p>
+      <h2>La decisione della BCE</h2>
+      <p>Giovedì 29 ottobre il Consiglio direttivo della BCE, riunito a Francoforte, ha confermato i tassi di riferimento:</p>
       <ul>
-        <li><strong>Tasso fisso 30 anni, mutui green</strong> (classe energetica A e B): TAN dal <strong>2,99%</strong></li>
-        <li><strong>Tasso fisso 30 anni, mutui non green</strong>: TAN dal <strong>3,19%</strong></li>
-        <li><strong>Tasso variabile, mutui green</strong> (classe energetica A e B): TAN dal <strong>2,46%</strong></li>
-        <li><strong>Tasso variabile, mutui non green</strong>: TAN dal <strong>2,86%</strong></li>
-        <li><strong>Euribor 3 mesi</strong>: intorno al <strong>2,64%</strong></li>
-        <li><strong>Euribor 12 mesi</strong>: circa <strong>3,23%</strong></li>
-        <li><strong>IRS 20 anni</strong> (benchmark del fisso): <strong>3,46%</strong></li>
+        <li><strong>Tasso sui depositi:</strong> 2,50%</li>
+        <li><strong>Tasso di rifinanziamento principale:</strong> 2,65%</li>
+        <li><strong>Tasso sui prestiti marginali:</strong> 2,90%</li>
       </ul>
-      <p>Il <strong>95% dei richiedenti</strong> sceglie oggi il tasso fisso, contro il 5% che opta per il variabile. Non è un dato banale: significa che il mercato considera il contesto attuale un buon momento per bloccare la rata nel tempo, prima che la BCE eventualmente torni ad alzare.</p>
+      <p>Nessuna novità rispetto a settembre. È la prima pausa dopo i due rialzi di quest'anno, a giugno e a settembre, di 0,25 punti ciascuno.</p>
 
-      <h3>Perché la BCE non ha toccato nulla</h3>
-      <p>L'inflazione nell'area euro si è assestata intorno all'obiettivo del 2%, ma restano due incognite: i prezzi energetici e le tensioni commerciali internazionali. Per questo il Consiglio direttivo ha scelto l'approccio "riunione per riunione", senza impegnarsi su un percorso predefinito. In pratica: la stabilità di oggi può diventare un nuovo rialzo a dicembre, oppure no.</p>
+      <h3>Perché la BCE non ha toccato i tassi</h3>
+      <p>L'inflazione nell'area euro si è assestata intorno all'obiettivo del 2%, ma restano due incognite: i prezzi dell'energia e le tensioni commerciali internazionali. Per questo la BCE ha scelto di decidere "riunione per riunione", senza impegnarsi su un percorso già scritto. La stabilità di oggi può trasformarsi in un nuovo rialzo a dicembre, oppure no.</p>
+      <p>La prossima e ultima riunione del 2026 è fissata per il <strong>17 dicembre</strong>.</p>
 
-      <h2>Cosa significa per chi vuole comprare casa a Napoli</h2>
-      <p>Il mercato immobiliare napoletano, nel primo semestre 2026, ha mostrato una <strong>crescita dei prezzi del +15,9% negli ultimi 5 anni</strong> (dati Immobiliare.it Insights). Al Vomero i valori oscillano tra <strong>3.500 e 5.500 €/m²</strong>, a Chiaia tra 4.000 e 7.000 €/m², a Posillipo tra 5.000 e 12.000 €/m² per il segmento premium.</p>
-      <p>Tradotto: aspettare "il momento perfetto" per comprare, in attesa di tassi più bassi, può costare caro se nel frattempo il prezzo dell'immobile sale più velocemente della rata.</p>
+      <h2>Cosa significa per chi vuole un mutuo</h2>
+      <p>Il tasso BCE non è il tasso che paghi sul mutuo: la banca aggiunge il proprio <strong>spread</strong>, quindi il tuo tasso non coincide con il 2,50% fissato a Francoforte. Conta anche la classe energetica della casa: per gli immobili in <strong>classe A e B</strong> le banche offrono i cosiddetti <strong>mutui green</strong>, a condizioni migliori.</p>
+      <p>Questi sono i tassi di partenza a fine ottobre 2026:</p>
+      <ul>
+        <li><strong>Fisso 30 anni:</strong> TAN dal <strong>2,99%</strong> per i mutui green, dal <strong>3,19%</strong> per gli altri</li>
+        <li><strong>Variabile:</strong> TAN dal <strong>2,46%</strong> per i mutui green, dal <strong>2,86%</strong> per gli altri</li>
+      </ul>
+      <p>Con la BCE in pausa, per i prossimi mesi questi valori dovrebbero restare stabili. Chi sta pensando di comprare casa al <a href="/agenzia-immobiliare-vomero-napoli">Vomero</a> o in un altro quartiere di Napoli ha una finestra per decidere con calma, almeno fino alla riunione di dicembre.</p>
 
-      <h3>Il nostro consiglio operativo in HUB</h3>
-      <p>Il nostro <strong>consulente del credito WeUnit</strong> oggi lavora con <strong>20 banche partner</strong>, e per ogni cliente HUB confronta le offerte reali — non le vetrine. Nei casi che seguiamo in queste settimane, la <strong>surroga</strong> (per chi ha già un mutuo variabile acceso tra il 2022 e il 2024) sta portando risparmi concreti sulla rata, mentre i <strong>mutui per acquisto prima casa</strong> si chiudono con TAEG mediamente sotto il 3,10%.</p>
-      <p>Il nostro suggerimento, per chi è nella fase di valutazione, è semplice:</p>
+      <h2>Cosa conviene fare</h2>
       <ol>
         <li><strong>Non guardare solo il TAN</strong>: confronta il <strong>TAEG</strong> (comprensivo di spese) e la <strong>rata reale</strong> sul tuo profilo.</li>
         <li><strong>Verifica le agevolazioni under 36</strong>: la garanzia Consap è ancora attiva e permette LTV fino al 100%.</li>
         <li><strong>Prequalifica il mutuo prima di fare l'offerta</strong>: ti dà potere contrattuale sul venditore e tempi certi al rogito.</li>
       </ol>
-
-      <h2>Perché HUB integra immobiliare, credito e assicurazione</h2>
-      <p>A Napoli, da 26 anni, in <a href="/chi-siamo">HUB</a> abbiamo riunito sotto lo stesso tetto tre servizi che normalmente si trovano in posti diversi: <strong>vendita immobiliare (Fondocasa)</strong>, <strong>mediazione creditizia (WeUnit)</strong> e <strong>consulenza assicurativa (Henia)</strong>. Il motivo è semplice: una compravendita non è mai solo "una casa". È un mutuo da scegliere, una polizza da attivare, un'esclusiva da gestire.</p>
-      <p>Oggi, con la BCE in pausa e il mercato di Napoli in crescita, questa integrazione fa la differenza. Il tuo consulente HUB conosce l'immobile, conosce la banca giusta, conosce la copertura assicurativa che ti serve. Un solo interlocutore, zero rimpalli.</p>
-
-      <h2>Vuoi sapere se è il tuo momento?</h2>
-      <p>Se stai pensando di comprare casa a Napoli e vuoi capire <strong>quanto costa realmente il mutuo che puoi ottenere oggi</strong>, prenota una consulenza gratuita con il nostro <strong>consulente del credito WeUnit</strong>. Ti diciamo in trasparenza quale banca ti conviene, quale rata puoi sostenere e quale finestra di mercato stai cogliendo.</p>
+      <p>Il nostro <strong>consulente del credito WeUnit</strong> lavora con <strong>20 banche partner</strong> e confronta per te le offerte reali, non le vetrine. Se vuoi sapere quanto costa davvero il mutuo che puoi ottenere oggi, la consulenza è gratuita.</p>
       <p><a href="/consulente-mutuo-napoli">Prenota la consulenza mutuo gratuita →</a></p>
-      <p>Se invece stai pensando di <strong>vendere</strong> per poi ricomprare, parti dalla valutazione del tuo immobile attuale: in 5 domande ti diamo una stima reale basata sulle vendite comparabili della tua zona, entro 24 ore.</p>
+      <p>Se invece devi <strong>vendere</strong> per poi ricomprare, parti dalla valutazione del tuo immobile attuale: in 5 domande ti diamo una stima reale basata sulle vendite comparabili della tua zona, entro 24 ore.</p>
       <p><a href="/valuta-il-tuo-immobile">Valuta il tuo immobile gratis →</a></p>
 
-      <p>La prossima riunione BCE è fissata per il <strong>17 dicembre 2026</strong>. Fino ad allora, la finestra è aperta. In HUB siamo qui per aiutarti a leggere i numeri e trasformarli in una decisione di cui non ti pentirai.</p>
+      <p>La prossima riunione BCE è fissata per il <strong>17 dicembre 2026</strong>. Fino ad allora, la finestra è aperta. In <a href="/chi-siamo">HUB</a> siamo qui per aiutarti a leggere i numeri e trasformarli in una decisione di cui non ti pentirai.</p>
     `
   },
   {

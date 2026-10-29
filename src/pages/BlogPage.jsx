@@ -24,7 +24,7 @@ export const ARTICLES = [
       <ul>
         <li><strong>Tasso fisso 30 anni, mutui green</strong> (classe energetica A e B): TAN dal <strong>2,99%</strong></li>
         <li><strong>Tasso fisso 30 anni, mutui non green</strong>: TAN dal <strong>3,19%</strong></li>
-        <li><strong>Tasso variabile</strong> di partenza: dal <strong>2,60%</strong></li>
+        <li><strong>Tasso variabile, mutui green</strong> (classe energetica A e B): TAN dal <strong>2,46%</strong></li>
         <li><strong>Euribor 3 mesi</strong>: intorno al <strong>2,64%</strong></li>
         <li><strong>Euribor 12 mesi</strong>: circa <strong>3,23%</strong></li>
         <li><strong>IRS 20 anni</strong> (benchmark del fisso): <strong>3,46%</strong></li>

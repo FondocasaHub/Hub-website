@@ -2,6 +2,63 @@ import React, { useState, useEffect } from "react";
 
 export const ARTICLES = [
   {
+    slug: "bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli",
+    title: "BCE ferma al 2,50%: cosa cambia davvero per chi vuole il mutuo a Napoli",
+    excerpt: "Il 29 ottobre la BCE ha confermato i tassi al 2,50%. Cosa significa per chi vuole acquistare casa a Napoli con il mutuo. Analisi WeUnit + HUB.",
+    date: "2026-10-31",
+    publishedAt: "2026-10-31T09:00:00+01:00",
+    category: "Mutui & Credito",
+    readTime: "5 min",
+    // Copertina provvisoria: sostituire con /images/blog/bce-ottobre-2026.jpg quando caricata
+    image: "https://www.fondocasahub.com/og-image.jpg",
+    keywords: "BCE, mutui Napoli, tassi di interesse, WeUnit, consulenza mutuo, Euribor, ottobre 2026",
+    content: `
+      <p>Il 29 ottobre la Banca Centrale Europea ha confermato il tasso sui depositi al 2,50%, dopo i due rialzi da 25 punti base di giugno e settembre. Per chi sta valutando l'acquisto di una casa a Napoli con il mutuo, questa pausa apre una finestra di stabilità che vale la pena leggere con attenzione.</p>
+
+      <p>Giovedì 29 ottobre il Consiglio direttivo della BCE si è riunito a Francoforte e ha confermato la pausa sul costo del denaro: tasso sui depositi al <strong>2,50%</strong>, tasso di rifinanziamento principale al <strong>2,65%</strong>, prestiti marginali al <strong>2,90%</strong>. Nessuna novità rispetto al mese scorso, ma una conferma importante dopo i due rialzi di quest'anno (giugno e settembre, +25 punti base ciascuno). La prossima e ultima riunione del 2026 è fissata per il <strong>17 dicembre</strong>.</p>
+      <p>Per chi vive a Napoli e sta pensando di comprare casa — al <a href="/agenzia-immobiliare-vomero-napoli">Vomero</a>, a Chiaia, al Centro Storico o in uno dei quartieri che seguiamo come <strong>HUB</strong> — la domanda è una sola: cosa cambia nella rata del mio mutuo?</p>
+
+      <h2>I numeri che contano (per chi deve chiedere un mutuo oggi)</h2>
+      <p>A fine ottobre 2026 lo scenario per chi apre un mutuo è questo:</p>
+      <ul>
+        <li><strong>Tasso fisso</strong> di partenza: dal <strong>2,80%</strong> (TAEG tipicamente intorno al 3%)</li>
+        <li><strong>Tasso variabile</strong> di partenza: dal <strong>2,60%</strong></li>
+        <li><strong>Euribor 3 mesi</strong>: intorno al <strong>2,64%</strong></li>
+        <li><strong>Euribor 12 mesi</strong>: circa <strong>3,23%</strong></li>
+        <li><strong>IRS 20 anni</strong> (benchmark del fisso): <strong>3,46%</strong></li>
+      </ul>
+      <p>Il <strong>95% dei richiedenti</strong> sceglie oggi il tasso fisso, contro il 5% che opta per il variabile. Non è un dato banale: significa che il mercato considera il contesto attuale un buon momento per bloccare la rata nel tempo, prima che la BCE eventualmente torni ad alzare.</p>
+
+      <h3>Perché la BCE non ha toccato nulla</h3>
+      <p>L'inflazione nell'area euro si è assestata intorno all'obiettivo del 2%, ma restano due incognite: i prezzi energetici e le tensioni commerciali internazionali. Per questo il Consiglio direttivo ha scelto l'approccio "riunione per riunione", senza impegnarsi su un percorso predefinito. In pratica: la stabilità di oggi può diventare un nuovo rialzo a dicembre, oppure no.</p>
+
+      <h2>Cosa significa per chi vuole comprare casa a Napoli</h2>
+      <p>Il mercato immobiliare napoletano, nel primo semestre 2026, ha mostrato una <strong>crescita dei prezzi del +15,9% negli ultimi 5 anni</strong> (dati Immobiliare.it Insights). Al Vomero i valori oscillano tra <strong>3.500 e 5.500 €/m²</strong>, a Chiaia tra 4.000 e 7.000 €/m², a Posillipo tra 5.000 e 12.000 €/m² per il segmento premium.</p>
+      <p>Tradotto: aspettare "il momento perfetto" per comprare, in attesa di tassi più bassi, può costare caro se nel frattempo il prezzo dell'immobile sale più velocemente della rata.</p>
+
+      <h3>Il nostro consiglio operativo in HUB</h3>
+      <p>Il nostro <strong>consulente del credito WeUnit</strong> oggi lavora con più di <strong>30 banche convenzionate</strong>, e per ogni cliente HUB confronta le offerte reali — non le vetrine. Nei casi che seguiamo in queste settimane, la <strong>surroga</strong> (per chi ha già un mutuo variabile acceso tra il 2022 e il 2024) sta portando risparmi concreti sulla rata, mentre i <strong>mutui per acquisto prima casa</strong> si chiudono con TAEG mediamente sotto il 3,10%.</p>
+      <p>Il nostro suggerimento, per chi è nella fase di valutazione, è semplice:</p>
+      <ol>
+        <li><strong>Non guardare solo il TAN</strong>: confronta il <strong>TAEG</strong> (comprensivo di spese) e la <strong>rata reale</strong> sul tuo profilo.</li>
+        <li><strong>Verifica le agevolazioni under 36</strong>: la garanzia Consap è ancora attiva e permette LTV fino al 100%.</li>
+        <li><strong>Prequalifica il mutuo prima di fare l'offerta</strong>: ti dà potere contrattuale sul venditore e tempi certi al rogito.</li>
+      </ol>
+
+      <h2>Perché HUB integra immobiliare, credito e assicurazione</h2>
+      <p>A Napoli, da 26 anni, in <a href="/chi-siamo">HUB</a> abbiamo riunito sotto lo stesso tetto tre servizi che normalmente si trovano in posti diversi: <strong>vendita immobiliare (Fondocasa)</strong>, <strong>mediazione creditizia (WeUnit)</strong> e <strong>consulenza assicurativa (Henia)</strong>. Il motivo è semplice: una compravendita non è mai solo "una casa". È un mutuo da scegliere, una polizza da attivare, un'esclusiva da gestire.</p>
+      <p>Oggi, con la BCE in pausa e il mercato di Napoli in crescita, questa integrazione fa la differenza. Il tuo consulente HUB conosce l'immobile, conosce la banca giusta, conosce la copertura assicurativa che ti serve. Un solo interlocutore, zero rimpalli.</p>
+
+      <h2>Vuoi sapere se è il tuo momento?</h2>
+      <p>Se stai pensando di comprare casa a Napoli e vuoi capire <strong>quanto costa realmente il mutuo che puoi ottenere oggi</strong>, prenota una consulenza gratuita con il nostro <strong>consulente del credito WeUnit</strong>. Ti diciamo in trasparenza quale banca ti conviene, quale rata puoi sostenere e quale finestra di mercato stai cogliendo.</p>
+      <p><a href="/consulente-mutuo-napoli">Prenota la consulenza mutuo gratuita →</a></p>
+      <p>Se invece stai pensando di <strong>vendere</strong> per poi ricomprare, parti dalla valutazione del tuo immobile attuale: in 5 domande ti diamo una stima reale basata sulle vendite comparabili della tua zona, entro 24 ore.</p>
+      <p><a href="/valuta-il-tuo-immobile">Valuta il tuo immobile gratis →</a></p>
+
+      <p>La prossima riunione BCE è fissata per il <strong>17 dicembre 2026</strong>. Fino ad allora, la finestra è aperta. In HUB siamo qui per aiutarti a leggere i numeri e trasformarli in una decisione di cui non ti pentirai.</p>
+    `
+  },
+  {
     slug: "zero-vincoli-60-prorogata-31-dicembre-2026",
     title: "Zero Vincoli 60 è prorogata fino al 31 dicembre 2026",
     excerpt: "Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.",
@@ -893,8 +950,8 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
         "@type": "BlogPosting",
         "headline": articoloCorrente.title,
         "description": articoloCorrente.excerpt,
-        "datePublished": articoloCorrente.date,
-        "dateModified": articoloCorrente.date,
+        "datePublished": articoloCorrente.publishedAt || articoloCorrente.date,
+        "dateModified": articoloCorrente.publishedAt || articoloCorrente.date,
         "author": AUTORE,
         "publisher": {
           "@type": "Organization",
@@ -902,6 +959,9 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           "logo": { "@type": "ImageObject", "url": "https://www.fondocasahub.com/logo-hub.png" },
         },
         "mainEntityOfPage": `https://www.fondocasahub.com/blog/${articoloCorrente.slug}`,
+        "articleSection": articoloCorrente.category,
+        ...(articoloCorrente.image && { "image": articoloCorrente.image }),
+        ...(articoloCorrente.keywords && { "keywords": articoloCorrente.keywords }),
         "inLanguage": "it-IT",
       }
     : {
@@ -915,7 +975,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           "@type": "BlogPosting",
           "headline": a.title,
           "description": a.excerpt,
-          "datePublished": a.date,
+          "datePublished": a.publishedAt || a.date,
           "author": AUTORE,
           "url": `https://www.fondocasahub.com/blog/${a.slug}`,
         })),
@@ -945,6 +1005,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
               .replace(/<h2>/g, `<h2 style="font-size:1.5rem;font-weight:700;color:${NAVY};margin:40px 0 16px">`)
               .replace(/<h3>/g, `<h3 style="font-size:1.15rem;font-weight:700;color:${NAVY};margin:32px 0 12px">`)
               .replace(/<ul>/g, `<ul style="padding-left:24px;margin-bottom:20px">`)
+              .replace(/<ol>/g, `<ol style="padding-left:24px;margin-bottom:20px">`)
               .replace(/<li>/g, `<li style="margin-bottom:8px">`)
               .replace(/<p>/g, `<p style="margin-bottom:20px">`)
               .replace(/<a href=/g, `<a style="color:${GOLD};font-weight:600;text-decoration:underline" href=`)

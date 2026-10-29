@@ -174,6 +174,11 @@ const PAGE_META = {
     title: 'Zero Vincoli 60 prorogata al 31 dicembre 2026 | HUB Napoli',
     desc: 'Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.',
     canonical: 'https://www.fondocasahub.com/blog/zero-vincoli-60-prorogata-31-dicembre-2026'
+  },
+  'blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli': {
+    title: 'BCE ferma al 2,50% a ottobre: cosa cambia per i mutui',
+    desc: 'Il 29 ottobre la BCE ha confermato i tassi al 2,50%. Cosa significa per chi vuole acquistare casa a Napoli con il mutuo. Analisi WeUnit + HUB.',
+    canonical: 'https://www.fondocasahub.com/blog/bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli'
   }
 };
 

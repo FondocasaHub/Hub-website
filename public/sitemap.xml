@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://www.fondocasahub.com/blog</loc>
-    <lastmod>2026-09-23</lastmod>
+    <lastmod>2026-10-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,6 +49,12 @@
     <priority>0.5</priority>
   </url>
   <!-- Blog Articles -->
+  <url>
+    <loc>https://www.fondocasahub.com/blog/bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli</loc>
+    <lastmod>2026-10-31</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://www.fondocasahub.com/blog/zero-vincoli-60-prorogata-31-dicembre-2026</loc>
     <lastmod>2026-09-23</lastmod>

@@ -19,9 +19,11 @@ export const ARTICLES = [
       <p>Per chi vive a Napoli e sta pensando di comprare casa — al <a href="/agenzia-immobiliare-vomero-napoli">Vomero</a>, a Chiaia, al Centro Storico o in uno dei quartieri che seguiamo come <strong>HUB</strong> — la domanda è una sola: cosa cambia nella rata del mio mutuo?</p>
 
       <h2>I numeri che contano (per chi deve chiedere un mutuo oggi)</h2>
+      <p>Prima un chiarimento: il tasso BCE non è il tasso che paghi sul mutuo. La banca parte da un parametro di riferimento (Euribor per il variabile, IRS per il fisso, che si muovono seguendo le decisioni della BCE) e aggiunge il proprio <strong>spread</strong>. Per questo i tassi dei mutui sono più alti del 2,50% fissato a Francoforte. Anche la classe energetica della casa conta: per gli immobili in <strong>classe A e B</strong> le banche offrono i cosiddetti <strong>mutui green</strong>, con spread più bassi.</p>
       <p>A fine ottobre 2026 lo scenario per chi apre un mutuo è questo:</p>
       <ul>
-        <li><strong>Tasso fisso</strong> di partenza: dal <strong>2,80%</strong> (TAEG tipicamente intorno al 3%)</li>
+        <li><strong>Tasso fisso 30 anni, mutui green</strong> (classe energetica A e B): TAN dal <strong>2,99%</strong></li>
+        <li><strong>Tasso fisso 30 anni, mutui non green</strong>: TAN dal <strong>3,19%</strong></li>
         <li><strong>Tasso variabile</strong> di partenza: dal <strong>2,60%</strong></li>
         <li><strong>Euribor 3 mesi</strong>: intorno al <strong>2,64%</strong></li>
         <li><strong>Euribor 12 mesi</strong>: circa <strong>3,23%</strong></li>

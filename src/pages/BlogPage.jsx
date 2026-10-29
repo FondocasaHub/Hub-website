@@ -9,8 +9,8 @@ export const ARTICLES = [
     publishedAt: "2026-10-31T09:00:00+01:00",
     category: "Mutui & Credito",
     readTime: "5 min",
-    // Copertina provvisoria: sostituire con /images/blog/bce-ottobre-2026.jpg quando caricata
-    image: "https://www.fondocasahub.com/og-image.jpg",
+    image: "https://www.fondocasahub.com/images/blog/bce-ottobre-2026.jpg",
+    imageAlt: "BCE Francoforte - decisione tassi ottobre 2026 e impatto sui mutui per acquisto casa a Napoli",
     keywords: "BCE, mutui Napoli, tassi di interesse, WeUnit, consulenza mutuo, Euribor, ottobre 2026",
     content: `
       <p>Il 29 ottobre la Banca Centrale Europea ha confermato il tasso sui depositi al 2,50%, dopo i due rialzi da 25 punti base di giugno e settembre. Per chi sta valutando l'acquisto di una casa a Napoli con il mutuo, questa pausa apre una finestra di stabilità che vale la pena leggere con attenzione.</p>
@@ -998,6 +998,9 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           </button>
           <div style={{ fontSize: 12, letterSpacing: 2, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 8 }}>{art.category} · {art.readTime} di lettura</div>
           <h1 style={{ fontSize: "clamp(1.6rem,4vw,2.4rem)", fontWeight: 700, color: NAVY, lineHeight: 1.3, marginBottom: 16 }}>{art.title}</h1>
+          {art.image && (
+            <img src={art.image.replace("https://www.fondocasahub.com", "")} alt={art.imageAlt} width="1200" height="630" style={{ width: "100%", height: "auto", borderRadius: 4, marginBottom: 24, display: "block" }} />
+          )}
           <div style={{ fontSize: 13, color: "rgba(10,31,61,0.5)", marginBottom: 40 }}>Pubblicato il {new Date(art.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · HUB Napoli</div>
           <div
             style={{ fontSize: 16, lineHeight: 1.9, color: NAVY }}

@@ -2,6 +2,56 @@ import React, { useState, useEffect } from "react";
 
 export const ARTICLES = [
   {
+    slug: "bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli",
+    title: "BCE ferma al 2,50%: cosa cambia davvero per chi vuole il mutuo a Napoli",
+    excerpt: "Il 29 ottobre la BCE ha confermato i tassi al 2,50%. Cosa significa per chi vuole acquistare casa a Napoli con il mutuo. Analisi WeUnit + HUB.",
+    date: "2026-10-31",
+    publishedAt: "2026-10-31T09:00:00+01:00",
+    category: "Mutui & Credito",
+    readTime: "3 min",
+    image: "https://www.fondocasahub.com/images/blog/bce-ottobre-2026.jpg",
+    imageAlt: "BCE Francoforte - decisione tassi ottobre 2026 e impatto sui mutui per acquisto casa a Napoli",
+    keywords: "BCE, mutui Napoli, tassi di interesse, WeUnit, consulenza mutuo, mutui green, ottobre 2026",
+    content: `
+      <p>Il 29 ottobre la Banca Centrale Europea ha lasciato i tassi fermi al 2,50%, dopo i due rialzi di giugno e settembre. Ecco cosa ha deciso, perché, e cosa significa per chi vuole comprare casa a Napoli con un mutuo.</p>
+
+      <h2>La decisione della BCE</h2>
+      <p>Giovedì 29 ottobre il Consiglio direttivo della BCE, riunito a Francoforte, ha confermato i tassi di riferimento:</p>
+      <ul>
+        <li><strong>Tasso sui depositi:</strong> 2,50%</li>
+        <li><strong>Tasso di rifinanziamento principale:</strong> 2,65%</li>
+        <li><strong>Tasso sui prestiti marginali:</strong> 2,90%</li>
+      </ul>
+      <p>Nessuna novità rispetto a settembre. È la prima pausa dopo i due rialzi di quest'anno, a giugno e a settembre, di 0,25 punti ciascuno.</p>
+
+      <h3>Perché la BCE non ha toccato i tassi</h3>
+      <p>L'inflazione nell'area euro si è assestata intorno all'obiettivo del 2%, ma restano due incognite: i prezzi dell'energia e le tensioni commerciali internazionali. Per questo la BCE ha scelto di decidere "riunione per riunione", senza impegnarsi su un percorso già scritto. La stabilità di oggi può trasformarsi in un nuovo rialzo a dicembre, oppure no.</p>
+      <p>La prossima e ultima riunione del 2026 è fissata per il <strong>17 dicembre</strong>.</p>
+
+      <h2>Cosa significa per chi vuole un mutuo</h2>
+      <p>Il tasso BCE non è il tasso che paghi sul mutuo: la banca aggiunge il proprio <strong>spread</strong>, quindi il tuo tasso non coincide con il 2,50% fissato a Francoforte. Conta anche la classe energetica della casa: per gli immobili in <strong>classe A e B</strong> le banche offrono i cosiddetti <strong>mutui green</strong>, a condizioni migliori.</p>
+      <p>Questi sono i tassi di partenza a fine ottobre 2026:</p>
+      <ul>
+        <li><strong>Fisso 30 anni:</strong> TAN dal <strong>2,99%</strong> per i mutui green, dal <strong>3,19%</strong> per gli altri</li>
+        <li><strong>Variabile:</strong> TAN dal <strong>2,46%</strong> per i mutui green, dal <strong>2,86%</strong> per gli altri</li>
+      </ul>
+      <p>Con la BCE in pausa, per i prossimi mesi questi valori dovrebbero restare stabili. Chi sta pensando di comprare casa al <a href="/agenzia-immobiliare-vomero-napoli">Vomero</a> o in un altro quartiere di Napoli ha una finestra per decidere con calma, almeno fino alla riunione di dicembre.</p>
+
+      <h2>Cosa conviene fare</h2>
+      <ol>
+        <li><strong>Non guardare solo il TAN</strong>: confronta il <strong>TAEG</strong> (comprensivo di spese) e la <strong>rata reale</strong> sul tuo profilo.</li>
+        <li><strong>Verifica le agevolazioni under 36</strong>: la garanzia Consap è ancora attiva e permette LTV fino al 100%.</li>
+        <li><strong>Prequalifica il mutuo prima di fare l'offerta</strong>: ti dà potere contrattuale sul venditore e tempi certi al rogito.</li>
+      </ol>
+      <p>Il nostro <strong>consulente del credito WeUnit</strong> lavora con <strong>20 banche partner</strong> e confronta per te le offerte reali, non le vetrine. Se vuoi sapere quanto costa davvero il mutuo che puoi ottenere oggi, la consulenza è gratuita.</p>
+      <p><a href="/consulente-mutuo-napoli">Prenota la consulenza mutuo gratuita →</a></p>
+      <p>Se invece devi <strong>vendere</strong> per poi ricomprare, parti dalla valutazione del tuo immobile attuale: in 5 domande ti diamo una stima reale basata sulle vendite comparabili della tua zona, entro 24 ore.</p>
+      <p><a href="/valuta-il-tuo-immobile">Valuta il tuo immobile gratis →</a></p>
+
+      <p>La prossima riunione BCE è fissata per il <strong>17 dicembre 2026</strong>. Fino ad allora, la finestra è aperta. In <a href="/chi-siamo">HUB</a> siamo qui per aiutarti a leggere i numeri e trasformarli in una decisione di cui non ti pentirai.</p>
+    `
+  },
+  {
     slug: "zero-vincoli-60-prorogata-31-dicembre-2026",
     title: "Zero Vincoli 60 è prorogata fino al 31 dicembre 2026",
     excerpt: "Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.",
@@ -893,8 +943,8 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
         "@type": "BlogPosting",
         "headline": articoloCorrente.title,
         "description": articoloCorrente.excerpt,
-        "datePublished": articoloCorrente.date,
-        "dateModified": articoloCorrente.date,
+        "datePublished": articoloCorrente.publishedAt || articoloCorrente.date,
+        "dateModified": articoloCorrente.publishedAt || articoloCorrente.date,
         "author": AUTORE,
         "publisher": {
           "@type": "Organization",
@@ -902,6 +952,9 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           "logo": { "@type": "ImageObject", "url": "https://www.fondocasahub.com/logo-hub.png" },
         },
         "mainEntityOfPage": `https://www.fondocasahub.com/blog/${articoloCorrente.slug}`,
+        "articleSection": articoloCorrente.category,
+        ...(articoloCorrente.image && { "image": articoloCorrente.image }),
+        ...(articoloCorrente.keywords && { "keywords": articoloCorrente.keywords }),
         "inLanguage": "it-IT",
       }
     : {
@@ -915,7 +968,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           "@type": "BlogPosting",
           "headline": a.title,
           "description": a.excerpt,
-          "datePublished": a.date,
+          "datePublished": a.publishedAt || a.date,
           "author": AUTORE,
           "url": `https://www.fondocasahub.com/blog/${a.slug}`,
         })),
@@ -938,6 +991,9 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           </button>
           <div style={{ fontSize: 12, letterSpacing: 2, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 8 }}>{art.category} · {art.readTime} di lettura</div>
           <h1 style={{ fontSize: "clamp(1.6rem,4vw,2.4rem)", fontWeight: 700, color: NAVY, lineHeight: 1.3, marginBottom: 16 }}>{art.title}</h1>
+          {art.image && (
+            <img src={art.image.replace("https://www.fondocasahub.com", "")} alt={art.imageAlt} width="1200" height="630" style={{ width: "100%", height: "auto", borderRadius: 4, marginBottom: 24, display: "block" }} />
+          )}
           <div style={{ fontSize: 13, color: "rgba(10,31,61,0.5)", marginBottom: 40 }}>Pubblicato il {new Date(art.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · HUB Napoli</div>
           <div
             style={{ fontSize: 16, lineHeight: 1.9, color: NAVY }}
@@ -945,6 +1001,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
               .replace(/<h2>/g, `<h2 style="font-size:1.5rem;font-weight:700;color:${NAVY};margin:40px 0 16px">`)
               .replace(/<h3>/g, `<h3 style="font-size:1.15rem;font-weight:700;color:${NAVY};margin:32px 0 12px">`)
               .replace(/<ul>/g, `<ul style="padding-left:24px;margin-bottom:20px">`)
+              .replace(/<ol>/g, `<ol style="padding-left:24px;margin-bottom:20px">`)
               .replace(/<li>/g, `<li style="margin-bottom:8px">`)
               .replace(/<p>/g, `<p style="margin-bottom:20px">`)
               .replace(/<a href=/g, `<a style="color:${GOLD};font-weight:600;text-decoration:underline" href=`)

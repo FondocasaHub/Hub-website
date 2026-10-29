@@ -174,6 +174,13 @@ const PAGE_META = {
     title: 'Zero Vincoli 60 prorogata al 31 dicembre 2026 | HUB Napoli',
     desc: 'Vendi casa a Napoli senza restare vincolato: Zero Vincoli 60 è prorogata fino al 31 dicembre 2026. Recesso senza penali dopo 60 giorni.',
     canonical: 'https://www.fondocasahub.com/blog/zero-vincoli-60-prorogata-31-dicembre-2026'
+  },
+  'blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli': {
+    title: 'BCE ferma al 2,50% a ottobre: cosa cambia per i mutui',
+    desc: 'Il 29 ottobre la BCE ha confermato i tassi al 2,50%. Cosa significa per chi vuole acquistare casa a Napoli con il mutuo. Analisi WeUnit + HUB.',
+    canonical: 'https://www.fondocasahub.com/blog/bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli',
+    image: 'https://www.fondocasahub.com/images/blog/bce-ottobre-2026.jpg',
+    imageAlt: 'BCE Francoforte - decisione tassi ottobre 2026 e impatto sui mutui per acquisto casa a Napoli'
   }
 };
 
@@ -189,7 +196,7 @@ const template = fs.readFileSync(templatePath, 'utf8');
 let count = 0;
 
 for (const [slug, meta] of Object.entries(PAGE_META)) {
-  const html = template
+  let html = template
     .replace(/<title>[^<]*<\/title>/, `<title>${meta.title}</title>`)
     .replace(/(<meta name="description" content=")[^"]*(")/g, `$1${meta.desc}$2`)
     .replace(/(<link rel="canonical" href=")[^"]*(")/g, `$1${meta.canonical}$2`)
@@ -199,6 +206,13 @@ for (const [slug, meta] of Object.entries(PAGE_META)) {
     .replace(/(<meta property="twitter:url" content=")[^"]*(")/g, `$1${meta.canonical}$2`)
     .replace(/(<meta property="twitter:title" content=")[^"]*(")/g, `$1${meta.title}$2`)
     .replace(/(<meta property="twitter:description" content=")[^"]*(")/g, `$1${meta.desc}$2`);
+  // Immagine di condivisione specifica della pagina (facoltativa)
+  if (meta.image) {
+    html = html
+      .replace(/(<meta property="og:image" content=")[^"]*(")/g, `$1${meta.image}$2`)
+      .replace(/(<meta property="og:image:alt" content=")[^"]*(")/g, `$1${meta.imageAlt}$2`)
+      .replace(/(<meta property="twitter:image" content=")[^"]*(")/g, `$1${meta.image}$2`);
+  }
 
   const outPath = path.join(distDir, `${slug}.html`);
   fs.writeFileSync(outPath, html, 'utf8');

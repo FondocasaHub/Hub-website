@@ -37,7 +37,7 @@ export const ARTICLES = [
       <p>Tradotto: aspettare "il momento perfetto" per comprare, in attesa di tassi più bassi, può costare caro se nel frattempo il prezzo dell'immobile sale più velocemente della rata.</p>
 
       <h3>Il nostro consiglio operativo in HUB</h3>
-      <p>Il nostro <strong>consulente del credito WeUnit</strong> oggi lavora con più di <strong>30 banche convenzionate</strong>, e per ogni cliente HUB confronta le offerte reali — non le vetrine. Nei casi che seguiamo in queste settimane, la <strong>surroga</strong> (per chi ha già un mutuo variabile acceso tra il 2022 e il 2024) sta portando risparmi concreti sulla rata, mentre i <strong>mutui per acquisto prima casa</strong> si chiudono con TAEG mediamente sotto il 3,10%.</p>
+      <p>Il nostro <strong>consulente del credito WeUnit</strong> oggi lavora con <strong>20 banche partner</strong>, e per ogni cliente HUB confronta le offerte reali — non le vetrine. Nei casi che seguiamo in queste settimane, la <strong>surroga</strong> (per chi ha già un mutuo variabile acceso tra il 2022 e il 2024) sta portando risparmi concreti sulla rata, mentre i <strong>mutui per acquisto prima casa</strong> si chiudono con TAEG mediamente sotto il 3,10%.</p>
       <p>Il nostro suggerimento, per chi è nella fase di valutazione, è semplice:</p>
       <ol>
         <li><strong>Non guardare solo il TAN</strong>: confronta il <strong>TAEG</strong> (comprensivo di spese) e la <strong>rata reale</strong> sul tuo profilo.</li>

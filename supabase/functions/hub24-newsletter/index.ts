@@ -61,6 +61,26 @@ FC Punto Hub Srl · Via Pietro Mascagni 35, 80128 Napoli · Tel. 081 18653202 ·
 </table></div>`;
 }
 
+// Corpo email in base64: con il quoted-printable di denomailer una riga che inizia con "."
+// veniva troncata dal server SMTP (es. "www.fondocasahub.com" diventava "wwwfondocasahub.com").
+const b64 = (testo: string) => {
+  const bytes = new TextEncoder().encode(testo);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  return btoa(bin).replace(/.{76}/g, "$&\r\n");
+};
+const corpo = (html: string) => {
+  const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")
+    .replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|tr)>/g, "\n").replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/\n\s*\n+/g, "\n\n").trim();
+  return {
+    mimeContent: [
+      { mimeType: 'text/plain; charset="utf-8"', content: b64(testo), transferEncoding: "base64" },
+      { mimeType: 'text/html; charset="utf-8"', content: b64(html), transferEncoding: "base64" },
+    ],
+  };
+};
+
 function smtp() {
   return new SMTPClient({
     connection: {
@@ -105,7 +125,7 @@ Deno.serve(async (req) => {
         "Hai ricevuto questa email perché il tuo indirizzo è stato inserito nel modulo di iscrizione su fondocasahub.com/hub24.",
       );
       const s = smtp();
-      await s.send({ from: MITTENTE, to: email, subject: "Conferma la tua iscrizione a HUB 24", content: "auto", html });
+      await s.send({ from: MITTENTE, to: email, subject: "Conferma la tua iscrizione a HUB 24", ...corpo(html) });
       await s.close();
       return risposta({ ok: true });
     }
@@ -131,7 +151,7 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
         `Per non ricevere più HUB 24: <a href="${PAGINA}?disiscrivi=${token}" style="color:#5E5148">disiscriviti</a>.`,
       );
       const s = smtp();
-      await s.send({ from: MITTENTE, to: isc.email, subject: "Benvenuto in HUB 24", content: "auto", html });
+      await s.send({ from: MITTENTE, to: isc.email, subject: "Benvenuto in HUB 24", ...corpo(html) });
       await s.close();
       return risposta({ ok: true });
     }
@@ -180,7 +200,7 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
       for (let i = 0; i < indirizzi.length; i += 50) {
         const blocco = indirizzi.slice(i, i + 50);
         try {
-          await s.send({ from: MITTENTE, to: "info@fondocasahub.com", bcc: blocco, subject: oggetto, content: "auto", html });
+          await s.send({ from: MITTENTE, to: "info@fondocasahub.com", bcc: blocco, subject: oggetto, ...corpo(html) });
           inviate += blocco.length;
         } catch (_e) {
           falliti.push(...blocco);

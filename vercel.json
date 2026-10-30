@@ -43,6 +43,10 @@
   ],
   "rewrites": [
     {
+      "source": "/hub24",
+      "destination": "/hub24/index.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     },

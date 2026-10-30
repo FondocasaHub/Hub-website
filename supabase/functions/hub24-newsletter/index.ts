@@ -1,7 +1,7 @@
 // Edge Function "hub24-newsletter" — newsletter del settimanale HUB 24 (30/10/2026)
 // Pubblica: va deployata con "Verify JWT" DISATTIVATO (la chiama la pagina pubblica /hub24).
-// Usa gli stessi secrets delle altre funzioni (BREVO_SMTP_USER / BREVO_SMTP_PASS) più
-// HUB24_CHIAVE per l'azione "invia". SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY sono già
+// Usa gli stessi secrets delle altre funzioni (BREVO_SMTP_USER / BREVO_SMTP_PASS); HUB24_CHIAVE
+// è facoltativo e serve solo per il reinvio forzato di un numero. SUPABASE_URL e SUPABASE_SERVICE_ROLE_KEY sono già
 // disponibili in ogni Edge Function.
 //
 // Azioni (POST JSON):
@@ -10,7 +10,7 @@
 //   { azione: "conferma", token }                       → attiva l'iscrizione e manda il benvenuto
 //                                                         con l'ultimo numero
 //   { azione: "disiscrivi", email | token }             → disiscrive
-//   { azione: "invia", chiave }                         → manda l'ultimo numero di index.json a tutti
+//   { azione: "invia" }                                 → manda l'ultimo numero di index.json a tutti
 //                                                         gli iscritti attivi, una sola volta per numero
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
@@ -150,7 +150,9 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
 
     /* ---------- invio settimanale ---------- */
     if (azione === "invia") {
-      if (!body.chiave || body.chiave !== Deno.env.get("HUB24_CHIAVE")) return risposta({ errore: "Chiave non valida" }, 403);
+      // Nessuna chiave necessaria: si invia solo l'ultimo numero già pubblicato su index.json e una sola
+      // volta per numero. Il reinvio forzato richiede il secret HUB24_CHIAVE (facoltativo).
+      if (body.forza && (!Deno.env.get("HUB24_CHIAVE") || body.chiave !== Deno.env.get("HUB24_CHIAVE"))) return risposta({ errore: "Reinvio forzato non autorizzato" }, 403);
       const n = await ultimoNumero();
       if (!n) return risposta({ errore: "index.json non raggiungibile" }, 502);
       const { data: gia } = await db.from("hub24_invii").select("numero").eq("numero", n.numero).maybeSingle();

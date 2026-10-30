@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, follow">
+<style>*,*::before,*::after{box-sizing:border-box}body{margin:0}img{max-width:100%}</style>
+<title>HUB 24 Settimanale</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Libre+Caslon+Display&family=Libre+Caslon+Text:ital,wght@0,400;0,700;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans+Condensed:wght@400;500;600&display=swap">
+<style>
+/* Layout: broadsheet su carta salmone — testata navy Hub, griglia a 12 colonne che collassa a 1 su telefono */
+:root{
+  --paper:#F5E1CF; --paper-2:#EFD3BC; --ink:#1B1714; --ink-soft:#4A3F37; --rule:#C9A88E;
+  --navy:#0A1628; --navy-ink:#F5E1CF; --accent:#9C2F1C; --gold:#B8893B;
+  --f-display:"Libre Caslon Display","Libre Caslon Text",Georgia,serif;
+  --f-head:"Libre Caslon Text",Georgia,"Times New Roman",serif;
+  --f-body:"Source Serif 4",Georgia,serif;
+  --f-ui:"IBM Plex Sans Condensed","Arial Narrow",Arial,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#121A26; --paper-2:#1A2434; --ink:#EEDFD0; --ink-soft:#B7A898; --rule:#3A4658;
+  --navy:#060D18; --navy-ink:#F5E1CF; --accent:#E07A5F; --gold:#D4A85A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#121A26; --paper-2:#1A2434; --ink:#EEDFD0; --ink-soft:#B7A898; --rule:#3A4658;
+  --navy:#060D18; --navy-ink:#F5E1CF; --accent:#E07A5F; --gold:#D4A85A; color-scheme:dark}
+
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.55}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+a{color:inherit}
+a:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+
+/* Testata */
+.mast{background:var(--navy);color:var(--navy-ink)}
+.mast .wrap{padding-block:18px 14px}
+.mast-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-family:var(--f-ui);font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85}
+.mast h1{font-family:var(--f-display);font-weight:400;font-size:clamp(52px,11vw,112px);line-height:.95;margin:10px 0 4px;letter-spacing:-.01em;text-align:center}
+.mast h1 b{color:var(--gold);font-weight:400}
+.mast .tag{text-align:center;font-family:var(--f-head);font-style:italic;font-size:15px;opacity:.9;margin:0}
+.dateline{border-top:1px solid rgba(245,225,207,.35);margin-top:14px;padding-top:8px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;font-family:var(--f-ui);font-size:13px}
+
+/* Nav sezioni */
+.nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);border-bottom:3px double var(--ink)}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+.nav ul{list-style:none;margin:0;padding:8px 0;display:flex;gap:18px;overflow-x:auto;font-family:var(--f-ui);font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap}
+.nav a{text-decoration:none;padding:4px 0}
+.nav a.hub{color:var(--accent)}
+
+/* Ticker indicatori */
+.ticker{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));border-bottom:1px solid var(--ink);font-family:var(--f-ui)}
+.tk{padding:10px 12px;border-right:1px solid var(--rule)}
+.tk:last-child{border-right:0}
+.tk span{display:block;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--ink-soft)}
+.tk strong{font-size:22px;font-variant-numeric:tabular-nums;font-weight:600}
+.tk em{font-style:normal;font-size:12px;color:var(--ink-soft);display:block}
+.up{color:var(--accent)}
+
+/* Griglia */
+section.page{padding-block:22px 10px;border-bottom:1px solid var(--ink)}
+.page-label{display:flex;align-items:baseline;justify-content:space-between;gap:10px;border-bottom:1px solid var(--ink);padding-bottom:4px;margin-bottom:16px;font-family:var(--f-ui);text-transform:uppercase;letter-spacing:.1em;font-size:12px;font-weight:600}
+.page-label b{font-size:15px;letter-spacing:.12em}
+.grid{display:grid;grid-template-columns:repeat(12,1fr);gap:0 28px}
+.grid > *{min-width:0}
+.c12{grid-column:span 12}.c8{grid-column:span 8}.c7{grid-column:span 7}.c6{grid-column:span 6}.c5{grid-column:span 5}.c4{grid-column:span 4}
+.vr{border-left:1px solid var(--rule);padding-left:28px;margin-left:-1px}
+@media (max-width:860px){.c8,.c7,.c6,.c5,.c4{grid-column:span 12}.vr{border-left:0;padding-left:0;border-top:1px solid var(--rule);padding-top:16px;margin-top:8px}}
+
+article{margin-bottom:22px}
+.kicker{font-family:var(--f-ui);font-size:12px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:0 0 4px}
+h2,h3{font-family:var(--f-head);font-weight:700;text-wrap:balance;margin:0 0 8px;line-height:1.12}
+.lead h2{font-size:clamp(30px,4.6vw,46px)}
+h2{font-size:clamp(24px,3.2vw,30px)}
+h3{font-size:20px}
+.deck{font-family:var(--f-head);font-style:italic;font-size:18px;color:var(--ink-soft);margin:0 0 12px;line-height:1.35}
+.cols{column-count:2;column-gap:28px;column-rule:1px solid var(--rule)}
+@media (max-width:600px){.cols{column-count:1}}
+p{margin:0 0 10px;max-width:68ch}
+.cols p{max-width:none}
+.byline{font-family:var(--f-ui);font-size:12px;color:var(--ink-soft);letter-spacing:.04em;margin-bottom:8px}
+.dropcap::first-letter{font-family:var(--f-display);float:left;font-size:58px;line-height:.85;padding:4px 8px 0 0;color:var(--accent)}
+
+/* Tabelle dati */
+.tbl{overflow-x:auto;margin:8px 0 14px}
+table{border-collapse:collapse;width:100%;font-family:var(--f-ui);font-size:14px;font-variant-numeric:tabular-nums}
+th{text-align:left;font-size:11px;letter-spacing:.07em;text-transform:uppercase;border-bottom:1.5px solid var(--ink);padding:6px 8px 4px;color:var(--ink-soft)}
+td{border-bottom:1px solid var(--rule);padding:7px 8px;vertical-align:top}
+td.n{text-align:right;white-space:nowrap;font-weight:600}
+tr.new td{background:var(--paper-2)}
+.pill{display:inline-block;font-size:10.5px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:1px 6px;border:1px solid var(--accent);color:var(--accent);border-radius:2px;white-space:nowrap}
+
+.box{background:var(--paper-2);padding:14px 16px;margin-bottom:22px;border-top:3px solid var(--ink)}
+.box h3{font-size:18px}
+.box ul{margin:0;padding-left:18px}
+.box li{margin-bottom:6px}
+.note{font-family:var(--f-ui);font-size:12.5px;color:var(--ink-soft)}
+
+/* Pagina Hub */
+.hub-band{background:var(--navy);color:var(--navy-ink);margin-top:0}
+.hub-band .wrap{padding-block:22px}
+.hub-band .page-label{border-color:rgba(245,225,207,.5);color:var(--navy-ink)}
+.hub-band .kicker{color:var(--gold)}
+.hub-band .deck,.hub-band .note{color:rgba(245,225,207,.78)}
+.hub-band .vr{border-color:rgba(245,225,207,.25)}
+.hub-band .box{background:rgba(245,225,207,.07);border-top-color:var(--gold)}
+.hub-band td,.hub-band th{border-color:rgba(245,225,207,.25);color:var(--navy-ink)}
+.hub-band .pill{border-color:var(--gold);color:var(--gold)}
+.stamp{display:inline-block;font-family:var(--f-ui);font-weight:600;font-size:13px;letter-spacing:.12em;text-transform:uppercase;border:2px solid var(--gold);color:var(--gold);padding:4px 10px;transform:rotate(-2deg);margin-bottom:10px}
+.zv h2{font-size:clamp(34px,5vw,52px)}
+.zv .big{font-family:var(--f-display);font-size:clamp(56px,9vw,96px);line-height:.9;color:var(--gold)}
+.agenda{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-family:var(--f-ui);font-size:14px}
+.agenda dt{font-weight:600;font-variant-numeric:tabular-nums}
+.agenda dd{margin:0}
+
+footer{padding-block:20px 30px;font-family:var(--f-ui);font-size:12.5px;color:var(--ink-soft)}
+footer ol{padding-left:18px;columns:2;column-gap:28px}
+@media (max-width:600px){footer ol{columns:1}}
+footer li{margin-bottom:4px;break-inside:avoid}
+footer a{word-break:break-word}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
+html{scroll-behavior:smooth}
+</style>
+</head>
+<body>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="mast-top"><span>Anno I · Numero 1</span><span>FondoCasa Hub · Napoli Vomero</span></div>
+    <h1>HUB <b>24</b></h1>
+    <p class="tag">Il settimanale immobiliare, creditizio e assicurativo dell'Hub</p>
+    <div class="dateline"><span>Venerdì 30 ottobre 2026</span><span>Settimana 24–30 ottobre</span><span>Via Pietro Mascagni 35, Napoli</span></div>
+  </div>
+</header>
+
+<nav class="nav" aria-label="Sezioni">
+  <div class="wrap"><ul>
+    <li><a href="#prima">Prima pagina</a></li>
+    <li><a href="#economia">Economia</a></li>
+    <li><a href="#credito">Credito</a></li>
+    <li><a href="#mattone">Real Estate</a></li>
+    <li><a href="#napoli">Napoli</a></li>
+    <li><a href="#fisco">Fisco &amp; Affitti</a></li>
+    <li><a href="#tech">Tecnologia</a></li>
+    <li><a href="#hub" class="hub">Notizie dall'Hub</a></li>
+  </ul></div>
+</nav>
+
+<div class="wrap">
+  <div class="ticker" aria-label="Indicatori della settimana">
+    <div class="tk"><span>Tasso BCE depositi</span><strong>2,50%</strong><em>invariato il 29/10</em></div>
+    <div class="tk"><span>Eurirs 20 anni</span><strong>3,56%</strong><em>seconda metà di ottobre</em></div>
+    <div class="tk"><span>Mutuo fisso da</span><strong>2,80%</strong><em>variabile da 2,60%</em></div>
+    <div class="tk"><span>Spread Btp-Bund</span><strong class="up">124 pb</strong><em>Btp 10 anni 4,57% (22/10)</em></div>
+    <div class="tk"><span>Inflazione Italia</span><strong class="up">4,2%</strong><em>settembre, stima Upb</em></div>
+    <div class="tk"><span>Napoli €/mq</span><strong>2.898</strong><em>mediana appartamenti, ottobre</em></div>
+  </div>
+</div>
+
+<main class="wrap">
+
+<section class="page" id="prima">
+  <div class="page-label"><b>Prima pagina</b><span>La settimana in sintesi</span></div>
+  <div class="grid">
+    <article class="c8 lead">
+      <p class="kicker">Legge di Bilancio 2027</p>
+      <h2>Manovra, la casa al centro: cedolare al 5% sul concordato e all'1% per chi affitta agli under 35</h2>
+      <p class="deck">Il Consiglio dei ministri approva un testo da circa 26 miliardi. Confermati i bonus ristrutturazione al 50% e al 36%, arriva la cedolare per i negozi. Ora tocca al Parlamento.</p>
+      <div class="byline">Redazione Hub · Roma–Napoli</div>
+      <div class="cols">
+        <p class="dropcap">Mercoledì 28 ottobre il Governo ha dato il via libera al disegno di legge di Bilancio 2027, una manovra da circa 26 miliardi di euro. Per il mattone è la settimana più importante dell'autunno: la cedolare secca sui contratti a canone concordato scende dal 10% al 5%, e cala ancora all'1% quando l'inquilino ha fino a 35 anni.</p>
+        <p>Nel pacchetto entra anche una cedolare secca al 21% per gli affitti di negozi e botteghe fino a 300 metri quadrati, una richiesta storica dei proprietari di immobili commerciali. Il viceministro Leo ha confermato per il 2027 le detrazioni per ristrutturazioni al 50% sull'abitazione principale e al 36% sugli altri immobili, oltre al bonus mobili fino a 5.000 euro di spesa.</p>
+        <p>Senza questa proroga, dal 1° gennaio le aliquote sarebbero scese al 36% per la prima casa e al 30% per le altre. Sul fronte Irpef, l'aliquota del 33% si estende ai redditi fino a 55.000 euro.</p>
+        <p><strong>Cosa cambia per i nostri clienti.</strong> Il canone concordato a Napoli, Comune ad alta tensione abitativa, diventa molto più conveniente per chi mette a reddito un immobile, soprattutto con studenti e giovani lavoratori. Attenzione però: il testo è ancora un disegno di legge e può cambiare durante l'esame parlamentare.</p>
+      </div>
+    </article>
+    <aside class="c4 vr">
+      <article>
+        <p class="kicker">Politica monetaria</p>
+        <h3>La BCE si ferma al 2,50%. Lagarde lascerà a febbraio</h3>
+        <p>Tassi invariati giovedì 29 ottobre, decisione all'unanimità dopo aver discusso un possibile rialzo. Nello stesso giorno Christine Lagarde ha annunciato che lascerà la presidenza il 7 febbraio 2027, prima della scadenza del mandato.</p>
+        <p>I mercati scommettono circa all'80% su un rialzo al 2,75% nella riunione del 17 dicembre.</p>
+      </article>
+      <div class="box">
+        <h3>Da segnare in agenda</h3>
+        <ul>
+          <li><strong>4 novembre</strong> · stima flash Eurostat sull'inflazione di ottobre</li>
+          <li><strong>21 novembre</strong> · l'Hub compie un anno</li>
+          <li><strong>16–17 dicembre</strong> · ultima riunione BCE dell'anno</li>
+          <li><strong>Entro il 31 dicembre</strong> · approvazione definitiva della Manovra</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<section class="page" id="economia">
+  <div class="page-label"><b>Economia</b><span>Crescita, prezzi, mercati</span></div>
+  <div class="grid">
+    <article class="c7">
+      <p class="kicker">Congiuntura</p>
+      <h2>Pil vicino all'1%, ma l'energia spinge i prezzi</h2>
+      <p class="deck">Bankitalia rivede la crescita al rialzo, l'Upb avverte che i rischi sono soprattutto al ribasso.</p>
+      <p>Le nuove proiezioni della Banca d'Italia indicano una crescita del Pil dello 0,9% nel 2026, con l'inflazione armonizzata attesa al 3,2% in media d'anno, contro l'1,6% del 2025. L'inflazione di fondo resta però intorno al 2%: il rincaro è guidato quasi tutto dall'energia.</p>
+      <p>L'Ufficio parlamentare di bilancio, nella nota di ottobre, colloca il Pil intorno all'1% ma segnala rischi legati a tensioni geopolitiche, prezzi e condizioni di finanziamento. A settembre l'inflazione italiana è arrivata al 4,2%; Confcommercio stima ottobre al 4,7%.</p>
+      <p>Il Fondo monetario internazionale vede l'Italia a +0,8% nel 2026, con prezzi al consumo al 3,3% medio.</p>
+    </article>
+    <aside class="c5 vr">
+      <p class="kicker">Mercati</p>
+      <h3>Previsioni a confronto</h3>
+      <div class="tbl"><table>
+        <thead><tr><th>Fonte</th><th>Pil 2026</th><th>Inflazione 2026</th></tr></thead>
+        <tbody>
+          <tr><td>Banca d'Italia</td><td class="n">+0,9%</td><td class="n">3,2%</td></tr>
+          <tr><td>Upb</td><td class="n">≈ +1,0%</td><td class="n">—</td></tr>
+          <tr><td>Fmi</td><td class="n">+0,8%</td><td class="n">3,3%</td></tr>
+          <tr><td>Governo (Dpfp)</td><td class="n">+1,1%</td><td class="n">—</td></tr>
+        </tbody>
+      </table></div>
+      <p>Lo spread tra Btp e Bund è risalito a 124 punti base il 22 ottobre, con il decennale italiano al 4,57%. Per chi compra casa conta perché i tassi a lungo termine si riflettono, con ritardo, sui mutui a tasso fisso.</p>
+      <p class="note">Fed ferma tra 3,75% e 4% il 28 ottobre.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="page" id="credito">
+  <div class="page-label"><b>Credito</b><span>Mutui e finanziamenti</span></div>
+  <div class="grid">
+    <article class="c6">
+      <p class="kicker">Mutui</p>
+      <h2>Variabile e fisso, la forbice resta stretta</h2>
+      <p>Dopo i due rialzi BCE di giugno e settembre, le simulazioni di ottobre partono dal 2,80% per i fissi e dal 2,60% per i variabili. Gli indici Eurirs hanno ceduto un po' nella seconda metà del mese: il 20 anni intorno al 3,56%, il 30 anni intorno al 3,39%.</p>
+      <p>Con un probabile rialzo a dicembre, chi ha già un variabile deve mettere in conto rate ancora in salita. Per chi compra adesso, il fisso resta la scelta più prevedibile.</p>
+      <p><strong>Consiglio WeUnit:</strong> bloccare la delibera prima di dicembre può proteggere da un nuovo aumento degli indici.</p>
+    </article>
+    <article class="c6 vr">
+      <p class="kicker">Prima casa</p>
+      <h2>Garanzia Consap, operativa fino a fine 2027</h2>
+      <p>Il Fondo di garanzia per la prima casa resta attivo fino al 31 dicembre 2027 grazie allo stanziamento triennale della Legge di Bilancio 2025. Per gli under 36 con Isee entro 40.000 euro la copertura arriva all'80%, una leva per chi ha poco anticipo.</p>
+      <p>Il mutuo pesa sempre di più sugli acquisti: nel secondo trimestre il 46,6% delle compravendite delle persone fisiche è stato finanziato con ipoteca.</p>
+    </article>
+  </div>
+</section>
+
+<section class="page" id="mattone">
+  <div class="page-label"><b>Real Estate Italia</b><span>Compravendite e locazioni</span></div>
+  <div class="grid">
+    <article class="c8">
+      <p class="kicker">Osservatorio OMI</p>
+      <h2>Mercato fermo nei numeri, ma il nuovo corre: +30,8% in un anno</h2>
+      <p class="deck">Tra aprile e giugno passano di mano 201.596 abitazioni, appena lo 0,1% in più dello stesso periodo 2025.</p>
+      <div class="cols">
+        <p>Il secondo trimestre fotografa un mercato a più velocità. I volumi totali sono stabili, ma salgono nei Comuni capoluogo (+0,5%), al Sud (+0,6%) e nel Nord-Ovest, mentre calano al Centro (−0,7%).</p>
+        <p>La vera notizia sono le nuove costruzioni: 12.902 compravendite contro le 9.866 di un anno fa. La loro quota sul totale sale al 6,4%. È la domanda che premia classe energetica e impianti nuovi.</p>
+        <p>Le locazioni crescono più delle vendite, con un aumento dei contratti agevolati e dei canoni. Il non residenziale, trainato dai negozi, mostra la dinamica più vivace.</p>
+      </div>
+    </article>
+    <aside class="c4 vr">
+      <h3>Il trimestre in tre numeri</h3>
+      <div class="tbl"><table>
+        <tbody>
+          <tr><td>Compravendite abitazioni</td><td class="n">201.596</td></tr>
+          <tr><td>Variazione annua</td><td class="n">+0,1%</td></tr>
+          <tr class="new"><td>Nuove abitazioni</td><td class="n">+30,8%</td></tr>
+          <tr><td>Acquisti con mutuo</td><td class="n">46,6%</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Fonte: Agenzia delle Entrate, OMI, II trimestre 2026.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="page" id="napoli">
+  <div class="page-label"><b>Napoli</b><span>Mercato locale</span></div>
+  <div class="grid">
+    <article class="c7">
+      <p class="kicker">Prezzi</p>
+      <h2>Napoli tiene: +11,8% in tre anni, ma l'ultimo anno quasi fermo</h2>
+      <p>A ottobre la mediana degli appartamenti in città è di 2.898 €/mq, solo +1% sui dodici mesi. Il divario tra quartieri resta enorme: si va da circa 1.500 €/mq a San Giovanni a Teduccio a oltre 5.300 €/mq a Chiaia. Al Sud lo sconto medio tra prezzo richiesto e prezzo chiuso è intorno al 9%.</p>
+      <p>Napoli è tra le grandi città che crescono nelle compravendite del secondo trimestre, mentre Firenze arretra.</p>
+      <p><strong>Per i venditori del Vomero:</strong> con prezzi stabili il prezzo di partenza decide i tempi di vendita. Una valutazione sui dati del venduto vale più di un annuncio alto.</p>
+    </article>
+    <aside class="c5 vr">
+      <p class="kicker">Affitti brevi</p>
+      <h3>Tetto del 30% per edificio: gli operatori vanno al TAR</h3>
+      <p>Cinque operatori del settore, con il sostegno di Aigab, hanno dato mandato per impugnare la variante urbanistica del Comune che limita gli affitti brevi al 30% delle unità di un edificio. Contestano il metodo di calcolo e l'applicazione.</p>
+      <p>Chi pensa di comprare per mettere a reddito in zona centro deve verificare la quota già occupata nel palazzo prima della proposta.</p>
+      <div class="tbl"><table>
+        <thead><tr><th>Zona (CAP)</th><th>€/mq luglio</th></tr></thead>
+        <tbody>
+          <tr><td>Chiaia–Posillipo (80122)</td><td class="n">5.140</td></tr>
+          <tr><td>Vomero (80127)</td><td class="n">4.928</td></tr>
+          <tr><td>Vomero (80128)</td><td class="n">4.085</td></tr>
+          <tr><td>Fuorigrotta (80125)</td><td class="n">2.769</td></tr>
+          <tr><td>Soccavo–Pianura (80126)</td><td class="n">2.051</td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">Mediane RealAdvisor, luglio 2026.</p>
+    </aside>
+  </div>
+</section>
+
+<section class="page" id="fisco">
+  <div class="page-label"><b>Fisco &amp; Affitti</b><span>Brevi, medi, lunghi</span></div>
+  <div class="grid">
+    <article class="c12">
+      <p class="kicker">La mappa delle aliquote</p>
+      <h2>Quanto paga oggi chi affitta, e cosa cambierebbe con la Manovra</h2>
+      <div class="tbl"><table>
+        <thead><tr><th>Contratto</th><th>Durata</th><th>Cedolare 2026</th><th>Proposta Manovra 2027</th></tr></thead>
+        <tbody>
+          <tr><td><strong>Affitto breve</strong></td><td>fino a 30 giorni</td><td class="n">21% su un solo immobile, 26% sugli altri</td><td>nessuna modifica annunciata</td></tr>
+          <tr><td><strong>Transitorio</strong> (medio)</td><td>1–18 mesi</td><td class="n">21% libero · 10% concordato*</td><td>5% se concordato <span class="pill">nuovo</span></td></tr>
+          <tr><td><strong>Studenti universitari</strong></td><td>6–36 mesi</td><td class="n">10%*</td><td>5%, 1% con inquilino under 35 <span class="pill">nuovo</span></td></tr>
+          <tr><td><strong>Canone libero 4+4</strong></td><td>lungo</td><td class="n">21%</td><td>invariato</td></tr>
+          <tr class="new"><td><strong>Canone concordato 3+2</strong></td><td>lungo</td><td class="n">10%* + IMU −25%</td><td>5%, 1% con inquilino under 35 <span class="pill">nuovo</span></td></tr>
+          <tr><td><strong>Negozi</strong></td><td>commerciale</td><td class="n">regime ordinario</td><td>21% fino a 300 mq <span class="pill">nuovo</span></td></tr>
+        </tbody>
+      </table></div>
+      <p class="note">* Aliquota agevolata nei Comuni ad alta tensione abitativa, come Napoli, con attestazione di rispondenza. Le proposte 2027 sono nel disegno di legge e diventano efficaci solo con l'approvazione del Parlamento. Restano obbligatori CIN e comunicazioni Alloggiati Web per gli affitti brevi.</p>
+    </article>
+    <article class="c6">
+      <h3>Brevi: il 21% vale per un solo immobile</h3>
+      <p>Dal 1° gennaio 2026 l'aliquota ridotta si applica a una sola unità scelta dal proprietario; sulle altre si paga il 26%. Il Fisco incrocia i dati di Alloggiati Web con le dichiarazioni, quindi la regolarità degli adempimenti è diventata essenziale.</p>
+    </article>
+    <article class="c6 vr">
+      <h3>Medi e lunghi: il concordato diventa il contratto da proporre</h3>
+      <p>Se la Manovra passa così, un proprietario napoletano che affitta a canone concordato a uno studente o a un giovane lavoratore pagherebbe l'1% di cedolare. Per molti investitori il confronto con l'affitto breve cambia: meno incasso lordo, ma tasse quasi azzerate e zero gestione.</p>
+    </article>
+  </div>
+</section>
+
+<section class="page" id="tech">
+  <div class="page-label"><b>Tecnologia</b><span>Intelligenza artificiale e strumenti</span></div>
+  <div class="grid">
+    <article class="c6">
+      <p class="kicker">Chip e IA</p>
+      <h2>OpenAI vuole comprare i chip di Google</h2>
+      <p>Secondo The Information, OpenAI, tra i maggiori clienti di Nvidia, intende acquistare i TPU di Google per ampliare la capacità di calcolo. Oracle offrirà gli stessi chip sul proprio cloud dal 2027. La corsa all'infrastruttura per l'IA continua a ridisegnare il mercato dei semiconduttori.</p>
+    </article>
+    <article class="c6 vr">
+      <p class="kicker">Ufficio</p>
+      <h2>Apple porta l'assistente IA in Keynote, Pages e Numbers</h2>
+      <p>Presentati MacBook Pro da 14 pollici e iMac con chip M6, preordini dal 28 ottobre a partire da 1.829 euro. In beta arriva un assistente IA nelle app di produttività, costruito su modelli di Apple e OpenAI. Meta ha raccolto richieste cinque volte superiori per il suo aumento di capitale da 25 miliardi di dollari; Google DeepMind ha mostrato Genie 4.</p>
+      <p><strong>In agenzia:</strong> preventivi, presentazioni immobili e report di gestione si possono già impostare con l'IA. Noi li usiamo già per risponderti più in fretta e con report più chiari.</p>
+    </article>
+  </div>
+</section>
+
+</main>
+
+<section class="hub-band" id="hub" aria-label="Notizie dall'Hub">
+  <div class="wrap">
+    <div class="page-label"><b>Notizie dall'Hub</b><span>FC Punto Hub · Napoli Vomero</span></div>
+    <div class="grid">
+      <article class="c7 zv">
+        <span class="stamp">Prorogata</span>
+        <p class="kicker">Zero Vincoli 60</p>
+        <h2>Vendi casa senza vincoli: la promo ZV60 è prorogata al 31 dicembre</h2>
+        <p class="deck">Visto il successo della campagna, la formula che scadeva il 30 settembre resta attiva per altri tre mesi.</p>
+        <p>Con Zero Vincoli 60 affidi la vendita all'Hub sapendo che, se non sei soddisfatto del servizio o se non svolgiamo tutte le attività previste dal contratto, puoi recedere dall'incarico senza penali. Non promettiamo la vendita in 60 giorni: garantiamo che il rischio non resta su di te.</p>
+        <p>La proroga vale per gli incarichi sottoscritti entro il 31/12/2026. La promo è riservata agli immobili con le caratteristiche richieste: verifica che sia attiva e se la tua casa rientra su <strong>fondocasahub.com/zero-vincoli-60</strong>.</p>
+      </article>
+      <aside class="c5 vr">
+        <div class="big">21.11</div>
+        <p class="kicker">Anno Uno</p>
+        <h3>L'Hub compie un anno</h3>
+        <p>Il 21 novembre 2025 aprivamo lo store di via Mascagni. Sabato 21 novembre festeggiamo il primo anno con il team, i partner e le famiglie che ci hanno dato fiducia.</p>
+        <div class="box">
+          <h3>La squadra cresce</h3>
+          <p>Sono entrati nell'Hub nuovi consulenti immobiliari e una Buyer Agent dedicata a chi cerca casa: Salvatore Conson, Rita Grimaldi, Roberto Sciva e Federica Margarido.</p>
+        </div>
+      </aside>
+
+      <article class="c4">
+        <p class="kicker">Nuove costruzioni</p>
+        <h3>Parco Desirè, Curti (CE)</h3>
+        <p>Trilocali da 115 mq più 45 mq di balconi, con box e posto auto compresi nel prezzo, da 210.000 €. Classe energetica AA, consegna entro il 31 dicembre 2027 e mutuo Green con consulenza in sede. Ultime unità disponibili: prenota una visita per bloccare l'appartamento.</p>
+      </article>
+      <article class="c4 vr">
+        <p class="kicker">Per chi compra</p>
+        <h3>Cerchi casa? Parti dal mutuo</h3>
+        <p>Con la consulenza gratuita WeUnit verifichi quanto puoi spendere prima di scegliere l'immobile, confrontando le offerte delle banche convenzionate. Chi ha la delibera in mano tratta meglio, soprattutto con un possibile rialzo dei tassi a dicembre.</p>
+      </article>
+      <article class="c4 vr">
+        <p class="kicker">Servizi Hub</p>
+        <h3>Aste, ristrutturazioni, polizze</h3>
+        <p>Assistenza del nostro team legale per comprare all'asta, anche con mutuo. Formula Ristruttura e rivendi: l'immobile viene rinnovato da aziende partner senza costi di ristrutturazione a carico del proprietario, alle condizioni del contratto. Polizze casa e caso morte tramite Henia Broker (RUI B000533295).</p>
+      </article>
+
+      <article class="c12">
+        <div class="box">
+          <h3>Vuoi sapere quanto vale oggi la tua casa?</h3>
+          <p>Prenota una valutazione gratuita basata sul venduto reale del tuo quartiere. Store FC Punto Hub, via Pietro Mascagni 35, Napoli · Tel. 081 18653202 · WhatsApp 392 457 9047 · fondocasahub.com</p>
+          <p class="note">Lunedì–venerdì 9:00–19:00, sabato 9:30–13:00.</p>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<footer class="wrap">
+  <p><strong>Fonti della settimana</strong></p>
+  <ol>
+    <li><a href="https://www.lapresse.it/economia/2026/10/29/la-bce-lascia-i-tassi-dinteresse-invariati/" target="_blank" rel="noopener">LaPresse – La Bce lascia i tassi invariati</a></li>
+    <li><a href="https://www.ansa.it/sito/notizie/economia/2026/10/29/la-bce-si-ferma-sui-tassi-in-bilico-il-rialzo-di-dicembre_fff36f02-6e9c-4e87-af42-4776abe0acc8.html" target="_blank" rel="noopener">ANSA – In bilico il rialzo di dicembre</a></li>
+    <li><a href="https://www.today.it/economia/manovra-2027-misure-irpef-bollo-auto-affitti-meloni-ultime-notizie.html" target="_blank" rel="noopener">Today – Manovra 2027 approvata</a></li>
+    <li><a href="https://www.greenme.it/lifestyle/costume-e-societa/manovra-2027-novita-legge-di-bilancio/" target="_blank" rel="noopener">greenMe – Tutte le novità della Manovra</a></li>
+    <li><a href="https://www.milanofinanza.it/news/manovra-2027-ecco-cosa-cambia-per-il-settore-immobiliare-tutte-le-novita-per-affitti-e-under-35-202610291239402398" target="_blank" rel="noopener">MF – Manovra e settore immobiliare</a></li>
+    <li><a href="https://www.facile.it/mutui/news/bce-riunione-29-ottobre-pausa-tassi-mutui.html" target="_blank" rel="noopener">Facile.it – BCE e mutui di ottobre</a></li>
+    <li><a href="https://www.facile.it/mutui/news/manovra-2027-pacchetto-casa.html" target="_blank" rel="noopener">Facile.it – Pacchetto casa e Consap</a></li>
+    <li><a href="https://www.teleborsa.it/News/2026/10/16/ref-137.html" target="_blank" rel="noopener">Teleborsa – Proiezioni Bankitalia</a></li>
+    <li><a href="https://www.soldionline.it/notizie/macroeconomia/pil-2026-vicino-all1-cosa-preoccupa-lupb-tra-inflazione-e-rischi" target="_blank" rel="noopener">Soldionline – Nota Upb di ottobre</a></li>
+    <li><a href="https://www.soldionline.it/notizie/obbligazioni-italia/spread-btp-bund-risale-a-124-punti-cosa-dice-su-rischio-italia" target="_blank" rel="noopener">Soldionline – Spread a 124 punti</a></li>
+    <li><a href="https://www.lavoripubblici.it/news/mercato-immobiliare-2026-compravendite-mutui-locazioni-38699" target="_blank" rel="noopener">LavoriPubblici – OMI II trimestre 2026</a></li>
+    <li><a href="https://www.milanofinanza.it/news/il-nuovo-salva-il-mercato-2717142" target="_blank" rel="noopener">MF – Il nuovo salva il mercato</a></li>
+    <li><a href="https://realadvisor.it/it/blog/vendere-casa-napoli" target="_blank" rel="noopener">RealAdvisor – Prezzi Napoli ottobre 2026</a></li>
+    <li><a href="https://www.mysolution.it/fisco/informazioni/news/2026/10/21/affitti-brevi-a-napoli-pronto-il-ricorso-contro-il-tetto-del-30-per-edificio/" target="_blank" rel="noopener">MySolution – Ricorso affitti brevi Napoli</a></li>
+    <li><a href="https://www.money.it/affitti-brevi-2025-cosa-cambia-per-la-cedolare-secca" target="_blank" rel="noopener">Money.it – Affitti brevi 2026</a></li>
+    <li><a href="https://www.smartphonology.it/tech-news-del-28-ottobre-2026" target="_blank" rel="noopener">Smartphonology – Tech news 28 ottobre</a></li>
+    <li><a href="https://it.marketscreener.com/notizie/openai-intende-acquistare-i-chip-per-l-intelligenza-artificiale-di-google-riferisce-the-information-ce785cddd08cf721" target="_blank" rel="noopener">MarketScreener – OpenAI e i chip di Google</a></li>
+  </ol>
+  <p>HUB 24 · FC Punto Hub Srl · Via Pietro Mascagni 35, 80128 Napoli · Tel. +39 081 18653202 · Contenuto informativo, non costituisce consulenza fiscale o finanziaria.</p>
+</footer>
+</body>
+</html>

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 // Utility per agenti e manager: modulistica operativa compilabile (con PDF) e calcolatori.
 // Tutto avviene nel browser: nessun dato viene salvato.
@@ -29,6 +29,7 @@ const vuoto = (s, n = 30) => (s && String(s).trim() ? esc(s) : "_".repeat(n));
 
 /* ---------------- pagina ---------------- */
 const SEZIONI = [
+  { id: "news", gruppo: "News", nome: "HUB 24 · Il settimanale dell'Hub" },
   { id: "chiavi", gruppo: "Modulistica", nome: "Consegna / restituzione chiavi" },
   { id: "assegno", gruppo: "Modulistica", nome: "Restituzione assegno" },
   { id: "proroga", gruppo: "Modulistica", nome: "Proroga termini proposta / preliminare" },
@@ -54,10 +55,10 @@ export default function Utility({ profilo }) {
       <div className="aa-intestazione">
         <p className="aa-occhiello">Strumenti di lavoro</p>
         <h1 className="aa-titolo">Utility</h1>
-        <p className="aa-sottotitolo">Modulistica operativa da compilare online e scaricare in PDF, e calcolatori per imposte, mutuo, provvigioni, superfici e usufrutto.</p>
+        <p className="aa-sottotitolo">Il settimanale HUB 24, modulistica operativa da compilare online e scaricare in PDF, e calcolatori per imposte, mutuo, provvigioni, superfici e usufrutto.</p>
       </div>
       {!attiva ? (
-        ["Modulistica", "Calcolatori"].map((g) => (
+        ["News", "Modulistica", "Calcolatori"].map((g) => (
           <section key={g} className="aa-card">
             <h2 className="aa-h2">{g}</h2>
             <div className="aa-ut-griglia">
@@ -78,6 +79,7 @@ export default function Utility({ profilo }) {
             <h2 className="aa-h2 aa-ut-titolo">{attiva.nome}</h2>
             {attiva.gruppo === "Calcolatori" && <BarraStampa titolo={attiva.nome} contenitore={corpo} profilo={profilo} />}
             <div ref={corpo}>
+            {sez === "news" && <NewsHub />}
             {sez === "chiavi" && <ModuloChiavi profilo={profilo} />}
             {sez === "assegno" && <ModuloAssegno profilo={profilo} />}
             {sez === "proroga" && <ModuloProroga profilo={profilo} />}
@@ -97,6 +99,58 @@ export default function Utility({ profilo }) {
         </>
       )}
     </>
+  );
+}
+
+/* ---------------- news: HUB 24 settimanale ---------------- */
+// I numeri sono file statici pubblici in public/hub24/ (condivisibili anche con i clienti), elencati in index.json.
+// Un nuovo numero viene pubblicato ogni domenica alle 8 da un'attività programmata.
+const NEWS_DIR = "/hub24/";
+const dataLunga = (iso) => new Date(iso + "T12:00").toLocaleDateString("it-IT", { weekday: "long", day: "numeric", month: "long", year: "numeric" });
+
+function NewsHub() {
+  const [numeri, setNumeri] = useState(null);
+  const [errore, setErrore] = useState(false);
+  const [scelto, setScelto] = useState(null);
+  useEffect(() => {
+    fetch(NEWS_DIR + "index.json", { cache: "no-store" })
+      .then((r) => (r.ok ? r.json() : Promise.reject()))
+      .then((l) => {
+        const ord = [...l].sort((a, b) => (a.data < b.data ? 1 : -1));
+        setNumeri(ord);
+        setScelto(ord[0] || null);
+      })
+      .catch(() => setErrore(true));
+  }, []);
+  if (errore) return <p>Non riesco a caricare l'archivio delle news. Riprova tra qualche minuto.</p>;
+  if (!numeri) return <p>Caricamento…</p>;
+  if (!scelto) return <p>Il primo numero arriva domenica alle 8.</p>;
+  const url = NEWS_DIR + scelto.file;
+  return (
+    <div className="aa-news">
+      <div className="aa-news-testa">
+        <div>
+          <p className="aa-occhiello">Numero {scelto.numero} · {dataLunga(scelto.data)}</p>
+          <h3 className="aa-news-titolo">{scelto.titolo}</h3>
+          {scelto.sommario && <p className="aa-news-sommario">{scelto.sommario}</p>}
+        </div>
+        <a className="aa-link" href={url} target="_blank" rel="noopener">Apri a schermo intero →</a>
+      </div>
+      <iframe className="aa-news-frame" src={url} title={`HUB 24 numero ${scelto.numero}`} />
+      {numeri.length > 1 && (
+        <>
+          <h3 className="aa-h2">Archivio</h3>
+          <div className="aa-ut-griglia">
+            {numeri.map((n) => (
+              <button key={n.file} className="aa-ut-voce" onClick={() => setScelto(n)} aria-pressed={n.file === scelto.file}>
+                <strong>N. {n.numero} · {new Date(n.data + "T12:00").toLocaleDateString("it-IT")}</strong>
+                <span>{n.titolo}</span>
+              </button>
+            ))}
+          </div>
+        </>
+      )}
+    </div>
   );
 }
 

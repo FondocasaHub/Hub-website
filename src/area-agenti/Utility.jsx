@@ -134,7 +134,10 @@ function NewsHub() {
           <h3 className="aa-news-titolo">{scelto.titolo}</h3>
           {scelto.sommario && <p className="aa-news-sommario">{scelto.sommario}</p>}
         </div>
-        <a className="aa-link" href={url} target="_blank" rel="noopener">Apri a schermo intero →</a>
+        <div className="aa-news-azioni">
+          <a className="aa-link" href={url} target="_blank" rel="noopener">Apri a schermo intero →</a>
+          {scelto.pdf && <a className="aa-link" href={NEWS_DIR + scelto.pdf} target="_blank" rel="noopener">Scarica il PDF →</a>}
+        </div>
       </div>
       <iframe className="aa-news-frame" src={url} title={`HUB 24 numero ${scelto.numero}`} />
       {numeri.length > 1 && (

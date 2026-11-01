@@ -178,38 +178,42 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
       const { data: gia } = await db.from("hub24_invii").select("numero").eq("numero", n.numero).maybeSingle();
       if (gia && !body.forza) return risposta({ ok: true, gia_inviato: true, numero: n.numero });
 
-      const { data: iscritti, error } = await db.from("hub24_iscritti").select("email").eq("stato", "attivo");
+      const { data: iscritti, error } = await db.from("hub24_iscritti").select("email, token").eq("stato", "attivo");
       if (error) return risposta({ errore: error.message }, 500);
-      const indirizzi = [...new Set((iscritti ?? []).map((i) => i.email))];
-      if (!indirizzi.length) {
+      const visti = new Set<string>();
+      const destinatari = (iscritti ?? []).filter((i) => !visti.has(i.email) && visti.add(i.email));
+      if (!destinatari.length) {
         await db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: 0 });
         return risposta({ ok: true, numero: n.numero, inviate: 0 });
       }
-      const html = layout(
-        `<p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9C2F1C">Numero ${n.numero} · ${dataLunga(n.data)}</p>
+      const oggetto = `HUB 24 n. ${n.numero} - ${n.titolo}`.slice(0, 150);
+      // Un'email per iscritto (come benvenuto e conferma, che arrivano regolarmente) invece di un unico invio in Ccn,
+      // con il link personale di disiscrizione.
+      let inviate = 0;
+      const falliti: string[] = [];
+      let errore = "";
+      let s = smtp();
+      for (const d of destinatari) {
+        const html = layout(
+          `<p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9C2F1C">Numero ${n.numero} · ${dataLunga(n.data)}</p>
 <p style="margin:0 0 10px;font-size:24px;font-weight:bold;line-height:1.2">${esc(n.titolo)}</p>
 ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
 <p style="margin:16px 0 20px">${bottone(`${SITO}/hub24/${n.file}`, "Leggi il numero")}${n.pdf ? bottone(`${SITO}/hub24/${n.pdf}`, "Scarica il PDF", false) : ""}</p>
 <p style="margin:0 0 12px;font-size:15px">Vuoi sapere quanto vale oggi la tua casa o quale mutuo puoi ottenere? Rispondi a questa email o scrivici su WhatsApp al 392 457 9047.</p>`,
-        `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi" style="color:#5E5148">disiscriviti</a>.`,
-      );
-      const oggetto = `HUB 24 n. ${n.numero} · ${n.titolo}`.slice(0, 150);
-      const s = smtp();
-      let inviate = 0;
-      const falliti: string[] = [];
-      let errore = "";
-      for (let i = 0; i < indirizzi.length; i += 50) {
-        const blocco = indirizzi.slice(i, i + 50);
+          `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi=${d.token}" style="color:#5E5148">disiscriviti</a>.`,
+        );
         try {
-          await s.send({ from: MITTENTE, to: "info@fondocasahub.com", bcc: blocco, subject: oggetto, ...corpo(html) });
-          inviate += blocco.length;
+          await s.send({ from: MITTENTE, to: d.email, subject: oggetto, ...corpo(html) });
+          inviate++;
         } catch (e) {
-          falliti.push(...blocco);
+          falliti.push(d.email);
           errore = String((e as Error)?.message ?? e).slice(0, 300);
-          console.error("hub24-newsletter invio fallito:", errore);
+          console.error("hub24-newsletter invio fallito:", d.email, errore);
+          try { await s.close(); } catch (_) { /* connessione gia' chiusa */ }
+          s = smtp(); // riapre la connessione per i successivi
         }
       }
-      await s.close();
+      try { await s.close(); } catch (_) { /* ignora */ }
       if (inviate) await db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: inviate, inviato_il: new Date().toISOString() });
       return risposta({ ok: inviate > 0, numero: n.numero, inviate, falliti: falliti.length, ...(errore ? { errore } : {}) });
     }

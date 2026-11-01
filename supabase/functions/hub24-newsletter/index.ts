@@ -67,7 +67,9 @@ const b64 = (testo: string) => {
   const bytes = new TextEncoder().encode(testo);
   let bin = "";
   for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
-  return btoa(bin).replace(/.{76}/g, "$&\r\n");
+  // Riga vuota iniziale: denomailer non separa l'intestazione della parte MIME dal contenuto e la prima
+  // riga in base64 (57 caratteri) spariva, facendo comparire codice HTML in cima all'email.
+  return "\r\n" + btoa(bin).replace(/.{76}/g, "$&\r\n");
 };
 const corpo = (html: string) => {
   const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")

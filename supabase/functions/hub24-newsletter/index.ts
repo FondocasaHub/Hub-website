@@ -197,18 +197,21 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
       const s = smtp();
       let inviate = 0;
       const falliti: string[] = [];
+      let errore = "";
       for (let i = 0; i < indirizzi.length; i += 50) {
         const blocco = indirizzi.slice(i, i + 50);
         try {
           await s.send({ from: MITTENTE, to: "info@fondocasahub.com", bcc: blocco, subject: oggetto, ...corpo(html) });
           inviate += blocco.length;
-        } catch (_e) {
+        } catch (e) {
           falliti.push(...blocco);
+          errore = String((e as Error)?.message ?? e).slice(0, 300);
+          console.error("hub24-newsletter invio fallito:", errore);
         }
       }
       await s.close();
       if (inviate) await db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: inviate, inviato_il: new Date().toISOString() });
-      return risposta({ ok: inviate > 0, numero: n.numero, inviate, falliti: falliti.length });
+      return risposta({ ok: inviate > 0, numero: n.numero, inviate, falliti: falliti.length, ...(errore ? { errore } : {}) });
     }
 
     return risposta({ errore: "Azione non riconosciuta" }, 400);

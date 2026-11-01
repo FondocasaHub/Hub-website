@@ -1,0 +1,49 @@
+{
+  "_nota": "Ordine di rotazione (indicato da Nico il 01/11/2026): FC Group Holding, FondoCasa, WeUnit, Henia. Il marchio del numero N e' ordine[N % 4]; se non e' 'pronto' si passa al successivo pronto. Testi solo con dati verificati: non inventare cifre.",
+  "ordine": ["fcgroup", "fondocasa", "weunit", "henia"],
+  "marchi": {
+    "fcgroup": {
+      "pronto": false,
+      "nome": "FC Group Holding S.p.A.",
+      "manca": "logo ufficiale e testi (cosa comunicare e a chi) da fornire da Nico"
+    },
+    "fondocasa": {
+      "pronto": false,
+      "nome": "FondoCasa network",
+      "logo": "loghi/fondocasa.png",
+      "logo_alt": "Fondocasa consulenti immobiliari",
+      "logo_h": 46,
+      "manca": "testi (destinatari e messaggio) da fornire da Nico; logo ad alta risoluzione consigliato"
+    },
+    "weunit": {
+      "pronto": true,
+      "nome": "WeUnit S.p.A.",
+      "logo": "loghi/weunit.png",
+      "logo_alt": "wunit.it",
+      "logo_h": 50,
+      "tagline": "Mediazione creditizia · nello Store FC Punto Hub",
+      "titolo": "Tante banche, un solo consulente. <i>Il mutuo giusto, senza girare gli sportelli.</i>",
+      "deck": "Confrontiamo per te le offerte di oltre 20 banche e ti accompagniamo fino al rogito. Siamo broker indipendenti: lavoriamo per te, non per una banca.",
+      "numeri": [["20+", "banche confrontate"], ["20", "giorni lavorativi, delibera media"], ["0 €", "consulenza e prequalifica"]],
+      "punti": ["Mutuo prima casa", "Under 36 con garanzia Consap", "Seconda casa", "Acquisto + ristrutturazione", "Surroga e sostituzione", "Mutuo liquidità", "Consolidamento debiti", "Prestiti e cessione del quinto"],
+      "box": {"titolo": "Voucher Mutuo", "testo": "La pre-delibera reddituale ufficiale della banca: sai quanto puoi spendere prima di scegliere casa e tratti da acquirente già finanziato.", "solo_se": "promo Voucher Mutuo attiva (stagionale, di solito nei due mesi prima di Natale e di Pasqua): altrimenti ometti il box"},
+      "cta_titolo": "Prenota la tua consulenza gratuita",
+      "legale": "Messaggio pubblicitario con finalità promozionale. WeUnit S.p.A., mediatore creditizio iscritto all'OAM con il n. M28. Consulenza e prequalifica gratuite; a mutuo erogato è previsto un compenso di mediazione dall'1% al 3% dell'importo erogato, in base all'istituto e alla tipologia di pratica. La concessione del finanziamento è soggetta all'approvazione della banca. Per le condizioni economiche e contrattuali consultare i fogli informativi e il PIES presso le banche e in sede."
+    },
+    "henia": {
+      "pronto": true,
+      "nome": "Henia Insurance Broker",
+      "logo": "loghi/henia.png",
+      "logo_alt": "Henia Insurance Broker",
+      "logo_h": 50,
+      "tagline": "Brokeraggio assicurativo · nello Store FC Punto Hub",
+      "titolo": "La casa è il tuo investimento più grande. <i>Proteggila come merita.</i>",
+      "deck": "Con Henia Insurance Broker trovi le coperture per la tua casa e per la tua famiglia, con un consulente dedicato nello Store. Come broker, lavoriamo per te e non per una compagnia.",
+      "numeri": [],
+      "punti": ["Polizza incendio e scoppio dell'immobile", "Polizza caso morte a tutela della famiglia", "Coperture abbinate al mutuo", "Consulenza dedicata in Store", "Preventivo personalizzato"],
+      "box": {"titolo": "Hai appena comprato casa?", "testo": "Con il mutuo, una polizza caso morte protegge la tua famiglia dal debito residuo. Chiedi un preventivo quando firmi."},
+      "cta_titolo": "Chiedi il tuo preventivo",
+      "legale": "Messaggio pubblicitario con finalità promozionale. Intermediazione assicurativa a cura di Henia Insurance Broker, iscritta al RUI con il n. B000533295. Prima della sottoscrizione leggere il set informativo disponibile presso l'intermediario e sul sito della compagnia."
+    }
+  }
+}

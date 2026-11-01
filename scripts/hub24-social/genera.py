@@ -6,7 +6,10 @@ logo HUB ufficiale in alto e piedino ufficiale (Fondocasa · wunit.it · Henia) 
 Uso:
   python3 scripts/hub24-social/genera.py public/hub24/AAAA-MM-GG.html --numero N \
       --kicker "Numero N · in uscita oggi" --titolo "Titolo d'apertura" --out cartella/
-Produce: HUB24_nN_post_1080x1440.png e HUB24_nN_storia_1080x1920.png
+Produce 3 immagini con nomi chiari:
+  HUB24_nN_POST_META_Instagram_Facebook_1080x1440.png  (3:4, feed Instagram e Facebook)
+  HUB24_nN_POST_LINKEDIN_1080x1350.png                 (4:5, LinkedIn)
+  HUB24_nN_STORIA_Instagram_Facebook_1080x1920.png     (storia 9:16)
 """
 import argparse, asyncio, html, pathlib, shutil, tempfile
 from playwright.async_api import async_playwright
@@ -17,7 +20,7 @@ POST = """<html><head><meta charset="utf-8"><link rel="stylesheet" href="jost.cs
 body{{width:1080px;height:1440px}}
 .logo{{top:56px;height:150px}}
 .txt{{position:absolute;left:80px;right:80px;top:250px;text-align:center}}
-h1{{font-size:{fs}px;margin-top:24px}}
+h1{{font-size:{fs}px;margin-top:24px;text-wrap:balance}}
 .sub{{font-size:36px;margin:18px auto 0;max-width:880px}}
 .paper{{width:740px;left:170px;top:{ptop}px;transform:rotate(-2deg)}}
 .cta{{top:1150px;padding:26px 60px 24px}}
@@ -83,7 +86,7 @@ STORIA = """<html><head><meta charset="utf-8"><link rel="stylesheet" href="jost.
 body{{width:1080px;height:1920px}}
 .logo{{top:220px;height:140px}}
 .txt{{position:absolute;left:80px;right:80px;top:390px;text-align:center}}
-h1{{font-size:{fs}px;margin-top:26px}}
+h1{{font-size:{fs}px;margin-top:26px;text-wrap:balance}}
 .sub{{font-size:42px;margin:22px auto 0;max-width:880px}}
 .paper{{width:800px;left:140px;top:{ptop}px;transform:rotate(-2deg)}}
 .cta{{top:1400px;padding:32px 60px 30px}}
@@ -132,9 +135,9 @@ async def main(a):
         await pg.screenshot(path=str(tmp / "cover.png"), clip={"x": 0, "y": 0, "width": 1180, "height": h + 10})
         valori = dict(kicker=html.escape(a.kicker), titolo=html.escape(a.titolo), sub=html.escape(a.sub), cta=html.escape(a.cta))
         jobs = [
-            (POST.format(fs=fs_post, ptop=650 if lungo <= 40 else 700, **valori), 1080, 1440, f"HUB24_n{a.numero}_post_1080x1440.png"),
-            (POST45.format(fs=min(fs_post, 80), ptop=620, **valori), 1080, 1350, f"HUB24_n{a.numero}_post_1080x1350.png"),
-            (STORIA.format(fs=fs_story, ptop=900 if lungo <= 40 else 950, **valori), 1080, 1920, f"HUB24_n{a.numero}_storia_1080x1920.png"),
+            (POST.format(fs=fs_post, ptop=650 if lungo <= 40 else 700, **valori), 1080, 1440, f"HUB24_n{a.numero}_POST_META_Instagram_Facebook_1080x1440.png"),
+            (POST45.format(fs=min(fs_post, 80), ptop=620, **valori), 1080, 1350, f"HUB24_n{a.numero}_POST_LINKEDIN_1080x1350.png"),
+            (STORIA.format(fs=fs_story, ptop=900 if lungo <= 40 else 950, **valori), 1080, 1920, f"HUB24_n{a.numero}_STORIA_Instagram_Facebook_1080x1920.png"),
         ]
         for markup, w, hh, nome in jobs:
             f = tmp / (nome + ".html"); f.write_text(markup, encoding="utf-8")

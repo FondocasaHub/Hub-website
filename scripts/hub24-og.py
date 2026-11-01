@@ -5,11 +5,11 @@ e copertina del numero, e inserisce nel <head> del numero i meta Open Graph / Tw
 Va eseguito dopo aver scritto il numero e aggiornato index.json (legge titolo e sommario da li').
 
 Se il numero e' l'ultimo di index.json aggiorna anche l'anteprima della pagina iscrizioni (og-hub24.jpg) con la sua
-copertina e cambia in public/hub24/index.html solo l'indirizzo dell'immagine (?n=N), nient'altro.
+copertina e cambia in public/hub24/index.html solo l'indirizzo dell'immagine (?v=versione), nient'altro.
 
 Uso: python3 scripts/hub24-og.py public/hub24/AAAA-MM-GG.html
 """
-import asyncio, base64, html, json, pathlib, re, sys
+import asyncio, base64, hashlib, html, json, pathlib, re, sys
 from playwright.async_api import async_playwright
 
 SITO = "https://www.fondocasahub.com/hub24/"
@@ -73,6 +73,8 @@ async def main(src):
         await b.close()
     tmp.unlink(missing_ok=True)
 
+    # versione dell'immagine nell'indirizzo: se l'immagine cambia, cambia l'indirizzo e i social non usano quella in cache
+    ver = lambda f: hashlib.md5(f.read_bytes()).hexdigest()[:8]
     titolo_og = html.escape(f"HUB 24 n. {voce['numero']} · {voce['titolo']}", quote=True)
     descr = html.escape(voce.get("sommario") or "Casa, mutui, affitti e mercato di Napoli. Ogni domenica, gratis.", quote=True)
     meta = f'''<!-- og:inizio -->
@@ -83,11 +85,11 @@ async def main(src):
 <meta property="og:title" content="{titolo_og}">
 <meta property="og:description" content="{descr}">
 <meta property="og:url" content="{SITO}{src.name}">
-<meta property="og:image" content="{SITO}{out.name}">
+<meta property="og:image" content="{SITO}{out.name}?v={ver(out)}">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{SITO}{out.name}">
+<meta name="twitter:image" content="{SITO}{out.name}?v={ver(out)}">
 <!-- og:fine -->
 '''
     s = src.read_text(encoding="utf-8")
@@ -97,12 +99,12 @@ async def main(src):
     src.write_text(s, encoding="utf-8")
     print("creato", out, "e aggiornati i meta di", src.name)
     if ultimo:
-        # cambia l'indirizzo dell'immagine (?n=N) cosi' WhatsApp/Facebook/LinkedIn non mostrano quella vecchia in cache
+        # cambia l'indirizzo dell'immagine (?v=versione) cosi' WhatsApp/Facebook/LinkedIn non mostrano quella vecchia in cache
         pag = src.parent / "index.html"
         t = pag.read_text(encoding="utf-8")
-        t2 = re.sub(r'(content="https://www\.fondocasahub\.com/hub24/og-hub24\.jpg)(\?n=\d+)?"', rf'\1?n={voce["numero"]}"', t)
+        t2 = re.sub(r'(content="https://www\.fondocasahub\.com/hub24/og-hub24\.jpg)(\?[nv]=[0-9a-f]+)?"', rf'\1?v={ver(src.parent / "og-hub24.jpg")}"', t)
         pag.write_text(t2, encoding="utf-8")
-        print("aggiornata anteprima della pagina iscrizioni: og-hub24.jpg?n=%s" % voce["numero"])
+        print("aggiornata anteprima della pagina iscrizioni: og-hub24.jpg?v=%s" % ver(src.parent / "og-hub24.jpg"))
 
 
 asyncio.run(main(sys.argv[1]))

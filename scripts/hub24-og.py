@@ -4,6 +4,9 @@ Crea public/hub24/AAAA-MM-GG-og.jpg (1200x630, stesso stile di og-hub24.jpg) con
 e copertina del numero, e inserisce nel <head> del numero i meta Open Graph / Twitter che la richiamano.
 Va eseguito dopo aver scritto il numero e aggiornato index.json (legge titolo e sommario da li').
 
+Se il numero e' l'ultimo di index.json aggiorna anche l'anteprima della pagina iscrizioni (og-hub24.jpg) con la sua
+copertina e cambia in public/hub24/index.html solo l'indirizzo dell'immagine (?n=N), nient'altro.
+
 Uso: python3 scripts/hub24-og.py public/hub24/AAAA-MM-GG.html
 """
 import asyncio, base64, html, json, pathlib, re, sys
@@ -27,6 +30,10 @@ h1 b{{color:#C9A84C;font-weight:400}}
 <span class="k">{kicker}</span><h1>HUB <b>24</b></h1><p class="t">{titolo}</p>
 <div class="p"><img src="{cover}"></div><div class="cta">Leggi gratis su fondocasahub.com/hub24</div>
 </body></html>"""
+
+
+TPL_ISCRIZIONE = TPL.replace('<p class="t">{titolo}</p>', '<p class="t" style="font-size:40px;width:560px">Casa, mutui, affitti e mercato di Napoli nella tua email.</p>') \
+    .replace("Leggi gratis su fondocasahub.com/hub24", "Iscriviti su fondocasahub.com/hub24")
 
 
 async def main(src):
@@ -55,6 +62,14 @@ async def main(src):
         await pg2.set_content(markup, wait_until="networkidle")
         await pg2.evaluate("document.fonts.ready")
         await pg2.screenshot(path=str(out), type="jpeg", quality=88)
+        ultimo = voci[0]["file"] == src.name
+        if ultimo:
+            # anteprima della pagina iscrizioni (fondocasahub.com/hub24) con la copertina del numero in uscita
+            markup = TPL_ISCRIZIONE.format(kicker="Gratis · ogni domenica", titolo="", fs=40,
+                                           cover="data:image/png;base64," + base64.b64encode(tmp.read_bytes()).decode())
+            await pg2.set_content(markup, wait_until="networkidle")
+            await pg2.evaluate("document.fonts.ready")
+            await pg2.screenshot(path=str(src.parent / "og-hub24.jpg"), type="jpeg", quality=88)
         await b.close()
     tmp.unlink(missing_ok=True)
 
@@ -81,6 +96,13 @@ async def main(src):
     s = re.sub(r"<title>.*?</title>", f"<title>{titolo_og}</title>", s, count=1, flags=re.S)
     src.write_text(s, encoding="utf-8")
     print("creato", out, "e aggiornati i meta di", src.name)
+    if ultimo:
+        # cambia l'indirizzo dell'immagine (?n=N) cosi' WhatsApp/Facebook/LinkedIn non mostrano quella vecchia in cache
+        pag = src.parent / "index.html"
+        t = pag.read_text(encoding="utf-8")
+        t2 = re.sub(r'(content="https://www\.fondocasahub\.com/hub24/og-hub24\.jpg)(\?n=\d+)?"', rf'\1?n={voce["numero"]}"', t)
+        pag.write_text(t2, encoding="utf-8")
+        print("aggiornata anteprima della pagina iscrizioni: og-hub24.jpg?n=%s" % voce["numero"])
 
 
 asyncio.run(main(sys.argv[1]))

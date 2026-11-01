@@ -22,9 +22,9 @@ body{{width:1200px;height:630px;overflow:hidden;background:radial-gradient(ellip
 .k{{position:absolute;left:64px;top:46px;font-family:'IBM Plex Sans Condensed';font-weight:600;font-size:24px;letter-spacing:.14em;text-transform:uppercase;color:#C9A84C;border:2px solid #C9A84C;padding:9px 16px}}
 h1{{position:absolute;left:60px;top:112px;font-family:'Libre Caslon Display';font-weight:400;font-size:128px;line-height:1}}
 h1 b{{color:#C9A84C;font-weight:400}}
-.t{{position:absolute;left:64px;top:262px;width:600px;font-family:'Libre Caslon Text';font-style:italic;font-size:{fs}px;line-height:1.22;color:#F5E1CF;text-wrap:balance}}
+.t{{position:absolute;left:64px;top:262px;width:590px;font-family:'Libre Caslon Text';font-style:italic;font-size:{fs}px;line-height:1.22;color:#F5E1CF;text-wrap:balance}}
 .cta{{position:absolute;left:64px;bottom:56px;background:#C9A84C;color:#0A1628;font-family:'Libre Caslon Text';font-weight:700;font-size:30px;padding:16px 26px}}
-.p{{position:absolute;left:735px;top:70px;width:620px;transform:rotate(-2deg);box-shadow:0 20px 50px rgba(0,0,0,.55)}}
+.p{{position:absolute;right:46px;top:50%;width:448px;transform:translateY(-50%) rotate(-2deg);box-shadow:0 18px 44px rgba(0,0,0,.55)}}
 .p img{{width:100%;display:block}}
 </style></head><body>
 <span class="k">{kicker}</span><h1>HUB <b>24</b></h1><p class="t">{titolo}</p>

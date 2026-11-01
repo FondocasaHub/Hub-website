@@ -45,6 +45,40 @@ window.adatta = () => {{
 }};
 </script></body></html>"""
 
+# 4:5 (1080x1350) con contenuti nella zona centrale 3:4: Instagram non taglia il post al caricamento
+# e la griglia del profilo (3:4) toglie solo 34 px per lato, dove non c'e' nulla.
+POST45 = """<html><head><meta charset="utf-8"><link rel="stylesheet" href="jost.css"><style>
+body{{width:1080px;height:1350px}}
+.logo{{top:44px;height:128px}}
+.txt{{position:absolute;left:96px;right:96px;top:206px;text-align:center}}
+h1{{font-size:{fs}px;margin-top:20px;text-wrap:balance}}
+.sub{{font-size:33px;margin:14px auto 0;max-width:860px}}
+.paper{{width:700px;left:190px;top:{ptop}px;transform:rotate(-2deg)}}
+.cta{{top:1068px;padding:22px 96px 20px}}
+.cta strong{{font-size:44px}}.cta span{{font-size:30px}}
+.pied{{bottom:40px;width:840px}}
+</style></head><body><div class="c">
+<img class="logo" src="logo-hub-bianco.png">
+<div class="txt"><span class="kick">{kicker}</span><h1>{titolo}</h1><p class="sub">{sub}</p></div>
+<div class="paper"><img src="cover.png"></div>
+<div class="cta"><strong>{cta}</strong><span>Iscriviti su fondocasahub.com/hub24</span></div>
+<img class="pied" src="piedino.png">
+</div><script>
+// adatta la copertina allo spazio libero tra testo e fascia CTA: mai sovrapposta, sempre intera
+window.adatta = () => {{
+  const t = document.querySelector('.txt').getBoundingClientRect();
+  const c = document.querySelector('.cta').getBoundingClientRect();
+  const box = document.querySelector('.paper'), img = box.querySelector('img');
+  const ratio = img.naturalHeight / img.naturalWidth;
+  const spazio = c.top - t.bottom - 70;               // margine sopra e sotto
+  const maxW = parseFloat(getComputedStyle(box).width);
+  const w = Math.max(320, Math.min(maxW, spazio / ratio));
+  box.style.width = w + 'px';
+  box.style.left = ((document.body.clientWidth - w) / 2) + 'px';
+  box.style.top = (t.bottom + (spazio - w * ratio) / 2 + 35) + 'px';
+}};
+</script></body></html>"""
+
 STORIA = """<html><head><meta charset="utf-8"><link rel="stylesheet" href="jost.css"><style>
 body{{width:1080px;height:1920px}}
 .logo{{top:220px;height:140px}}
@@ -99,6 +133,7 @@ async def main(a):
         valori = dict(kicker=html.escape(a.kicker), titolo=html.escape(a.titolo), sub=html.escape(a.sub), cta=html.escape(a.cta))
         jobs = [
             (POST.format(fs=fs_post, ptop=650 if lungo <= 40 else 700, **valori), 1080, 1440, f"HUB24_n{a.numero}_post_1080x1440.png"),
+            (POST45.format(fs=min(fs_post, 80), ptop=620, **valori), 1080, 1350, f"HUB24_n{a.numero}_post_1080x1350.png"),
             (STORIA.format(fs=fs_story, ptop=900 if lungo <= 40 else 950, **valori), 1080, 1920, f"HUB24_n{a.numero}_storia_1080x1920.png"),
         ]
         for markup, w, hh, nome in jobs:

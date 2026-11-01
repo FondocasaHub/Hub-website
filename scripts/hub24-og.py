@@ -5,7 +5,7 @@ e copertina del numero, e inserisce nel <head> del numero i meta Open Graph / Tw
 Va eseguito dopo aver scritto il numero e aggiornato index.json (legge titolo e sommario da li').
 
 Se il numero e' l'ultimo di index.json aggiorna anche l'anteprima della pagina iscrizioni (og-hub24.jpg) con la sua
-copertina e cambia in public/hub24/index.html solo l'indirizzo dell'immagine (?v=versione), nient'altro.
+copertina e cambia in public/hub24/index.html solo l'indirizzo dell'immagine (public/hub24/og/hub24-<versione>.jpg), nient'altro.
 
 Uso: python3 scripts/hub24-og.py public/hub24/AAAA-MM-GG.html
 """
@@ -73,8 +73,17 @@ async def main(src):
         await b.close()
     tmp.unlink(missing_ok=True)
 
-    # versione dell'immagine nell'indirizzo: se l'immagine cambia, cambia l'indirizzo e i social non usano quella in cache
-    ver = lambda f: hashlib.md5(f.read_bytes()).hexdigest()[:8]
+    # copia con la versione nel NOME del file (niente ?v=: alcune app, WhatsApp compreso, non mostrano l'immagine
+    # se l'indirizzo ha parametri). Se l'immagine cambia cambia il nome, e i social non usano quella vecchia in cache.
+    cartella = src.parent / "og"; cartella.mkdir(exist_ok=True)
+    def versione(f, prefisso):
+        h = hashlib.md5(f.read_bytes()).hexdigest()[:8]
+        for vecchio in cartella.glob(prefisso + "-*.jpg"):
+            vecchio.unlink()
+        dest = cartella / f"{prefisso}-{h}.jpg"
+        dest.write_bytes(f.read_bytes())
+        return f"{SITO}og/{dest.name}"
+    url_img = versione(out, data)
     titolo_og = html.escape(f"HUB 24 n. {voce['numero']} · {voce['titolo']}", quote=True)
     descr = html.escape(voce.get("sommario") or "Casa, mutui, affitti e mercato di Napoli. Ogni domenica, gratis.", quote=True)
     meta = f'''<!-- og:inizio -->
@@ -85,11 +94,13 @@ async def main(src):
 <meta property="og:title" content="{titolo_og}">
 <meta property="og:description" content="{descr}">
 <meta property="og:url" content="{SITO}{src.name}">
-<meta property="og:image" content="{SITO}{out.name}?v={ver(out)}">
+<meta property="og:image" content="{url_img}">
+<meta property="og:image:secure_url" content="{url_img}">
+<meta property="og:image:type" content="image/jpeg">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="{SITO}{out.name}?v={ver(out)}">
+<meta name="twitter:image" content="{url_img}">
 <!-- og:fine -->
 '''
     s = src.read_text(encoding="utf-8")
@@ -99,12 +110,15 @@ async def main(src):
     src.write_text(s, encoding="utf-8")
     print("creato", out, "e aggiornati i meta di", src.name)
     if ultimo:
-        # cambia l'indirizzo dell'immagine (?v=versione) cosi' WhatsApp/Facebook/LinkedIn non mostrano quella vecchia in cache
+        # anteprima della pagina iscrizioni: aggiorna in public/hub24/index.html solo l'indirizzo dell'immagine
+        url_isc = versione(src.parent / "og-hub24.jpg", "hub24")
         pag = src.parent / "index.html"
         t = pag.read_text(encoding="utf-8")
-        t2 = re.sub(r'(content="https://www\.fondocasahub\.com/hub24/og-hub24\.jpg)(\?[nv]=[0-9a-f]+)?"', rf'\1?v={ver(src.parent / "og-hub24.jpg")}"', t)
-        pag.write_text(t2, encoding="utf-8")
-        print("aggiornata anteprima della pagina iscrizioni: og-hub24.jpg?v=%s" % ver(src.parent / "og-hub24.jpg"))
+        t = re.sub(r'content="https://www\.fondocasahub\.com/hub24/(?:og-hub24\.jpg(?:\?[nv]=[0-9a-f]+)?|og/hub24-[0-9a-f]+\.jpg)"', f'content="{url_isc}"', t)
+        if 'og:image:width' not in t:
+            t = re.sub(r'(<meta property="og:image" content="[^"]+">)', r'\1\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:type" content="image/jpeg">', t, count=1)
+        pag.write_text(t, encoding="utf-8")
+        print("aggiornata anteprima della pagina iscrizioni:", url_isc)
 
 
 asyncio.run(main(sys.argv[1]))

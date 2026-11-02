@@ -94,7 +94,40 @@
       "nome": "FC Power",
       "fuori_rotazione": true,
       "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie e aziende contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it.",
-      "manca": "logo ufficiale completo (quello ricevuto e' tagliato ai lati), entita' dello sconto e condizioni, fornitore per le note legali, fonte del +34%"
+      "manca": "ok di Nico all'anteprima (inviata il 02/11/2026); poi mettere pronto: true",
+      "logo": "loghi/fcpower.png",
+      "logo_alt": "FC Power · più energia, più futuro",
+      "logo_h": 52,
+      "tagline": "Luce e gas · riservato ai clienti WeUnit e FondoCasa Hub",
+      "titolo": "Bollette più care? <i>Con FC Power paghi l'energia al prezzo di costo.</i>",
+      "deck": "Per aiutare famiglie e aziende ad affrontare l'aumento dei costi energetici, FC Power riserva ai clienti WeUnit e FondoCasa Hub un'offerta trasparente: un canone fisso e il costo puro dell'energia che consumi.",
+      "numeri": [
+        [
+          "+31%",
+          "prezzi dell'energia in un anno (Istat, ottobre)"
+        ],
+        [
+          "1",
+          "canone fisso"
+        ],
+        [
+          "0 €",
+          "di ricarico sull'energia consumata"
+        ]
+      ],
+      "punti": [
+        "Luce e gas",
+        "Per famiglie e aziende",
+        "Canone fisso + costo puro dell'energia",
+        "Accise e imposte a parte, come per legge",
+        "Attivazione e assistenza in Store"
+      ],
+      "box": {
+        "titolo": "Come si richiede",
+        "testo": "Porta in Store la tua ultima bolletta o mandala su WhatsApp: ti mostriamo l'offerta sui tuoi consumi reali."
+      },
+      "cta_titolo": "Chiedi l'offerta FC Power",
+      "legale": "Messaggio pubblicitario con finalità promozionale. Offerta luce e gas riservata ai clienti WeUnit e FondoCasa Hub: canone fisso più costo dell'energia consumata; accise e imposte escluse. Condizioni economiche e contrattuali complete su fcpower.it e in Store. Dato sui prezzi dell'energia: Istat, prezzi al consumo di ottobre 2026 (dati provvisori, beni energetici +31,4% su ottobre 2025)."
     }
   },
   "forzati": {

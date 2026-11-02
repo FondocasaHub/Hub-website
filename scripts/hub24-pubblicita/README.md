@@ -10,6 +10,7 @@ Henia Insurance Broker, sempre con i loghi ufficiali (mai loghi ricostruiti o sc
   - `weunit.png`: wunit.it bianco e arancio (dal logo ufficiale fornito da Nico).
   - `weunit-consulenti.png`: versione "Consulenti del credito".
   - `fondocasa.png`: logo ufficiale Fondocasa "affiliato" bianco su trasparente (fornito da Nico il 02/11/2026); `fondocasa-colori.png`: versione a colori per fondi chiari.
+  - `fcgroup.png`: logo ufficiale FC Group Holding S.p.A. oro su trasparente (da un JPG a bassa risoluzione fornito da Nico il 02/11/2026; slogan ufficiale "Valori, lavoro, passione.").
   - `henia.png`: ritagliato dal piedino ufficiale (`scripts/hub24-social/piedino.png`), da sostituire con l'originale.
 - `stile.css`: stile della mezza pagina (navy, oro, cornice).
 

@@ -10,7 +10,11 @@
     "fcgroup": {
       "pronto": false,
       "nome": "FC Group Holding S.p.A.",
-      "manca": "logo ufficiale e testi (cosa comunicare e a chi) da fornire da Nico"
+      "manca": "testi (cosa comunicare e a chi) da fornire da Nico; logo ufficiale ricevuto il 02/11/2026 (sorgente a bassa risoluzione: chiedere l'originale vettoriale)",
+      "logo": "loghi/fcgroup.png",
+      "logo_alt": "FC Group Holding S.p.A.",
+      "logo_h": 60,
+      "slogan_ufficiale": "Valori, lavoro, passione."
     },
     "fondocasa": {
       "pronto": false,

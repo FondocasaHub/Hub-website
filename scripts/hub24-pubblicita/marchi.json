@@ -93,14 +93,14 @@
       "pronto": false,
       "nome": "FC Power",
       "fuori_rotazione": true,
-      "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie e aziende contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it.",
+      "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie, aziende e condomini contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it.",
       "manca": "ok di Nico all'anteprima (inviata il 02/11/2026); poi mettere pronto: true",
       "logo": "loghi/fcpower.png",
       "logo_alt": "FC Power · più energia, più futuro",
       "logo_h": 52,
       "tagline": "Luce e gas · riservato ai clienti WeUnit e FondoCasa Hub",
       "titolo": "Bollette più care? <i>Con FC Power paghi l'energia al prezzo di costo.</i>",
-      "deck": "Per aiutare famiglie e aziende ad affrontare l'aumento dei costi energetici, FC Power riserva ai clienti WeUnit e FondoCasa Hub un'offerta trasparente: un canone fisso e il costo puro dell'energia che consumi.",
+      "deck": "Per aiutare famiglie, aziende e condomini ad affrontare l'aumento dei costi energetici, FC Power riserva ai clienti WeUnit e FondoCasa Hub un'offerta trasparente: un canone fisso e il costo puro dell'energia che consumi.",
       "numeri": [
         [
           "+31%",
@@ -117,7 +117,7 @@
       ],
       "punti": [
         "Luce e gas",
-        "Per famiglie e aziende",
+        "Per famiglie, aziende e condomini",
         "Canone fisso + costo puro dell'energia",
         "Accise e imposte a parte, come per legge",
         "Attivazione e assistenza in Store"

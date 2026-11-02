@@ -88,6 +88,16 @@
       },
       "cta_titolo": "Chiedi il tuo preventivo",
       "legale": "Messaggio pubblicitario con finalità promozionale. Intermediazione assicurativa a cura di Henia Insurance Broker, iscritta al RUI con il n. B000533295. Prima della sottoscrizione leggere il set informativo disponibile presso l'intermediario e sul sito della compagnia."
+    },
+    "fcpower": {
+      "pronto": false,
+      "nome": "FC Power",
+      "fuori_rotazione": true,
+      "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie e aziende contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it.",
+      "manca": "logo ufficiale completo (quello ricevuto e' tagliato ai lati), entita' dello sconto e condizioni, fornitore per le note legali, fonte del +34%"
     }
+  },
+  "forzati": {
+    "3": "fcpower"
   }
 }

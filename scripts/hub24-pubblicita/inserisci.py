@@ -22,6 +22,13 @@ def scegli(cfg, numero, forzato):
         if not cfg["marchi"][forzato].get("pronto"):
             sys.exit(f"Il marchio {forzato} non e' pronto: {cfg['marchi'][forzato].get('manca')}")
         return forzato
+    # pagina scelta da Nico per un numero preciso (campo "forzati": {"N": "marchio"}); se non e' pronta si torna alla rotazione
+    f = cfg.get("forzati", {}).get(str(numero))
+    if f:
+        if cfg["marchi"].get(f, {}).get("pronto"):
+            return f
+        print(f"NOTA: per il numero {numero} era prevista la pagina {cfg['marchi'].get(f, {}).get('nome', f)} ma non e' pronta "
+              f"({cfg['marchi'].get(f, {}).get('manca')}): uso la rotazione normale")
     ordine = cfg["ordine"]
     for k in range(len(ordine)):
         chiave = ordine[(numero + k) % len(ordine)]

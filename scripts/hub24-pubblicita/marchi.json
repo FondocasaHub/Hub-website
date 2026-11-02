@@ -90,11 +90,11 @@
       "legale": "Messaggio pubblicitario con finalità promozionale. Intermediazione assicurativa a cura di Henia Insurance Broker, iscritta al RUI con il n. B000533295. Prima della sottoscrizione leggere il set informativo disponibile presso l'intermediario e sul sito della compagnia."
     },
     "fcpower": {
-      "pronto": false,
+      "pronto": true,
       "nome": "FC Power",
       "fuori_rotazione": true,
-      "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie, aziende e condomini contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it.",
-      "manca": "ok di Nico all'anteprima (inviata il 02/11/2026); poi mettere pronto: true",
+      "nota": "Richiesta di Nico 02/11/2026: pagina sul numero 3 con uno sconto riservato ai clienti WeUnit e FondoCasa Hub per aiutare famiglie, aziende e condomini contro l'aumento dei costi energetici. Luce e gas, contratti su fcpower.it. Scadenza offerta 31/03/2027, fornitore Duferco (comunicati da Nico il 02/11/2026). Attivata per il n. 3.",
+      "manca": "",
       "logo": "loghi/fcpower.png",
       "logo_alt": "FC Power · più energia, più futuro",
       "logo_h": 52,
@@ -120,14 +120,15 @@
         "Per famiglie, aziende e condomini",
         "Canone fisso + costo puro dell'energia",
         "Accise e imposte a parte, come per legge",
-        "Attivazione e assistenza in Store"
+        "Attivazione e assistenza in Store",
+        "Offerta valida fino al 31/03/2027"
       ],
       "box": {
         "titolo": "Come si richiede",
         "testo": "Porta in Store la tua ultima bolletta o mandala su WhatsApp: ti mostriamo l'offerta sui tuoi consumi reali."
       },
       "cta_titolo": "Chiedi l'offerta FC Power",
-      "legale": "Messaggio pubblicitario con finalità promozionale. Offerta luce e gas riservata ai clienti WeUnit e FondoCasa Hub: canone fisso più costo dell'energia consumata; accise e imposte escluse. Condizioni economiche e contrattuali complete su fcpower.it e in Store. Dato sui prezzi dell'energia: Istat, prezzi al consumo di ottobre 2026 (dati provvisori, beni energetici +31,4% su ottobre 2025)."
+      "legale": "Messaggio pubblicitario con finalità promozionale. Offerta luce e gas FC Power, fornitore Duferco Energia, riservata ai clienti WeUnit e FondoCasa Hub e valida fino al 31/03/2027: canone fisso più costo dell'energia consumata; accise e imposte escluse. Condizioni economiche e contrattuali complete su fcpower.it e in Store. Dato sui prezzi dell'energia: Istat, prezzi al consumo di ottobre 2026 (dati provvisori, beni energetici +31,4% su ottobre 2025)."
     }
   },
   "forzati": {

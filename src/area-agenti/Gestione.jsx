@@ -4,7 +4,7 @@ import { GestioneComunicazioni } from "./Comunicazioni.jsx";
 import { LIVELLI } from "./compensi";
 
 // Secondo ruolo per la Dashboard Immobili (es. Listing Agent e anche Consulente del credito)
-const RUOLI_EXTRA = [{ id: "buyer", nome: "Buyer" }, { id: "credito", nome: "Credito" }, { id: "listing", nome: "Listing" }];
+const RUOLI_EXTRA = [{ id: "buyer", nome: "Buyer" }, { id: "credito", nome: "Credito" }, { id: "credito_store", nome: "Credito store" }, { id: "listing", nome: "Listing" }];
 const LINK_INVITO = "https://supabase.com/dashboard/project/iymxkvrgkhfaqcyxjsyz/auth/users";
 
 export default function Gestione({ profilo, onAggiorna }) {

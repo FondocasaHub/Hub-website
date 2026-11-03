@@ -47,12 +47,14 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "istruzioni", titolo: "Istruzioni e inserimento", testo: "Piano di inserimento, agenda e regole dello store", icona: "istruzioni" },
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
+    { id: "immobili", titolo: "Immobili", testo: "Scheda di ogni incarico: check-list della procedura, numeri, Open House e report per la proprietà", icona: "valutazione" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
     { id: "incarichi-ricerca", titolo: "Incarico di ricerca", testo: "Buyer Agent: incarico in esclusiva 6 mesi con scheda Cercacasa, lavorazioni ed esiti", icona: "valutazione" },
     { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
+  if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
   if (vedeUtility) riquadri.push({ id: "utility", titolo: "Utility", testo: "Moduli chiavi, assegni e proroghe in PDF; calcolo imposte, mutuo, provvigioni, superfici e usufrutto", icona: "utility" });
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });
   if (isManager) riquadri.push({ id: "inserimenti", titolo: "Manuale di inserimento", testo: "Compila online la scheda del nuovo collaboratore e inviala allo Store Manager", icona: "istruzioni" });

@@ -13,6 +13,8 @@ export default defineConfig({
         main: resolve(__dirname, 'index.html'),
         // Area riservata agenti: entry separato, nessun impatto sul sito pubblico
         areaAgenti: resolve(__dirname, 'area-agenti/index.html'),
+        // Minisito della proprietà: entry separato, senza login
+        immobile: resolve(__dirname, 'immobile/index.html'),
       },
     },
   },

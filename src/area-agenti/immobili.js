@@ -8,14 +8,14 @@ export const STATI_ACQUIRENTE = ["pronto", "da finanziare", "non qualificato"];
 export const ESITI_MUTUO = ["in corso", "positivo", "negativo"];
 
 // Obiettivi minimi della Procedura Buyer Agent v1.0, sezione 2.
-// contattiDueSettimane non è nella procedura ("contatti bassi"): valore provvisorio da confermare con Nicola.
+// contattiDueSettimane: la procedura dice solo "contatti bassi", il valore l'ha fissato Nicola il 03/11/2026.
 export const OBIETTIVI = {
   giorniOpenHouse: 15,
   presenzeOpenHouse: 25,
   chiamateSettimana: 150,
   volantini: 500,
   pubblicazioniGiorno: 3,
-  contattiDueSettimane: 10,
+  contattiDueSettimane: 150,
 };
 
 export const CAMPI_KPI = [

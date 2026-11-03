@@ -3,6 +3,8 @@ import { supabase, BUCKET, CARTELLE, SOTTOCARTELLE, RUOLI, REPARTI } from "./sup
 import { GestioneComunicazioni } from "./Comunicazioni.jsx";
 import { LIVELLI } from "./compensi";
 
+// Secondo ruolo per la Dashboard Immobili (es. Listing Agent e anche Consulente del credito)
+const RUOLI_EXTRA = [{ id: "buyer", nome: "Buyer" }, { id: "credito", nome: "Credito" }, { id: "listing", nome: "Listing" }];
 const LINK_INVITO = "https://supabase.com/dashboard/project/iymxkvrgkhfaqcyxjsyz/auth/users";
 
 export default function Gestione({ profilo, onAggiorna }) {
@@ -60,7 +62,7 @@ function Utenti({ io }) {
       return mostra("Non puoi togliere a te stesso il ruolo Admin o disattivarti.", true);
     }
     const { error } = await supabase.from("profiles")
-      .update({ nome: u.nome, ruolo: u.ruolo, reparto: u.reparto || null, livello: u.livello || null, team: u.team || null, attivo: u.attivo })
+      .update({ nome: u.nome, ruolo: u.ruolo, reparto: u.reparto || null, livello: u.livello || null, team: u.team || null, ruoli_extra: u.ruoli_extra || [], attivo: u.attivo })
       .eq("id", u.id);
     if (error) return mostra(error.message, true);
     mostra(`Salvato: ${u.nome || u.email}`);
@@ -82,7 +84,7 @@ function Utenti({ io }) {
       {vista}
       <div className="aa-scorri">
         <table className="aa-tabella aa-tabella-edit">
-          <thead><tr><th>Nome</th><th>Email</th><th>Ruolo</th><th>Reparto</th><th>Livello compensi</th><th>Team</th><th>Attivo</th><th></th></tr></thead>
+          <thead><tr><th>Nome</th><th>Email</th><th>Ruolo</th><th>Reparto</th><th>Livello compensi</th><th>Team</th><th>Anche</th><th>Attivo</th><th></th></tr></thead>
           <tbody>
             {utenti.map((u) => (
               <tr key={u.id} className={u.attivo ? "" : "aa-spento"}>
@@ -105,6 +107,17 @@ function Utenti({ io }) {
                   </select>
                 </td>
                 <td><input value={u.team || ""} onChange={(e) => cambia(u.id, "team", e.target.value)} placeholder="Es. Team Nigido" /></td>
+                <td>
+                  <div className="aa-ruoli">
+                    {RUOLI_EXTRA.map((r) => (
+                      <label key={r.id}>
+                        <input type="checkbox" checked={(u.ruoli_extra || []).includes(r.id)}
+                          onChange={(e) => cambia(u.id, "ruoli_extra", e.target.checked ? [...(u.ruoli_extra || []), r.id] : (u.ruoli_extra || []).filter((x) => x !== r.id))} />
+                        {r.nome}
+                      </label>
+                    ))}
+                  </div>
+                </td>
                 <td><input type="checkbox" checked={u.attivo} onChange={(e) => cambia(u.id, "attivo", e.target.checked)} aria-label="Attivo" /></td>
                 <td><button className="aa-btn aa-btn-piccolo" disabled={!u._mod} onClick={() => salva(u)}>Salva</button></td>
               </tr>

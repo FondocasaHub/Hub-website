@@ -35,10 +35,10 @@ a { color: inherit; }
 /* ---------- Barra ---------- */
 .aa-barra { background: var(--navy); color: var(--cream); position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(193, 154, 91, 0.25); }
 .aa-barra-in { max-width: 1120px; margin: 0 auto; padding: 10px 24px; display: flex; align-items: center; gap: 16px; }
-.aa-logo { display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; color: var(--cream); }
+.aa-logo { display: flex; align-items: center; gap: 10px; background: none; border: 0; padding: 0; color: var(--cream); flex: 0 0 auto; }
 .aa-logo img { width: 40px; height: 40px; object-fit: contain; }
 .aa-logo span { font-family: "Playfair Display", serif; font-size: 19px; font-weight: 600; letter-spacing: 0.01em; white-space: nowrap; }
-.aa-nav { display: flex; align-items: center; gap: 2px; margin-left: auto; }
+.aa-nav { display: flex; flex-wrap: wrap; justify-content: flex-end; align-items: center; gap: 2px; margin-left: auto; min-width: 0; }
 .aa-nav > button, .aa-tendina-wrap > button {
   background: none; border: 0; color: rgba(245, 239, 228, 0.82); padding: 10px 12px; border-radius: 6px;
   font-size: 15px; font-weight: 500; white-space: nowrap;
@@ -430,3 +430,48 @@ a { color: inherit; }
 .aa-news-frame { width: 100%; height: 80vh; min-height: 520px; border: 1px solid var(--linea); border-radius: 10px; background: #F5E1CF; }
 .aa-ut-voce[aria-pressed="true"] { border-color: var(--gold); }
 .aa-news-azioni { display: flex; gap: 16px; flex-wrap: wrap; }
+
+/* ---------- Dashboard Immobili (palette e titoli della specifica) ---------- */
+.im-area { --navy: #0A1628; --navy-deep: #060E1B; --gold: #A98A33; --gold-bright: #C9A84C; }
+.im-area .aa-titolo, .im-area .aa-h2 { font-family: "Jost", system-ui, sans-serif; font-weight: 700; }
+.im-area .aa-kpi-box strong { font-family: "Jost", system-ui, sans-serif; font-weight: 700; }
+.im-filtri { display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; margin-bottom: 16px; font-size: 14px; color: var(--tenue); }
+.im-filtri label { display: flex; align-items: center; gap: 8px; }
+.im-filtri select { padding: 7px 10px; border: 1px solid var(--linea); border-radius: 8px; background: #fff; }
+.im-avvisi-cella { min-width: 200px; }
+.im-avvisi-cella small { color: var(--tenue); }
+.im-avviso-conta { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 11px; background: #FBF0DC; color: #8A5A12; font-size: 13px; font-weight: 700; }
+.im-avviso-conta.grave { background: #F7E4E1; color: var(--rosso); }
+.im-stato-attivo { background: #E8EEF8; color: #23408A; }
+.im-stato-in-trattativa { background: #FBF0DC; color: #8A5A12; }
+.im-stato-venduto { background: #E3F1E8; color: var(--verde); }
+.im-stato-ritirato { background: #ECEDEF; color: var(--tenue); }
+.im-testa-destra { display: flex; gap: 16px; align-items: center; }
+.im-avvisi { margin-bottom: 20px; }
+.im-avvisi ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 6px; }
+.im-avvisi li { background: #FBF0DC; border-left: 4px solid #C9A84C; border-radius: 6px; padding: 8px 12px; font-size: 15px; }
+.im-avvisi li.grave { background: #F7E4E1; border-left-color: var(--rosso); }
+.im-avvisi strong { margin-right: 6px; }
+.im-step-campi { display: grid; grid-template-columns: 140px 1fr; gap: 8px; }
+.im-step-campi label { display: flex; flex-direction: column; font-size: 12px; color: var(--tenue); gap: 4px; min-width: 0; }
+.im-step-campi input { width: 100%; padding: 7px 8px; border: 1px solid var(--linea); border-radius: 6px; font: inherit; font-size: 14px; background: #fff; }
+.im-area .aa-step-lista li { grid-template-columns: 40px 1fr 380px; }
+@media (max-width: 860px) {
+  .im-area .aa-step-lista li { grid-template-columns: 40px 1fr; }
+  .im-step-campi { grid-column: 2; grid-template-columns: 1fr; }
+}
+.im-campo-data { max-width: 220px; margin-bottom: 16px; }
+.im-griglia-kpi { margin-bottom: 18px; }
+.im-salva { margin-top: 18px; }
+.im-prerequisiti { list-style: none; display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 16px; padding: 0; font-size: 14px; font-weight: 600; }
+.im-prerequisiti li { padding: 4px 12px; border-radius: 20px; }
+.im-prerequisiti .ok { background: #E3F1E8; color: var(--verde); }
+.im-prerequisiti .manca { background: #F7E4E1; color: var(--rosso); }
+.im-azioni-riga { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: 12px; }
+.im-link { overflow-wrap: anywhere; }
+.im-h2-spazio { margin-top: 24px; }
+.im-valore { margin: 0; padding: 10px 0; font-size: 16px; font-weight: 400; color: var(--testo); letter-spacing: 0; }
+.im-nowrap { white-space: nowrap; }
+.im-cornice { margin-top: 12px; border-radius: 12px; overflow: hidden; box-shadow: var(--ombra); }
+.im-spunta-testo { display: flex; align-items: flex-start; gap: 8px; }
+@media print { .im-cornice { margin: 0; border-radius: 0; box-shadow: none; } }

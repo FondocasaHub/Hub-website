@@ -112,7 +112,7 @@ export function NuovaRichiesta({ profilo, vai }) {
     pertinenze: [],
     luogo: "Napoli",
   });
-  const [file, setFile] = useState({ foto: [], video: [], planimetria: [] });
+  const [file, setFile] = useState({ foto: [], video: [], planimetria: [], pratica: [], relazione: [] });
   const [stato, setStato] = useState({ invio: false, msg: "", errore: "" });
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
   const toggle = (k, v) => setF({ ...f, [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v] });
@@ -146,6 +146,8 @@ export function NuovaRichiesta({ profilo, vai }) {
     e.preventDefault();
     if (f.servizi.length === 0) return setStato({ ...stato, errore: "Seleziona almeno un servizio richiesto (sezione 04)." });
     if (f.conformita === "No" && !(f.difformita || "").trim()) return setStato({ ...stato, errore: "Indica le difformità (sezione 06)." });
+    if (file.planimetria.length === 0) return setStato({ ...stato, errore: "Allega la planimetria (sezione Allegati)." });
+    if (file.relazione.length === 0 && !f.relazione_geometra) return setStato({ ...stato, errore: "Allega la relazione tecnica, oppure indica che la sta preparando il geometra (sezione Allegati)." });
     if (!f.accetta_clausola) return setStato({ ...stato, errore: "Devi accettare la clausola di rimborso spese (sezione 07)." });
 
     setStato({ invio: true, msg: "Caricamento allegati…", errore: "" });
@@ -183,6 +185,9 @@ export function NuovaRichiesta({ profilo, vai }) {
 
     setStato({ invio: true, msg: "Invio dell'email al marketing…", errore: "" });
     const { error: errEmail } = await supabase.functions.invoke("notifica-marketing", { body: { id: r.id } });
+    // La scheda immobile la crea il database. Se questa email non parte si può rinviare dalla scheda.
+    const { data: immobile } = await supabase.from("immobili").select("id").eq("richiesta_id", r.id).maybeSingle();
+    if (immobile) await supabase.functions.invoke("notifica-immobile", { body: { id: immobile.id } });
     vai(`richieste/${r.id}${errEmail ? "?email=ko" : "?inviata=1"}`);
   };
 
@@ -264,9 +269,9 @@ export function NuovaRichiesta({ profilo, vai }) {
           </label>
         </Sezione>
 
-        <Sezione n="+" titolo="Allegati (facoltativi)">
-          <p className="aa-nota aa-campo-largo">Foto, video e planimetria dell'immobile. Massimo {MAX_MB} MB per file.</p>
-          {[["foto", "Foto", "image/*"], ["video", "Video", "video/*"], ["planimetria", "Planimetria", "image/*,application/pdf"]].map(([cat, et, acc]) => (
+        <Sezione n="+" titolo="Allegati">
+          <p className="aa-nota aa-campo-largo">Obbligatorie planimetria e relazione tecnica urbanistica e catastale (storia dell'immobile, pregi, difetti). Foto e video se disponibili, pratiche edilizie se presenti. Massimo {MAX_MB} MB per file.</p>
+          {[["planimetria", "Planimetria *", "image/*,application/pdf"], ["relazione", "Relazione tecnica *", "image/*,application/pdf,.doc,.docx"], ["pratica", "Pratiche edilizie", "image/*,application/pdf"], ["foto", "Foto", "image/*"], ["video", "Video", "video/*"]].map(([cat, et, acc]) => (
             <div key={cat} className="aa-allegato">
               <label className="aa-btn aa-upload">+ {et}<input type="file" accept={acc} multiple onChange={aggiungiFile(cat)} /></label>
               <ul>
@@ -277,6 +282,9 @@ export function NuovaRichiesta({ profilo, vai }) {
               </ul>
             </div>
           ))}
+          <label className="aa-spunte aa-campo-largo">
+            <span className="im-spunta-testo"><input type="checkbox" checked={!!f.relazione_geometra} onChange={(e) => setF({ ...f, relazione_geometra: e.target.checked })} /> La relazione tecnica la sta preparando il geometra: la carico nella scheda immobile prima del lancio</span>
+          </label>
         </Sezione>
 
         <Sezione n="07" titolo="Dichiarazione e firma agente">

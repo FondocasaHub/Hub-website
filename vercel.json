@@ -211,6 +211,10 @@
       "destination": "/area-agenti/index.html"
     },
     {
+      "source": "/immobile/:token",
+      "destination": "/immobile/index.html"
+    },
+    {
       "source": "/(.*)",
       "destination": "/api/not-found"
     }
@@ -247,6 +251,23 @@
         {
           "key": "X-Robots-Tag",
           "value": "noindex, follow"
+        }
+      ]
+    },
+    {
+      "source": "/immobile/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "no-referrer"
         }
       ]
     },

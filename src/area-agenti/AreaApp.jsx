@@ -12,6 +12,7 @@ import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
 import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
 import Utility from "./Utility.jsx";
 import { ElencoIncarichiRicerca, SchedaIncaricoRicerca } from "./IncarichiRicerca.jsx";
+import { ElencoImmobili, SchedaImmobile, PaginaReport } from "./Immobili.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -127,10 +128,13 @@ export default function AreaApp() {
     case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;
     case "incarichi-ricerca": contenuto = <ElencoIncarichiRicerca profilo={profilo} vai={vai} />; break;
+    case "immobili": contenuto = vedeUtility ? <ElencoImmobili profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;
     case "compensi/nuovo": contenuto = <NuovoReport profilo={profilo} vai={vai} />; break;
     case "richieste/nuova": contenuto = <NuovaRichiesta profilo={profilo} vai={vai} />; break;
     default:
+      if (vedeUtility && /^immobili\/\d+$/.test(pagina)) { contenuto = <SchedaImmobile id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
+      if (vedeUtility && /^immobili\/\d+\/report$/.test(pagina)) { contenuto = <PaginaReport id={pagina.split("/")[1]} vai={vai} />; break; }
       if (/^inserimenti\/\d+$/.test(pagina)) { contenuto = isManager ? <SchedaInserimento id={pagina.split("/")[1]} profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break; }
       if (/^valutazioni\/\d+$/.test(pagina)) { contenuto = <SchedaValutazione id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^incarichi-ricerca\/\d+$/.test(pagina)) { contenuto = <SchedaIncaricoRicerca id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
@@ -171,6 +175,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin, v
     { id: "richieste", label: "Richieste" },
     { id: "compensi", label: "Compensi" },
   ];
+  if (vedeUtility) voci.splice(4, 0, { id: "immobili", label: "Immobili" });
   if (vedeUtility) voci.push({ id: "utility", label: "Utility" });
   voci.push({ id: "fatturato", label: "Fatturato" });
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });

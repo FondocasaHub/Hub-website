@@ -57,15 +57,17 @@ Deno.serve(async (req) => {
 
     const corpo = () => `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#FFFDF9;border-radius:10px;overflow:hidden">
-<tr><td style="background:#14213D;padding:18px 20px;color:#F5EFE4;font-size:17px;font-weight:bold">Nuova comunicazione <span style="color:#C19A5B;font-weight:normal">· Area Agenti</span></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:22px 20px 6px"><img src="https://www.fondocasahub.com/images/email/logo-hub-bianco-email.png" width="96" alt="FondoCasa Hub" style="display:block;width:96px;height:auto;border:0"></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:8px 20px 18px;color:#FCFDFD;font-size:17px;font-weight:bold">Nuova comunicazione <span style="color:#C9A84C;font-weight:normal">· Area Agenti</span></td></tr>
 <tr><td style="padding:18px 20px;font-size:14px;line-height:1.55">
 <p style="margin:0 0 10px">Ciao,<br>è stata pubblicata una nuova comunicazione nell'Area Agenti.</p>
 <p style="margin:0 0 6px;font-size:16px;font-weight:bold">${esc(c.titolo)}</p>
 ${c.testo ? `<p style="margin:0">${esc(c.testo)}</p>` : ""}
 ${elencoAllegati}
-<p style="margin:20px 0 4px"><a href="${link}" style="display:inline-block;background:#C19A5B;color:#14213D;text-decoration:none;font-weight:bold;padding:10px 18px;border-radius:6px">Apri nell'Area Agenti</a></p>
+<p style="margin:20px 0 4px"><a href="${link}" style="display:inline-block;background:#C9A84C;color:#0A1628;text-decoration:none;font-weight:bold;padding:10px 18px;border-radius:6px">Apri nell'Area Agenti</a></p>
 </td></tr>
-<tr><td style="padding:12px 20px;border-top:1px solid #E6DFD2;font-size:11px;color:#5B6577">FC Punto Hub Srl · Via Pietro Mascagni 35, Napoli · Email automatica dall'Area Agenti: non rispondere a questo messaggio.</td></tr>
+<tr><td align="center" style="background:#0A1628;padding:18px 20px 10px"><img src="https://www.fondocasahub.com/images/email/piedino-email.png" width="440" alt="Fondocasa · wunit.it · Henia" style="display:block;width:100%;max-width:440px;height:auto;border:0"></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:4px 20px 16px;font-size:11px;color:#C9CED8">FC Punto Hub Srl · Via Pietro Mascagni 35, Napoli · Email automatica dall'Area Agenti: non rispondere a questo messaggio.</td></tr>
 </table></div>`;
 
     const smtp = new SMTPClient({

@@ -64,7 +64,7 @@ Deno.serve(async (req) => {
 
     const d = r.dati ?? {};
     const righe = SEZIONI.map(([titolo, campi]) =>
-      `<tr><td colspan="2" style="background:#14213D;color:#F5EFE4;padding:8px 12px;font-weight:bold;font-size:13px">${titolo}</td></tr>` +
+      `<tr><td colspan="2" style="background:#0A1628;color:#FCFDFD;padding:8px 12px;font-weight:bold;font-size:13px">${titolo}</td></tr>` +
       campi.map(([k, et]) =>
         `<tr><td style="padding:6px 12px;border-bottom:1px solid #E6DFD2;color:#5B6577;font-size:13px;width:38%;vertical-align:top">${et}</td>` +
         `<td style="padding:6px 12px;border-bottom:1px solid #E6DFD2;font-size:13px;vertical-align:top">${esc(Array.isArray(d[k]) ? d[k].join(", ") : d[k]) || "—"}</td></tr>`
@@ -73,14 +73,16 @@ Deno.serve(async (req) => {
 
     const html = `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:640px;margin:0 auto;background:#FFFDF9;border-radius:10px;overflow:hidden">
-<tr><td style="background:#14213D;padding:18px 20px;color:#F5EFE4;font-size:17px;font-weight:bold">Modulo Ingaggio Marketing Hub <span style="color:#C19A5B;font-weight:normal">· n. ${r.id}</span></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:22px 20px 6px"><img src="https://www.fondocasahub.com/images/email/logo-hub-bianco-email.png" width="96" alt="FondoCasa Hub" style="display:block;width:96px;height:auto;border:0"></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:8px 20px 18px;color:#FCFDFD;font-size:17px;font-weight:bold">Modulo Ingaggio Marketing Hub <span style="color:#C9A84C;font-weight:normal">· n. ${r.id}</span></td></tr>
 <tr><td style="padding:16px 20px;font-size:14px;line-height:1.5">
 <strong>${esc(r.agente_nome)}</strong> (${esc(r.agente_team)}) ha inviato una richiesta per <strong>${esc(r.indirizzo)}</strong>, codice annuncio <strong>${esc(r.codice_annuncio)}</strong>.<br>
-<a href="${AREA}/${r.id}" style="color:#C19A5B;font-weight:bold">Apri la richiesta nell'Area Agenti</a>
+<a href="${AREA}/${r.id}" style="color:#B08A2E;font-weight:bold">Apri la richiesta nell'Area Agenti</a>
 </td></tr>
 <tr><td style="padding:0 20px 16px"><table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #E6DFD2">${righe}</table></td></tr>
 <tr><td style="padding:0 20px 20px;font-size:13px"><strong>Allegati (${allegati.length})</strong>${link.length ? `<ul style="margin:6px 0 0;padding-left:18px">${link.join("")}</ul><span style="color:#5B6577">I link restano validi 7 giorni; dopo, gli allegati restano disponibili nell'Area Agenti.</span>` : `<br><span style="color:#5B6577">Nessun allegato.</span>`}</td></tr>
-<tr><td style="padding:12px 20px;border-top:1px solid #E6DFD2;font-size:11px;color:#5B6577">FC Punto Hub Srl · Via Pietro Mascagni 35, Napoli · Rispondendo a questa email scrivi direttamente all'agente.</td></tr>
+<tr><td align="center" style="background:#0A1628;padding:18px 20px 10px"><img src="https://www.fondocasahub.com/images/email/piedino-email.png" width="440" alt="Fondocasa · wunit.it · Henia" style="display:block;width:100%;max-width:440px;height:auto;border:0"></td></tr>
+<tr><td align="center" style="background:#0A1628;padding:4px 20px 16px;font-size:11px;color:#C9CED8">FC Punto Hub Srl · Via Pietro Mascagni 35, Napoli · Rispondendo a questa email scrivi direttamente all'agente.</td></tr>
 </table></div>`;
 
     const smtp = new SMTPClient({

@@ -55,6 +55,9 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
+  if (["agente", "manager", "admin"].includes(profilo.ruolo)) {
+    riquadri.unshift({ id: "giornata", titolo: "La mia giornata", testo: "Contatore contatti, piano del giorno e obiettivi personali di produttività", icona: "produttivita" });
+  }
   if (vedeUtility) riquadri.push({ id: "utility", titolo: "Utility", testo: "Moduli chiavi, assegni e proroghe in PDF; calcolo imposte, mutuo, provvigioni, superfici e usufrutto", icona: "utility" });
   if (isManager) riquadri.push({ id: "manager", titolo: "Area Manager", testo: "Obiettivi, riunione del lunedì, compensi", icona: "manager" });
   if (isManager) riquadri.push({ id: "inserimenti", titolo: "Manuale di inserimento", testo: "Compila online la scheda del nuovo collaboratore e inviala allo Store Manager", icona: "istruzioni" });

@@ -11,10 +11,16 @@ const MAX_CARATTERI = 2000;
 
 const ESEMPI = {
   vendita: [
-    "Come importo i contatti in Vendilo?",
+    "Cosa devo fare oggi?",
+    "Facciamo una simulazione: tu sei un privato che vende da solo",
+    "Come sto andando questa settimana rispetto ai miei obiettivi?",
     "Mandami il copione per chiamare i vicini di un immobile appena acquisito",
-    "Cosa devo controllare prima di inviare l'Ingaggio Marketing?",
-    "Quali sono gli orari dello store e come scambio un turno?",
+  ],
+  manager: [
+    "Come sta andando il mio team questa settimana?",
+    "Quali immobili hanno avvisi gravi e cosa faccio?",
+    "Cosa devo fare oggi?",
+    "Preparami il punto per la riunione del lunedì",
   ],
   credito: [
     "Quali sono i tempi della prequalifica?",
@@ -33,6 +39,7 @@ const ESEMPI = {
 function esempiPer(profilo) {
   if (profilo.ruolo === "credito") return ESEMPI.credito;
   if (profilo.ruolo === "staff") return ESEMPI.staff;
+  if (profilo.ruolo === "manager" || profilo.ruolo === "admin") return ESEMPI.manager;
   return ESEMPI.vendita;
 }
 
@@ -113,7 +120,7 @@ function cronologia(messaggi, domanda) {
     }
   }
   storia.push({ role: "user", content: domanda });
-  return storia.slice(-10);
+  return storia.slice(-20);
 }
 
 /* ---------- Componente ---------- */
@@ -259,7 +266,7 @@ export default function Chirone({ profilo, vai }) {
             <div className="ch-benvenuto">
               <img src={BENVENUTO} alt="" />
               <h2>Ciao{profilo.nome ? ` ${profilo.nome.split(" ")[0]}` : ""}, sono Chirone</h2>
-              <p>Ti rispondo su strumenti, documenti, copioni e procedure dell'Hub, citando sempre il documento da cui prendo l'informazione.</p>
+              <p>Sono il tuo esperto, il tuo coach e il tuo direttore d'orchestra: ti rispondo su strumenti, copioni e procedure, ti alleno con le simulazioni e ti dico cosa fare oggi in base ai tuoi obiettivi e ai tuoi immobili.</p>
               <div className="ch-esempi">
                 {esempiPer(profilo).map((e) => (
                   <button key={e} onClick={() => invia(e)}>{e}</button>

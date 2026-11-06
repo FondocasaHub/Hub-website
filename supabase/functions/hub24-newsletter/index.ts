@@ -92,6 +92,27 @@ function smtp() {
   });
 }
 
+// Oggetto con accenti, "—" o virgolette curve: denomailer 1.6.0 lo codifica male (va a capo dentro
+// l'intestazione) e Brevo chiude la connessione ("Error while in datamode"). Qui lo codifichiamo noi
+// in base64 (RFC 2047), a pezzi di massimo 45 byte ripiegati su più righe. La parte iniziale resta in
+// chiaro e non comincia mai con "=?", così denomailer non lo ricodifica.
+const oggettoMime = (testo: string) => {
+  testo = testo.replace(/\s+/g, " ").trim();
+  const primo = testo.search(/[^\x20-\x7E]/);
+  if (primo < 0) return testo;
+  const taglio = testo.lastIndexOf(" ", primo) + 1;
+  const enc = new TextEncoder();
+  const pezzi: string[] = [];
+  let pezzo = "";
+  for (const ch of Array.from(testo.slice(taglio))) {
+    if (enc.encode(pezzo + ch).length > 45) { pezzi.push(pezzo); pezzo = ""; }
+    pezzo += ch;
+  }
+  if (pezzo) pezzi.push(pezzo);
+  const b64 = (t: string) => btoa(String.fromCharCode(...enc.encode(t)));
+  return (testo.slice(0, taglio) || " ") + pezzi.map((t) => `=?utf-8?B?${b64(t)}?=`).join("\r\n ");
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return risposta({ errore: "Metodo non consentito" }, 405);
@@ -205,7 +226,7 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
           `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi=${d.token}" style="color:#5E5148">disiscriviti</a>.`,
         );
         try {
-          await s.send({ from: MITTENTE, to: d.email, subject: oggetto, ...corpo(html) });
+          await s.send({ from: MITTENTE, to: d.email, subject: oggettoMime(oggetto), ...corpo(html) });
           inviate++;
         } catch (e) {
           falliti.push(d.email);

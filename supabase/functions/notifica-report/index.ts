@@ -32,6 +32,48 @@ function periodo(inizio: string, fine: string) {
   return a.getDate() === 1 && b.getDate() >= 28 ? mese : `${a.getDate()}–${b.getDate()} ${mese}`;
 }
 
+// Oggetto con accenti, "—" o virgolette curve: denomailer 1.6.0 lo codifica male (va a capo dentro
+// l'intestazione) e Brevo chiude la connessione ("Error while in datamode"). Qui lo codifichiamo noi
+// in base64 (RFC 2047), a pezzi di massimo 45 byte ripiegati su più righe. La parte iniziale resta in
+// chiaro e non comincia mai con "=?", così denomailer non lo ricodifica.
+const oggettoMime = (testo: string) => {
+  testo = testo.replace(/\s+/g, " ").trim();
+  const primo = testo.search(/[^\x20-\x7E]/);
+  if (primo < 0) return testo;
+  const taglio = testo.lastIndexOf(" ", primo) + 1;
+  const enc = new TextEncoder();
+  const pezzi: string[] = [];
+  let pezzo = "";
+  for (const ch of Array.from(testo.slice(taglio))) {
+    if (enc.encode(pezzo + ch).length > 45) { pezzi.push(pezzo); pezzo = ""; }
+    pezzo += ch;
+  }
+  if (pezzo) pezzi.push(pezzo);
+  const b64 = (t: string) => btoa(String.fromCharCode(...enc.encode(t)));
+  return (testo.slice(0, taglio) || " ") + pezzi.map((t) => `=?utf-8?B?${b64(t)}?=`).join("\r\n ");
+};
+
+// Corpo email in base64 (come in hub24-newsletter): con il quoted-printable di denomailer una riga
+// che inizia con "." viene troncata dal server SMTP (es. "www.fondocasahub.com" → "wwwfondocasahub.com").
+const b64Corpo = (testo: string) => {
+  const bytes = new TextEncoder().encode(testo);
+  let bin = "";
+  for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
+  // Riga vuota iniziale: denomailer non separa l'intestazione della parte MIME dal contenuto.
+  return "\r\n" + btoa(bin).replace(/.{76}/g, "$&\r\n");
+};
+const corpoMime = (html: string) => {
+  const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")
+    .replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|tr)>/g, "\n").replace(/<[^>]+>/g, "")
+    .replace(/&amp;/g, "&").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&quot;/g, '"').replace(/\n\s*\n+/g, "\n\n").trim();
+  return {
+    mimeContent: [
+      { mimeType: 'text/plain; charset="utf-8"', content: b64Corpo(testo), transferEncoding: "base64" },
+      { mimeType: 'text/html; charset="utf-8"', content: b64Corpo(html), transferEncoding: "base64" },
+    ],
+  };
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   try {
@@ -106,7 +148,7 @@ ${righe}
         auth: { username: Deno.env.get("BREVO_SMTP_USER")!, password: Deno.env.get("BREVO_SMTP_PASS")! },
       },
     });
-    await smtp.send({ from: MITTENTE, to, cc: cc.length ? cc : undefined, replyTo: r.email, subject: oggetto, content: "auto", html });
+    await smtp.send({ from: MITTENTE, to, cc: cc.length ? cc : undefined, replyTo: r.email, subject: oggettoMime(oggetto), ...corpoMime(html) });
     await smtp.close();
 
     await db.rpc("segna_email_report", { rid: r.id, destinatario: destinatario === "tm" || destinatario === "sm" ? destinatario : "amministrazione" });

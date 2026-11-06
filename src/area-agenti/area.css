@@ -30,7 +30,7 @@ a { color: inherit; }
 
 .aa { min-height: 100vh; display: flex; flex-direction: column; }
 .aa-main { flex: 1; width: 100%; max-width: 1120px; margin: 0 auto; padding: 32px 24px 64px; }
-.aa-footer { text-align: center; font-size: 13px; color: var(--tenue); padding: 24px 16px 32px; }
+.aa-footer { text-align: center; font-size: 13px; color: var(--tenue); padding: 24px 16px 88px; }
 
 /* ---------- Barra ---------- */
 .aa-barra { background: var(--navy); color: var(--cream); position: sticky; top: 0; z-index: 50; border-bottom: 1px solid rgba(193, 154, 91, 0.25); }
@@ -475,3 +475,26 @@ a { color: inherit; }
 .im-cornice { margin-top: 12px; border-radius: 12px; overflow: hidden; box-shadow: var(--ombra); }
 .im-spunta-testo { display: flex; align-items: flex-start; gap: 8px; }
 @media print { .im-cornice { margin: 0; border-radius: 0; box-shadow: none; } }
+
+/* ---------- Log di Chirone (admin) ---------- */
+.chl-filtri { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+.chl-filtro { background: #fff; border: 1px solid var(--linea); border-radius: 999px; padding: 6px 14px; font-size: 14px; }
+.chl-filtro span { color: var(--tenue); margin-left: 4px; }
+.chl-filtro.attivo { background: var(--navy); color: var(--cream); border-color: var(--navy); }
+.chl-filtro.attivo span { color: var(--gold-bright); }
+.chl-elenco { list-style: none; margin: 0; padding: 0; }
+.chl-riga { border-top: 1px solid var(--linea); }
+.chl-testa { width: 100%; display: grid; grid-template-columns: 110px 190px 1fr auto; gap: 12px; align-items: baseline; text-align: left; background: none; border: 0; padding: 12px 4px; }
+.chl-testa:hover { background: rgba(193, 154, 91, 0.06); }
+.chl-data, .chl-chi { font-size: 13px; color: var(--tenue); }
+.chl-domanda { font-weight: 500; overflow-wrap: anywhere; }
+.chl-segni { display: flex; gap: 6px; }
+.chl-segno { font-style: normal; font-size: 12px; padding: 2px 8px; border-radius: 999px; background: rgba(10, 31, 61, 0.06); white-space: nowrap; }
+.chl-senza { background: rgba(193, 154, 91, 0.18); color: #7a5a1f; }
+.chl-neg { background: rgba(166, 61, 50, 0.12); }
+.chl-dettaglio { padding: 0 4px 16px; }
+.chl-etichetta { font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--tenue); margin: 0 0 4px; }
+.chl-risposta { white-space: pre-wrap; background: var(--carta); border: 1px solid var(--linea); border-radius: 10px; padding: 12px; margin: 0 0 8px; font-size: 14.5px; }
+@media (max-width: 800px) {
+  .chl-testa { grid-template-columns: 1fr; gap: 4px; }
+}

@@ -143,3 +143,15 @@ body.ch-aperto { overflow: hidden; }
   .ch-pulsante img { width: 34px; height: 34px; }
   .ch-campo textarea { font-size: 16px; }
 }
+
+/* ---------- Voce ---------- */
+.ch-voce.attivo { background: var(--ch-oro); color: var(--ch-navy); border-color: var(--ch-oro); }
+.ch-campo .ch-mic {
+  width: 44px; min-width: 44px; height: 42px; border-radius: 12px; border: 1px solid var(--ch-linea);
+  background: #fff; font-size: 18px; color: var(--ch-navy); padding: 0;
+}
+.ch-campo .ch-mic:hover:not(:disabled) { border-color: var(--ch-oro); }
+.ch-campo .ch-mic.attivo { background: #a63d32; color: #fff; border-color: #a63d32; animation: ch-pulsa 1.2s infinite; }
+.ch-campo .ch-mic:disabled { opacity: 0.4; }
+@keyframes ch-pulsa { 0%, 100% { box-shadow: 0 0 0 0 rgba(166, 61, 50, 0.45); } 50% { box-shadow: 0 0 0 6px rgba(166, 61, 50, 0); } }
+@media (prefers-reduced-motion: reduce) { .ch-mic.attivo { animation: none; } }

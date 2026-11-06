@@ -14,6 +14,12 @@ const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_NBu
 const MODELLO = 'claude-sonnet-5-5';
 const MAX_MESSAGGI = 20;
 const FONTE_CONTESTO = 'Contesto personale';
+// In modalità voce l'agente parla e Chirone risponde ad alta voce.
+const ISTRUZIONI_VOCE = `MODALITÀ VOCE: l'utente sta parlando con te a voce e ascolta le tue risposte.
+Rispondi con frasi brevi e naturali, da dire ad alta voce: niente elenchi, grassetti, emoji, link o simboli.
+Nelle simulazioni scrivi solo la battuta del cliente, al massimo due o tre frasi, come in una vera telefonata.
+La scheda finale dilla in modo discorsivo e breve: voto complessivo, un punto forte, una cosa da migliorare con la frase da usare.
+Metti comunque la riga "Fonte:" alla fine: non verrà letta.`;
 const MAX_CARATTERI_DOMANDA = 2000;
 const MAX_CARATTERI_MESSAGGIO = 12000;
 
@@ -192,7 +198,7 @@ export default async function handler(req, res) {
     // il contesto personale cambia a ogni richiesta e sta dopo il punto di cache.
     system: [
       { type: 'text', text: istruzioni(chiave, formattaDocumenti(documenti)), cache_control: { type: 'ephemeral' } },
-      { type: 'text', text: `CONTESTO PERSONALE (dati dell'utente, letti adesso)\n${contesto}` },
+      { type: 'text', text: `CONTESTO PERSONALE (dati dell'utente, letti adesso)\n${contesto}${req.body?.voce === true ? `\n\n${ISTRUZIONI_VOCE}` : ''}` },
     ],
     messages: messaggi,
   });

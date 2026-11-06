@@ -3,6 +3,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { supabase } from "./supabase";
 import "./chirone.css";
+import { supportoVoce, testoParlato, scegliVoce, creaRiconoscimento } from "./voce";
 
 const ICONA = "/images/chirone-icona.svg";
 const BENVENUTO = "/images/chirone-centauro.webp";
@@ -131,9 +132,25 @@ export default function Chirone({ profilo, vai }) {
   const [inCorso, setInCorso] = useState(false);
   const [restanti, setRestanti] = useState(null);
   const [copiato, setCopiato] = useState(null);
+  const [voce, setVoce] = useState(false);        // conversazione a voce: Chirone parla e il microfono si riapre da solo
+  const [ascolto, setAscolto] = useState(false);
+  const [parla, setParla] = useState(false);
+  const [supporto] = useState(() => supportoVoce());
+  const voceRef = useRef(false);
+  const apertoRef = useRef(false);
+  const riconoscimento = useRef(null);
+  const inviaRef = useRef(null);   // versioni sempre aggiornate, per i callback della voce
+  const ascoltaRef = useRef(null);
   const fondo = useRef(null);
   const campo = useRef(null);
   const isAdmin = profilo.ruolo === "admin";
+
+  useEffect(() => { voceRef.current = voce; }, [voce]);
+  useEffect(() => {
+    apertoRef.current = aperto;
+    if (!aperto) fermaVoce();
+  }, [aperto]);
+  useEffect(() => () => fermaVoce(), []);
 
   useEffect(() => {
     if (!aperto) return;
@@ -151,6 +168,71 @@ export default function Chirone({ profilo, vai }) {
   const aggiornaUltimo = (modifica) =>
     setMessaggi((m) => [...m.slice(0, -1), { ...m.at(-1), ...modifica(m.at(-1)) }]);
 
+  /* ---------- Voce ---------- */
+  function fermaVoce() {
+    try { riconoscimento.current?.abort(); } catch { /* già fermo */ }
+    riconoscimento.current = null;
+    setAscolto(false);
+    if (typeof window !== "undefined" && "speechSynthesis" in window) window.speechSynthesis.cancel();
+    setParla(false);
+  }
+
+  function parlaTesto(t) {
+    const frase = testoParlato(t);
+    if (!supporto.parlato || !frase) { if (voceRef.current) ascoltaRef.current?.(); return; }
+    const sintesi = window.speechSynthesis;
+    sintesi.cancel();
+    const u = new SpeechSynthesisUtterance(frase);
+    u.lang = "it-IT";
+    const v = scegliVoce(sintesi.getVoices());
+    if (v) u.voice = v;
+    u.rate = 1.05;
+    u.onstart = () => setParla(true);
+    u.onend = () => { setParla(false); if (voceRef.current && apertoRef.current) ascoltaRef.current?.(); };
+    u.onerror = () => setParla(false);
+    sintesi.speak(u);
+  }
+
+  function avviaAscolto() {
+    if (!supporto.ascolto || riconoscimento.current) return;
+    if ("speechSynthesis" in window) window.speechSynthesis.cancel();
+    setParla(false);
+    const r = creaRiconoscimento();
+    if (!r) return;
+    riconoscimento.current = r;
+    let finale = "";
+    r.onresult = (e) => {
+      let parziale = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) finale += e.results[i][0].transcript;
+        else parziale += e.results[i][0].transcript;
+      }
+      setTesto((finale + parziale).trim());
+    };
+    r.onerror = () => {};
+    r.onend = () => {
+      riconoscimento.current = null;
+      setAscolto(false);
+      const detto = finale.trim();
+      if (detto && voceRef.current) inviaRef.current?.(detto);
+    };
+    try { r.start(); setAscolto(true); } catch { riconoscimento.current = null; }
+  }
+
+  function microfono() {
+    if (ascolto) { try { riconoscimento.current?.stop(); } catch { /* già fermo */ } return; }
+    avviaAscolto();
+  }
+
+  function cambiaVoce() {
+    if (voce) { setVoce(false); voceRef.current = false; fermaVoce(); return; }
+    setVoce(true);
+    voceRef.current = true;
+    // Su iPhone la sintesi si sblocca solo con un gesto dell'utente: questo è il gesto.
+    if (supporto.parlato) window.speechSynthesis.speak(new SpeechSynthesisUtterance(""));
+    if (!inCorso) avviaAscolto();
+  }
+
   async function invia(domanda) {
     const q = domanda.trim();
     if (!q || inCorso) return;
@@ -166,7 +248,7 @@ export default function Chirone({ profilo, vai }) {
       const risposta = await fetch("/api/assistente", {
         method: "POST",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
-        body: JSON.stringify({ messaggi: storia }),
+        body: JSON.stringify({ messaggi: storia, voce: voceRef.current }),
       });
 
       if (!(risposta.headers.get("content-type") || "").includes("text/event-stream")) {
@@ -176,6 +258,8 @@ export default function Chirone({ profilo, vai }) {
         return;
       }
 
+      let completo = "";
+      let erroreVoce = false;
       const lettore = risposta.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
@@ -189,10 +273,14 @@ export default function Chirone({ profilo, vai }) {
           if (!grezzo.startsWith("data: ")) continue;
           const ev = JSON.parse(grezzo.slice(6));
           if (ev.tipo === "inizio") { setRestanti(ev.restanti); aggiornaUltimo(() => ({ id: ev.id })); }
-          else if (ev.tipo === "testo") aggiornaUltimo((u) => ({ inAttesa: false, content: u.content + ev.testo }));
-          else if (ev.tipo === "errore") aggiornaUltimo(() => ({ inAttesa: false, errore: ev.messaggio, dettaglio: ev.dettaglio }));
+          else if (ev.tipo === "testo") { completo += ev.testo; aggiornaUltimo((u) => ({ inAttesa: false, content: u.content + ev.testo })); }
+          else if (ev.tipo === "errore") { erroreVoce = true; aggiornaUltimo(() => ({ inAttesa: false, errore: ev.messaggio, dettaglio: ev.dettaglio })); }
           else if (ev.tipo === "fine") aggiornaUltimo(() => ({ inAttesa: false, fonti: ev.fonti, senzaFonte: ev.senza_fonte }));
         }
+      }
+      if (voceRef.current && apertoRef.current) {
+        if (completo && !erroreVoce) parlaTesto(completo);
+        else { setVoce(false); voceRef.current = false; }
       }
     } catch {
       aggiornaUltimo(() => ({ inAttesa: false, errore: "Connessione interrotta. Riprova tra poco." }));
@@ -201,6 +289,9 @@ export default function Chirone({ profilo, vai }) {
       setTimeout(() => campo.current?.focus(), 50);
     }
   }
+
+  inviaRef.current = invia;
+  ascoltaRef.current = avviaAscolto;
 
   async function vota(indice, voto) {
     const m = messaggi[indice];
@@ -255,8 +346,12 @@ export default function Chirone({ profilo, vai }) {
           {isAdmin && (
             <button className="ch-link" onClick={() => { setAperto(false); vai("assistente-log"); }}>Log</button>
           )}
+          {(supporto.ascolto || supporto.parlato) && (
+            <button className={`ch-link ch-voce ${voce ? "attivo" : ""}`} onClick={cambiaVoce} aria-pressed={voce}
+              title="Conversazione a voce: Chirone parla e ti ascolta">{voce ? "🔊 Voce" : "🔇 Voce"}</button>
+          )}
           {!vuota && (
-            <button className="ch-link" onClick={() => setMessaggi([])} disabled={inCorso}>Nuova</button>
+            <button className="ch-link" onClick={() => { fermaVoce(); setMessaggi([]); }} disabled={inCorso}>Nuova</button>
           )}
           <button className="ch-chiudi" onClick={() => setAperto(false)} aria-label="Chiudi">×</button>
         </header>
@@ -311,14 +406,21 @@ export default function Chirone({ profilo, vai }) {
               value={testo}
               onChange={(e) => setTesto(e.target.value)}
               onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); invia(testo); } }}
-              placeholder="Scrivi la tua domanda…"
+              placeholder={ascolto ? "Ti ascolto…" : voce ? "Parla o scrivi…" : "Scrivi la tua domanda…"}
               rows={1}
               maxLength={MAX_CARATTERI}
               disabled={inCorso || restanti === 0}
             />
+            {supporto.ascolto && (
+              <button type="button" className={`ch-mic ${ascolto ? "attivo" : ""}`} onClick={microfono}
+                disabled={inCorso || restanti === 0} aria-pressed={ascolto} aria-label={ascolto ? "Smetti di ascoltare" : "Parla"}>
+                {ascolto ? "■" : "🎙"}
+              </button>
+            )}
             <button type="submit" disabled={inCorso || !testo.trim() || restanti === 0}>Invia</button>
           </div>
           <p className="ch-nota">
+            {parla && <><strong>Chirone sta parlando…</strong> tocca 🎙 per interromperlo. </>}
             Non scrivere nomi o dati dei clienti. Le domande vengono registrate per migliorare il manuale.
             {restanti !== null && <> Domande rimaste oggi: {restanti}.</>}
           </p>

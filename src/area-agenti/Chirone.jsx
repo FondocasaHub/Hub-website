@@ -137,7 +137,9 @@ export default function Chirone({ profilo, vai }) {
     return () => { document.removeEventListener("keydown", esc); document.body.classList.remove("ch-aperto"); };
   }, [aperto]);
 
-  useEffect(() => { fondo.current?.scrollIntoView({ block: "end" }); }, [messaggi, aperto]);
+  useEffect(() => {
+    if (messaggi.length) fondo.current?.scrollIntoView({ block: "end" });
+  }, [messaggi, aperto]);
 
   const aggiornaUltimo = (modifica) =>
     setMessaggi((m) => [...m.slice(0, -1), { ...m.at(-1), ...modifica(m.at(-1)) }]);
@@ -203,11 +205,25 @@ export default function Chirone({ profilo, vai }) {
   }
 
   async function copia(indice) {
+    const testoCopia = testoDaCopiare(messaggi[indice].content);
+    let riuscito = false;
     try {
-      await navigator.clipboard.writeText(testoDaCopiare(messaggi[indice].content));
-      setCopiato(indice);
-      setTimeout(() => setCopiato(null), 2000);
-    } catch { /* il browser può negare gli appunti: nessun errore da mostrare */ }
+      await navigator.clipboard.writeText(testoCopia);
+      riuscito = true;
+    } catch {
+      // Alcuni browser negano l'accesso agli appunti: metodo classico come riserva.
+      const area = document.createElement("textarea");
+      area.value = testoCopia;
+      area.setAttribute("readonly", "");
+      area.style.position = "fixed";
+      area.style.opacity = "0";
+      document.body.appendChild(area);
+      area.select();
+      try { riuscito = document.execCommand("copy"); } catch { riuscito = false; }
+      area.remove();
+    }
+    setCopiato(riuscito ? indice : `errore-${indice}`);
+    setTimeout(() => setCopiato(null), 2500);
   }
 
   if (!aperto) {
@@ -270,7 +286,7 @@ export default function Chirone({ profilo, vai }) {
                       <div className="ch-azioni">
                         <button className={m.voto === 1 ? "attivo" : ""} onClick={() => vota(i, 1)} aria-label="Risposta utile">👍</button>
                         <button className={m.voto === -1 ? "attivo" : ""} onClick={() => vota(i, -1)} aria-label="Risposta non utile">👎</button>
-                        <button className="ch-copia" onClick={() => copia(i)}>{copiato === i ? "Copiato ✓" : "Copia"}</button>
+                        <button className="ch-copia" onClick={() => copia(i)}>{copiato === i ? "Copiato ✓" : copiato === `errore-${i}` ? "Non copiato" : "Copia"}</button>
                       </div>
                     )}
                   </div>

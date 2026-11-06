@@ -7,11 +7,13 @@
 // Chiave Anthropic: variabile d'ambiente ANTHROPIC_API_KEY, mai nel client.
 import Anthropic from '@anthropic-ai/sdk';
 import { createClient } from '@supabase/supabase-js';
+import { contestoPersonale } from './_chirone-contesto.js';
 
 const SUPABASE_URL = process.env.SUPABASE_URL || 'https://iymxkvrgkhfaqcyxjsyz.supabase.co';
 const SUPABASE_KEY = process.env.SUPABASE_PUBLISHABLE_KEY || 'sb_publishable_NBu5yxfOtUSRW-ZYFL4JgQ_QBOxIVYT';
 const MODELLO = 'claude-sonnet-5-5';
-const MAX_MESSAGGI = 10;
+const MAX_MESSAGGI = 20;
+const FONTE_CONTESTO = 'Contesto personale';
 const MAX_CARATTERI_DOMANDA = 2000;
 const MAX_CARATTERI_MESSAGGIO = 12000;
 
@@ -29,22 +31,38 @@ const NOMI_RUOLO = {
 const anthropic = new Anthropic();
 
 function istruzioni(ruolo, documenti) {
-  return `Sei Chirone, l'assistente HUB: il supporto interno per i collaboratori di FC Punto Hub
-(FondoCasa Hub, Napoli Vomero). Rispondi in italiano, in modo breve e pratico:
-passi numerati quando spieghi come usare uno strumento, testo pronto da copiare
-quando fornisci un copione.
+  return `Sei Chirone, l'assistente HUB dei collaboratori di FC Punto Hub (FondoCasa Hub, Napoli Vomero).
+Hai tre ruoli e scegli quello giusto in base alla richiesta:
+
+1. ESPERTO: rispondi su strumenti, documenti, procedure, servizi e copioni. Passi numerati
+   per gli strumenti, testo pronto da copiare per i copioni.
+2. COACH: alleni l'agente. Simulazioni di telefonate e appuntamenti (tu fai il cliente),
+   analisi di una telefonata che ti racconta, preparazione di un appuntamento, risposte
+   alle obiezioni, motivazione quando è in difficoltà. Segui il documento
+   "Chirone coach – come allenarsi con Chirone".
+3. DIRETTORE D'ORCHESTRA: dici a ciascuno cosa fare oggi e come sta andando, usando il
+   CONTESTO PERSONALE (agenda, obiettivi, diario, immobili, team) e il documento
+   "Chirone direttore – le priorità della giornata". Con i manager guardi anche il team.
+
+Rispondi in italiano, breve e concreto, con tono diretto e incoraggiante, come un collega
+esperto che vuole far crescere chi ha davanti.
 
 REGOLE
-1. Rispondi SOLO in base ai documenti qui sotto. Alla fine di ogni risposta
-   indica la fonte: "Fonte: <titolo documento>".
-2. Se l'informazione non c'è, dillo chiaramente e suggerisci di chiedere
-   al proprio team leader o allo store manager. Non inventare mai procedure,
-   link, prezzi o percentuali.
-3. Non dare consulenza su mutui, tassi o fattibilità di finanziamenti per
-   clienti specifici: indirizza alla consulente del credito WeUnit.
-4. Non fornire dati personali di clienti o colleghi.
-5. Se la domanda riguarda un documento, indica in quale cartella dell'Area
-   Agenti si trova.
+1. Le informazioni sull'Hub (procedure, regole, servizi, prezzi, percentuali, link)
+   vengono SOLO dai documenti e dal contesto personale qui sotto. Alla fine di ogni
+   risposta indica la fonte: "Fonte: <titolo documento>", oppure "Fonte: ${FONTE_CONTESTO}"
+   quando usi i dati personali, anche insieme a un documento.
+2. Se un'informazione non c'è, dillo chiaramente e suggerisci di chiedere al proprio
+   team leader o allo store manager. Non inventare mai procedure, link, prezzi o percentuali.
+3. Nelle simulazioni puoi inventare il cliente e la sua storia, ma non fatti sull'Hub.
+   Alla fine di una simulazione cita il copione su cui hai basato la valutazione.
+4. Non dare consulenza su mutui, tassi o fattibilità di finanziamenti per clienti
+   specifici: indirizza alla consulente del credito WeUnit.
+5. Non fornire recapiti o dati personali di clienti o colleghi. I numeri del team
+   compaiono nel contesto solo per chi ha il diritto di vederli: non riportarli ad altri.
+6. Se la domanda riguarda un documento, indica in quale cartella dell'Area Agenti si trova.
+7. Nei testi per i clienti niente promesse di prezzo o di tempi di vendita e niente
+   critiche alla concorrenza.
 
 Ruolo dell'utente: ${NOMI_RUOLO[ruolo]}
 
@@ -113,7 +131,7 @@ export default async function handler(req, res) {
   if (erroreUtente || !utente?.user) return rispondi(res, 401, { errore: 'Accesso non valido' });
 
   const { data: profilo, error: erroreProfilo } = await supabase
-    .from('profiles').select('ruolo, reparto, attivo').eq('id', utente.user.id).maybeSingle();
+    .from('profiles').select('id, nome, ruolo, reparto, team, livello, ruoli_extra, attivo').eq('id', utente.user.id).maybeSingle();
   if (erroreProfilo) {
     console.error('assistente: profilo', erroreProfilo.message);
     return rispondi(res, 500, { errore: 'Servizio non disponibile' });
@@ -135,7 +153,15 @@ export default async function handler(req, res) {
     console.error('assistente: documenti', erroreDocumenti?.message ?? 'nessun documento');
     return rispondi(res, 500, { errore: 'Servizio non disponibile' });
   }
-  const titoli = documenti.map((d) => d.titolo);
+  const titoli = [...documenti.map((d) => d.titolo), FONTE_CONTESTO];
+
+  let contesto;
+  try {
+    contesto = await contestoPersonale(supabase, profilo);
+  } catch (e) {
+    console.error('assistente: contesto', e.message);
+    contesto = 'Contesto personale non disponibile in questo momento.';
+  }
 
   const { data: inizio, error: erroreInizio } = await supabase
     .rpc('assistente_inizia', { p_domanda: messaggi.at(-1).content }).single();
@@ -162,7 +188,12 @@ export default async function handler(req, res) {
     output_config: { effort: 'low' },
     betas: ['server-side-fallback-2026-07-01'],
     fallbacks: 'default',
-    system: [{ type: 'text', text: istruzioni(chiave, formattaDocumenti(documenti)), cache_control: { type: 'ephemeral' } }],
+    // Il primo blocco è uguale per tutti quelli dello stesso ruolo e resta in cache;
+    // il contesto personale cambia a ogni richiesta e sta dopo il punto di cache.
+    system: [
+      { type: 'text', text: istruzioni(chiave, formattaDocumenti(documenti)), cache_control: { type: 'ephemeral' } },
+      { type: 'text', text: `CONTESTO PERSONALE (dati dell'utente, letti adesso)\n${contesto}` },
+    ],
     messages: messaggi,
   });
   res.on('close', () => {

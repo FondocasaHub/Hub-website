@@ -24,6 +24,24 @@ const risposta = (corpo: unknown, status = 200) =>
 const esc = (v: unknown) =>
   String(v ?? "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>");
 
+// Oggetto con accenti o virgolette curve: denomailer 1.6.0 lo codifica male (va a capo dentro
+// l'intestazione) e Brevo chiude la connessione ("Error while in datamode"). Qui lo codifichiamo
+// noi in base64 (RFC 2047), a pezzi di massimo 45 byte, ripiegati su più righe. Il prefisso ASCII
+// davanti impedisce a denomailer di ricodificarlo.
+const oggettoMime = (prefisso: string, titolo: string) => {
+  if (!/[^\x20-\x7E]/.test(titolo)) return prefisso + titolo;
+  const enc = new TextEncoder();
+  const pezzi: string[] = [];
+  let pezzo = "";
+  for (const ch of Array.from(titolo)) {
+    if (enc.encode(pezzo + ch).length > 45) { pezzi.push(pezzo); pezzo = ""; }
+    pezzo += ch;
+  }
+  if (pezzo) pezzi.push(pezzo);
+  const b64 = (t: string) => btoa(String.fromCharCode(...enc.encode(t)));
+  return prefisso + pezzi.map((t) => `=?utf-8?B?${b64(t)}?=`).join("\r\n ");
+};
+
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   try {
@@ -53,7 +71,7 @@ Deno.serve(async (req) => {
 <ul style="margin:0;padding-left:18px;font-size:13px">${allegati.map((a) => `<li>${esc(a.nome)}</li>`).join("")}</ul>`
       : "";
     const link = `${AREA}/${c.id}`;
-    const oggetto = `Nuova comunicazione: ${String(c.titolo).slice(0, 120)}`;
+    const oggetto = oggettoMime("Nuova comunicazione: ", String(c.titolo).replace(/\s+/g, " ").trim().slice(0, 120));
 
     const corpo = () => `<div style="font-family:Arial,Helvetica,sans-serif;color:#14213D;background:#F5EFE4;padding:24px 12px">
 <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:600px;margin:0 auto;background:#FFFDF9;border-radius:10px;overflow:hidden">

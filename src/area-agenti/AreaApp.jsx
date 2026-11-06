@@ -13,6 +13,8 @@ import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
 import Utility from "./Utility.jsx";
 import { ElencoIncarichiRicerca, SchedaIncaricoRicerca } from "./IncarichiRicerca.jsx";
 import { ElencoImmobili, SchedaImmobile, PaginaReport } from "./Immobili.jsx";
+import Chirone from "./Chirone.jsx";
+import AssistenteLog from "./AssistenteLog.jsx";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -122,6 +124,7 @@ export default function AreaApp() {
     case "manager": contenuto = isManager ? <AreaManager vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "inserimenti": contenuto = isManager ? <ElencoInserimenti profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
+    case "assistente-log": contenuto = isAdmin ? <AssistenteLog /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
@@ -152,6 +155,7 @@ export default function AreaApp() {
       <footer className="aa-footer">
         FC Punto Hub Srl · Area riservata ai collaboratori · Via Pietro Mascagni 35, Napoli
       </footer>
+      <Chirone profilo={profilo} vai={vai} />
     </div>
   );
 }

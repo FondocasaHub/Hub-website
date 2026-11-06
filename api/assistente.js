@@ -173,6 +173,7 @@ export default async function handler(req, res) {
   });
 
   let messaggioErrore = null;
+  let dettaglioAdmin = null; // causa tecnica, mostrata solo all'admin per la diagnosi
   try {
     for await (const evento of stream) {
       if (evento.type === 'content_block_delta' && evento.delta.type === 'text_delta') {
@@ -202,6 +203,7 @@ export default async function handler(req, res) {
         messaggioErrore = 'Chirone non è disponibile in questo momento. Riprova tra poco.';
       }
       console.error('assistente: Anthropic', e.status ?? '', e.message);
+      dettaglioAdmin = `${e.status ?? ''} ${e.error?.error?.type ?? e.name ?? ''} ${String(e.message ?? '').slice(0, 300)}`.trim();
     }
   }
 
@@ -216,7 +218,9 @@ export default async function handler(req, res) {
   if (erroreFine) console.error('assistente: salvataggio', erroreFine.message);
 
   if (!chiuso) {
-    if (messaggioErrore) invia({ tipo: 'errore', messaggio: messaggioErrore });
+    if (messaggioErrore) {
+      invia({ tipo: 'errore', messaggio: messaggioErrore, ...(profilo.ruolo === 'admin' && dettaglioAdmin ? { dettaglio: dettaglioAdmin } : {}) });
+    }
     invia({ tipo: 'fine', id: inizio.log_id, fonti, senza_fonte: senzaFonte });
     res.end();
   }

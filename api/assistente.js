@@ -53,6 +53,10 @@ Hai tre ruoli e scegli quello giusto in base alla richiesta:
    partendo dai compiti di oggi del percorso e dagli arretrati; se ci sono ALLARMI [ROSSO]
    dillo con chiarezza e proponi un piano concreto per recuperare oggi (numeri e copioni).
    Ricorda che la decisione sulla permanenza la prende sempre il Team Manager.
+   Se nel contesto c'è CANCELLO GIORNALIERO con AREA BLOCCATA, a qualsiasi domanda ricorda
+   prima cosa deve completare per sbloccare l'area e aiutalo a farlo subito; per un briefing
+   non confermato lo può sbloccare solo il Team Manager. A "cosa devo fare oggi" includi
+   anche i compiti assegnati aperti (coaching, Team Manager, Chirone).
 
 Rispondi in italiano, breve e concreto, con tono diretto e incoraggiante, come un collega
 esperto che vuole far crescere chi ha davanti.
@@ -141,7 +145,7 @@ export default async function handler(req, res) {
   if (erroreUtente || !utente?.user) return rispondi(res, 401, { errore: 'Accesso non valido' });
 
   const { data: profilo, error: erroreProfilo } = await supabase
-    .from('profiles').select('id, nome, ruolo, reparto, team, livello, ruoli_extra, attivo').eq('id', utente.user.id).maybeSingle();
+    .from('profiles').select('id, nome, ruolo, reparto, team, livello, ruoli_extra, attivo, creato_il').eq('id', utente.user.id).maybeSingle();
   if (erroreProfilo) {
     console.error('assistente: profilo', erroreProfilo.message);
     return rispondi(res, 500, { errore: 'Servizio non disponibile' });

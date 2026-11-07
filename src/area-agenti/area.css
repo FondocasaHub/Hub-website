@@ -542,3 +542,30 @@ a { color: inherit; }
 .pc-lista-allarmi { margin: 0; padding-left: 16px; font-size: 13px; }
 .pc-lista-allarmi li.grave { color: var(--rosso); font-weight: 600; }
 .pc-azioni { display: flex; flex-direction: column; gap: 6px; }
+
+/* Cancello giornaliero: briefing del mattino e area bloccata */
+.aa-h3 { font-size: 17px; margin: 0 0 10px; color: var(--navy, #0A1628); }
+.cg-schermo { min-height: 100vh; background: #0A1628; display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; }
+.cg-briefing { background: #fff; border-radius: 16px; max-width: 760px; width: 100%; padding: 28px 30px; box-shadow: 0 20px 60px rgba(0,0,0,0.35); border-top: 6px solid #C9A84C; }
+.cg-testa { display: flex; gap: 16px; align-items: center; margin-bottom: 18px; }
+.cg-testa img { height: 46px; background: #0A1628; padding: 8px 10px; border-radius: 10px; }
+.cg-testa .aa-titolo { margin: 0; font-size: 24px; }
+.cg-voce { border-left: 4px solid #C9A84C; padding: 4px 0 4px 14px; margin: 14px 0; }
+.cg-voce h2 { font-size: 16px; margin: 0 0 4px; color: #0A1628; }
+.cg-voce ul { margin: 0; padding-left: 18px; }
+.cg-voce li { margin: 3px 0; }
+.cg-voce-rossa { border-left-color: var(--rosso); background: #F7E4E1; border-radius: 0 10px 10px 0; padding: 10px 14px; }
+.cg-voce-rossa h2 { color: var(--rosso); }
+.cg-azioni { display: flex; flex-wrap: wrap; gap: 10px; margin: 20px 0 10px; }
+.cg-esci { background: none; border: 0; color: var(--tenue); text-decoration: underline; cursor: pointer; padding: 0; margin-top: 8px; }
+.cg-bloccata { border: 3px solid var(--rosso); }
+.cg-bloccata .aa-titolo { color: var(--rosso); }
+.cg-mancanze { margin: 12px 0; padding-left: 20px; }
+.cg-mancanze li { margin: 6px 0; }
+.cg-mancanze li.solo-tm { color: var(--rosso); font-weight: 600; }
+.cg-avviso { display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between; align-items: center; background: #F7E4E1; color: var(--rosso); border: 2px solid var(--rosso); border-radius: 10px; padding: 10px 16px; margin-bottom: 16px; }
+.cg-avviso-giallo { background: #FBF0DC; color: #6B4510; border-color: #E2B25A; }
+.cg-no { color: var(--rosso); font-weight: 600; }
+.cg-link { background: none; border: 0; padding: 0; color: #0A1628; text-decoration: underline; cursor: pointer; font-size: 13px; }
+.cg-compiti-tm { margin: 6px 0; padding-left: 18px; font-size: 14px; }
+.pc-compito.scaduto { border-color: var(--rosso); background: #FBEDEB; }

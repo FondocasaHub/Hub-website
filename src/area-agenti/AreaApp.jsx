@@ -16,6 +16,8 @@ import { ElencoImmobili, SchedaImmobile, PaginaReport } from "./Immobili.jsx";
 import Chirone from "./Chirone.jsx";
 import AssistenteLog from "./AssistenteLog.jsx";
 import MiaGiornata from "./MiaGiornata.jsx";
+import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
+import { PAGINE_APERTE } from "./cancello-regole.js";
 
 const BASE = "/area-agenti";
 const LOGO = "/images/logo-hub-inline.png";
@@ -59,6 +61,9 @@ export default function AreaApp() {
 
   useEffect(() => { caricaDati(); }, [caricaDati]);
 
+  // Cancello giornaliero (agenti, buyer, credito): briefing del mattino e blocco se mancano i compiti di ieri.
+  const [cancello, ricaricaCancello] = useCancello(profilo);
+
   // Routing interno (indietro/avanti del browser)
   useEffect(() => {
     const onPop = () => setPagina(percorsoCorrente());
@@ -70,6 +75,7 @@ export default function AreaApp() {
     window.history.pushState({}, "", p ? `${BASE}/${p}` : BASE);
     setPagina(p.split("?")[0]);
     window.scrollTo({ top: 0 });
+    if (cancello?.bloccato || cancello?.sbloccato) ricaricaCancello();
   };
 
   const esci = async () => {
@@ -106,6 +112,11 @@ export default function AreaApp() {
         onEsci={esci}
       />
     );
+  }
+
+  if (cancello === undefined) return <Caricamento />;
+  if (cancello && cancello.lavorativoOggi && !cancello.briefing) {
+    return <BriefingMattino profilo={profilo} stato={cancello} onFatto={ricaricaCancello} esci={esci} />;
   }
 
   const isAdmin = profilo.ruolo === "admin";
@@ -148,12 +159,18 @@ export default function AreaApp() {
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
       contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} vedeUtility={vedeUtility} />;
   }
+  if (cancello?.bloccato && !PAGINE_APERTE.includes(pagina)) {
+    contenuto = <PaginaBloccata stato={cancello} vai={vai} ricarica={ricaricaCancello} />;
+  }
 
   return (
     <div className="aa">
       <Barra profilo={profilo} pagina={pagina} vai={vai} esci={esci}
         produttivita={produttivita} isManager={isManager} isAdmin={isAdmin} vedeUtility={vedeUtility} />
-      <main className="aa-main">{contenuto}</main>
+      <main className="aa-main">
+        {!(cancello?.bloccato && !PAGINE_APERTE.includes(pagina)) && <AvvisoBlocco stato={cancello} vai={vai} ricarica={ricaricaCancello} />}
+        {contenuto}
+      </main>
       <footer className="aa-footer">
         FC Punto Hub Srl · Area riservata ai collaboratori · Via Pietro Mascagni 35, Napoli
       </footer>

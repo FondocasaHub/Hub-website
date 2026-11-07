@@ -4,6 +4,7 @@
 import { calcolaObiettivi, totali, oggiRoma, lunedi, piuGiorni, LISTE_PIANO } from '../src/area-agenti/produttivita.js';
 import { avvisiImmobile, sonoBuyer } from '../src/area-agenti/immobili.js';
 import { riepilogoPercorso, TIPI_PERCORSO, giorniPercorso, allarmiPercorso } from '../src/area-agenti/percorsi.js';
+import { soggettoCancello, caricaStati, riepilogoCancello } from '../src/area-agenti/cancello-regole.js';
 
 const GIORNI = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
 const uno = (v) => Math.round((Number(v) || 0) * 10) / 10;
@@ -104,6 +105,20 @@ async function sezionePercorsiTeam(supabase, oggi) {
   });
 }
 
+async function sezioneCancelloTeam(supabase, oggi) {
+  const { data: persone, error } = await supabase.rpc('cancello_team');
+  if (error) throw new Error(error.message);
+  if (!persone?.length) return ['Nessun collaboratore soggetto al cancello.'];
+  const stati = await caricaStati(supabase, persone, oggi);
+  return persone.map((p) => {
+    const s = stati[p.id];
+    const briefing = !s.lavorativoOggi ? 'giorno non lavorativo' : s.briefing ? 'briefing confermato' : 'briefing NON confermato';
+    const st = s.bloccato ? `BLOCCATO (${s.mancanze.length} mancanze: ${s.mancanze.map((m) => m.testo).join('; ')})`
+      : s.sbloccato ? `sbloccato oggi dal Team Manager (${s.sbloccoMotivo})` : s.mancanze.length ? `${s.mancanze.length} da completare` : 'in regola';
+    return `- ${p.nome || 'collaboratore'}: ${briefing}, ${st}, ${s.compiti.length} compiti assegnati aperti`;
+  });
+}
+
 async function sezioneTeam(supabase, oggi) {
   const { data: team } = await supabase.rpc('produttivita_team', { p_dal: lunedi(oggi) });
   if (!team?.length) return ['Nessun dato del team.'];
@@ -131,6 +146,8 @@ export async function contestoPersonale(supabase, profilo) {
     const mio = await sezionePercorso(supabase, profilo, oggi);
     if (mio) blocchi.push(`\nIL MIO PERCORSO DI INSERIMENTO (90 giorni)\n${mio.join('\n')}`);
   } catch (e) { console.error('assistente: percorso', e.message); }
+  if (soggettoCancello(profilo)) await prova('CANCELLO GIORNALIERO (briefing e compiti obbligatori)', async () => riepilogoCancello((await caricaStati(supabase, [profilo], oggi))[profilo.id]));
+  if (gestore) await prova('CANCELLO GIORNALIERO DEL TEAM', () => sezioneCancelloTeam(supabase, oggi));
   if (profilo.ruolo === 'manager' || profilo.ruolo === 'admin') {
     try {
       const team = await sezionePercorsiTeam(supabase, oggi);

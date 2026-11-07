@@ -7,6 +7,7 @@ import {
   calcolaObiettivi, totali, euro, uno, oggiRoma, lunedi, piuGiorni,
 } from "./produttivita";
 import { PercorsoOggi, PercorsiTeam } from "./Percorso.jsx";
+import { CompitiAssegnati, CancelloTeam } from "./Cancello.jsx";
 
 const NUMERI = [
   ["appuntamenti", "Appuntamenti di acquisizione"],
@@ -126,6 +127,8 @@ export default function MiaGiornata({ profilo }) {
       </div>
 
       <PercorsoOggi profilo={profilo} oggi={oggi} aggiornato={storico} />
+      <CompitiAssegnati profilo={profilo} />
+      {isManager && <CancelloTeam profilo={profilo} />}
 
       <div className="mg-data">
         <button className="aa-btn aa-btn-piccolo" onClick={() => setData(piuGiorni(data, -1))} aria-label="Giorno precedente">←</button>

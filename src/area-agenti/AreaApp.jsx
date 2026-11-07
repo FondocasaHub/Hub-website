@@ -126,7 +126,7 @@ export default function AreaApp() {
     case "inserimenti": contenuto = isManager ? <ElencoInserimenti profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "assistente-log": contenuto = isAdmin ? <AssistenteLog /> : <NonAutorizzato vai={vai} />; break;
-    case "giornata": contenuto = ["agente", "manager", "admin"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
+    case "giornata": contenuto = ["agente", "manager", "admin", "credito"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;

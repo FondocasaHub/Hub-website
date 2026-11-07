@@ -524,3 +524,21 @@ a { color: inherit; }
 .mg-risultati span { font-size: 13px; color: var(--tenue); }
 .mg-form { display: grid; gap: 12px; margin-top: 8px; }
 @media (max-width: 600px) { .mg-stato { margin-left: 0; width: 100%; } .mg-contatore strong { font-size: 40px; min-width: 100px; } }
+
+/* Percorso di inserimento (90 giorni) */
+.pc-percorso { border-left: 4px solid var(--gold); }
+.pc-allarme { border-radius: 10px; padding: 14px 18px; margin: 14px 0; background: #FBF0DC; color: #6B4510; border: 2px solid #E2B25A; }
+.pc-allarme-rosso { background: #F7E4E1; color: var(--rosso); border-color: var(--rosso); font-size: 16px; }
+.pc-allarme strong { display: block; font-size: 18px; margin-bottom: 6px; }
+.pc-allarme ul { margin: 6px 0 8px; padding-left: 20px; }
+.pc-allarme p { margin: 0; font-size: 14px; }
+.pc-compiti { display: grid; gap: 10px; margin: 12px 0; }
+.pc-compito { display: flex; gap: 12px; align-items: flex-start; padding: 12px 14px; border: 1px solid rgba(10,22,40,0.12); border-radius: 10px; cursor: pointer; background: #fff; }
+.pc-compito input { margin-top: 4px; width: 18px; height: 18px; flex: none; }
+.pc-compito small { display: block; font-weight: 600; color: var(--tenue); margin-bottom: 2px; }
+.pc-compito.fatto span { text-decoration: line-through; opacity: 0.6; }
+.pc-arretrati summary { cursor: pointer; font-weight: 600; color: var(--rosso); margin: 8px 0; }
+.pc-riga-rossa td { background: #FBEDEB; }
+.pc-lista-allarmi { margin: 0; padding-left: 16px; font-size: 13px; }
+.pc-lista-allarmi li.grave { color: var(--rosso); font-weight: 600; }
+.pc-azioni { display: flex; flex-direction: column; gap: 6px; }

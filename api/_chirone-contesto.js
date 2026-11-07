@@ -3,6 +3,7 @@
 // Il file inizia con "_" perché Vercel non lo pubblichi come funzione a sé.
 import { calcolaObiettivi, totali, oggiRoma, lunedi, piuGiorni, LISTE_PIANO } from '../src/area-agenti/produttivita.js';
 import { avvisiImmobile, sonoBuyer } from '../src/area-agenti/immobili.js';
+import { riepilogoPercorso, TIPI_PERCORSO, giorniPercorso, allarmiPercorso } from '../src/area-agenti/percorsi.js';
 
 const GIORNI = ['domenica', 'lunedì', 'martedì', 'mercoledì', 'giovedì', 'venerdì', 'sabato'];
 const uno = (v) => Math.round((Number(v) || 0) * 10) / 10;
@@ -79,6 +80,30 @@ async function sezioneImmobili(supabase, profilo, oggi, gestore) {
   return righe;
 }
 
+async function sezionePercorso(supabase, profilo, oggi) {
+  const { data: p } = await supabase.from('percorsi_inserimento').select('*')
+    .eq('user_id', profilo.id).eq('stato', 'in corso').maybeSingle();
+  if (!p) return null;
+  const { data: diario } = await supabase.from('produttivita_giorno')
+    .select('data, contatti, appuntamenti, incarichi, visite, proposte').eq('user_id', profilo.id).gte('data', p.data_inizio);
+  return riepilogoPercorso(p, diario || [], oggi);
+}
+
+async function sezionePercorsiTeam(supabase, oggi) {
+  const { data: lista } = await supabase.from('percorsi_inserimento').select('*').eq('stato', 'in corso');
+  if (!lista?.length) return null;
+  const { data: nomi } = await supabase.rpc('produttivita_team', { p_dal: oggi });
+  const nome = Object.fromEntries((nomi || []).map((t) => [t.user_id, t.nome]));
+  const dal = lista.map((p) => p.data_inizio).sort()[0];
+  const { data: diari } = await supabase.from('produttivita_giorno')
+    .select('user_id, data, contatti, appuntamenti, incarichi, visite, proposte').in('user_id', lista.map((p) => p.user_id)).gte('data', dal);
+  return lista.map((p) => {
+    const { cal } = giorniPercorso(p.data_inizio, oggi);
+    const all = allarmiPercorso(p, (diari || []).filter((d) => d.user_id === p.user_id && d.data >= p.data_inizio), oggi);
+    return `- ${nome[p.user_id] || 'collaboratore'}: ${TIPI_PERCORSO[p.tipo]}, giorno ${cal} di 90, fase approvata ${p.fase_approvata}. ${all.length ? `Allarmi: ${all.map((a) => a.testo).join(' ')}` : 'In linea.'}`;
+  });
+}
+
 async function sezioneTeam(supabase, oggi) {
   const { data: team } = await supabase.rpc('produttivita_team', { p_dal: lunedi(oggi) });
   if (!team?.length) return ['Nessun dato del team.'];
@@ -101,7 +126,17 @@ export async function contestoPersonale(supabase, profilo) {
     try { blocchi.push(`\n${titolo}\n${(await fn()).join('\n')}`); }
     catch (e) { console.error('assistente: contesto', titolo, e.message); blocchi.push(`\n${titolo}\nDati non disponibili in questo momento.`); }
   };
-  if (['agente', 'manager', 'admin'].includes(profilo.ruolo)) await prova('PRODUTTIVITÀ', () => sezioneProduttivita(supabase, profilo, oggi));
+  if (['agente', 'manager', 'admin', 'credito'].includes(profilo.ruolo)) await prova('PRODUTTIVITÀ', () => sezioneProduttivita(supabase, profilo, oggi));
+  try {
+    const mio = await sezionePercorso(supabase, profilo, oggi);
+    if (mio) blocchi.push(`\nIL MIO PERCORSO DI INSERIMENTO (90 giorni)\n${mio.join('\n')}`);
+  } catch (e) { console.error('assistente: percorso', e.message); }
+  if (profilo.ruolo === 'manager' || profilo.ruolo === 'admin') {
+    try {
+      const team = await sezionePercorsiTeam(supabase, oggi);
+      if (team) blocchi.push(`\nPERCORSI DI INSERIMENTO DEL TEAM\n${team.join('\n')}`);
+    } catch (e) { console.error('assistente: percorsi team', e.message); }
+  }
   if (profilo.ruolo !== 'staff') await prova(gestore ? 'IMMOBILI DEL TEAM' : 'I MIEI IMMOBILI', () => sezioneImmobili(supabase, profilo, oggi, gestore));
   if (gestore) await prova(profilo.ruolo === 'admin' ? 'TEAM (tutti, questa settimana)' : 'IL MIO TEAM (questa settimana)', () => sezioneTeam(supabase, oggi));
   return blocchi.join('\n');

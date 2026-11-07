@@ -6,6 +6,7 @@ import {
   OBIETTIVI_PREDEFINITI, LISTE_PIANO, MINIMO_CONTATTI_HUB,
   calcolaObiettivi, totali, euro, uno, oggiRoma, lunedi, piuGiorni,
 } from "./produttivita";
+import { PercorsoOggi, PercorsiTeam } from "./Percorso.jsx";
 
 const NUMERI = [
   ["appuntamenti", "Appuntamenti di acquisizione"],
@@ -123,6 +124,8 @@ export default function MiaGiornata({ profilo }) {
         <h1 className="aa-titolo">La mia giornata</h1>
         <p className="aa-sottotitolo">Il Modulo Giornaliero Contatti in digitale: compilalo durante la giornata. Vendilo resta il CRM ufficiale, da aggiornare entro le 19:00.</p>
       </div>
+
+      <PercorsoOggi profilo={profilo} oggi={oggi} aggiornato={storico} />
 
       <div className="mg-data">
         <button className="aa-btn aa-btn-piccolo" onClick={() => setData(piuGiorni(data, -1))} aria-label="Giorno precedente">←</button>
@@ -252,6 +255,8 @@ export default function MiaGiornata({ profilo }) {
           </form>
         )}
       </section>
+
+      {isManager && team && <PercorsiTeam profilo={profilo} oggi={oggi} team={team} />}
 
       {isManager && team && (
         <section className="aa-card">

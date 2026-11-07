@@ -1,18 +1,19 @@
-// Cancello giornaliero (deciso da Nicola il 7/11/2026): agenti, buyer e consulenti del credito
+// Cancello giornaliero (deciso da Nicola il 7/11/2026): agenti, buyer e consulenti del credito (anche i veterani, con i compiti di routine.js)
 // devono confermare ogni mattina il briefing di Chirone e completare i compiti del giorno prima,
 // altrimenti l'area resta bloccata finché non li completano o il Team Manager non li sblocca.
 // Usato dall'Area Agenti e da /api/assistente (Chirone). Nessuna dipendenza da React.
 import { piuGiorni, calcolaObiettivi } from "./produttivita.js";
 import { compitiArretrati, compitiDelGiorno, contattiAttesi, giorniPercorso } from "./percorsi.js";
+import { TIPI_ROUTINE, tipoRoutine, compitiRoutine, routineFatta } from "./routine.js";
 
 // Prima data controllata: il primo giorno di cancello è lunedì 9/11, il primo blocco possibile martedì 10/11.
 export const DATA_ATTIVAZIONE = "2026-11-09";
 export const RUOLI_CANCELLO = ["agente", "credito"];
 export const soggettoCancello = (p) => Boolean(p && RUOLI_CANCELLO.includes(p.ruolo));
 
-// Con il blocco restano aperti: La mia giornata (compiti e diario), Istruzioni (manuali), CRM (Vendilo),
+// Con il blocco restano aperti: La mia giornata (compiti e diario), Istruzioni (manuali), CRM (Vendilo), Documenti (deciso da Nicola il 7/11),
 // strumenti di Produttività (servono per i compiti) e Chirone.
-export const PAGINE_APERTE = ["giornata", "istruzioni", "crm", "produttivita"];
+export const PAGINE_APERTE = ["giornata", "istruzioni", "crm", "documenti", "produttivita"];
 
 export const ORIGINI = { coaching: "Compito del coaching", manager: "Compito del Team Manager", chirone: "Compito di Chirone" };
 export const ASSENZE = { ferie: "Ferie", malattia: "Malattia", permesso: "Permesso", altro: "Altra assenza giustificata" };
@@ -85,6 +86,16 @@ export function statoCancello({ profilo, oggi, presenze = [], diari = [], percor
         testo: `Diario di ${dataBreve(precedente)} non compilato: in "La mia giornata" torna a ${dataBreve(precedente)} e inserisci contatti, numeri e ore.` });
     }
   }
+  // Veterani (nessun percorso in corso): compiti giornalieri della routine.
+  const tipo = tipoRoutine(profilo);
+  if (!percorso && precedente) {
+    for (const c of compitiRoutine(tipo, precedente)) {
+      if (!routineFatta(diarioPrecedente, c.chiave)) {
+        mancanze.push({ tipo: "routine", data: precedente, chiave: c.chiave,
+          testo: `Compiti di ${dataBreve(precedente)} (${c.blocco.replace(/^\S+\s/, "")}): ${c.testo}. Spuntalo in "La mia giornata".` });
+      }
+    }
+  }
   if (percorso) {
     for (const c of compitiArretrati(percorso, oggi)) {
       if (c.data >= inizio && giornoLavorativo(c.data, assenze)) {
@@ -104,6 +115,7 @@ export function statoCancello({ profilo, oggi, presenze = [], diari = [], percor
     sbloccato, sbloccoMotivo: oggiP?.sblocco_motivo || "",
     mancanze, bloccato: lavorativoOggi && mancanze.length > 0 && !sbloccato,
     compiti, percorso,
+    routine: percorso ? null : { tipo, nome: TIPI_ROUTINE[tipo], oggi: compitiRoutine(tipo, oggi) },
   };
 }
 
@@ -114,7 +126,7 @@ export async function caricaStati(supabase, profili, oggi) {
   const dal = piuGiorni(oggi, -21);
   const [pres, diari, perc, comp] = await Promise.all([
     supabase.from("giornata_presenze").select("*").in("user_id", ids).gte("data", dal),
-    supabase.from("produttivita_giorno").select("user_id, data, contatti, ore").in("user_id", ids).gte("data", dal),
+    supabase.from("produttivita_giorno").select("user_id, data, contatti, ore, routine").in("user_id", ids).gte("data", dal),
     supabase.from("percorsi_inserimento").select("*").in("user_id", ids).eq("stato", "in corso"),
     supabase.from("compiti_assegnati").select("*").in("user_id", ids).is("fatto_il", null).eq("annullato", false).order("scadenza"),
   ]);
@@ -150,6 +162,9 @@ export function vociBriefing({ profilo, stato, obiettivoOggi, allarmi = [] }) {
     const oggiC = compitiDelGiorno(p.tipo, p.data_inizio, stato.oggi);
     if (cal >= 1 && cal <= 90) voci.push({ titolo: `Percorso di inserimento · giorno ${cal} di 90`, righe: oggiC.length ? oggiC.map((c) => `${c.blocco}: ${c.testo}`) : ["Oggi nessun compito del percorso."] });
   }
+  if (stato.routine?.oggi.length) {
+    voci.push({ titolo: `I tuoi compiti di oggi · ${stato.routine.nome}`, righe: stato.routine.oggi.map((c) => `${c.blocco.replace(/^\S+\s/, "")}: ${c.testo}`) });
+  }
   const aperti = stato.compiti.filter((c) => c.scadenza >= stato.oggi);
   if (aperti.length) voci.push({ titolo: "Compiti assegnati", righe: aperti.map((c) => `${ORIGINI[c.origine]} (entro ${dataBreve(c.scadenza)}): ${c.testo}`) });
   if (obiettivoOggi) voci.push({ titolo: "Numeri di oggi", righe: [`Obiettivo contatti: ${obiettivoOggi}.`, "Segna i contatti in \"La mia giornata\" durante il giorno e aggiorna Vendilo entro le 19:00."] });
@@ -168,6 +183,7 @@ export function riepilogoCancello(stato) {
   if (stato.bloccato) righe.push(`AREA BLOCCATA: per sbloccarla deve completare: ${stato.mancanze.map((m) => m.testo).join(" | ")}`);
   else if (stato.sbloccato) righe.push(`Sbloccato oggi dal Team Manager (motivo: ${stato.sbloccoMotivo}). Restano da completare: ${stato.mancanze.map((m) => m.testo).join(" | ") || "niente"}.`);
   else righe.push("Nessun compito arretrato: è in regola.");
+  if (stato.routine?.oggi.length) righe.push(`Compiti giornalieri di oggi (${stato.routine.nome}): ${stato.routine.oggi.map((c) => c.testo).join(" | ")}`);
   const aperti = stato.compiti.filter((c) => c.scadenza >= stato.oggi);
   if (aperti.length) righe.push(`Compiti assegnati aperti: ${aperti.map((c) => `${ORIGINI[c.origine]} entro ${c.scadenza}: ${c.testo}`).join(" | ")}`);
   return righe;

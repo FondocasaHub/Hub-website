@@ -5,6 +5,7 @@ import { supabase } from "./supabase";
 import { oggiRoma, piuGiorni } from "./produttivita";
 import { allarmiPercorso } from "./percorsi";
 import { supportoVoce, testoParlato, scegliVoce } from "./voce";
+import { TIPI_ROUTINE, tipoRoutine, compitiRoutine } from "./routine.js";
 import {
   soggettoCancello, caricaStati, obiettivoContatti, compitoCorrettivo, vociBriefing,
   dataBreve, ORIGINI, ASSENZE, venerdi,
@@ -138,7 +139,7 @@ export function PaginaBloccata({ stato, vai, ricarica }) {
     <div className="aa-card cg-bloccata">
       <p className="aa-occhiello">Area bloccata</p>
       <h1 className="aa-titolo">🔒 Prima completa i compiti di {dataBreve(stato.precedente || stato.oggi)}</h1>
-      <p>Finché non li completi puoi usare solo <strong>La mia giornata</strong>, le <strong>Istruzioni</strong>, il <strong>CRM</strong> (Vendilo), gli strumenti di <strong>Produttività</strong> e Chirone.</p>
+      <p>Finché non li completi puoi usare solo <strong>La mia giornata</strong>, le <strong>Istruzioni</strong>, il <strong>CRM</strong> (Vendilo), i <strong>Documenti</strong>, gli strumenti di <strong>Produttività</strong> e Chirone.</p>
       <ElencoMancanze stato={stato} />
       <div className="cg-azioni">
         <button className="aa-btn aa-btn-pieno" onClick={() => vai("giornata")}>Vai a La mia giornata</button>
@@ -159,6 +160,55 @@ export function AvvisoBlocco({ stato, vai, ricarica }) {
         <button className="aa-btn aa-btn-piccolo" onClick={ricarica}>Ricontrolla</button>
       </span>
     </div>
+  );
+}
+
+/* ---------- Compiti giornalieri dei veterani (in "La mia giornata", per il giorno scelto) ---------- */
+export function RoutineGiorno({ profilo, data }) {
+  const [inPercorso, setInPercorso] = useState(undefined);
+  const [fatti, setFatti] = useState({});
+  const [errore, setErrore] = useState("");
+  const soggetto = soggettoCancello(profilo);
+
+  useEffect(() => {
+    if (!soggetto) return;
+    supabase.from("percorsi_inserimento").select("id").eq("user_id", profilo.id).eq("stato", "in corso").maybeSingle()
+      .then(({ data: p }) => setInPercorso(Boolean(p)));
+  }, [soggetto, profilo.id]);
+  useEffect(() => {
+    if (!soggetto || inPercorso !== false) return;
+    supabase.from("produttivita_giorno").select("routine").eq("user_id", profilo.id).eq("data", data).maybeSingle()
+      .then(({ data: g }) => setFatti(g?.routine || {}));
+  }, [soggetto, inPercorso, profilo.id, data]);
+
+  if (!soggetto || inPercorso !== false) return null;
+  const tipo = tipoRoutine(profilo);
+  const compiti = compitiRoutine(tipo, data);
+  if (!compiti.length) return null;
+
+  const spunta = async (chiave, fatto) => {
+    const nuovi = { ...fatti, [chiave]: fatto };
+    setFatti(nuovi);
+    const { error } = await supabase.from("produttivita_giorno").upsert({ user_id: profilo.id, data, routine: nuovi }, { onConflict: "user_id,data" });
+    setErrore(error ? `Non salvato: ${error.message}` : "");
+  };
+  const tutti = compiti.every((c) => fatti[c.chiave]);
+
+  return (
+    <section className="aa-card pc-percorso">
+      <p className="aa-occhiello">Compiti giornalieri · {TIPI_ROUTINE[tipo]}</p>
+      <h2 className="aa-h2">{tutti ? "✓ Compiti di oggi completati" : "Da fare per tenere aperta l'area domani"}</h2>
+      <div className="pc-compiti">
+        {compiti.map((c) => (
+          <label key={c.chiave} className={`pc-compito ${fatti[c.chiave] ? "fatto" : ""}`}>
+            <input type="checkbox" checked={!!fatti[c.chiave]} onChange={(e) => spunta(c.chiave, e.target.checked)} />
+            <span><small>{c.blocco}</small>{c.testo}</span>
+          </label>
+        ))}
+      </div>
+      <p className="aa-nota">Spunta solo quello che hai fatto davvero: il Team Manager lo confronta con Vendilo e con i numeri del diario. Se il giorno dopo manca una spunta, l'area resta bloccata finché non completi.</p>
+      {errore && <p className="aa-errore">{errore}</p>}
+    </section>
   );
 }
 
@@ -247,7 +297,7 @@ export function CancelloTeam({ profilo }) {
         <h2 className="aa-h2">Cancello giornaliero · {profilo.ruolo === "admin" ? "tutti i team" : "il mio team"}</h2>
         <button className="aa-btn aa-btn-piccolo" onClick={() => setForm({ tipo: "compito", user_id: persone[0]?.id || "", origine: "coaching", testo: "", scadenza: venerdi(oggi) })}>+ Assegna compito</button>
       </div>
-      <p className="aa-nota">Agenti, buyer e consulenti del credito confermano il briefing ogni mattina; se il giorno prima mancano diario o compiti, l'area resta bloccata. Sblocchi e assenze restano registrati.</p>
+      <p className="aa-nota">Agenti, buyer e consulenti del credito (nuovi e veterani) confermano il briefing ogni mattina; se il giorno prima mancano diario, compiti giornalieri o compiti del percorso, l'area resta bloccata. Sblocchi e assenze restano registrati.</p>
 
       {form && (
         <form className="mg-form" onSubmit={salva}>
@@ -308,7 +358,7 @@ export function CancelloTeam({ profilo }) {
                 return (
                   <React.Fragment key={p.id}>
                     <tr className={s.bloccato ? "pc-riga-rossa" : ""}>
-                      <td><strong>{p.nome || "—"}</strong><br /><small className="aa-nota">{p.ruolo === "credito" ? "Credito" : "Agente"}{p.team ? ` · ${p.team}` : ""}</small></td>
+                      <td><strong>{p.nome || "—"}</strong><br /><small className="aa-nota">{TIPI_ROUTINE[tipoRoutine(p)]}{s.percorso ? " · in percorso" : ""}{p.team ? ` · ${p.team}` : ""}</small></td>
                       <td>{!s.lavorativoOggi ? (s.assenzaOggi ? ASSENZE[s.assenzaOggi] : "non lavorativo") : s.briefing ? `✓ ${ora(s.briefingIl)}` : <span className="cg-no">✗ non ancora</span>}</td>
                       <td>
                         {s.bloccato ? <span className="cg-no">🔒 Bloccato ({s.mancanze.length})</span>

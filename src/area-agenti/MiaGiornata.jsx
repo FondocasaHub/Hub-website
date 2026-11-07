@@ -7,7 +7,7 @@ import {
   calcolaObiettivi, totali, euro, uno, oggiRoma, lunedi, piuGiorni,
 } from "./produttivita";
 import { PercorsoOggi, PercorsiTeam } from "./Percorso.jsx";
-import { CompitiAssegnati, CancelloTeam } from "./Cancello.jsx";
+import { CompitiAssegnati, CancelloTeam, RoutineGiorno } from "./Cancello.jsx";
 
 const NUMERI = [
   ["appuntamenti", "Appuntamenti di acquisizione"],
@@ -138,6 +138,8 @@ export default function MiaGiornata({ profilo }) {
         <span className="mg-giorno">{dataLunga(data)}</span>
         <span className="aa-nota mg-stato">{stato}</span>
       </div>
+
+      <RoutineGiorno profilo={profilo} data={data} />
 
       <section className="aa-card mg-contatti">
         <div>

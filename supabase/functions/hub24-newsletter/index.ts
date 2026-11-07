@@ -69,7 +69,10 @@ const b64 = (testo: string) => {
   for (let i = 0; i < bytes.length; i += 0x8000) bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   // Riga vuota iniziale: denomailer non separa l'intestazione della parte MIME dal contenuto e la prima
   // riga in base64 (57 caratteri) spariva, facendo comparire codice HTML in cima all'email.
-  return "\r\n" + btoa(bin).replace(/.{76}/g, "$&\r\n");
+  // Riga di servizio (56 spazi + a capo = 57 byte = una riga base64 intera): nella consegna la prima
+  // riga del corpo si perde (7/11/2026: "#14213D;background…" in cima a comunicazioni e HUB 24). Se si
+  // perde questa, il contenuto resta intatto; se arriva, sono solo spazi.
+  return "\r\n" + btoa(" ".repeat(56) + "\n" + bin).replace(/.{76}/g, "$&\r\n");
 };
 const corpo = (html: string) => {
   const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")

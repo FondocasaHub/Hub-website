@@ -224,7 +224,7 @@ export default function PartnerWeUnit() {
         <meta property="og:title" content="Diventa Partner FondoCasa Hub — per i collaboratori WeUnit" />
         <meta property="og:description" content="Guadagna anche sull'immobiliare: segnala gli immobili dei tuoi clienti o entra nel team FC Punto Hub." />
         <meta property="og:url" content="https://www.fondocasahub.com/partner-weunit" />
-        <meta property="og:image" content="https://www.fondocasahub.com/og-image.jpg" />
+        <meta property="og:image" content="https://www.fondocasahub.com/images/og-partner-weunit.jpg" />
       </Helmet>
 
       <nav className="pw-nav">

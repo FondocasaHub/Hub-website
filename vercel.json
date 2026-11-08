@@ -60,6 +60,10 @@
       "destination": "/index.html"
     },
     {
+      "source": "/partner-weunit",
+      "destination": "/index.html"
+    },
+    {
       "source": "/chi-siamo",
       "destination": "/chi-siamo.html"
     },

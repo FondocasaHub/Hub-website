@@ -15,9 +15,13 @@
 //                                                         disiscritti, destinatari degli ultimi invii
 //   { azione: "invia" }                                 → manda l'ultimo numero di index.json agli
 //                                                         iscritti attivi che non l'hanno ancora ricevuto,
-//                                                         a blocchi di 5 (ogni blocco avvia il successivo);
+//                                                         a blocchi di 2 (ogni blocco avvia il successivo);
 //                                                         risposta: { ok, numero, inviate, totale, falliti, rimanenti }
 //                                                         Richiede la tabella di supabase/hub24-newsletter-invii-a-blocchi.sql
+//   { azione: "prova" }                                 → manda l'ultimo numero SOLO all'indirizzo del secret
+//                                                         HUB24_PROVA_EMAIL (LOTTO copie, oggetto "[PROVA]"),
+//                                                         per verificare un blocco intero. Non tocca registro
+//                                                         destinatari né hub24_invii.
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
@@ -121,6 +125,20 @@ const oggettoMime = (testo: string) => {
   const b64 = (t: string) => btoa(String.fromCharCode(...enc.encode(t)));
   return (testo.slice(0, taglio) || " ") + pezzi.map((t) => `=?utf-8?B?${b64(t)}?=`).join("\r\n ");
 };
+
+// Email per blocco. 08/11/2026: la vecchia versione si fermava ("CPU Time exceeded") dopo 4 email;
+// con 2 per esecuzione resta un ampio margine. Ogni blocco avvia il successivo.
+const LOTTO = 2;
+
+const htmlNumero = (n: Numero, token: string) =>
+  layout(
+    `<p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9C2F1C">Numero ${n.numero} · ${dataLunga(n.data)}</p>
+<p style="margin:0 0 10px;font-size:24px;font-weight:bold;line-height:1.2">${esc(n.titolo)}</p>
+${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
+<p style="margin:16px 0 20px">${bottone(`${SITO}/hub24/${n.file}`, "Leggi il numero")}${n.pdf ? bottone(`${SITO}/hub24/${n.pdf}`, "Scarica il PDF", false) : ""}</p>
+<p style="margin:0 0 12px;font-size:15px">Vuoi sapere quanto vale oggi la tua casa o quale mutuo puoi ottenere? Rispondi a questa email o scrivici su WhatsApp al 392 457 9047.</p>`,
+    `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi=${token}" style="color:#5E5148">disiscriviti</a>.`,
+  );
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
@@ -247,7 +265,6 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
       }
       // Un blocco per esecuzione: inviare tutta la lista in una volta superava i limiti di risorse
       // della funzione (WORKER_RESOURCE_LIMIT, 08/11/2026). Il blocco successivo parte da solo (vedi sotto).
-      const LOTTO = 5; // 08/11/2026: con 12 iscritti un solo giro superava il limite di CPU ("CPU Time exceeded")
       const destinatari = mancanti.slice(0, LOTTO);
       const oggetto = `HUB 24 n. ${n.numero} - ${n.titolo}`.slice(0, 150);
       // Un'email per iscritto (come benvenuto e conferma, che arrivano regolarmente) invece di un unico invio in Ccn,
@@ -257,14 +274,7 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
       let errore = "";
       let s = smtp();
       for (const d of destinatari) {
-        const html = layout(
-          `<p style="margin:0 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9C2F1C">Numero ${n.numero} · ${dataLunga(n.data)}</p>
-<p style="margin:0 0 10px;font-size:24px;font-weight:bold;line-height:1.2">${esc(n.titolo)}</p>
-${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
-<p style="margin:16px 0 20px">${bottone(`${SITO}/hub24/${n.file}`, "Leggi il numero")}${n.pdf ? bottone(`${SITO}/hub24/${n.pdf}`, "Scarica il PDF", false) : ""}</p>
-<p style="margin:0 0 12px;font-size:15px">Vuoi sapere quanto vale oggi la tua casa o quale mutuo puoi ottenere? Rispondi a questa email o scrivici su WhatsApp al 392 457 9047.</p>`,
-          `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi=${d.token}" style="color:#5E5148">disiscriviti</a>.`,
-        );
+        const html = htmlNumero(n, d.token);
         try {
           await s.send({ from: MITTENTE, to: d.email, subject: oggettoMime(oggetto), ...corpo(html) });
           inviate++;
@@ -295,6 +305,30 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
         if (rt?.waitUntil) rt.waitUntil(prossimo);
       }
       return risposta({ ok: inviate > 0 || (!falliti.length && !rimanenti), numero: n.numero, inviate, totale, falliti: falliti.length, rimanenti, ...(errore ? { errore } : {}) });
+    }
+
+    /* ---------- prova: un blocco intero mandato solo all'indirizzo di prova ---------- */
+    if (azione === "prova") {
+      const a = (Deno.env.get("HUB24_PROVA_EMAIL") ?? "").trim().toLowerCase();
+      if (!emailValida(a)) return risposta({ errore: "Secret HUB24_PROVA_EMAIL mancante o non valido" }, 500);
+      const n = await ultimoNumero();
+      if (!n) return risposta({ errore: "index.json non raggiungibile" }, 502);
+      const { data: isc } = await db.from("hub24_iscritti").select("token").eq("email", a).maybeSingle();
+      const oggetto = `[PROVA] HUB 24 n. ${n.numero} - ${n.titolo}`.slice(0, 150);
+      const inizio = Date.now();
+      let inviate = 0;
+      let errore = "";
+      const s = smtp();
+      try {
+        for (let i = 0; i < LOTTO; i++) {
+          await s.send({ from: MITTENTE, to: a, subject: oggettoMime(oggetto), ...corpo(htmlNumero(n, isc?.token ?? "")) });
+          inviate++;
+        }
+      } catch (e) {
+        errore = String((e as Error)?.message ?? e).slice(0, 300);
+      }
+      try { await s.close(); } catch (_) { /* ignora */ }
+      return risposta({ ok: inviate === LOTTO, numero: n.numero, inviate, lotto: LOTTO, ms: Date.now() - inizio, ...(errore ? { errore } : {}) });
     }
 
     return risposta({ errore: "Azione non riconosciuta" }, 400);

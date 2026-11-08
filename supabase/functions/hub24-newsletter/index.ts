@@ -10,8 +10,11 @@
 //   { azione: "conferma", token }                       → attiva l'iscrizione e manda il benvenuto
 //                                                         con l'ultimo numero
 //   { azione: "disiscrivi", email | token }             → disiscrive
-//   { azione: "invia" }                                 → manda l'ultimo numero di index.json a tutti
-//                                                         gli iscritti attivi, una sola volta per numero
+//   { azione: "invia" }                                 → manda l'ultimo numero di index.json agli
+//                                                         iscritti attivi che non l'hanno ancora ricevuto,
+//                                                         a blocchi di 20 (ogni blocco avvia il successivo);
+//                                                         risposta: { ok, numero, inviate, totale, falliti, rimanenti }
+//                                                         Richiede la tabella di supabase/hub24-newsletter-invii-a-blocchi.sql
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
@@ -206,12 +209,22 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
 
       const { data: iscritti, error } = await db.from("hub24_iscritti").select("email, token").eq("stato", "attivo");
       if (error) return risposta({ errore: error.message }, 500);
-      const visti = new Set<string>();
-      const destinatari = (iscritti ?? []).filter((i) => !visti.has(i.email) && visti.add(i.email));
-      if (!destinatari.length) {
-        await db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: 0 });
-        return risposta({ ok: true, numero: n.numero, inviate: 0 });
+      // Chi ha già ricevuto questo numero (anche da un tentativo interrotto): non lo riceve di nuovo.
+      const { data: giaRicevuto, error: errGia } = await db.from("hub24_invii_destinatari").select("email").eq("numero", n.numero);
+      if (errGia) return risposta({ errore: `Registro destinatari non disponibile (eseguire supabase/hub24-newsletter-invii-a-blocchi.sql): ${errGia.message}` }, 500);
+      const visti = new Set<string>((giaRicevuto ?? []).map((r) => r.email));
+      const giaInviate = visti.size;
+      const mancanti = (iscritti ?? []).filter((i) => !visti.has(i.email) && visti.add(i.email));
+      const completa = async (totale: number) =>
+        db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: totale, inviato_il: new Date().toISOString() });
+      if (!mancanti.length) {
+        await completa(giaInviate);
+        return risposta({ ok: true, numero: n.numero, inviate: 0, totale: giaInviate, rimanenti: 0 });
       }
+      // Un blocco per esecuzione: inviare tutta la lista in una volta superava i limiti di risorse
+      // della funzione (WORKER_RESOURCE_LIMIT, 08/11/2026). Il blocco successivo parte da solo (vedi sotto).
+      const LOTTO = 20;
+      const destinatari = mancanti.slice(0, LOTTO);
       const oggetto = `HUB 24 n. ${n.numero} - ${n.titolo}`.slice(0, 150);
       // Un'email per iscritto (come benvenuto e conferma, che arrivano regolarmente) invece di un unico invio in Ccn,
       // con il link personale di disiscrizione.
@@ -231,6 +244,9 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
         try {
           await s.send({ from: MITTENTE, to: d.email, subject: oggettoMime(oggetto), ...corpo(html) });
           inviate++;
+          // Segnato subito: se la funzione si ferma più avanti, questo iscritto non riceve doppioni.
+          const { error: errReg } = await db.from("hub24_invii_destinatari").upsert({ numero: n.numero, email: d.email });
+          if (errReg) console.error("hub24-newsletter registro non aggiornato:", d.email, errReg.message);
         } catch (e) {
           falliti.push(d.email);
           errore = String((e as Error)?.message ?? e).slice(0, 300);
@@ -240,8 +256,20 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
         }
       }
       try { await s.close(); } catch (_) { /* ignora */ }
-      if (inviate) await db.from("hub24_invii").upsert({ numero: n.numero, data_numero: n.data, destinatari: inviate, inviato_il: new Date().toISOString() });
-      return risposta({ ok: inviate > 0, numero: n.numero, inviate, falliti: falliti.length, ...(errore ? { errore } : {}) });
+      const rimanenti = mancanti.length - destinatari.length;
+      const totale = giaInviate + inviate;
+      if (!rimanenti && !falliti.length) await completa(totale);
+      // Blocco successivo: la funzione richiama se stessa in background, solo se questo blocco ha
+      // spedito qualcosa (se l'SMTP non funziona si ferma e lo segnala, invece di girare a vuoto).
+      if (rimanenti && inviate) {
+        const url = `${Deno.env.get("SUPABASE_URL") ?? "https://iymxkvrgkhfaqcyxjsyz.supabase.co"}/functions/v1/hub24-newsletter`;
+        const prossimo = fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ azione: "invia" }) })
+          .catch((e) => console.error("hub24-newsletter blocco successivo non avviato:", String(e)));
+        // deno-lint-ignore no-explicit-any
+        const rt = (globalThis as any).EdgeRuntime;
+        if (rt?.waitUntil) rt.waitUntil(prossimo);
+      }
+      return risposta({ ok: inviate > 0 || (!falliti.length && !rimanenti), numero: n.numero, inviate, totale, falliti: falliti.length, rimanenti, ...(errore ? { errore } : {}) });
     }
 
     return risposta({ errore: "Azione non riconosciuta" }, 400);

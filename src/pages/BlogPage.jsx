@@ -639,6 +639,7 @@ export const ARTICLES = [
     category: "Credito & Mutui",
     readTime: "7 min",
     content: `
+      <p><strong>Aggiornamento di novembre 2026:</strong> dopo un secondo rialzo a settembre, il 29 ottobre la BCE ha lasciato i tassi fermi al 2,50%. Leggi <a href="/blog/bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli">cosa cambia oggi per i mutui</a>.</p>
       <h2>Rialzo BCE di giugno 2026: cosa significa per i tuoi mutui</h2>
       <p>Dal 17 giugno 2026, la Banca Centrale Europea ha nuovamente aumentato i tassi di riferimento di <strong>0,25%</strong>. Questa decisione avrà un impatto diretto su chi sta valutando un mutuo per comprare casa a Napoli. Ecco cosa devi sapere.</p>
 
@@ -712,7 +713,7 @@ export const ARTICLES = [
       <h3>Prezzi per quartiere a Napoli nel 2026</h3>
       <p>Ecco una panoramica dei valori medi al metro quadro per immobili ristrutturati:</p>
       <ul>
-        <li><strong>Posillipo:</strong> 5.500 – 12.000 €/mq (ville panoramiche e appartamenti di pregio)</li>
+        <li><strong>Posillipo:</strong> 4.500 – 6.900 €/mq sul venduto reale (le ville di pregio fanno storia a sé e si valutano caso per caso)</li>
         <li><strong>Chiaia / Riviera:</strong> 4.500 – 7.500 €/mq (posizioni fronte mare fino a 8.000 €/mq)</li>
         <li><strong>Vomero:</strong> 3.800 – 5.500 €/mq (alta domanda, offerta limitata)</li>
         <li><strong>Mergellina:</strong> 3.500 – 5.000 €/mq</li>
@@ -826,14 +827,15 @@ export const ARTICLES = [
   },
   {
     slug: "mutuo-prima-casa-napoli",
-    title: "Mutuo prima casa a Napoli 2025: tutto quello che devi sapere",
-    excerpt: "Tassi, requisiti, documenti e consigli per ottenere il mutuo prima casa a Napoli. La guida aggiornata di WeUnit (HUB).",
+    title: "Mutuo prima casa a Napoli 2026: tutto quello che devi sapere",
+    excerpt: "Tassi, requisiti, documenti e consigli per ottenere il mutuo prima casa a Napoli. La guida aggiornata a novembre 2026 di WeUnit (HUB).",
     date: "2025-05-08",
+    dateModified: "2026-11-08",
     category: "Mutui",
     readTime: "7 min",
     content: `
-      <h2>Mutuo prima casa a Napoli nel 2025</h2>
-      <p>Ottenere un mutuo per comprare la prima casa a Napoli è più semplice se si sa da dove partire. I tassi nel 2025 si sono stabilizzati dopo il ciclo di rialzi BCE, rendendo il momento favorevole per chi vuole acquistare.</p>
+      <h2>Mutuo prima casa a Napoli nel 2026</h2>
+      <p>Ottenere un mutuo per comprare la prima casa a Napoli è più semplice se si sa da dove partire. Nel 2026 la BCE ha alzato i tassi due volte, a giugno e a settembre, e a ottobre li ha lasciati fermi al 2,50%: le offerte restano accessibili, ma confrontarle bene fa la differenza sulla rata.</p>
 
       <h3>Requisiti per il mutuo prima casa</h3>
       <ul>
@@ -843,7 +845,7 @@ export const ARTICLES = [
         <li>Immobile da adibire ad abitazione principale</li>
       </ul>
 
-      <h3>Agevolazioni prima casa 2025</h3>
+      <h3>Agevolazioni prima casa 2026</h3>
       <p>Per la prima casa esistono importanti agevolazioni fiscali:</p>
       <ul>
         <li><strong>Imposta di registro agevolata:</strong> 2% invece del 9% sul valore catastale</li>
@@ -855,31 +857,32 @@ export const ARTICLES = [
       <p>Con un reddito netto di 2.000€/mese, una rata sostenibile si aggira sui 600-700€. Questo corrisponde a un mutuo di circa 130.000-150.000€ a 25 anni ai tassi attuali.</p>
 
       <h3>WeUnit: il mediatore creditizio di HUB</h3>
-      <p>WeUnit confronta le offerte di oltre 20 banche per trovare il mutuo più adatto alla tua situazione. La consulenza è gratuita e la pratica viene seguita fino all'erogazione.</p>
+      <p>WeUnit confronta le offerte di oltre 30 banche per trovare il mutuo più adatto alla tua situazione. La consulenza è gratuita e la pratica viene seguita fino all'erogazione.</p>
     `
   },
   {
     slug: "migliori-quartieri-abitare-napoli",
-    title: "Migliori quartieri dove abitare a Napoli nel 2025",
+    title: "Migliori quartieri dove abitare a Napoli nel 2026",
     excerpt: "Vomero, Posillipo, Chiaia, Centro Storico: confronto tra i quartieri di Napoli per qualità della vita, prezzi e servizi. Guida completa di HUB.",
     date: "2025-04-28",
+    dateModified: "2026-11-08",
     category: "Mercato Immobiliare",
     readTime: "10 min",
     content: `
-      <h2>I migliori quartieri di Napoli per vivere nel 2025</h2>
+      <h2>I migliori quartieri di Napoli per vivere nel 2026</h2>
       <p>Napoli è una città di quartieri, ognuno con la sua identità, i suoi prezzi e la sua qualità della vita. Scegliere dove abitare è una decisione fondamentale che dipende da molti fattori: budget, stile di vita, vicinanza al lavoro e ai servizi.</p>
 
       <h3>Vomero: il quartiere più richiesto</h3>
       <p>Il Vomero è il quartiere residenziale per eccellenza di Napoli: alto sul mare, con aria fresca, ottimi collegamenti (funicolare e metro) e una vasta offerta di negozi e ristoranti. I prezzi rispecchiano la domanda: 3.500-5.500 €/mq per gli appartamenti ristrutturati.</p>
 
       <h3>Posillipo: lusso e vista mare</h3>
-      <p>Il quartiere più esclusivo di Napoli. Case con vista sul Golfo, ville panoramiche e residenze di pregio. I prezzi partono da 5.000 €/mq e possono superare i 12.000 €/mq per le ville più pregiate.</p>
+      <p>Il quartiere più esclusivo di Napoli. Case con vista sul Golfo, ville panoramiche e residenze di pregio. Sul venduto reale i prezzi vanno da 4.500 a 6.900 €/mq; le ville più pregiate fanno storia a sé e si valutano caso per caso.</p>
 
       <h3>Chiaia: eleganza e vivibilità</h3>
       <p>Chiaia è il quartiere più elegante di Napoli, con la Riviera e i negozi di lusso. Molto richiesto da giovani professionisti e famiglie. Prezzi tra 4.000 e 7.000 €/mq nelle posizioni migliori.</p>
 
       <h3>Centro Storico: opportunità e cultura</h3>
-      <p>Per chi ama la vita urbana intensa e non disdegna la ristrutturazione, il Centro Storico UNESCO offre opportunità interessanti a prezzi più accessibili: 1.200-4.000 €/mq a seconda delle condizioni.</p>
+      <p>Per chi ama la vita urbana intensa e non disdegna la ristrutturazione, il Centro Storico UNESCO offre opportunità interessanti a prezzi più accessibili: 1.700-3.100 €/mq sul venduto reale, a seconda delle condizioni.</p>
 
       <h3>Fuorigrotta e Bagnoli: qualità a prezzi contenuti</h3>
       <p>Zone in evoluzione, con prezzi tra 1.800 e 3.200 €/mq, buoni collegamenti (metro linea 6) e progetti di riqualificazione in corso.</p>
@@ -1019,7 +1022,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           {art.image && (
             <img src={art.image.replace("https://www.fondocasahub.com", "")} alt={art.imageAlt} width="1200" height="630" style={{ width: "100%", height: "auto", borderRadius: 4, marginBottom: 24, display: "block" }} />
           )}
-          <div style={{ fontSize: 13, color: "rgba(10,31,61,0.5)", marginBottom: 40 }}>Pubblicato il {new Date(art.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · HUB Napoli</div>
+          <div style={{ fontSize: 13, color: "rgba(10,31,61,0.5)", marginBottom: 40 }}>{art.dateModified ? 'Aggiornato il' : 'Pubblicato il'} {new Date(art.dateModified || art.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'long', year: 'numeric' })} · HUB Napoli</div>
           <div
             style={{ fontSize: 16, lineHeight: 1.9, color: NAVY }}
             dangerouslySetInnerHTML={{ __html: art.content

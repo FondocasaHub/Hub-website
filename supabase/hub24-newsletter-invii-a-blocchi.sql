@@ -21,8 +21,10 @@ alter table public.hub24_invii_destinatari enable row level security;
 -- Controllo di un invio:
 -- select numero, count(*) from public.hub24_invii_destinatari group by numero order by numero desc;
 
--- Numero 3 (08/11/2026): inviato dalla vecchia versione, che non lo ha registrato perché si è fermata
--- con l'errore. Se dai log risulta che è arrivato a tutti (o non va più mandato), segnarlo come
--- completato, così nessun "invia" lanciato prima del n. 4 lo rispedisce:
--- insert into public.hub24_invii (numero, data_numero, destinatari) values (3, '2026-11-08', 0)
---   on conflict (numero) do nothing;
+-- Numero 3 (08/11/2026): inviato dalla vecchia versione, che si è fermata tre volte ("CPU Time exceeded")
+-- senza registrarlo. Segnato come completato (destinatari 0 = numero reale non noto) per non rispedirlo.
+insert into public.hub24_invii (numero, data_numero, destinatari) values (3, '2026-11-08', 0)
+  on conflict (numero) do nothing;
+
+-- Applicato l'08/11/2026 (migrazione hub24_invii_a_blocchi). L'invio parte dai cron già presenti:
+-- hub24-newsletter-domenica (30 7 * * 0 UTC) e hub24-newsletter-domenica-retry (30 8 * * 0 UTC).

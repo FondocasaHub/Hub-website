@@ -10,9 +10,12 @@
 //   { azione: "conferma", token }                       → attiva l'iscrizione e manda il benvenuto
 //                                                         con l'ultimo numero
 //   { azione: "disiscrivi", email | token }             → disiscrive
+//   { azione: "riepilogo", giorni? }                    → solo conteggi: iscritti attivi, nuovi confermati e
+//                                                         richieste in attesa degli ultimi N giorni (7),
+//                                                         disiscritti, destinatari degli ultimi invii
 //   { azione: "invia" }                                 → manda l'ultimo numero di index.json agli
 //                                                         iscritti attivi che non l'hanno ancora ricevuto,
-//                                                         a blocchi di 20 (ogni blocco avvia il successivo);
+//                                                         a blocchi di 5 (ogni blocco avvia il successivo);
 //                                                         risposta: { ok, numero, inviate, totale, falliti, rimanenti }
 //                                                         Richiede la tabella di supabase/hub24-newsletter-invii-a-blocchi.sql
 
@@ -197,6 +200,27 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
       return risposta({ ok: true }); // risposta uguale anche se l'indirizzo non c'era
     }
 
+    /* ---------- riepilogo (solo numeri aggregati, nessun indirizzo) ---------- */
+    if (azione === "riepilogo") {
+      const giorni = Math.min(Math.max(Number(body.giorni) || 7, 1), 31);
+      const da = new Date(Date.now() - giorni * 86400000).toISOString();
+      const conta = async (q: any) => { const { count } = await q; return count ?? 0; };
+      const base = () => db.from("hub24_iscritti").select("id", { count: "exact", head: true });
+      const n = await ultimoNumero();
+      const { data: invii } = await db.from("hub24_invii").select("numero, data_numero, destinatari, inviato_il").order("numero", { ascending: false }).limit(3);
+      const ricevuto = n ? await conta(db.from("hub24_invii_destinatari").select("email", { count: "exact", head: true }).eq("numero", n.numero)) : 0;
+      return risposta({
+        giorni,
+        iscritti_attivi: await conta(base().eq("stato", "attivo")),
+        nuovi_confermati: await conta(base().gte("confermato_il", da)),
+        nuove_richieste_in_attesa: await conta(base().eq("stato", "in_attesa").gte("consenso_il", da)),
+        in_attesa_totali: await conta(base().eq("stato", "in_attesa")),
+        disiscritti: await conta(base().gte("disiscritto_il", da)),
+        ultimo_numero: n ? { numero: n.numero, data: n.data, ricevuto_da: ricevuto, completato: (invii ?? []).some((i) => i.numero === n.numero) } : null,
+        invii: invii ?? [],
+      });
+    }
+
     /* ---------- invio settimanale ---------- */
     if (azione === "invia") {
       // Nessuna chiave necessaria: si invia solo l'ultimo numero già pubblicato su index.json e una sola
@@ -223,7 +247,7 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
       }
       // Un blocco per esecuzione: inviare tutta la lista in una volta superava i limiti di risorse
       // della funzione (WORKER_RESOURCE_LIMIT, 08/11/2026). Il blocco successivo parte da solo (vedi sotto).
-      const LOTTO = 20;
+      const LOTTO = 5; // 08/11/2026: con 12 iscritti un solo giro superava il limite di CPU ("CPU Time exceeded")
       const destinatari = mancanti.slice(0, LOTTO);
       const oggetto = `HUB 24 n. ${n.numero} - ${n.titolo}`.slice(0, 150);
       // Un'email per iscritto (come benvenuto e conferma, che arrivano regolarmente) invece di un unico invio in Ccn,
@@ -244,6 +268,7 @@ ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
         try {
           await s.send({ from: MITTENTE, to: d.email, subject: oggettoMime(oggetto), ...corpo(html) });
           inviate++;
+          console.log("hub24-newsletter inviata:", n.numero, d.email.replace(/^(.).*@/, "$1***@"));
           // Segnato subito: se la funzione si ferma più avanti, questo iscritto non riceve doppioni.
           const { error: errReg } = await db.from("hub24_invii_destinatari").upsert({ numero: n.numero, email: d.email });
           if (errReg) console.error("hub24-newsletter registro non aggiornato:", d.email, errReg.message);

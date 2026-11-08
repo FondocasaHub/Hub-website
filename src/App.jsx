@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ContactForms from "./components/ContactForms";
+import GoogleReviews from "./components/GoogleReviews";
 import QRCode from "react-qr-code";
 import ZeroVincoli60Page from "./ZeroVincoli60Page";
 import GraziePage from "./GraziePage";
@@ -56,7 +57,6 @@ const TEAM = [
   { foto: 0, nome: "Sara Calvino",      nome1: "Sara",      ruolo: "Buyer Agent",                         area: "Immobiliare", iniziali: "SC",  tel: "3667380144", email: "sara.calvino@fondocasa.it" },
   { foto: 5, nome: "Angela Chiocca",    nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AC",  tel: "3355259648", email: "angela.chiocca@fondocasa.it" },
   { foto: 4, nome: "Sonia Cappiello",   nome1: "Sonia",     ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "SCa", tel: "3295826352", email: "sonia.cappiello@fondocasa.it" },
-  { foto: 1, nome: "Francesco Terrin",  nome1: "Francesco", ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "FT",  tel: "3389625687", email: "francesco.terrin@fondocasa.it" },
   { foto: 10, nome: "Angela Spavone",   nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AS" }
 ];
 
@@ -326,7 +326,7 @@ export default function App() {
     'privacy': { title: 'Informativa sulla Privacy | FondoCasa Hub', desc: 'Scopri come FondoCasa Hub tratta i tuoi dati personali nel rispetto del GDPR: raccolta, uso e conservazione delle informazioni. Leggi l\'informativa completa.' },
     'cookie': { title: 'Cookie Policy del Sito | FondoCasa Hub', desc: 'Informazioni sui cookie tecnici e di terze parti utilizzati dal sito fondocasahub.com e su come gestire le tue preferenze. Consulta i dettagli completi.' },
     'note-legali': { title: 'Note Legali e Dati Societari | FondoCasa Hub', desc: 'Informazioni societarie, condizioni d\'uso e avvertenze legali di FC Punto Hub Srl, titolare del sito FondoCasa Hub. Consulta tutti i dettagli societari.' },
-    'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub', desc: 'Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026.' },
+    'zero-vincoli-60': { title: 'Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub', desc: 'Vendi casa a Napoli con Zero Vincoli 60: metodo di vendita garantito e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026.' },
     'grazie': { title: 'Richiesta Ricevuta | FondoCasa Hub', desc: 'Grazie per averci contattato: un consulente FondoCasa Hub ti richiamerà entro 24 ore per la tua richiesta su casa, mutuo o assicurazione a Napoli.' },
     'vomero': { title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub', desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.' },
     'posillipo': { title: 'Agenzia Immobiliare Posillipo Napoli | FondoCasa Hub', desc: 'Vuoi comprare o vendere casa a Posillipo? FondoCasa Hub conosce il mercato locale e offre valutazioni gratuite con consulenza su mutuo e assicurazione.' },
@@ -895,7 +895,7 @@ function PromoZeroVincoli() {
           maxWidth: 620, margin: "0 auto 40px", fontWeight: 300,
         }}>
           Affidaci la vendita della tua casa. Dopo 60 giorni decidi tu.<br />
-          <strong style={{ color: CREAM, fontWeight: 600 }}>Senza penali. Senza costi nascosti. Metodo garantito da capitolato.</strong>
+          <strong style={{ color: CREAM, fontWeight: 600 }}>Senza penali. Senza costi nascosti. Metodo di vendita garantito.</strong>
         </p>
 
         <a
@@ -925,16 +925,10 @@ function PromoZeroVincoli() {
 // =====================================================
 export function HomePage({ navigate, colors }) {
   const { NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM } = colors;
-  const [tIndex, setTIndex] = useState(0);
-
-  useEffect(() => {
-    const t = setInterval(() => setTIndex(i => (i + 1) % TESTIMONIALS.length), 6000);
-    return () => clearInterval(t);
-  }, []);
 
   const numbers = [
     { value: "26", suffix: "anni", label: "Di esperienza nel mercato immobiliare e creditizio" },
-    { value: "3.898", label: "Famiglie assistite tra immobile, credito e assicurazione" },
+    { value: "3.500", label: "Famiglie assistite tra immobile, credito e assicurazione" },
     { value: "10", label: "Professionisti specializzati su due team" },
     { value: "Napoli", label: "La nostra città, presidiata in ogni quartiere" }
   ];
@@ -1057,7 +1051,7 @@ export function HomePage({ navigate, colors }) {
               { title: "Vuoi vendere il tuo immobile?", desc: "Scopri il metodo dei 7 Pilastri e richiedi una valutazione gratuita.", cta: "Comincia →", action: () => navigate("comincia") },
               { title: "Quanto vale casa tua?", desc: "5 semplici domande e ricevi una stima reale, basata su vendite comparabili della tua zona, entro 24 ore.", cta: "Valuta il tuo immobile →", href: "/valuta-il-tuo-immobile", action: () => navigate("valuta-il-tuo-immobile") },
               { title: "Cerchi casa a Napoli?", desc: "Comincia da qui e ti facciamo trovare l'immobile giusto, con il mutuo già pronto.", cta: "Comincia →", action: () => navigate("comincia") },
-              { title: "Vuoi conoscerci meglio?", desc: "Scopri chi siamo, il nostro team e perché 3.898 famiglie ci hanno scelto.", cta: "Chi siamo →", action: () => navigate("chi-siamo") },
+              { title: "Vuoi conoscerci meglio?", desc: "Scopri chi siamo, il nostro team e perché 3.500 famiglie ci hanno scelto.", cta: "Chi siamo →", action: () => navigate("chi-siamo") },
               { title: "Vuoi lavorare con noi?", desc: "Ti formiamo, ti diamo gli strumenti, ti accompagniamo. Scopri la carriera in HUB.", cta: "Carriera →", action: () => navigate("carriera") },
               { title: "Sei un costruttore?", desc: "Divisione Cantieri: vendi il tuo cantiere in tutta Italia. Zero anticipo, zero rischio. Solo risultati. Metodo ZERCOSS.", cta: "Scopri il servizio →", action: () => navigate("costruttori"), gold: true }
             ].map((c, i) => {
@@ -1086,46 +1080,8 @@ export function HomePage({ navigate, colors }) {
         </div>
       </section>
 
-      {/* TESTIMONIANZE - carosello */}
-      <section style={{ padding: "120px 32px", background: CREAM }}>
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <span className="badge-gold" style={{ background: "rgba(10,31,61,0.05)", color: NAVY, borderColor: "rgba(193,154,91,0.4)" }}>Dalle recensioni Google</span>
-            <h2 className="serif h2-resp" style={{ fontSize: "2.6rem", fontWeight: 700, marginTop: 24, lineHeight: 1.1 }}>
-              Cosa dicono i <em style={{ color: GOLD }}>nostri clienti</em>
-            </h2>
-          </div>
-
-          <div key={tIndex} className="fade-in testimonial-card" style={{ padding: 56 }}>
-            <div style={{ display: "flex", gap: 4, marginBottom: 20 }}>
-              {Array(TESTIMONIALS[tIndex].rating).fill(0).map((_, i) => <span key={i} className="star">★</span>)}
-            </div>
-            <p className="serif" style={{ fontSize: "1.4rem", lineHeight: 1.5, color: NAVY, fontStyle: "italic", marginBottom: 28, fontWeight: 400 }}>
-              "{TESTIMONIALS[tIndex].testo}"
-            </p>
-            <div className="gold-line" style={{ width: 50, marginBottom: 20 }} />
-            <div style={{ display: "flex", alignItems: "center", gap: 16 }}>
-              <div style={{ width: 48, height: 48, borderRadius: "50%", background: NAVY, color: GOLD, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontFamily: "'Playfair Display', serif" }}>
-                {TESTIMONIALS[tIndex].iniziali}
-              </div>
-              <div>
-                <div style={{ fontWeight: 600, color: NAVY, fontSize: 15 }}>{TESTIMONIALS[tIndex].nome}</div>
-                <div style={{ fontSize: 12, color: "rgba(10,31,61,0.6)", marginTop: 2 }}>{TESTIMONIALS[tIndex].servizio} · {TESTIMONIALS[tIndex].fonte}</div>
-              </div>
-            </div>
-          </div>
-
-          <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 32 }}>
-            {TESTIMONIALS.map((_, i) => (
-              <button key={i} onClick={() => setTIndex(i)} style={{
-                width: i === tIndex ? 32 : 8, height: 8,
-                background: i === tIndex ? GOLD : "rgba(10,31,61,0.2)",
-                border: "none", borderRadius: 4, cursor: "pointer", transition: "all 0.3s"
-              }} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* RECENSIONI GOOGLE — ultime 5, voto medio e totale sempre aggiornati */}
+      <GoogleReviews colors={colors} fallback={TESTIMONIALS} />
 
       {/* DOVE OPERIAMO — link interni verso le landing di quartiere, per SEO locale */}
       <section style={{ padding: "80px 32px", background: NAVY_DEEP, color: CREAM }}>
@@ -1142,7 +1098,7 @@ export function HomePage({ navigate, colors }) {
               { slug: "vomero", nome: "Vomero", desc: "Il quartiere residenziale più richiesto di Napoli. HUB ha sede qui da 26 anni.", prezzo: "3.500 – 5.500 €/mq" },
               { slug: "arenella", nome: "Arenella", desc: "La collina a ridosso del Vomero: stessa qualità della vita, prezzi più accessibili.", prezzo: null },
               { slug: "chiaia", nome: "Chiaia", desc: "Il quartiere più elegante di Napoli, tra Riviera e Via dei Mille.", prezzo: "4.000 – 7.000 €/mq" },
-              { slug: "posillipo", nome: "Posillipo", desc: "Il segmento premium di Napoli: ville con vista mare e appartamenti esclusivi.", prezzo: "5.000 – 12.000 €/mq" },
+              { slug: "posillipo", nome: "Posillipo", desc: "Il segmento premium di Napoli: ville con vista mare e appartamenti esclusivi.", prezzo: "4.500 – 6.900 €/mq" },
               { slug: "fuorigrotta", nome: "Fuorigrotta", desc: "Napoli Ovest: Mostra d'Oltremare, stadio e Città della Scienza, ben collegata.", prezzo: null },
               { slug: "colli-aminei", nome: "Colli Aminei", desc: "Zona residenziale a nord, vicino ai grandi ospedali e alla Metro Linea 1.", prezzo: null },
               { slug: "centro-storico", nome: "Centro Storico", desc: "Patrimonio UNESCO: Decumani, San Domenico Maggiore e via Duomo. Valori diversi da strada a strada.", prezzo: "1.700 – 3.100 €/mq" },
@@ -1311,7 +1267,7 @@ function Hub24Section() {
 const FAQS = [
   {
     q: "Qual è la migliore agenzia immobiliare al Vomero di Napoli?",
-    a: "HUB – FC Punto Hub Srl è una delle agenzie immobiliari di riferimento al Vomero di Napoli, con 26 anni di attività in Via Pietro Mascagni 35. Opera con il brand Fondocasa per la compravendita immobiliare, WeUnit per la mediazione creditizia e Henia per la consulenza assicurativa, offrendo un servizio integrato che ha assistito oltre 3.898 famiglie."
+    a: "HUB – FC Punto Hub Srl è una delle agenzie immobiliari di riferimento al Vomero di Napoli, con 26 anni di attività in Via Pietro Mascagni 35. Opera con il brand Fondocasa per la compravendita immobiliare, WeUnit per la mediazione creditizia e Henia per la consulenza assicurativa, offrendo un servizio integrato che ha assistito oltre 3.500 famiglie."
   },
   {
     q: "Come vendere casa a Napoli senza problemi?",
@@ -1546,25 +1502,25 @@ export function ChiSiamoPage({ colors }) {
                   <div style={{ borderTop: `1px solid rgba(193,154,91,0.25)`, paddingTop: 14, display: "flex", gap: 12, alignItems: "flex-start" }}>
 
                     <div style={{ flex: 1, display: "flex", flexDirection: "column", gap: 7 }}>
-                      <a href={`tel:+39${p.tel}`}
+                      {p.tel && <a href={`tel:+39${p.tel}`}
                         style={{ display: "flex", alignItems: "center", gap: 6, color: NAVY, textDecoration: "none", fontSize: 12, fontWeight: 500 }}>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.14 1.18 2 2 0 012.12 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92z"/></svg>
                         +39 {p.tel}
-                      </a>
-                      <a href={`mailto:${p.email}`}
+                      </a>}
+                      {p.email && <a href={`mailto:${p.email}`}
                         style={{ display: "flex", alignItems: "center", gap: 6, color: NAVY, textDecoration: "none", fontSize: 11, wordBreak: "break-all" }}>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke={GOLD} strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
                         {p.email}
-                      </a>
-                      <a href={`https://wa.me/39${p.tel}?text=${encodeURIComponent(`Ciao ${p.nome1} ho cliccato il tuo link`)}`}
+                      </a>}
+                      {p.tel && <a href={`https://wa.me/39${p.tel}?text=${encodeURIComponent(`Ciao ${p.nome1} ho cliccato il tuo link`)}`}
                         target="_blank" rel="noopener noreferrer"
                         style={{ display: "flex", alignItems: "center", gap: 6, color: "#25D366", textDecoration: "none", fontSize: 12, fontWeight: 600, marginTop: 2 }}>
                         <svg width="13" height="13" viewBox="0 0 24 24" fill="#25D366"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                         WhatsApp
-                      </a>
+                      </a>}
                     </div>
 
-                    <div style={{ flexShrink: 0, background: "white", padding: 4, borderRadius: 4, border: `1px solid rgba(193,154,91,0.2)` }}>
+                    {p.tel && <div style={{ flexShrink: 0, background: "white", padding: 4, borderRadius: 4, border: `1px solid rgba(193,154,91,0.2)` }}>
                       <QRCode
                         value={`https://wa.me/39${p.tel}?text=${encodeURIComponent(`Ciao ${p.nome1} ho cliccato il tuo link`)}`}
                         size={72}
@@ -1572,7 +1528,7 @@ export function ChiSiamoPage({ colors }) {
                         bgColor="white"
                         level="M"
                       />
-                    </div>
+                    </div>}
 
                   </div>
                 </div>
@@ -1582,40 +1538,8 @@ export function ChiSiamoPage({ colors }) {
         </div>
       </section>
 
-      {/* Testimonianze grid */}
-      <section style={{ padding: "100px 32px", background: NAVY, color: CREAM }}>
-        <div style={{ maxWidth: 1280, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 60 }}>
-            <span className="badge-gold">Dalle recensioni Google</span>
-            <h2 className="serif h2-resp" style={{ fontSize: "2.6rem", fontWeight: 700, marginTop: 24, lineHeight: 1.1, color: CREAM }}>
-              Le parole dei <span className="gold-text">nostri clienti</span>
-            </h2>
-          </div>
-
-          <div className="grid-2-mobile" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(360px, 1fr))", gap: 28 }}>
-            {TESTIMONIALS.map((t, i) => (
-              <div key={i} className="testimonial-card" style={{ background: "rgba(255,255,255,0.06)", borderLeft: `3px solid ${GOLD}`, color: CREAM }}>
-                <div style={{ display: "flex", gap: 4, marginBottom: 16 }}>
-                  {Array(t.rating).fill(0).map((_, j) => <span key={j} className="star">★</span>)}
-                </div>
-                <p className="serif" style={{ fontSize: "1.05rem", lineHeight: 1.55, color: "rgba(245,239,228,0.92)", fontStyle: "italic", marginBottom: 20, flex: 1 }}>
-                  "{t.testo}"
-                </p>
-                <div className="gold-line" style={{ width: 40, marginBottom: 16 }} />
-                <div style={{ display: "flex", alignItems: "center", gap: 14 }}>
-                  <div style={{ width: 40, height: 40, borderRadius: "50%", background: GOLD, color: NAVY_DEEP, display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontFamily: "'Playfair Display', serif", fontSize: 14 }}>
-                    {t.iniziali}
-                  </div>
-                  <div>
-                    <div style={{ fontWeight: 600, fontSize: 14, color: CREAM }}>{t.nome}</div>
-                    <div style={{ fontSize: 11, color: "rgba(245,239,228,0.6)", marginTop: 2 }}>{t.servizio} · {t.fonte}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* RECENSIONI GOOGLE — ultime 5, voto medio e totale sempre aggiornati */}
+      <GoogleReviews colors={colors} dark fallback={TESTIMONIALS} titolo={<>Le parole dei <span className="gold-text">nostri clienti</span></>} />
     </>
   );
 }
@@ -2523,7 +2447,7 @@ export function Footer({ navigate, colors }) {
               </div>
             </div>
             <p style={{ color: "rgba(245,239,228,0.6)", fontSize: 14, lineHeight: 1.6, maxWidth: 380 }}>
-              Hub Immobiliare · Creditizio · Assicurativo. L'unico punto di riferimento a Napoli che integra vendita, mutuo e protezione del patrimonio sotto un unico tetto.
+              Hub Immobiliare · Creditizio · Assicurativo. Il tuo unico riferimento completo a Napoli: vendita, mutuo e protezione del patrimonio sotto lo stesso tetto.
             </p>
           </div>
 

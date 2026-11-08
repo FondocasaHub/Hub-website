@@ -197,15 +197,15 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
     <div style={{ fontFamily: "'Jost', sans-serif", color: NAVY, overflowX: 'hidden' }}>
       <Helmet>
         <title>Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub</title>
-        <meta name="description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
+        <meta name="description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo di vendita garantito e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
         <meta property="og:title" content="Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub" />
-        <meta property="og:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
+        <meta property="og:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo di vendita garantito e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
         <meta property="og:url" content="https://www.fondocasahub.com/zero-vincoli-60" />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="it_IT" />
         <meta name="twitter:card" content="summary" />
         <meta name="twitter:title" content="Zero Vincoli 60: Vendi Casa Senza Vincoli | FondoCasa Hub" />
-        <meta name="twitter:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo garantito da capitolato e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
+        <meta name="twitter:description" content="Vendi casa a Napoli con Zero Vincoli 60: metodo di vendita garantito e recesso senza penali dopo 60 giorni. Promo valida fino al 31 dicembre 2026." />
       </Helmet>
 
       {/* ── MINI NAV ── */}
@@ -421,7 +421,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
         }}>
           {[
             { value: '26 anni', label: 'di esperienza' },
-            { value: '3.898', label: 'famiglie servite' },
+            { value: '3.500', label: 'famiglie servite' },
             { value: '60 giorni', label: 'per decidere' },
             { value: '0 €', label: 'di penale' },
           ].map((stat) => (

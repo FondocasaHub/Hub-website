@@ -261,6 +261,8 @@ export default function QuartiereLandingPage({
   };
 
   const canonicalUrl = `https://www.fondocasahub.com/agenzia-immobiliare-${slug}-napoli`;
+  // Immagine di anteprima social (WhatsApp, Facebook, LinkedIn): una per quartiere in public/images/og/
+  const ogImage = seo.ogImage || `https://www.fondocasahub.com/images/og/quartiere-${slug}.jpg`;
 
   const realEstateAgentSchema = {
     "@context": "https://schema.org",
@@ -304,14 +306,17 @@ export default function QuartiereLandingPage({
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:title" content={seo.title} />
         <meta property="og:description" content={seo.description} />
-        {seo.ogImage && <meta property="og:image" content={seo.ogImage} />}
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content={`FondoCasa Hub, agenzia immobiliare a Napoli zona ${quartiere}`} />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="FondoCasa Hub" />
 
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={seo.title} />
         <meta name="twitter:description" content={seo.description} />
-        {seo.ogImage && <meta name="twitter:image" content={seo.ogImage} />}
+        <meta name="twitter:image" content={ogImage} />
 
         <meta name="robots" content="index, follow" />
         <meta name="author" content="FondoCasa Hub" />
@@ -353,7 +358,7 @@ export default function QuartiereLandingPage({
           <div className="q-stats-grid">
             {(heroStats || [
               ["26+", "Anni di esperienza", true],
-              ["3.200+", "Famiglie assistite"],
+              ["3.500", "Famiglie assistite"],
               ["Gratuita", "Valutazione immobile"],
               [quartiere, "Zona di riferimento"],
             ]).map(([v, l, feat], i) => (

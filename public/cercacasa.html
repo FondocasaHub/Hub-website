@@ -167,10 +167,8 @@
       <div class="grid">
         <div class="field"><label for="nome">Nome</label><input id="nome" type="text" autocomplete="given-name"></div>
         <div class="field"><label for="cognome">Cognome</label><input id="cognome" type="text" autocomplete="family-name"></div>
-        <div class="field span2"><label for="cf">Codice fiscale</label><input id="cf" class="cf" type="text" maxlength="16" placeholder="16 caratteri"></div>
         <div class="field"><label for="tel">Telefono</label><input id="tel" type="tel" autocomplete="tel" placeholder="+39 …"></div>
         <div class="field"><label for="email">Email</label><input id="email" type="email" autocomplete="email" placeholder="nome@esempio.it"></div>
-        <div class="field span2"><label for="cointestatario">Eventuale cointestatario (nome, cognome, codice fiscale)</label><input id="cointestatario" type="text"></div>
       </div>
     </div>
   </section>
@@ -368,9 +366,7 @@
       'Data: ' + sel('m-data') + ' | Consulente: ' + sel('m-agente') + ' | Fonte: ' + sel('m-fonte'),
       '',
       'Cliente: ' + [val('nome'), val('cognome')].join(' ').trim(),
-      'Codice fiscale: ' + sel('cf').toUpperCase(),
       'Telefono: ' + sel('tel') + ' | Email: ' + sel('email'),
-      val('cointestatario') ? 'Cointestatario: ' + val('cointestatario') : '',
       '',
       'Cerca: ' + sel('tipologia') + ' – zone ' + sel('zone') + ' – ' + sel('mq') + ' mq – ' + sel('locali') + ' – bagni ' + sel('bagni'),
       'Dotazioni: ' + (dot||'—') + ' | Finalità: ' + sel('finalita') + ' | Tempi: ' + sel('tempi'),
@@ -424,7 +420,7 @@
       mq: v('mq') || '—',
       indirizzo_immobile: v('zone') || '—',
       note: riepilogo(),
-      nome_solo: v('nome'), cognome: v('cognome'), codice_fiscale: v('cf').toUpperCase(),
+      nome_solo: v('nome'), cognome: v('cognome'), codice_fiscale: '',
       zone: v('zone'), tipologia: v('tipologia'), tempistiche: v('tempi'), finalita: v('finalita'),
       modalita_acquisto: modi.join(', ') || '—',
       mezzi_propri: r.p, mutuo: r.m, ricavo_vendita: r.v, budget_complessivo: r.t,

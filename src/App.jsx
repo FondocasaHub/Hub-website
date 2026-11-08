@@ -25,6 +25,7 @@ import AgenziaImmobiliareColliAmineiNapoli from "./pages/AgenziaImmobiliareColli
 import AgenziaImmobiliareCentroStoricoNapoli from "./pages/AgenziaImmobiliareCentroStoricoNapoli";
 import AgenziaImmobiliareSoccavoNapoli from "./pages/AgenziaImmobiliareSoccavoNapoli";
 import ValutaIlTuoImmobile from "./pages/ValutaIlTuoImmobile";
+import PartnerWeUnit from "./pages/PartnerWeUnit";
 
 // === LOGO HUB ===
 const HUB_LOGO = "/images/logo-hub-inline.png";
@@ -239,6 +240,7 @@ const URL_TO_PAGE = {
   '/note-legali': 'note-legali',
   '/zero-vincoli-60': 'zero-vincoli-60',
   '/costruttori': 'costruttori',
+  '/partner-weunit': 'partner-weunit',
   '/vendi-casa-vomero': 'vendi-casa-vomero',
   '/consulente-mutuo-napoli': 'consulente-mutuo-napoli',
   '/aste-immobiliari-napoli': 'aste-immobiliari-napoli',
@@ -263,7 +265,7 @@ const URL_TO_PAGE = {
 // Pagine standalone con la propria navbar/footer: non devono ricevere anche
 // la navbar/footer condivisi di App.jsx (altrimenti si sovrappongono).
 const STANDALONE_PAGES = [
-  'zero-vincoli-60', 'costruttori', 'vendi-casa-vomero', 'consulente-mutuo-napoli',
+  'zero-vincoli-60', 'costruttori', 'partner-weunit', 'vendi-casa-vomero', 'consulente-mutuo-napoli',
   'agenzia-immobiliare-vomero-napoli', 'agenzia-immobiliare-arenella-napoli',
   'agenzia-immobiliare-chiaia-napoli', 'agenzia-immobiliare-posillipo-napoli',
   'agenzia-immobiliare-fuorigrotta-napoli', 'agenzia-immobiliare-colli-aminei-napoli',
@@ -345,6 +347,7 @@ export default function App() {
     'note-legali': '/note-legali',
     'zero-vincoli-60': '/zero-vincoli-60',
     'costruttori': '/costruttori',
+    'partner-weunit': '/partner-weunit',
     'vendi-casa-vomero': '/vendi-casa-vomero',
     'consulente-mutuo-napoli': '/consulente-mutuo-napoli',
     'aste-immobiliari-napoli': '/aste-immobiliari-napoli',
@@ -369,7 +372,7 @@ export default function App() {
   // Pagine che gestiscono i propri meta tag via <Helmet> (vedi rispettivi componenti):
   // updateMeta() non deve sovrascriverli con i meta della home.
   const PAGES_WITH_OWN_HELMET = [
-    'costruttori', 'vendi-casa-vomero', 'consulente-mutuo-napoli',
+    'costruttori', 'partner-weunit', 'vendi-casa-vomero', 'consulente-mutuo-napoli',
     'aste-immobiliari-napoli', 'ristruttura-e-rivendi',
     'agenzia-immobiliare-vomero-napoli', 'agenzia-immobiliare-arenella-napoli',
     'agenzia-immobiliare-chiaia-napoli', 'agenzia-immobiliare-posillipo-napoli',
@@ -550,6 +553,7 @@ export default function App() {
       {page === "note-legali" && <NoteLegaliPage colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "zero-vincoli-60" && <ZeroVincoli60Page navigate={navigate} colors={{NAVY, NAVY_DEEP, GOLD, GOLD_BRIGHT, CREAM}} />}
       {page === "costruttori" && <CostruttoPage />}
+      {page === "partner-weunit" && <PartnerWeUnit />}
       {page === "agenzia-immobiliare-vomero-napoli" && <AgenziaImmobiliareVomeroNapoli />}
       {page === "agenzia-immobiliare-arenella-napoli" && <AgenziaImmobiliareArenellaNapoli />}
       {page === "agenzia-immobiliare-chiaia-napoli" && <AgenziaImmobiliareChiaiaNapoli />}

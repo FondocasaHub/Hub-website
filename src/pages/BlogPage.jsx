@@ -944,7 +944,7 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
         "headline": articoloCorrente.title,
         "description": articoloCorrente.excerpt,
         "datePublished": articoloCorrente.publishedAt || articoloCorrente.date,
-        "dateModified": articoloCorrente.publishedAt || articoloCorrente.date,
+        "dateModified": articoloCorrente.dateModified || articoloCorrente.publishedAt || articoloCorrente.date,
         "author": AUTORE,
         "publisher": {
           "@type": "Organization",
@@ -955,6 +955,12 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
         "articleSection": articoloCorrente.category,
         ...(articoloCorrente.image && { "image": articoloCorrente.image }),
         ...(articoloCorrente.keywords && { "keywords": articoloCorrente.keywords }),
+        ...(articoloCorrente.luoghi && {
+          "contentLocation": articoloCorrente.luoghi.map((l) => ({ "@type": "Place", "name": l })),
+        }),
+        ...(articoloCorrente.fonti && {
+          "citation": articoloCorrente.fonti.map((f) => ({ "@type": "CreativeWork", "name": f.titolo, "url": f.url })),
+        }),
         "inLanguage": "it-IT",
       }
     : {
@@ -974,6 +980,19 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
         })),
       };
 
+  // Domande frequenti dell'articolo (facoltative): sezione visibile + FAQPage JSON-LD
+  const faqSchema = articoloCorrente && articoloCorrente.faq && articoloCorrente.faq.length
+    ? {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": articoloCorrente.faq.map((f) => ({
+          "@type": "Question",
+          "name": f.q,
+          "acceptedAnswer": { "@type": "Answer", "text": f.a.replace(/<[^>]+>/g, "") },
+        })),
+      }
+    : null;
+
   if (selectedArticle) {
     const art = ARTICLES.find(a => a.slug === selectedArticle);
     return (
@@ -982,6 +1001,12 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
         />
+        {faqSchema && (
+          <script
+            type="application/ld+json"
+            dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+          />
+        )}
         <div style={{ maxWidth: 800, margin: "0 auto", padding: "64px 32px" }}>
           <button
             onClick={() => setSelectedArticle(null)}
@@ -1007,6 +1032,29 @@ export default function BlogPage({ navigate, colors, initialSlug = null }) {
               .replace(/<a href=/g, `<a style="color:${GOLD};font-weight:600;text-decoration:underline" href=`)
             }}
           />
+          {art.faq && art.faq.length > 0 && (
+            <section style={{ marginTop: 48 }}>
+              <h2 style={{ fontSize: "1.5rem", fontWeight: 700, color: NAVY, margin: "0 0 16px" }}>Domande frequenti</h2>
+              {art.faq.map((f, i) => (
+                <div key={i} style={{ borderTop: "1px solid rgba(10,31,61,0.12)", padding: "16px 0" }}>
+                  <h3 style={{ fontSize: "1.05rem", fontWeight: 700, color: NAVY, margin: "0 0 8px" }}>{f.q}</h3>
+                  <p style={{ fontSize: 16, lineHeight: 1.8, color: NAVY, margin: 0 }} dangerouslySetInnerHTML={{ __html: f.a }} />
+                </div>
+              ))}
+            </section>
+          )}
+          {art.fonti && art.fonti.length > 0 && (
+            <section style={{ marginTop: 40, fontSize: 14, lineHeight: 1.7, color: "rgba(10,31,61,0.7)" }}>
+              <div style={{ fontSize: 12, letterSpacing: 2, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 8 }}>Fonti</div>
+              <ul style={{ paddingLeft: 20, margin: 0 }}>
+                {art.fonti.map((f, i) => (
+                  <li key={i} style={{ marginBottom: 4 }}>
+                    <a href={f.url} target="_blank" rel="noopener" style={{ color: "inherit", textDecoration: "underline" }}>{f.titolo}</a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
           <div style={{ marginTop: 48, padding: 32, background: NAVY_DEEP, borderRadius: 4, color: CREAM, textAlign: "center" }}>
             <div style={{ fontSize: 12, letterSpacing: 2, color: GOLD, textTransform: "uppercase", fontWeight: 600, marginBottom: 12 }}>Hai bisogno di una consulenza?</div>
             <p style={{ marginBottom: 24, opacity: 0.85 }}>HUB offre consulenze gratuite per vendere, comprare o trovare il mutuo giusto a Napoli.</p>

@@ -1208,9 +1208,101 @@ export function HomePage({ navigate, colors }) {
       {/* FAQ SEO */}
       <FAQSection colors={{ NAVY, GOLD, CREAM }} />
 
+      {/* HUB 24: iscrizione al settimanale gratuito */}
+      <Hub24Section />
+
       {/* NEWSLETTER BREVO */}
       <NewsletterSection colors={{ NAVY, GOLD, CREAM }} />
     </>
+  );
+}
+
+// === HUB 24: invito all'iscrizione al settimanale gratuito (home) ===
+// Mostra l'ultimo numero letto da /hub24/index.json (dopo il caricamento, così il prerender resta statico)
+// e porta alla pagina di iscrizione /hub24 (doppio opt-in gestito dalla funzione hub24-newsletter).
+function Hub24Section() {
+  const NAVY = "#0A1628";
+  const GOLD = "#C9A84C";
+  const PAPER = "#F5E1CF";
+  const [ultimo, setUltimo] = useState(null);
+  useEffect(() => {
+    let vivo = true;
+    fetch("/hub24/index.json", { cache: "no-cache" })
+      .then((r) => (r.ok ? r.json() : []))
+      .then((l) => { if (vivo && Array.isArray(l) && l.length) setUltimo([...l].sort((a, b) => (a.data < b.data ? 1 : -1))[0]); })
+      .catch(() => {});
+    return () => { vivo = false; };
+  }, []);
+  const dataIt = (iso) => {
+    try { return new Date(iso + "T12:00:00Z").toLocaleDateString("it-IT", { day: "numeric", month: "long", year: "numeric" }); } catch { return iso; }
+  };
+  const punti = ["Tassi e mutui della settimana", "Mercato di Napoli e del Vomero", "Fisco su affitti brevi e lunghi", "Le novità dello store"];
+  return (
+    <section id="hub24" aria-label="HUB 24, il settimanale gratuito" style={{ padding: "90px 24px", background: NAVY, color: "#FCFDFD" }}>
+      <div style={{ maxWidth: 1120, margin: "0 auto", display: "flex", flexWrap: "wrap", gap: 56, alignItems: "center" }}>
+        <div style={{ flex: "1 1 340px", minWidth: 0 }}>
+          <div style={{ fontSize: 11, letterSpacing: 3, color: GOLD, textTransform: "uppercase", marginBottom: 16, fontWeight: 600 }}>
+            Gratis · ogni domenica alle 8
+          </div>
+          <h2 className="serif" style={{ fontSize: "clamp(30px, 4vw, 42px)", fontWeight: 700, lineHeight: 1.15, margin: "0 0 18px" }}>
+            HUB <span style={{ color: GOLD }}>24</span>, il settimanale dell'Hub nella tua email
+          </h2>
+          <p style={{ fontSize: 17, lineHeight: 1.65, color: "rgba(252,253,253,0.8)", margin: "0 0 24px", maxWidth: 520 }}>
+            Casa, mutui, affitti e mercato immobiliare di Napoli spiegati in modo chiaro, con i dati verificati della settimana. Per chi vende, compra o affitta.
+          </p>
+          <ul style={{ listStyle: "none", padding: 0, margin: "0 0 32px", display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "10px 24px" }}>
+            {punti.map((t) => (
+              <li key={t} style={{ position: "relative", paddingLeft: 20, fontSize: 15, color: "rgba(252,253,253,0.9)" }}>
+                <span aria-hidden="true" style={{ position: "absolute", left: 0, top: 8, width: 8, height: 8, background: GOLD }} />
+                {t}
+              </li>
+            ))}
+          </ul>
+          <a
+            href="/hub24"
+            style={{ display: "inline-block", background: GOLD, color: NAVY, padding: "16px 34px", borderRadius: 3, fontSize: 13, fontWeight: 700, letterSpacing: 1.5, textTransform: "uppercase", textDecoration: "none" }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = "#E2C97E"; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = GOLD; }}
+          >
+            Ricevilo gratis →
+          </a>
+          <p style={{ marginTop: 14, fontSize: 12, color: "rgba(252,253,253,0.55)" }}>
+            Iscrizione in un minuto su fondocasahub.com/hub24 · ti disiscrivi quando vuoi.
+          </p>
+        </div>
+
+        <a
+          href={ultimo ? `/hub24/${ultimo.file}` : "/hub24"}
+          aria-label={ultimo ? `Leggi HUB 24 numero ${ultimo.numero}` : "Scopri HUB 24"}
+          style={{ flex: "1 1 320px", maxWidth: 460, minWidth: 0, textDecoration: "none", color: "#1B1714", background: PAPER, boxShadow: "0 24px 60px rgba(0,0,0,0.45)", transform: "rotate(-1.5deg)", display: "block" }}
+        >
+          <div style={{ background: NAVY, color: PAPER, textAlign: "center", padding: "18px 16px 12px", margin: 10 }}>
+            <div style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontSize: "clamp(40px, 6vw, 58px)", lineHeight: 1 }}>
+              HUB <span style={{ color: GOLD }}>24</span>
+            </div>
+            <div style={{ fontFamily: "Georgia, serif", fontStyle: "italic", fontSize: 12, opacity: 0.85, marginTop: 6 }}>
+              Il settimanale immobiliare, creditizio e assicurativo dell'Hub
+            </div>
+          </div>
+          <div style={{ padding: "4px 22px 24px" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", gap: 8, fontSize: 11, letterSpacing: 1, textTransform: "uppercase", color: "#4A3F37", borderBottom: "3px double #1B1714", paddingBottom: 6, marginBottom: 14 }}>
+              <span>{ultimo ? `Numero ${ultimo.numero}` : "Ogni domenica"}</span>
+              <span>{ultimo ? dataIt(ultimo.data) : "Napoli Vomero"}</span>
+            </div>
+            <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: 1.2, textTransform: "uppercase", color: "#9C2F1C", marginBottom: 6 }}>Prima pagina</div>
+            <div style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontWeight: 700, fontSize: 22, lineHeight: 1.2, marginBottom: 10 }}>
+              {ultimo ? ultimo.titolo : "Le notizie su casa, credito e Napoli che contano davvero"}
+            </div>
+            {ultimo?.sommario && (
+              <div style={{ fontFamily: "Georgia, serif", fontSize: 14, lineHeight: 1.5, color: "#4A3F37" }}>{ultimo.sommario}</div>
+            )}
+            <div style={{ marginTop: 14, fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", color: NAVY }}>
+              {ultimo ? "Leggi l'ultimo numero →" : "Scopri HUB 24 →"}
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
   );
 }
 
@@ -2581,6 +2673,7 @@ export function Footer({ navigate, colors }) {
               <div style={{ cursor: "pointer" }} onClick={() => navigate("chi-siamo")}>Chi siamo</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("metodo")}>Il nostro metodo</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("blog")}>Blog</div>
+              <a href="/hub24" style={{ display: "block", color: "inherit", textDecoration: "none" }}>HUB 24 · il settimanale gratuito</a>
               <div style={{ cursor: "pointer", color: GOLD }} onClick={() => navigate("comincia")}>Comincia da qui</div>
               <a
                 href="/valuta-il-tuo-immobile"

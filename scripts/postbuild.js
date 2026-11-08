@@ -95,6 +95,14 @@ const PAGE_META = {
     desc: 'Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): prequalifica gratuita tra oltre 20 banche, delibera media in 20 giorni. Prima casa, under 36, surroga e altro.',
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   },
+  'partner-weunit': {
+    title: 'Diventa Partner FondoCasa Hub | Riservato ai collaboratori WeUnit',
+    desc: 'Sei un collaboratore WeUnit? Diventa partner di FondoCasa Hub: 20% sulla provvigione lato venditore per ogni incarico segnalato, oppure entra nel team FC Punto Hub.',
+    canonical: 'https://www.fondocasahub.com/partner-weunit',
+    image: 'https://www.fondocasahub.com/images/og-partner-weunit.jpg',
+    imageAlt: 'Diventa Partner FondoCasa Hub — 20% lato venditore, riservato ai collaboratori WeUnit',
+    robots: 'noindex, follow'
+  },
   'costruttori': {
     title: 'Vendi Immobili in Costruzione in Italia | FondoCasa Hub',
     desc: 'Vendi appartamenti in costruzione in tutta Italia senza anticipo: FondoCasa Hub gestisce marketing, prequalifica acquirenti e rogito. Consulenza gratuita.',
@@ -212,6 +220,10 @@ for (const [slug, meta] of Object.entries(PAGE_META)) {
       .replace(/(<meta property="og:image" content=")[^"]*(")/g, `$1${meta.image}$2`)
       .replace(/(<meta property="og:image:alt" content=")[^"]*(")/g, `$1${meta.imageAlt}$2`)
       .replace(/(<meta property="twitter:image" content=")[^"]*(")/g, `$1${meta.image}$2`);
+  }
+  // Robots specifico della pagina (facoltativo, es. landing riservate in noindex)
+  if (meta.robots) {
+    html = html.replace(/(<meta name="robots" content=")[^"]*(")/g, `$1${meta.robots}$2`);
   }
 
   const outPath = path.join(distDir, `${slug}.html`);

@@ -1,5 +1,15 @@
 [
   {
+    "codice": "SH-5",
+    "slug": "SH-5_mazzini-frattamaggiore",
+    "titolo": "Appartamento in via Mazzini a Frattamaggiore",
+    "zona": "Frattamaggiore · Napoli",
+    "prezzo": 220000,
+    "foto": "SH-5_mazzini-frattamaggiore/img/foto/01-palazzo-facciata-DSC_0004.webp",
+    "data": "2026-11-09",
+    "stato": "disponibile"
+  },
+  {
     "codice": "SH-6",
     "slug": "SH-6_salieri-pianura",
     "titolo": "Villa a schiera su tre livelli a Pianura",

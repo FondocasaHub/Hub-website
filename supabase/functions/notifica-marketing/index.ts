@@ -1,6 +1,6 @@
 // Edge Function "notifica-marketing"
 // Chiamata dall'Area Agenti subito dopo l'invio di un modulo Ingaggio Marketing.
-// Invia il riepilogo a marketinghub@fondocasa.it con na.vomero@fondocasa.it in copia,
+// Invia il riepilogo a marketinghub@fondocasa.it con na.vomero@fondocasa.it e Sensoria in copia,
 // tramite il server SMTP di Brevo (porta 465: le Edge Function non possono usare 25 e 587).
 //
 // Secrets da impostare in Supabase → Edge Functions → Secrets:
@@ -13,6 +13,8 @@ import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 
 const DESTINATARIO = "marketinghub@fondocasa.it";
 const COPIA = "na.vomero@fondocasa.it";
+// Sensoria (agenzia marketing): la sua pipeline FC 1 legge queste email. Vedi SENSORIA.md.
+const COPIA_SENSORIA = "giovanni@sensoriaspace.com";
 const MITTENTE = "FondoCasa Hub - Area Agenti <info@fondocasahub.com>";
 const AREA = "https://www.fondocasahub.com/area-agenti/richieste";
 
@@ -94,7 +96,7 @@ Deno.serve(async (req) => {
     await smtp.send({
       from: MITTENTE,
       to: DESTINATARIO,
-      cc: COPIA,
+      cc: [COPIA, COPIA_SENSORIA],
       replyTo: r.agente_email,
       // Oggetto solo ASCII e corto: con accenti e trattini lunghi la codifica di denomailer
       // supera la lunghezza di riga e Brevo rifiuta la mail ("554 Header parsing error").

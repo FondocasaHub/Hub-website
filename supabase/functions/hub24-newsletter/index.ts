@@ -22,6 +22,11 @@
 //                                                         HUB24_PROVA_EMAIL (LOTTO copie, oggetto "[PROVA]"),
 //                                                         per verificare un blocco intero. Non tocca registro
 //                                                         destinatari né hub24_invii.
+//   { azione: "ricorda", giorni? }                      → rimanda il link di conferma a chi è "in_attesa" da
+//                                                         almeno N giorni (minimo e predefinito 2), UNA sola volta
+//                                                         per iscritto (colonna ricordato_il), a blocchi di 2 che
+//                                                         si avviano a catena. Non tocca consenso_il.
+//                                                         Richiede supabase/hub24-newsletter-promemoria.sql
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.4";
 import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
@@ -160,7 +165,8 @@ Deno.serve(async (req) => {
       if (esistente?.stato === "attivo") return risposta({ ok: true, gia_iscritto: true });
       let token = esistente?.token;
       if (esistente) {
-        await db.from("hub24_iscritti").update({ nome: nome || null, stato: "in_attesa", consenso_il: new Date().toISOString(), disiscritto_il: null, origine: body.origine ?? "pagina-hub24" }).eq("id", esistente.id);
+        // Nuova richiesta = nuovo consenso: il promemoria potrà ripartire (ricordato_il azzerato).
+        await db.from("hub24_iscritti").update({ nome: nome || null, stato: "in_attesa", consenso_il: new Date().toISOString(), disiscritto_il: null, ricordato_il: null, origine: body.origine ?? "pagina-hub24" }).eq("id", esistente.id);
       } else {
         const { data, error } = await db.from("hub24_iscritti").insert({ email, nome: nome || null, origine: body.origine ?? "pagina-hub24" }).select("token").single();
         if (error) return risposta({ errore: "Iscrizione non riuscita, riprova tra poco" }, 500);
@@ -233,6 +239,7 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
         nuovi_confermati: await conta(base().gte("confermato_il", da)),
         nuove_richieste_in_attesa: await conta(base().eq("stato", "in_attesa").gte("consenso_il", da)),
         in_attesa_totali: await conta(base().eq("stato", "in_attesa")),
+        in_attesa_da_ricordare: await conta(base().eq("stato", "in_attesa").is("ricordato_il", null).lt("consenso_il", new Date(Date.now() - 2 * 86400000).toISOString())),
         disiscritti: await conta(base().gte("disiscritto_il", da)),
         ultimo_numero: n ? { numero: n.numero, data: n.data, ricevuto_da: ricevuto, completato: (invii ?? []).some((i) => i.numero === n.numero) } : null,
         invii: invii ?? [],
@@ -305,6 +312,64 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
         if (rt?.waitUntil) rt.waitUntil(prossimo);
       }
       return risposta({ ok: inviate > 0 || (!falliti.length && !rimanenti), numero: n.numero, inviate, totale, falliti: falliti.length, rimanenti, ...(errore ? { errore } : {}) });
+    }
+
+    /* ---------- promemoria di conferma (una sola volta per iscritto) ---------- */
+    if (azione === "ricorda") {
+      // Minimo 2 giorni: chi si è appena iscritto ha già l'email di conferma e non va disturbato
+      // (la funzione è pubblica: anche chiamata da altri, non può anticipare i promemoria).
+      const giorni = Math.min(Math.max(Number(body.giorni) || 2, 2), 60);
+      const prima = new Date(Date.now() - giorni * 86400000).toISOString();
+      const { data: daRicordare, error } = await db.from("hub24_iscritti")
+        .select("id, email, nome, token, consenso_il")
+        .eq("stato", "in_attesa").is("ricordato_il", null).lt("consenso_il", prima)
+        .order("consenso_il", { ascending: true });
+      if (error) return risposta({ errore: `Promemoria non disponibile (eseguire supabase/hub24-newsletter-promemoria.sql): ${error.message}` }, 500);
+      const lista = daRicordare ?? [];
+      if (!lista.length) return risposta({ ok: true, inviate: 0, rimanenti: 0 });
+
+      const blocco = lista.slice(0, LOTTO);
+      let inviate = 0;
+      const falliti: string[] = [];
+      let errore = "";
+      let s = smtp();
+      for (const d of blocco) {
+        const link = `${PAGINA}?conferma=${d.token}`;
+        const html = layout(
+          `<p style="margin:0 0 12px">Ciao${d.nome ? " " + esc(d.nome) : ""},</p>
+<p style="margin:0 0 12px">il ${dataLunga(String(d.consenso_il).slice(0, 10))} hai chiesto di ricevere HUB 24, il settimanale gratuito dell'Hub, ma l'iscrizione non risulta ancora confermata. Senza conferma la copia della domenica non ti arriva.</p>
+<p style="margin:0 0 12px">Basta un clic:</p>
+<p style="margin:18px 0">${bottone(link, "Confermo l'iscrizione")}</p>
+<p style="margin:0 0 12px;font-size:15px">Se il link della prima email non funzionava, usa questo: è stato corretto.</p>
+<p style="margin:0 0 12px;font-size:14px;color:#5E5148">Se non ti interessa più, ignora questa email: è l'unico promemoria che ti mandiamo e senza conferma non riceverai nulla.</p>`,
+          "Hai ricevuto questa email perché il tuo indirizzo è stato inserito nel modulo di iscrizione su fondocasahub.com/hub24.",
+        );
+        try {
+          await s.send({ from: MITTENTE, to: d.email, subject: "Manca un clic per ricevere HUB 24", ...corpo(html) });
+          inviate++;
+          console.log("hub24-newsletter promemoria:", d.email.replace(/^(.).*@/, "$1***@"));
+        } catch (e) {
+          falliti.push(d.email);
+          errore = String((e as Error)?.message ?? e).slice(0, 300);
+          console.error("hub24-newsletter promemoria fallito:", d.email, errore);
+          try { await s.close(); } catch (_) { /* connessione gia' chiusa */ }
+          s = smtp();
+        }
+        // Segnato anche se fallisce: un indirizzo che rimbalza non deve far girare la catena all'infinito.
+        const { error: errReg } = await db.from("hub24_iscritti").update({ ricordato_il: new Date().toISOString() }).eq("id", d.id);
+        if (errReg) console.error("hub24-newsletter ricordato_il non aggiornato:", d.email, errReg.message);
+      }
+      try { await s.close(); } catch (_) { /* ignora */ }
+      const rimanenti = lista.length - blocco.length;
+      if (rimanenti && inviate) {
+        const url = `${Deno.env.get("SUPABASE_URL") ?? "https://iymxkvrgkhfaqcyxjsyz.supabase.co"}/functions/v1/hub24-newsletter`;
+        const prossimo = fetch(url, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ azione: "ricorda", giorni }) })
+          .catch((e) => console.error("hub24-newsletter promemoria successivo non avviato:", String(e)));
+        // deno-lint-ignore no-explicit-any
+        const rt = (globalThis as any).EdgeRuntime;
+        if (rt?.waitUntil) rt.waitUntil(prossimo);
+      }
+      return risposta({ ok: inviate > 0, inviate, falliti: falliti.length, rimanenti, ...(errore ? { errore } : {}) });
     }
 
     /* ---------- prova: un blocco intero mandato solo all'indirizzo di prova ---------- */

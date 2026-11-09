@@ -429,6 +429,7 @@ export default function App() {
     { id: "chi-siamo", label: "Chi siamo" },
     { id: "metodo", label: "Il nostro metodo" },
     { id: "cercacasa", label: "Cerca casa", href: "/cercacasa" },
+    { id: "immobili", label: "Immobili", href: "/immobili" },
     { id: "blog", label: "Blog" },
     { id: "contatti", label: "Contatti" },
     { id: "comincia", label: "Comincia da qui", highlight: true },
@@ -2468,6 +2469,7 @@ export function Footer({ navigate, colors }) {
               <div style={{ cursor: "pointer" }} onClick={() => navigate("chi-siamo")}>Chi siamo</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("metodo")}>Il nostro metodo</div>
               <div style={{ cursor: "pointer" }} onClick={() => navigate("blog")}>Blog</div>
+              <a href="/immobili" style={{ display: "block", color: "inherit", textDecoration: "none" }}>Immobili in vendita</a>
               <a href="/hub24" style={{ display: "block", color: "inherit", textDecoration: "none" }}>HUB 24 · il settimanale gratuito</a>
               <div style={{ cursor: "pointer", color: GOLD }} onClick={() => navigate("comincia")}>Comincia da qui</div>
               <a

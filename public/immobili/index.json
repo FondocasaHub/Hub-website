@@ -1,5 +1,15 @@
 [
   {
+    "codice": "SH-2",
+    "slug": "SH-2_baffi-napoli",
+    "titolo": "Mansarda di 144 m² a Napoli, da finire",
+    "zona": "Napoli",
+    "prezzo": null,
+    "foto": "SH-2_baffi-napoli/img/cortile.webp",
+    "data": "2026-11-09",
+    "stato": "disponibile"
+  },
+  {
     "codice": "SH-3",
     "slug": "SH-3_redi-giugliano",
     "titolo": "Quadrilocale ristrutturato a Giugliano",

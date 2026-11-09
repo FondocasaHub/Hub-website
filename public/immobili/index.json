@@ -1,5 +1,15 @@
 [
   {
+    "codice": "SH-6",
+    "slug": "SH-6_salieri-pianura",
+    "titolo": "Villa a schiera su tre livelli a Pianura",
+    "zona": "Pianura · Napoli",
+    "prezzo": null,
+    "foto": "SH-6_salieri-pianura/img/foto/0001.webp",
+    "data": "2026-11-09",
+    "stato": "disponibile"
+  },
+  {
     "codice": "SH-4",
     "slug": "SH-4_de-matha-poggioreale",
     "titolo": "Capannone di 1.500 mq a Poggioreale",

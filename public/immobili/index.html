@@ -71,7 +71,10 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   </ul>
 </main>
 <footer>FCpuntoHUB · <a href="/privacy">Privacy</a> · <a href="/cookie">Cookie</a></footer>
-<script>fetch('/immobili/index.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(l){
+<script>var utmQ=(function(){var p=new URLSearchParams(location.search),o=new URLSearchParams();p.forEach(function(v,k){if(/^utm_/.test(k))o.set(k,v)});var s=o.toString();return s?'?'+s:''})();
+var utm=function(){if(!utmQ)return;document.querySelectorAll('a[href^="/immobili/"]').forEach(function(a){var h=a.getAttribute('href');if(h.indexOf('?')<0)a.setAttribute('href',h+utmQ)})};
+utm();
+fetch('/immobili/index.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null}).then(function(l){
   if(!l||!l.length)return;
   var ul=document.getElementById('elenco'),vv=document.getElementById('venduti'),T={venduto:'Venduto',opzionato:'Opzionato','in-anteprima':'Anteprima'};
   var e=function(t,c,x){var n=document.createElement(t);if(c)n.className=c;if(x!=null)n.textContent=x;return n};
@@ -84,6 +87,7 @@ gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_pers
   l.filter(function(v){return v.stato!=='venduto'}).forEach(function(v){ul.appendChild(scheda(v))});
   l.filter(function(v){return v.stato==='venduto'}).forEach(function(v){vv.appendChild(scheda(v))});
   document.getElementById('venduti-t').hidden=!vv.children.length;
+  utm();
 }).catch(function(){});</script>
 </body>
 </html>

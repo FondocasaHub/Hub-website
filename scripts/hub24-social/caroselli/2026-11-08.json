@@ -1,0 +1,23 @@
+{
+  "numero": 3,
+  "slide": [
+    {"tipo": "gancio", "kicker": "HUB 24 · Numero 3",
+     "titolo": "Ristrutturi, compri o vendi a Napoli?<br>Il bonus resta al <b>50%</b>, il mutuo parte dal <b>2,99%</b>",
+     "sub": "Tre numeri della settimana per chi ha casa, o la cerca, a Napoli."},
+    {"tipo": "dato", "etichetta": "Bonus ristrutturazione 2027", "numero": "36% → 50%",
+     "titolo": "Sulla prima casa lo sconto non scende",
+     "testo": "Il taglio al 36% previsto dal 2027 viene rinviato: resta il <b>50%</b> sull'abitazione principale, il <b>36%</b> sugli altri immobili. Su 20.000 € di lavori: <b>10.000 €</b> di detrazione, 1.000 € l'anno per 10 anni, invece di 7.200&nbsp;€.",
+     "nota": "Ddl di Bilancio 2027 (CdM 28/10/2026), in esame in Parlamento: è una proposta, può cambiare. Tetto di spesa 96.000 € per unità. Fonti: Adnkronos, Cose di Casa (novembre 2026)."},
+    {"tipo": "dato", "etichetta": "Mutui a tasso fisso", "numero": "842 €",
+     "titolo": "La rata su 200.000 € a 30 anni con il fisso al 2,99%",
+     "testo": "Le migliori offerte di novembre partono dal <b>2,99%</b> (Taeg 3,18%). L'Eurirs a 20 anni, riferimento dei fissi, è sceso dal 3,44% al <b>3,38%</b> in una settimana.",
+     "nota": "Simulazione Facile.it del 3/11/2026, mutuo green con polizza: condizioni da verificare con la banca. Eurirs: MutuiOnline, 2/11 e 9/11/2026."},
+    {"tipo": "dato", "etichetta": "Prezzi al Vomero", "numero": "4.942 €/mq",
+     "titolo": "Appartamenti stabili, case indipendenti in salita",
+     "testo": "Nel CAP 80127 gli appartamenti valgono in media <b>4.942 €/mq</b>, <b>-1%</b> in un anno. Le case indipendenti salgono del <b>+3,2%</b>, a 5.997 €/mq.",
+     "nota": "RealAdvisor, CAP 80127, ottobre 2026. Valori medi: il prezzo di ogni casa dipende da piano, stato e metratura."},
+    {"tipo": "chiusura", "kicker": "Gratis · ogni domenica alle 8",
+     "titolo": "Tutti i numeri della settimana su HUB 24",
+     "sub": "Manovra, mutui, affitti e prezzi del Vomero in 5 minuti."}
+  ]
+}

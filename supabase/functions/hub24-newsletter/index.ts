@@ -89,6 +89,29 @@ const b64 = (testo: string) => {
   // perde questa, il contenuto resta intatto; se arriva, sono solo spazi.
   return "\r\n" + btoa(" ".repeat(56) + "\n" + bin).replace(/.{76}/g, "$&\r\n");
 };
+// Parte HTML in 7bit, NON in base64 (11/11/2026). Brevo, per contare le aperture, inserisce il suo HTML
+// (<html><body> + pixel) direttamente nel corpo della parte HTML senza guardarne la codifica: con il
+// base64 il corpo diventava un miscuglio e alcune app di posta mostravano caratteri illeggibili in cima
+// (era anche la "prima riga che si perdeva" del 7/11: Brevo ci incollava davanti il suo HTML).
+// Qui l'HTML resta testo: i caratteri non ASCII diventano entità (&#232;), le righe restano sotto il
+// limite SMTP di 998 caratteri e il punto a inizio riga viene raddoppiato (denomailer non lo fa: era
+// la causa del punto che spariva nei link, 30/10/2026).
+const html7bit = (html: string) =>
+  html.replace(/[^\x00-\x7F]/gu, (c) => `&#${c.codePointAt(0)};`)
+    .split(/\r?\n/)
+    .flatMap((riga) => {
+      const pezzi: string[] = [];
+      while (riga.length > 900) {
+        let i = riga.lastIndexOf(" ", 900);
+        if (i < 1) i = 900;
+        pezzi.push(riga.slice(0, i));
+        riga = riga.slice(i);
+      }
+      pezzi.push(riga);
+      return pezzi;
+    })
+    .map((riga) => (riga.startsWith(".") ? "." + riga : riga))
+    .join("\r\n");
 const corpo = (html: string) => {
   const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")
     .replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|tr)>/g, "\n").replace(/<[^>]+>/g, "")
@@ -96,7 +119,7 @@ const corpo = (html: string) => {
   return {
     mimeContent: [
       { mimeType: 'text/plain; charset="utf-8"', content: b64(testo), transferEncoding: "base64" },
-      { mimeType: 'text/html; charset="utf-8"', content: b64(html), transferEncoding: "base64" },
+      { mimeType: 'text/html; charset="utf-8"', content: html7bit(html), transferEncoding: "7bit" },
     ],
   };
 };

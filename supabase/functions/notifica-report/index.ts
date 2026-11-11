@@ -65,6 +65,26 @@ const b64Corpo = (testo: string) => {
   // perde questa, il contenuto resta intatto; se arriva, sono solo spazi.
   return "\r\n" + btoa(" ".repeat(56) + "\n" + bin).replace(/.{76}/g, "$&\r\n");
 };
+// Parte HTML in 7bit, NON in base64 (11/11/2026, come hub24-newsletter v11). Brevo, per contare le
+// aperture, inserisce il suo HTML (<html><body> + pixel) nel corpo della parte HTML senza guardarne la
+// codifica: con il base64 alcune app di posta mostravano caratteri illeggibili in cima. Qui l'HTML resta
+// testo: caratteri non ASCII come entità (&#232;), righe sotto i 998 caratteri, punto iniziale raddoppiato.
+const html7bit = (html: string) =>
+  html.replace(/[^\x00-\x7F]/gu, (c) => `&#${c.codePointAt(0)};`)
+    .split(/\r?\n/)
+    .flatMap((riga) => {
+      const pezzi: string[] = [];
+      while (riga.length > 900) {
+        let i = riga.lastIndexOf(" ", 900);
+        if (i < 1) i = 900;
+        pezzi.push(riga.slice(0, i));
+        riga = riga.slice(i);
+      }
+      pezzi.push(riga);
+      return pezzi;
+    })
+    .map((riga) => (riga.startsWith(".") ? "." + riga : riga))
+    .join("\r\n");
 const corpoMime = (html: string) => {
   const testo = html.replace(/<style[\s\S]*?<\/style>/g, "").replace(/<a [^>]*href="([^"]+)"[^>]*>([\s\S]*?)<\/a>/g, "$2: $1")
     .replace(/<br\s*\/?>/g, "\n").replace(/<\/(p|div|tr)>/g, "\n").replace(/<[^>]+>/g, "")
@@ -72,7 +92,7 @@ const corpoMime = (html: string) => {
   return {
     mimeContent: [
       { mimeType: 'text/plain; charset="utf-8"', content: b64Corpo(testo), transferEncoding: "base64" },
-      { mimeType: 'text/html; charset="utf-8"', content: b64Corpo(html), transferEncoding: "base64" },
+      { mimeType: 'text/html; charset="utf-8"', content: html7bit(html), transferEncoding: "7bit" },
     ],
   };
 };

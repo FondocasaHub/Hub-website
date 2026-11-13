@@ -54,7 +54,6 @@ const TEAM = [
   { foto: 6, nome: "Vincenzo Di Pinto", nome1: "Vincenzo",  ruolo: "Consulente del Credito e Resp. Aste", area: "Creditizio",  iniziali: "VDP", tel: "3776765500", email: "vincenzo.dipinto@fondocasa.it" },
   { foto: 2, nome: "Annalisa Misuraca", nome1: "Annalisa",  ruolo: "Senior Agent",                        area: "Immobiliare", iniziali: "AM",  tel: "3383255417", email: "annalisa.misuraca@fondocasa.it" },
   { foto: 3, nome: "Leonardo Rausa",    nome1: "Leonardo",  ruolo: "Junior Agent",                        area: "Immobiliare", iniziali: "LR",  tel: "3421372855", email: "leonardo.rausa@fondocasa.it" },
-  { foto: 0, nome: "Sara Calvino",      nome1: "Sara",      ruolo: "Buyer Agent",                         area: "Immobiliare", iniziali: "SC",  tel: "3667380144", email: "sara.calvino@fondocasa.it" },
   { foto: 5, nome: "Angela Chiocca",    nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AC",  tel: "3355259648", email: "angela.chiocca@fondocasa.it" },
   { foto: 4, nome: "Sonia Cappiello",   nome1: "Sonia",     ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "SCa", tel: "3295826352", email: "sonia.cappiello@fondocasa.it" },
   { foto: 10, nome: "Angela Spavone",   nome1: "Angela",    ruolo: "Property Assistant",                  area: "Immobiliare", iniziali: "AS",  tel: "3487424736", email: "angela.spavone@fondocasa.it" }

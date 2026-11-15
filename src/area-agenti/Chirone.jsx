@@ -151,6 +151,12 @@ export default function Chirone({ profilo, vai }) {
     if (!aperto) fermaVoce();
   }, [aperto]);
   useEffect(() => () => fermaVoce(), []);
+  // L'app Chirone (pagina /area-agenti/app) apre la chat con un evento.
+  useEffect(() => {
+    const apri = () => setAperto(true);
+    window.addEventListener("chirone:apri", apri);
+    return () => window.removeEventListener("chirone:apri", apri);
+  }, []);
 
   useEffect(() => {
     if (!aperto) return;

@@ -2,6 +2,9 @@
   "functions": {
     "api/assistente.js": {
       "maxDuration": 60
+    },
+    "api/diario.js": {
+      "maxDuration": 30
     }
   },
   "redirects": [

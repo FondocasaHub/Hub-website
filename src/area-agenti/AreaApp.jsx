@@ -16,6 +16,7 @@ import { ElencoImmobili, SchedaImmobile, PaginaReport } from "./Immobili.jsx";
 import Chirone from "./Chirone.jsx";
 import AssistenteLog from "./AssistenteLog.jsx";
 import MiaGiornata from "./MiaGiornata.jsx";
+import AppChirone from "./AppChirone.jsx";
 import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
 import { PAGINE_APERTE } from "./cancello-regole.js";
 
@@ -138,6 +139,7 @@ export default function AreaApp() {
     case "gestione": contenuto = isAdmin ? <Gestione profilo={profilo} onAggiorna={caricaDati} /> : <NonAutorizzato vai={vai} />; break;
     case "assistente-log": contenuto = isAdmin ? <AssistenteLog /> : <NonAutorizzato vai={vai} />; break;
     case "giornata": contenuto = ["agente", "manager", "admin", "credito"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
+    case "app": contenuto = <AppChirone profilo={profilo} vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;

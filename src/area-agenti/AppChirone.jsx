@@ -160,6 +160,8 @@ function DettaAChirone({ giorno, onConferma }) {
   const [proposta, setProposta] = useState(null);
   const [ascolto, setAscolto] = useState(false);
   const [supporto] = useState(() => supportoVoce());
+  // Su iPhone e iPad la dettatura del browser è poco affidabile: lì si usa il microfono della tastiera.
+  const [ios] = useState(() => /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1));
   const riconoscimento = useRef(null);
 
   useEffect(() => () => { try { riconoscimento.current?.abort(); } catch { /* già fermo */ } }, []);
@@ -171,10 +173,15 @@ function DettaAChirone({ giorno, onConferma }) {
     const base = testo ? `${testo.trim()} ` : "";
     r.onresult = (e) => setTesto(base + Array.from(e.results).map((x) => x[0].transcript).join(""));
     r.onend = () => setAscolto(false);
-    r.onerror = () => setAscolto(false);
+    r.onerror = (e) => {
+      setAscolto(false);
+      if (e.error === "not-allowed" || e.error === "service-not-allowed") setErrore("Il microfono non è autorizzato: consentilo nelle impostazioni del browser, oppure usa il microfono della tastiera.");
+      else if (e.error !== "aborted" && e.error !== "no-speech") setErrore("La dettatura non è riuscita: riprova, oppure usa il microfono della tastiera.");
+    };
     riconoscimento.current = r;
+    setErrore("");
     setAscolto(true);
-    r.start();
+    try { r.start(); } catch { setAscolto(false); setErrore("La dettatura non è disponibile: usa il microfono della tastiera."); }
   }
 
   async function compila() {
@@ -214,12 +221,13 @@ function DettaAChirone({ giorno, onConferma }) {
       <p className="aa-nota">Scrivi o detta com'è andata, per esempio: "oggi 25 chiamate, 2 appuntamenti e un incarico in esclusiva; richiamare Esposito".</p>
       <div className="ac-detta">
         <textarea rows={3} maxLength={1500} value={testo} placeholder="Com'è andata oggi?" onChange={(e) => setTesto(e.target.value)} />
-        {supporto.ascolto && (
+        {supporto.ascolto && !ios && (
           <button className={`ac-mic ${ascolto ? "attivo" : ""}`} onClick={ascolta} aria-label={ascolto ? "Ferma la dettatura" : "Detta"}>
             {ascolto ? "■" : "🎙"}
           </button>
         )}
       </div>
+      {ios && <p className="aa-nota">🎙 Per dettare tocca la casella e usa il microfono della tastiera dell'iPhone.</p>}
       <button className="ac-btn" onClick={compila} disabled={inCorso || !testo.trim()}>{inCorso ? "Chirone sta compilando…" : "Compila il diario"}</button>
       {errore && <p className="ac-errore">{errore}</p>}
 

@@ -128,7 +128,11 @@ prenota l'ora delle riprese e si fa mandare il copione in PDF.
   manda. **Da pubblicare una volta:** `supabase functions deploy notifica-copione`. Finché non c'è, la pagina dice di
   scaricare il PDF.
 - La prenotazione delle riprese crea un evento solo nel calendario di Jgio (nessun invito agli agenti).
-- Nessun dato degli agenti resta nel sito: il server di Sensoria tiene nome ed email di chi rivede i copioni.
+- **Elenco degli agenti**: `supabase/area-agenti-copioni.sql` crea la funzione `agenti_per_copioni()` (nome, email,
+  ruolo, reparto e team delle persone attive), che risponde solo a chi è del marketing (staff + reparto marketing) o
+  manager/admin; agli altri restituisce zero righe. Il server di Sensoria la chiama con il token di Jgio quando lui apre
+  «I miei copioni», così sa a chi può mandare un copione e chi non è più attivo. **Da lanciare una volta** nel SQL Editor.
+- Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
 
 ## 5. Confini e sicurezza
 - Sensoria non scrive mai su `main` e non tocca file fuori da quelli della sezione 3. Le eccezioni passano da una pull

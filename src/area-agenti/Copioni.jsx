@@ -201,7 +201,7 @@ export function SchedaCopione({ id, profilo, vai }) {
       </section>
 
       <Prenota c={c} setC={setC} />
-      {c.puoi_email && <PerEmail c={c} profilo={profilo} />}
+      <PerEmail c={c} profilo={profilo} />
     </>
   );
 }
@@ -312,18 +312,21 @@ function PerEmail({ c, profilo }) {
     setTimeout(() => URL.revokeObjectURL(url), 10000);
   };
 
+  // sempre visibile, così l'agente sa che c'è; si accende quando ha approvato (Jgio 16/11: «quando l'agente è soddisfatto»)
+  const pronto = c.puoi_email;
   return (
     <section className="aa-card">
       <h2 className="aa-h2">Il copione da stampare</h2>
-      <p className="aa-nota">Te lo mandiamo in PDF: battute e cose da controllare, da stampare o da tenere sul telefono.</p>
+      <p className="aa-nota">{pronto ? "Te lo mandiamo in PDF: battute e cose da controllare, da stampare o da tenere sul telefono."
+        : "Quando approvi il copione, qui te lo mandiamo per email in PDF o lo scarichi, da stampare o da tenere sul telefono."}</p>
       {errore && <p className="aa-errore">{errore}</p>}
       {stato && <p className="aa-box-info cp-ok-msg">{stato}</p>}
       <label className="aa-campo"><span>La tua email</span>
-        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" />
+        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="email" disabled={!pronto} />
       </label>
       <div className="cp-azioni" style={{ marginTop: 10 }}>
-        <button className="aa-btn aa-btn-pieno" disabled={occupato || !email.includes("@")} onClick={manda}>Mandami il copione per email</button>
-        <button className="aa-link" onClick={scarica}>oppure scarica il PDF</button>
+        <button className="aa-btn aa-btn-pieno" disabled={!pronto || occupato || !email.includes("@")} onClick={manda}>Mandami il copione per email</button>
+        {pronto && <button className="aa-link" onClick={scarica}>oppure scarica il PDF</button>}
       </div>
     </section>
   );

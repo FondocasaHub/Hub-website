@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase, BUCKET, CARTELLE, SOTTOCARTELLE } from "./supabase";
 import { BoxComunicazioni } from "./Comunicazioni.jsx";
+import { quantiCopioniDaFare } from "./Copioni.jsx";
 import { PIANO_INSERIMENTO, AGENDA, GIORNI, ROUTINE_LISTING, OBIETTIVI_LISTING } from "./contenuti";
 
 const NOMI_RUOLO = { admin: "Admin", manager: "Manager", agente: "Agente", credito: "Consulente del credito", staff: "Staff" };
@@ -27,6 +28,7 @@ const ICONE = {
   valutazione: "M3 21h18 M5 21V8l7-5 7 5v13 M9 21v-5h6v5 M9 10h6",
   utility: "M4 4h16v16H4z M8 8h3 M9.5 6.5v3 M13 8h3 M8 15h3 M13 14l3 3 M16 14l-3 3",
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
+  copioni: "M4 6h12v12H4z M16 10l4-2v8l-4-2 M7 10h6 M7 13h4",
 };
 function Icona({ nome }) {
   return (
@@ -41,12 +43,15 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
   const oggi = new Date().getDay(); // 0 domenica ... 6 sabato
   const agendaOggi = AGENDA.filter((a) => a.giorno === oggi || (a.giorno === 0 && oggi >= 1 && oggi <= 5));
   const nome = (profilo.nome || "").split(" ")[0];
+  const [daLeggere, setDaLeggere] = useState(0);
+  useEffect(() => { quantiCopioniDaFare().then(setDaLeggere); }, []);
 
   const riquadri = [
     { id: "documenti", titolo: "Documenti", testo: "Modulistica, procedure e materiali del tuo ruolo", icona: "documenti" },
     { id: "istruzioni", titolo: "Istruzioni e inserimento", testo: "Piano di inserimento, agenda e regole dello store", icona: "istruzioni" },
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
+    { id: "copioni", titolo: "I miei copioni", testo: "I video che giriamo con te: leggi cosa dirai, commenta e approva", icona: "copioni" },
     { id: "immobili", titolo: "Immobili", testo: "Scheda di ogni incarico: check-list della procedura, numeri, Open House e report per la proprietà", icona: "valutazione" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
@@ -76,7 +81,7 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
         {riquadri.map((r) => (
           <button key={r.id} className="aa-riquadro" onClick={() => vai(r.id)}>
             <span className="aa-riquadro-icona"><Icona nome={r.icona} /></span>
-            <strong>{r.titolo}</strong>
+            <strong>{r.titolo}{r.id === "copioni" && daLeggere > 0 && <em className="cp-bollino">{daLeggere} da leggere</em>}</strong>
             <span>{r.testo}</span>
           </button>
         ))}

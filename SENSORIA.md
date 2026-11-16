@@ -113,6 +113,27 @@ Le proponiamo con pull request:
 **Tu** unisci, lanci l'SQL su Supabase e ripubblichi le funzioni. Sensoria non chiede l'accesso al progetto Supabase né
 le sue chiavi.
 
+### 4.4 I miei copioni (dal 16/11/2026)
+Ogni agente vede i copioni dei video che gira con Sensoria in **Area agenti → I miei copioni** (`/area-agenti/copioni`,
+`src/area-agenti/Copioni.jsx`): solo le battute e le cose da controllare. Commenta una frase o tutto il copione, approva,
+prenota l'ora delle riprese e si fa mandare il copione in PDF.
+- **I copioni stanno sul server di Sensoria** (Marketing FC), non nel vostro Supabase: nessuna tabella e nessun SQL
+  nuovo. La pagina chiama `https://app.sensoriaspace.com/api/agenti/…` con il token della sessione dell'agente; il
+  server lo verifica chiedendo a Supabase chi è (`/auth/v1/user` e il suo profilo, con la chiave pubblica), e risponde
+  solo con i copioni di quell'agente. Per questo in `vercel.json` la CSP ha `https://app.sensoriaspace.com` in
+  `connect-src`.
+- **Email con il PDF**: funzione `supabase/functions/notifica-copione` (stessi secrets Brevo delle altre). Chiede il
+  copione al server di Sensoria con il token dell'agente (il server controlla che sia suo e approvato, massimo 5 email
+  al giorno), fa il PDF con `_shared/copione-pdf.js` (lo stesso file del bottone «scarica il PDF» della pagina) e lo
+  manda. **Da pubblicare una volta:** `supabase functions deploy notifica-copione`. Finché non c'è, la pagina dice di
+  scaricare il PDF.
+- La prenotazione delle riprese crea un evento solo nel calendario di Jgio (nessun invito agli agenti).
+- **Elenco degli agenti**: `supabase/area-agenti-copioni.sql` crea la funzione `agenti_per_copioni()` (nome, email,
+  ruolo, reparto e team delle persone attive), che risponde solo a chi è del marketing (staff + reparto marketing) o
+  manager/admin; agli altri restituisce zero righe. Il server di Sensoria la chiama con il token di Jgio quando lui apre
+  «I miei copioni», così sa a chi può mandare un copione e chi non è più attivo. **Da lanciare una volta** nel SQL Editor.
+- Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
+
 ## 5. Confini e sicurezza
 - Sensoria non scrive mai su `main` e non tocca file fuori da quelli della sezione 3. Le eccezioni passano da una pull
   request che approvi tu.

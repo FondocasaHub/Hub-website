@@ -17,6 +17,7 @@ import Chirone from "./Chirone.jsx";
 import AssistenteLog from "./AssistenteLog.jsx";
 import MiaGiornata from "./MiaGiornata.jsx";
 import AppChirone from "./AppChirone.jsx";
+import { ElencoCopioni, SchedaCopione } from "./Copioni.jsx";
 import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
 import { PAGINE_APERTE } from "./cancello-regole.js";
 
@@ -140,6 +141,7 @@ export default function AreaApp() {
     case "assistente-log": contenuto = isAdmin ? <AssistenteLog /> : <NonAutorizzato vai={vai} />; break;
     case "giornata": contenuto = ["agente", "manager", "admin", "credito"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "app": contenuto = <AppChirone profilo={profilo} vai={vai} />; break;
+    case "copioni": contenuto = <ElencoCopioni vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
@@ -157,6 +159,7 @@ export default function AreaApp() {
       if (/^valutazioni\/\d+$/.test(pagina)) { contenuto = <SchedaValutazione id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^incarichi-ricerca\/\d+$/.test(pagina)) { contenuto = <SchedaIncaricoRicerca id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^compensi\/\d+$/.test(pagina)) { contenuto = <DettaglioReport id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
+      if (/^copioni\/[a-z0-9][a-z0-9-]{1,80}$/.test(pagina)) { contenuto = <SchedaCopione id={pagina.split("/")[1]} profilo={profilo} vai={vai} />; break; }
       if (/^comunicazioni\/\d+$/.test(pagina)) { contenuto = <PaginaComunicazioni id={pagina.split("/")[1]} />; break; }
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
       contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} vedeUtility={vedeUtility} />;

@@ -624,3 +624,55 @@ a { color: inherit; }
   .aa-barra { padding-top: env(safe-area-inset-top); }
   .aa-footer { padding-bottom: calc(16px + env(safe-area-inset-bottom)); }
 }
+
+/* ---------- I miei copioni (dal 16/11/2026, Sensoria): pensata per il telefono ---------- */
+.cp-stato { background: rgba(193, 154, 91, 0.18); color: #7a5a22; text-transform: none; margin-top: 10px; }
+.cp-stato.cp-ok { background: rgba(46, 107, 74, 0.12); color: var(--verde); }
+.cp-lista { display: grid; gap: 12px; }
+.cp-voce { display: flex; flex-direction: column; align-items: flex-start; gap: 6px; text-align: left; width: 100%; margin: 0; padding: 18px 20px; cursor: pointer; color: var(--testo); font: inherit; }
+.cp-voce .cp-stato { margin: 0; }
+.cp-voce strong { font-size: 17px; line-height: 1.3; }
+.cp-da-fare { border-left: 4px solid var(--gold); }
+.cp-sotto { color: var(--tenue); font-size: 14px; }
+.cp-indietro { display: inline-block; margin: 4px 0 14px; font-size: 15px; }
+.cp-avviso { font-size: 15px; line-height: 1.5; background: var(--carta); border: 1px solid var(--linea); border-left: 4px solid var(--gold); }
+.cp-ok-msg { background: rgba(46, 107, 74, 0.10); color: var(--verde); }
+.cp-copione { padding: 22px 20px; }
+.cp-copione .aa-h2 { margin-top: 6px; }
+.cp-apertura { margin-bottom: 10px; }
+.cp-lettera { margin: 0 0 4px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold); }
+.cp-battute { list-style: none; margin: 0 0 18px; padding: 0; }
+.cp-battuta { display: flex; gap: 10px; padding: 12px 0; border-top: 1px solid var(--linea); }
+.cp-battuta:first-child { border-top: 0; }
+.cp-n { flex: 0 0 22px; font-weight: 700; color: var(--gold); font-size: 16px; line-height: 1.5; }
+.cp-corpo { flex: 1; min-width: 0; }
+.cp-testo { margin: 0; font-size: 18px; line-height: 1.5; }
+.cp-altro .cp-testo { color: var(--tenue); font-style: italic; font-size: 16px; }
+.cp-chi { font-style: normal; font-weight: 600; }
+.cp-segnaposto { margin: 0; color: var(--tenue); font-style: italic; font-size: 15px; }
+.cp-tag { display: inline-block; margin-left: 6px; padding: 1px 8px; border-radius: 10px; font-size: 12px; font-style: normal; font-weight: 600; background: rgba(10, 31, 61, 0.08); color: var(--tenue); vertical-align: 2px; }
+.cp-nuova { background: rgba(193, 154, 91, 0.22); color: #7a5a22; }
+.cp-link { margin-top: 6px; font-size: 14px; }
+.cp-commenta { margin-top: 8px; }
+.cp-commenta textarea, .cp-area { width: 100%; box-sizing: border-box; padding: 11px 12px; border: 1px solid rgba(10, 31, 61, 0.2); border-radius: 8px; font: inherit; font-size: 16px; background: #fff; color: var(--testo); margin-bottom: 10px; }
+.cp-commenta textarea:focus, .cp-area:focus { outline: 2px solid var(--gold); border-color: var(--gold); }
+.cp-azioni { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+.cp-commento { margin-top: 10px; padding: 10px 12px; background: var(--cream); border-radius: 8px; font-size: 14.5px; }
+.cp-commento p { margin: 0; }
+.cp-risposta { margin-top: 6px !important; color: var(--verde); }
+.cp-attesa { color: var(--tenue); font-style: italic; }
+.cp-controlla { margin: 0; padding-left: 20px; }
+.cp-controlla li { margin: 0 0 8px; line-height: 1.45; }
+.cp-approva { text-align: center; }
+.cp-grande { width: 100%; max-width: 360px; padding: 14px; font-size: 17px; }
+.cp-prenotato { font-size: 17px; margin: 0 0 12px; }
+.cp-giorno { margin: 12px 0; }
+.cp-giorno-nome { margin: 0 0 6px; font-weight: 600; text-transform: capitalize; }
+.cp-orari { display: flex; flex-wrap: wrap; gap: 8px; }
+.cp-orari .aa-btn { min-width: 72px; }
+.cp-bollino { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 10px; background: var(--gold); color: var(--navy); font-size: 12px; font-style: normal; font-weight: 700; vertical-align: 2px; }
+@media (max-width: 700px) {
+  .cp-copione { padding: 18px 14px; }
+  .cp-testo { font-size: 17px; }
+  .cp-azioni .aa-btn { width: 100%; }
+}

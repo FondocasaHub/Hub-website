@@ -55,6 +55,10 @@
       "destination": "/hub24/index.html"
     },
     {
+      "source": "/resta-informato",
+      "destination": "/resta-informato/index.html"
+    },
+    {
       "source": "/",
       "destination": "/index.html"
     },

@@ -7,6 +7,7 @@
 // Azioni (POST JSON):
 //   { azione: "iscrivi", email, nome, consenso: true }  → crea/aggiorna l'iscritto "in_attesa" e
 //                                                         manda l'email di conferma (doppio opt-in)
+//   (da /resta-informato anche: telefono, interessi[], consenso_whatsapp, consenso_offerte — facoltativi)
 //   { azione: "conferma", token }                       → attiva l'iscrizione e manda il benvenuto
 //                                                         con l'ultimo numero
 //   { azione: "disiscrivi", email | token }             → disiscrive
@@ -154,6 +155,22 @@ const oggettoMime = (testo: string) => {
   return (testo.slice(0, taglio) || " ") + pezzi.map((t) => `=?utf-8?B?${b64(t)}?=`).join("\r\n ");
 };
 
+// Pagina /resta-informato (17/11/2026)
+const NOTIFICHE = "na.vomero@fondocasa.it";
+const INTERESSI = ["vendere", "comprare", "mutuo", "prestito", "investire", "affittare"];
+const INTERESSI_CALDI = ["vendere", "mutuo", "prestito"];
+const ETICHETTE: Record<string, string> = {
+  vendere: "Vendere un immobile", comprare: "Comprare casa", mutuo: "Mutuo", prestito: "Prestito",
+  investire: "Investimenti immobiliari", affittare: "Affittare / mettere a reddito",
+};
+// Cellulare italiano o estero in formato +CC…; restituisce E.164 oppure "" se non valido.
+const normalizzaTelefono = (t: string) => {
+  let n = t.replace(/[\s().\-\/]/g, "");
+  if (n.startsWith("00")) n = "+" + n.slice(2);
+  if (/^3\d{8,9}$/.test(n)) n = "+39" + n;
+  return /^\+\d{8,15}$/.test(n) ? n : "";
+};
+
 // Email per blocco. 08/11/2026: la vecchia versione si fermava ("CPU Time exceeded") dopo 4 email;
 // con 2 per esecuzione resta un ampio margine. Ogni blocco avvia il successivo.
 const LOTTO = 2;
@@ -184,14 +201,34 @@ Deno.serve(async (req) => {
       if (body.consenso !== true) return risposta({ errore: "Serve il consenso al trattamento dei dati" }, 400);
       if (body.sito) return risposta({ ok: true }); // campo trappola anti-bot
 
+      // 17/11/2026 — pagina /resta-informato: cellulare, interessi e consensi facoltativi separati.
+      // Dalla pagina /hub24 questi campi non arrivano e restano come sono.
+      const extra: Record<string, unknown> = {};
+      const ora = new Date().toISOString();
+      if (body.telefono !== undefined) {
+        const tel = normalizzaTelefono(String(body.telefono ?? ""));
+        if (body.telefono && !tel) return risposta({ errore: "Numero di cellulare non valido" }, 400);
+        extra.telefono = tel;
+      }
+      if (Array.isArray(body.interessi)) extra.interessi = body.interessi.map(String).filter((i: string) => INTERESSI.includes(i));
+      if (body.consenso_whatsapp !== undefined) {
+        if (body.consenso_whatsapp === true && !extra.telefono) return risposta({ errore: "Per WhatsApp serve il numero di cellulare" }, 400);
+        extra.consenso_whatsapp_il = body.consenso_whatsapp === true ? ora : null;
+      }
+      if (body.consenso_offerte !== undefined) extra.consenso_offerte_il = body.consenso_offerte === true ? ora : null;
+
       const { data: esistente } = await db.from("hub24_iscritti").select("id, stato, token").eq("email", email).maybeSingle();
-      if (esistente?.stato === "attivo") return risposta({ ok: true, gia_iscritto: true });
+      if (esistente?.stato === "attivo") {
+        // Già iscritto: aggiorna solo i dati nuovi (cellulare, interessi, consensi) senza rifare la conferma.
+        if (Object.keys(extra).length) await db.from("hub24_iscritti").update({ ...extra, ...(nome ? { nome } : {}) }).eq("id", esistente.id);
+        return risposta({ ok: true, gia_iscritto: true });
+      }
       let token = esistente?.token;
       if (esistente) {
         // Nuova richiesta = nuovo consenso: il promemoria potrà ripartire (ricordato_il azzerato).
-        await db.from("hub24_iscritti").update({ nome: nome || null, stato: "in_attesa", consenso_il: new Date().toISOString(), disiscritto_il: null, ricordato_il: null, origine: body.origine ?? "pagina-hub24" }).eq("id", esistente.id);
+        await db.from("hub24_iscritti").update({ nome: nome || null, stato: "in_attesa", consenso_il: new Date().toISOString(), disiscritto_il: null, ricordato_il: null, origine: body.origine ?? "pagina-hub24", ...extra }).eq("id", esistente.id);
       } else {
-        const { data, error } = await db.from("hub24_iscritti").insert({ email, nome: nome || null, origine: body.origine ?? "pagina-hub24" }).select("token").single();
+        const { data, error } = await db.from("hub24_iscritti").insert({ email, nome: nome || null, origine: body.origine ?? "pagina-hub24", ...extra }).select("token").single();
         if (error) return risposta({ errore: "Iscrizione non riuscita, riprova tra poco" }, 500);
         token = data.token;
       }
@@ -213,10 +250,28 @@ Deno.serve(async (req) => {
     if (azione === "conferma") {
       const token = String(body.token ?? "");
       if (!/^[0-9a-f-]{36}$/i.test(token)) return risposta({ errore: "Link di conferma non valido" }, 400);
-      const { data: isc } = await db.from("hub24_iscritti").select("id, email, nome, stato").eq("token", token).maybeSingle();
+      const { data: isc } = await db.from("hub24_iscritti").select("id, email, nome, stato, telefono, interessi, consenso_whatsapp_il, consenso_offerte_il, origine").eq("token", token).maybeSingle();
       if (!isc) return risposta({ errore: "Link di conferma non valido o scaduto" }, 404);
       if (isc.stato === "attivo") return risposta({ ok: true, gia_confermato: true });
       await db.from("hub24_iscritti").update({ stato: "attivo", confermato_il: new Date().toISOString(), disiscritto_il: null }).eq("id", isc.id);
+      // Contatto caldo (vuole vendere, un mutuo o un prestito) e consenso alle proposte: avvisa l'ufficio.
+      const caldi = (isc.interessi ?? []).filter((i: string) => INTERESSI_CALDI.includes(i));
+      if (caldi.length && isc.consenso_offerte_il) {
+        try {
+          const s0 = smtp();
+          await s0.send({
+            from: MITTENTE, to: NOTIFICHE, subject: `Contatto caldo da ${isc.origine ?? "HUB 24"}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`,
+            ...corpo(layout(
+              `<p style="margin:0 0 12px"><strong>Nuovo iscritto confermato che chiede di essere ricontattato.</strong></p>
+<p style="margin:0 0 6px">Nome: ${esc(isc.nome || "-")}<br>Email: ${esc(isc.email)}<br>Cellulare: ${esc(isc.telefono || "-")}<br>
+Interessi: ${esc((isc.interessi ?? []).map((i: string) => ETICHETTE[i] ?? i).join(", "))}<br>
+WhatsApp: ${isc.consenso_whatsapp_il ? "sì" : "no"} · Origine: ${esc(isc.origine || "-")}</p>`,
+              "Notifica interna di FC Punto Hub: non inoltrare.",
+            )),
+          });
+          await s0.close();
+        } catch (_) { /* la conferma vale comunque: la notifica non deve bloccarla */ }
+      }
       const n = await ultimoNumero();
       const ultimo = n
         ? `<p style="margin:16px 0 6px;font-family:Arial,Helvetica,sans-serif;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;color:#9C2F1C">Intanto leggi l'ultimo numero · ${dataLunga(n.data)}</p>

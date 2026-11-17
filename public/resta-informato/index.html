@@ -39,6 +39,7 @@ h1 span{color:var(--gold)}
 .firma img{width:52px;height:52px;border-radius:50%;object-fit:cover;object-position:50% 25%;border:2px solid var(--gold)}
 .firma b{display:block;color:var(--white)}
 .firma small{color:#AEB6C2;font-size:14px}
+.firma .ini{width:52px;height:52px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--gold);background:var(--navy-2);flex:none}
 .punti{list-style:none;padding:0;margin:0;display:grid;gap:10px}
 .punti li{display:flex;gap:10px;font-size:16px;color:#E6E9EE}
 .punti li::before{content:"";flex:none;width:8px;height:8px;margin-top:9px;background:var(--gold);transform:rotate(45deg)}
@@ -86,9 +87,9 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
   <div>
     <span class="kick">Bastano 30 secondi</span>
     <h1 id="titolo">Restiamo in <span>contatto</span></h1>
-    <p class="lettera">Sto aggiornando la mia rubrica e vorrei continuare a esserti utile. Da oltre 26 anni mi occupo di casa e di credito a Napoli: se ti fa piacere, ti mando gratis le notizie che contano e le opportunità che selezioniamo in agenzia.</p>
+    <p class="lettera" id="lettera">Sto aggiornando la mia rubrica e vorrei continuare a esserti utile. Da oltre 26 anni mi occupo di casa e di credito a Napoli: se ti fa piacere, ti mando gratis le notizie che contano e le opportunità che selezioniamo in agenzia.</p>
     <p class="lettera">Niente spam: scegli tu cosa ricevere e ti cancelli quando vuoi.</p>
-    <div class="firma"><img src="/images/team-9.jpg" alt="Nicola Nigido"><div><b>Nicola Nigido</b><small>CEO e Store Manager · FC Punto Hub, Vomero</small></div></div>
+    <div class="firma" id="firma"><img src="/images/team-9.jpg" alt="Nicola Nigido"><div><b>Nicola Nigido</b><small>CEO e Store Manager · FC Punto Hub, Vomero</small></div></div>
     <ul class="punti">
       <li>HUB 24, ogni domenica: tassi, mutui, mercato e fisco sugli affitti</li>
       <li>Quanto valgono le case nel tuo quartiere, con i dati del venduto reale</li>
@@ -121,7 +122,7 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
       <label class="check" for="c-off"><input id="c-off" type="checkbox"><span>Contattatemi con proposte e consulenze personalizzate su immobili, mutui, prestiti e assicurazioni. <small>Facoltativo.</small></span></label>
       <button id="invia" type="submit">Resto informato</button>
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
-      <p class="alt">Preferisci scrivermi? WhatsApp 392 457 9047.</p>
+      <p class="alt" id="scrivimi">Preferisci scrivermi? WhatsApp 392 457 9047.</p>
     </form>
   </div>
 </div></div>
@@ -150,6 +151,34 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
   var box=document.getElementById("box");
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
   function esito(t,x){box.innerHTML='<div class="esito"><h2>'+esc(t)+'</h2><p>'+x+'</p><p class="alt"><a href="/hub24">Leggi l\'ultimo numero di HUB 24</a></p></div>'}
+  // Link dell'agente: /resta-informato?a=rausa — la pagina parla a nome suo e l'iscritto gli viene assegnato.
+  // Tenere allineato con AGENTI in supabase/functions/hub24-newsletter/index.ts
+  var AGENTI={
+    nigido:{nome:"Nicola Nigido",ruolo:"CEO e Store Manager",foto:9,tel:"3937882334"},
+    mosca:{nome:"Avv. Carlo Mosca",ruolo:"Responsabile Team Legale",foto:8,tel:"3289258010"},
+    esposito:{nome:"Vincenzo Esposito",ruolo:"Team Manager",foto:7,tel:"3518392699"},
+    dipinto:{nome:"Vincenzo Di Pinto",ruolo:"Consulente del Credito",foto:6,tel:"3776765500"},
+    misuraca:{nome:"Annalisa Misuraca",ruolo:"Senior Agent",foto:2,tel:"3383255417"},
+    rausa:{nome:"Leonardo Rausa",ruolo:"Junior Agent",foto:3,tel:"3421372855"},
+    chiocca:{nome:"Angela Chiocca",ruolo:"Property Assistant",foto:5,tel:"3355259648"},
+    cappiello:{nome:"Sonia Cappiello",ruolo:"Property Assistant",foto:4,tel:"3295826352"},
+    spavone:{nome:"Angela Spavone",ruolo:"Property Assistant",foto:10,tel:"3487424736"},
+    caiazzo:{nome:"Alessandro Caiazzo",ruolo:"Consulente immobiliare"},
+    ausiello:{nome:"Antonio Ausiello",ruolo:"Consulente immobiliare"},
+    margarido:{nome:"Federica Margarido",ruolo:"Consulente immobiliare"},
+    lionetti:{nome:"Monica Lionetti",ruolo:"Consulente immobiliare"},
+    pasquariello:{nome:"Paola Pasquariello",ruolo:"Consulente immobiliare"},
+    grimaldi:{nome:"Rita Grimaldi",ruolo:"Consulente immobiliare"},
+    sciva:{nome:"Roberto Sciva",ruolo:"Consulente immobiliare"},
+    conson:{nome:"Salvatore Conson",ruolo:"Consulente immobiliare"}
+  };
+  var codA=(q.get("a")||"").toLowerCase().replace(/[^a-z]/g,""),ag=AGENTI[codA];
+  if(ag&&codA!=="nigido"){
+    var ini=ag.nome.replace(/^Avv\.\s*/,"").split(" ").map(function(p){return p[0]}).join("").slice(0,2);
+    document.getElementById("firma").innerHTML=(ag.foto?'<img src="/images/team-'+ag.foto+'.jpg" alt="'+esc(ag.nome)+'">':'<span class="ini">'+esc(ini)+'</span>')+'<div><b>'+esc(ag.nome)+'</b><small>'+esc(ag.ruolo)+' · FC Punto Hub, Vomero</small></div>';
+    document.getElementById("lettera").textContent="Sto aggiornando la mia rubrica e vorrei continuare a esserti utile. Con FC Punto Hub, al Vomero, mi occupo di casa e di credito a Napoli: se ti fa piacere, ti mando gratis le notizie che contano e le opportunità che selezioniamo in agenzia.";
+    if(ag.tel)document.getElementById("scrivimi").textContent="Preferisci scrivermi? WhatsApp "+ag.tel.replace(/^(\d{3})(\d{3})(\d+)$/,"$1 $2 $3")+".";
+  }
   // Link personale dal WhatsApp: /resta-informato?n=Mario
   var n=(q.get("n")||"").trim().slice(0,40);
   if(n){document.getElementById("nome").value=n;document.getElementById("titolo").innerHTML="Ciao "+esc(n)+", restiamo in <span>contatto</span>"}
@@ -170,7 +199,7 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
     fetch(API,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
       azione:"iscrivi",email:email,nome:nome,telefono:tel,interessi:interessi,consenso:true,
       consenso_whatsapp:wa,consenso_offerte:document.getElementById("c-off").checked,
-      sito:document.getElementById("sito").value,origine:"resta-informato"+(q.get("utm_source")?"-"+q.get("utm_source"):"")
+      sito:document.getElementById("sito").value,agente:ag?codA:"",origine:"resta-informato"+(q.get("utm_source")?"-"+q.get("utm_source"):"")
     })}).then(function(r){return r.json().then(function(j){if(!r.ok||j.errore)throw new Error(j.errore||"Errore");return j})})
     .then(function(j){
       if(window.dataLayer)window.dataLayer.push({event:"iscrizione_resta_informato"});

@@ -7,7 +7,7 @@
 // Azioni (POST JSON):
 //   { azione: "iscrivi", email, nome, consenso: true }  → crea/aggiorna l'iscritto "in_attesa" e
 //                                                         manda l'email di conferma (doppio opt-in)
-//   (da /resta-informato anche: telefono, interessi[], consenso_whatsapp, consenso_offerte — facoltativi)
+//   (da /resta-informato anche: telefono, interessi[], consenso_whatsapp, consenso_offerte, agente — facoltativi)
 //   { azione: "conferma", token }                       → attiva l'iscrizione e manda il benvenuto
 //                                                         con l'ultimo numero
 //   { azione: "disiscrivi", email | token }             → disiscrive
@@ -163,6 +163,27 @@ const ETICHETTE: Record<string, string> = {
   vendere: "Vendere un immobile", comprare: "Comprare casa", mutuo: "Mutuo", prestito: "Prestito",
   investire: "Investimenti immobiliari", affittare: "Affittare / mettere a reddito",
 };
+// Agenti con link personale /resta-informato?a=<codice> (17/11/2026). Tenere allineato con la pagina.
+// L'iscritto resta all'agente che l'ha portato per primo; l'avviso dei contatti caldi va a lui e all'ufficio.
+const AGENTI: Record<string, { nome: string; email: string }> = {
+  nigido: { nome: "Nicola Nigido", email: "nicola.nigido@fondocasa.it" },
+  mosca: { nome: "Carlo Mosca", email: "carlo.mosca@fondocasa.it" },
+  esposito: { nome: "Vincenzo Esposito", email: "vincenzo.esposito@fondocasa.it" },
+  dipinto: { nome: "Vincenzo Di Pinto", email: "vincenzo.dipinto@fondocasa.it" },
+  misuraca: { nome: "Annalisa Misuraca", email: "annalisa.misuraca@fondocasa.it" },
+  rausa: { nome: "Leonardo Rausa", email: "leonardo.rausa@fondocasa.it" },
+  chiocca: { nome: "Angela Chiocca", email: "angela.chiocca@fondocasa.it" },
+  cappiello: { nome: "Sonia Cappiello", email: "sonia.cappiello@fondocasa.it" },
+  spavone: { nome: "Angela Spavone", email: "angela.spavone@fondocasa.it" },
+  caiazzo: { nome: "Alessandro Caiazzo", email: "alessandro.caiazzo@fondocasa.it" },
+  ausiello: { nome: "Antonio Ausiello", email: "antonio.ausiello@fondocasa.it" },
+  margarido: { nome: "Federica Margarido", email: "federica.margarido@fondocasa.it" },
+  lionetti: { nome: "Monica Lionetti", email: "monica.lionetti@fondocasa.it" },
+  pasquariello: { nome: "Paola Pasquariello", email: "paola.pasquariello@fondocasa.it" },
+  grimaldi: { nome: "Rita Grimaldi", email: "rita.grimaldi@fondocasa.it" },
+  sciva: { nome: "Roberto Sciva", email: "roberto.sciva@fondocasa.it" },
+  conson: { nome: "Salvatore Conson", email: "salvatore.conson@fondocasa.it" },
+};
 // Cellulare italiano o estero in formato +CC…; restituisce E.164 oppure "" se non valido.
 const normalizzaTelefono = (t: string) => {
   let n = t.replace(/[\s().\-\/]/g, "");
@@ -216,8 +237,11 @@ Deno.serve(async (req) => {
         extra.consenso_whatsapp_il = body.consenso_whatsapp === true ? ora : null;
       }
       if (body.consenso_offerte !== undefined) extra.consenso_offerte_il = body.consenso_offerte === true ? ora : null;
+      const agente = String(body.agente ?? "").toLowerCase();
 
-      const { data: esistente } = await db.from("hub24_iscritti").select("id, stato, token").eq("email", email).maybeSingle();
+      const { data: esistente } = await db.from("hub24_iscritti").select("id, stato, token, agente").eq("email", email).maybeSingle();
+      // Primo agente che porta il contatto: non si sovrascrive.
+      if (AGENTI[agente] && !esistente?.agente) extra.agente = agente;
       if (esistente?.stato === "attivo") {
         // Già iscritto: aggiorna solo i dati nuovi (cellulare, interessi, consensi) senza rifare la conferma.
         if (Object.keys(extra).length) await db.from("hub24_iscritti").update({ ...extra, ...(nome ? { nome } : {}) }).eq("id", esistente.id);
@@ -250,7 +274,7 @@ Deno.serve(async (req) => {
     if (azione === "conferma") {
       const token = String(body.token ?? "");
       if (!/^[0-9a-f-]{36}$/i.test(token)) return risposta({ errore: "Link di conferma non valido" }, 400);
-      const { data: isc } = await db.from("hub24_iscritti").select("id, email, nome, stato, telefono, interessi, consenso_whatsapp_il, consenso_offerte_il, origine").eq("token", token).maybeSingle();
+      const { data: isc } = await db.from("hub24_iscritti").select("id, email, nome, stato, telefono, interessi, consenso_whatsapp_il, consenso_offerte_il, origine, agente").eq("token", token).maybeSingle();
       if (!isc) return risposta({ errore: "Link di conferma non valido o scaduto" }, 404);
       if (isc.stato === "attivo") return risposta({ ok: true, gia_confermato: true });
       await db.from("hub24_iscritti").update({ stato: "attivo", confermato_il: new Date().toISOString(), disiscritto_il: null }).eq("id", isc.id);
@@ -260,12 +284,14 @@ Deno.serve(async (req) => {
         try {
           const s0 = smtp();
           await s0.send({
-            from: MITTENTE, to: NOTIFICHE, subject: oggettoMime(`Contatto caldo da ${isc.origine ?? "HUB 24"}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`),
+            from: MITTENTE,
+            to: AGENTI[isc.agente]?.email ? [NOTIFICHE, AGENTI[isc.agente].email] : NOTIFICHE,
+            subject: oggettoMime(`Contatto caldo${AGENTI[isc.agente] ? " di " + AGENTI[isc.agente].nome : ""}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`),
             ...corpo(layout(
               `<p style="margin:0 0 12px"><strong>Nuovo iscritto confermato che chiede di essere ricontattato.</strong></p>
 <p style="margin:0 0 6px">Nome: ${esc(isc.nome || "-")}<br>Email: ${esc(isc.email)}<br>Cellulare: ${esc(isc.telefono || "-")}<br>
 Interessi: ${esc((isc.interessi ?? []).map((i: string) => ETICHETTE[i] ?? i).join(", "))}<br>
-WhatsApp: ${isc.consenso_whatsapp_il ? "sì" : "no"} · Origine: ${esc(isc.origine || "-")}</p>`,
+WhatsApp: ${isc.consenso_whatsapp_il ? "sì" : "no"} · Agente: ${esc(AGENTI[isc.agente]?.nome || "-")} · Origine: ${esc(isc.origine || "-")}</p>`,
               "Notifica interna di FC Punto Hub: non inoltrare.",
             )),
           });

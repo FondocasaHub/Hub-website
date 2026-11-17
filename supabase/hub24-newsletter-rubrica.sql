@@ -17,3 +17,8 @@ alter table public.hub24_iscritti add column if not exists consenso_offerte_il t
 -- select count(*) filter (where consenso_whatsapp_il is not null) as whatsapp,
 --        count(*) filter (where consenso_offerte_il is not null) as offerte
 --   from public.hub24_iscritti where stato = 'attivo';
+
+-- 17/11/2026 — link personali degli agenti (/resta-informato?a=<codice>)
+alter table public.hub24_iscritti add column if not exists agente text;
+-- select coalesce(agente,'nigido/sito') agente, stato, count(*) from public.hub24_iscritti
+--  where origine like 'resta-informato%' group by 1,2 order by 1;

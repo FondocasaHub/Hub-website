@@ -133,6 +133,10 @@ prenota l'ora delle riprese e si fa mandare il copione in PDF.
   ruolo, reparto e team delle persone attive), che risponde solo a chi è del marketing (staff + reparto marketing) o
   manager/admin; agli altri restituisce zero righe. Il server di Sensoria la chiama con il token di Jgio quando lui apre
   «I miei copioni», così sa a chi può mandare un copione e chi non è più attivo. **Da lanciare una volta** nel SQL Editor.
+- **Contratto da accettare** (dal 17/11): in cima a «I miei copioni» l'agente legge la copia per l'agente del «Contratto
+  per i contenuti di FC» (link «Leggi il contratto») e mette una spunta; finché non lo fa può leggere e commentare ma non
+  approvare né prenotare. Testo, versione e spunta li manda il server di Sensoria: per cambiarli non si tocca il sito; con una
+  versione nuova la spunta torna da mettere. Data, versione e impronta del testo accettato restano sul server di Sensoria.
 - Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
 
 ## 5. Confini e sicurezza

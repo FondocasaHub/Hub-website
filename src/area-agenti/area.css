@@ -670,6 +670,15 @@ a { color: inherit; }
 .cp-giorno-nome { margin: 0 0 6px; font-weight: 600; text-transform: capitalize; }
 .cp-orari { display: flex; flex-wrap: wrap; gap: 8px; }
 .cp-orari .aa-btn { min-width: 72px; }
+.cp-contratto { border-left: 4px solid var(--gold); }
+.cp-doc { margin: 10px 0 14px; }
+.cp-doc-testo { max-height: 60vh; overflow-y: auto; margin: 10px 0; padding: 14px 16px; background: var(--cream); border-radius: 8px; font-size: 14.5px; line-height: 1.5; }
+.cp-doc-testo h3 { font-size: 16px; margin: 14px 0 6px; }
+.cp-doc-testo h4 { font-size: 15px; margin: 12px 0 4px; }
+.cp-doc-testo p { margin: 0 0 8px; }
+.cp-doc-li { padding-left: 10px; }
+.cp-spunta { display: flex; gap: 10px; align-items: flex-start; margin: 10px 0 4px; font-size: 15px; line-height: 1.45; cursor: pointer; }
+.cp-spunta input { width: 22px; height: 22px; flex: 0 0 22px; margin-top: 1px; accent-color: var(--navy); }
 .cp-bollino { display: inline-block; margin-left: 8px; padding: 1px 8px; border-radius: 10px; background: var(--gold); color: var(--navy); font-size: 12px; font-style: normal; font-weight: 700; vertical-align: 2px; }
 @media (max-width: 700px) {
   .cp-copione { padding: 18px 14px; }

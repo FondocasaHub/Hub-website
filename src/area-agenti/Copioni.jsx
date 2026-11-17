@@ -53,6 +53,7 @@ export function ElencoCopioni({ vai }) {
       </div>
       {errore && <p className="aa-errore">{errore}</p>}
       {!dati && !errore && <div className="aa-centro"><div className="aa-spinner" aria-label="Caricamento" /></div>}
+      {dati && <Contratto documenti={dati.documenti} onAccettato={(x) => setDati({ ...dati, ...x })} />}
       {dati && dati.copioni.length === 0 && (
         <section className="aa-card"><p className="aa-nota" style={{ margin: 0 }}>Per ora non hai copioni. Quando il Marketing te ne manda uno, lo trovi qui.</p></section>
       )}
@@ -86,6 +87,12 @@ export function SchedaCopione({ id, profilo, vai }) {
     chiama(`/copioni/${encodeURIComponent(id)}`).then(setC).catch((e) => setErrore(e.message));
   }, [id]);
   useEffect(() => { carica(); }, [carica]);
+  // il contratto da accettare (dal 17/11): l'elenco dei documenti viene con «I miei copioni»
+  const [documenti, setDocumenti] = useState(null);
+  const daAccettare = !!c?.da_accettare;
+  useEffect(() => {
+    if (daAccettare) chiama("/copioni").then((d) => setDocumenti(d.documenti)).catch(() => {});
+  }, [daAccettare]);
 
   const fai = async (azione, corpo, poi) => {
     setOccupato(true); setErrore(""); setMsg("");
@@ -149,6 +156,7 @@ export function SchedaCopione({ id, profilo, vai }) {
       {c.stato === "commenti" && <p className="aa-box-info cp-avviso">Grazie dei commenti! Stiamo correggendo il copione: la versione nuova ti arriva qui, da rileggere e approvare.</p>}
       {errore && <p className="aa-errore">{errore}</p>}
       {msg && <p className="aa-box-info cp-ok-msg">{msg}</p>}
+      {daAccettare && documenti && <Contratto documenti={documenti} onAccettato={(x) => { setDocumenti(x.documenti); setC({ ...c, da_accettare: x.da_accettare }); }} />}
 
       <section className="aa-card cp-copione">
         {c.inizio.length > 0 && (
@@ -194,13 +202,14 @@ export function SchedaCopione({ id, profilo, vai }) {
           <p className="aa-nota" style={{ margin: 0 }}>Quando arriva la versione corretta, qui trovi il bottone per approvarla.</p>
         ) : (
           <>
-            <p className="aa-nota">Se va tutto bene così, approvalo. Se qualcosa non va, commenta la frase: lo correggiamo noi.</p>
-            <button className="aa-btn aa-btn-pieno cp-grande" disabled={occupato} onClick={() => fai("approvo", {}, () => setMsg("Copione approvato. Grazie!"))}>Approvo</button>
+            <p className="aa-nota">{daAccettare ? "Per approvare, prima accetta il contratto in cima alla pagina."
+              : "Se va tutto bene così, approvalo. Se qualcosa non va, commenta la frase: lo correggiamo noi."}</p>
+            <button className="aa-btn aa-btn-pieno cp-grande" disabled={occupato || daAccettare} onClick={() => fai("approvo", {}, () => setMsg("Copione approvato. Grazie!"))}>Approvo</button>
           </>
         )}
       </section>
 
-      <Prenota c={c} setC={setC} />
+      <Prenota c={c} setC={setC} bloccato={daAccettare} />
       <PerEmail c={c} profilo={profilo} />
     </>
   );
@@ -220,10 +229,67 @@ function Commento({ x }) {
   );
 }
 
+/* ---------------- IL CONTRATTO DA ACCETTARE (dal 17/11/2026) ---------------- */
+// Una volta sola, prima di approvare un copione e prenotare le riprese, l'agente accetta il contratto per i video di FC.
+// Elenco, testo e versione li manda il server di Sensoria (regole/documenti-agenti.json): se cambiano, qui non si tocca
+// niente; con una versione nuova la spunta torna da mettere.
+function Contratto({ documenti, onAccettato }) {
+  const [aperto, setAperto] = useState(null);
+  const [testi, setTesti] = useState({});
+  const [spunte, setSpunte] = useState({});
+  const [occupato, setOccupato] = useState(false);
+  const [errore, setErrore] = useState("");
+  const da = (documenti || []).filter((d) => !d.accettato);
+  if (!da.length) return null;
+
+  const leggi = async (d) => {
+    if (aperto === d.id) { setAperto(null); return; }
+    setAperto(d.id);
+    if (!testi[d.id]) {
+      try { const x = await chiama(`/documenti/${encodeURIComponent(d.id)}`); setTesti((t) => ({ ...t, [d.id]: x.blocchi })); }
+      catch (e) { setErrore(e.message); }
+    }
+  };
+  const accetta = async () => {
+    setOccupato(true); setErrore("");
+    try {
+      let x = null;
+      for (const d of da) x = await chiama(`/documenti/${encodeURIComponent(d.id)}/accetto`, { versione: d.versione });
+      onAccettato(x);
+    } catch (e) { setErrore(e.message); } finally { setOccupato(false); }
+  };
+
+  return (
+    <section className="aa-card cp-contratto">
+      <h2 className="aa-h2">Prima di registrare</h2>
+      <p className="aa-nota">Una volta sola: accetta il contratto per i video di FC. Poi puoi approvare i copioni e prenotare le riprese.</p>
+      {errore && <p className="aa-errore">{errore}</p>}
+      {da.map((d) => (
+        <div key={d.id} className="cp-doc">
+          <button className="aa-link" onClick={() => leggi(d)}>{aperto === d.id ? "Chiudi il contratto" : "Leggi il contratto"}</button>
+          {aperto === d.id && (
+            <div className="cp-doc-testo">
+              {!testi[d.id] ? <div className="aa-spinner" aria-label="Caricamento" /> : testi[d.id].map((b, i) =>
+                b.tipo === "h2" ? <h3 key={i}>{b.testo}</h3> : b.tipo === "h3" ? <h4 key={i}>{b.testo}</h4>
+                  : b.tipo === "li" ? <p key={i} className="cp-doc-li">• {b.testo}</p> : <p key={i}>{b.testo}</p>)}
+            </div>
+          )}
+          <label className="cp-spunta">
+            <input type="checkbox" checked={!!spunte[d.id]} onChange={(e) => setSpunte({ ...spunte, [d.id]: e.target.checked })} />
+            <span>{d.spunta}</span>
+          </label>
+          <p className="cp-sotto">{d.titolo} · {d.versione}</p>
+        </div>
+      ))}
+      <button className="aa-btn aa-btn-pieno" disabled={occupato || !da.every((d) => spunte[d.id])} onClick={accetta}>Accetto</button>
+    </section>
+  );
+}
+
 /* ---------------- PRENOTAZIONE DELLE RIPRESE ---------------- */
 // la durata la decide il marketing (dal 17/11 15 minuti a video): si legge dalla prenotazione, non è scritta qui
 const minuti = (p) => Math.max(5, Math.round((new Date(p.fine) - new Date(p.inizio)) / 60000) || 15);
-function Prenota({ c, setC }) {
+function Prenota({ c, setC, bloccato }) {
   const [slot, setSlot] = useState(null);
   const [cambia, setCambia] = useState(!c.prenotazione);
   const [errore, setErrore] = useState("");
@@ -268,14 +334,14 @@ function Prenota({ c, setC }) {
       )}
       {cambia && (
         <>
-          <p className="aa-nota">Scegli quando registrare questo video: servono {slot?.durata || 15} minuti.</p>
+          <p className="aa-nota">{bloccato ? "Per prenotare, prima accetta il contratto in cima alla pagina." : `Scegli quando registrare questo video: servono ${slot?.durata || 15} minuti.`}</p>
           {!slot && !errore && <div className="aa-spinner" aria-label="Caricamento" />}
           {slot && slot.giorni.length === 0 && <p className="aa-nota">{slot.messaggio || "Nessun orario libero per ora."}</p>}
           {slot && slot.giorni.map((g) => (
             <div key={g.data} className="cp-giorno">
               <p className="cp-giorno-nome">{g.giorno}</p>
               <div className="cp-orari">
-                {g.orari.map((o) => <button key={o.inizio} className="aa-btn aa-btn-piccolo" disabled={occupato} onClick={() => prenota(o, g.giorno)}>{o.ora}</button>)}
+                {g.orari.map((o) => <button key={o.inizio} className="aa-btn aa-btn-piccolo" disabled={occupato || bloccato} onClick={() => prenota(o, g.giorno)}>{o.ora}</button>)}
               </div>
             </div>
           ))}

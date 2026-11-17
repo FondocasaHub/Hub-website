@@ -221,6 +221,8 @@ function Commento({ x }) {
 }
 
 /* ---------------- PRENOTAZIONE DELLE RIPRESE ---------------- */
+// la durata la decide il marketing (dal 17/11 15 minuti a video): si legge dalla prenotazione, non è scritta qui
+const minuti = (p) => Math.max(5, Math.round((new Date(p.fine) - new Date(p.inizio)) / 60000) || 15);
 function Prenota({ c, setC }) {
   const [slot, setSlot] = useState(null);
   const [cambia, setCambia] = useState(!c.prenotazione);
@@ -257,7 +259,7 @@ function Prenota({ c, setC }) {
       {errore && <p className="aa-errore">{errore}</p>}
       {c.prenotazione && !cambia && (
         <>
-          <p className="cp-prenotato"><strong>{c.prenotazione.giorno}</strong> alle <strong>{c.prenotazione.ora}</strong> · circa 25 minuti</p>
+          <p className="cp-prenotato"><strong>{c.prenotazione.giorno}</strong> alle <strong>{c.prenotazione.ora}</strong> · {minuti(c.prenotazione)} minuti</p>
           <div className="cp-azioni">
             <button className="aa-btn aa-btn-piccolo" disabled={occupato} onClick={() => setCambia(true)}>Cambia orario</button>
             <button className="aa-link aa-link-rosso" disabled={occupato} onClick={disdici}>Disdici</button>
@@ -266,7 +268,7 @@ function Prenota({ c, setC }) {
       )}
       {cambia && (
         <>
-          <p className="aa-nota">Scegli quando registrare questo video: servono circa {slot?.durata || 25} minuti.</p>
+          <p className="aa-nota">Scegli quando registrare questo video: servono {slot?.durata || 15} minuti.</p>
           {!slot && !errore && <div className="aa-spinner" aria-label="Caricamento" />}
           {slot && slot.giorni.length === 0 && <p className="aa-nota">{slot.messaggio || "Nessun orario libero per ora."}</p>}
           {slot && slot.giorni.map((g) => (

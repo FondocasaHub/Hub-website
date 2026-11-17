@@ -189,6 +189,13 @@ const PAGE_META = {
     canonical: 'https://www.fondocasahub.com/blog/bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli',
     image: 'https://www.fondocasahub.com/images/blog/bce-ottobre-2026.jpg',
     imageAlt: 'BCE Francoforte - decisione tassi ottobre 2026 e impatto sui mutui per acquisto casa a Napoli'
+  },
+  'blog-cedolare-secca-5-canone-concordato-2027-napoli': {
+    title: 'Cedolare 5% canone concordato 2027: cosa cambia a Napoli',
+    desc: 'Dal 2027 la cedolare sul canone concordato potrebbe scendere al 5%, all\'1% con inquilino under 36. Chi ne beneficia, quanto si risparmia e cosa cambia a Napoli.',
+    canonical: 'https://www.fondocasahub.com/blog/cedolare-secca-5-canone-concordato-2027-napoli',
+    image: 'https://www.fondocasahub.com/images/blog/cedolare-secca-5-canone-concordato-2027-napoli.jpg',
+    imageAlt: 'Copertina: cedolare secca al 5% sul canone concordato 2027, cosa cambia a Napoli'
   }
 };
 

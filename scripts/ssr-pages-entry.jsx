@@ -77,6 +77,7 @@ const PAGES = {
   "blog-vendere-casa-senza-agenzia-napoli": BlogPage,
   "blog-zero-vincoli-60-prorogata-31-dicembre-2026": BlogPage,
   "blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli": BlogPage,
+  "blog-cedolare-secca-5-canone-concordato-2027-napoli": BlogPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -103,6 +104,7 @@ const CON_FOOTER = new Set([
   'blog-vendere-casa-senza-agenzia-napoli',
   'blog-zero-vincoli-60-prorogata-31-dicembre-2026',
   'blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli',
+  'blog-cedolare-secca-5-canone-concordato-2027-napoli',
 ]);
 const PAGE_PROPS = {
   "vomero": { navigate: noop, colors: COLORS },
@@ -135,6 +137,7 @@ const PAGE_PROPS = {
   "blog-vendere-casa-senza-agenzia-napoli": { navigate: noop, colors: COLORS, initialSlug: "vendere-casa-senza-agenzia-napoli" },
   "blog-zero-vincoli-60-prorogata-31-dicembre-2026": { navigate: noop, colors: COLORS, initialSlug: "zero-vincoli-60-prorogata-31-dicembre-2026" },
   "blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli": { navigate: noop, colors: COLORS, initialSlug: "bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli" },
+  "blog-cedolare-secca-5-canone-concordato-2027-napoli": { navigate: noop, colors: COLORS, initialSlug: "cedolare-secca-5-canone-concordato-2027-napoli" },
 };
 
 export function renderSsrPage(slug) {

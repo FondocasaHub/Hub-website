@@ -127,11 +127,16 @@ prenota l'ora delle riprese e si fa mandare il copione in PDF.
   al giorno), fa il PDF con `_shared/copione-pdf.js` (lo stesso file del bottone «scarica il PDF» della pagina) e lo
   manda. **Da pubblicare una volta:** `supabase functions deploy notifica-copione`. Finché non c'è, la pagina dice di
   scaricare il PDF.
-- La prenotazione delle riprese crea un evento solo nel calendario di Jgio (nessun invito agli agenti).
+- La prenotazione delle riprese crea un evento nel calendario di Jgio con l'agente invitato (dal 17/11): Google gli
+  manda l'invito e, se cambia orario o disdice, la disdetta.
 - **Elenco degli agenti**: `supabase/area-agenti-copioni.sql` crea la funzione `agenti_per_copioni()` (nome, email,
   ruolo, reparto e team delle persone attive), che risponde solo a chi è del marketing (staff + reparto marketing) o
   manager/admin; agli altri restituisce zero righe. Il server di Sensoria la chiama con il token di Jgio quando lui apre
   «I miei copioni», così sa a chi può mandare un copione e chi non è più attivo. **Da lanciare una volta** nel SQL Editor.
+- **Contratto da accettare** (dal 17/11): in cima a «I miei copioni» l'agente legge la copia per l'agente del «Contratto
+  per i contenuti di FC» (link «Leggi il contratto») e mette una spunta; finché non lo fa può leggere e commentare ma non
+  approvare né prenotare. Testo, versione e spunta li manda il server di Sensoria: per cambiarli non si tocca il sito; con una
+  versione nuova la spunta torna da mettere. Data, versione e impronta del testo accettato restano sul server di Sensoria.
 - Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
 
 ## 5. Confini e sicurezza

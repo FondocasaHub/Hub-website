@@ -260,7 +260,7 @@ Deno.serve(async (req) => {
         try {
           const s0 = smtp();
           await s0.send({
-            from: MITTENTE, to: NOTIFICHE, subject: `Contatto caldo da ${isc.origine ?? "HUB 24"}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`,
+            from: MITTENTE, to: NOTIFICHE, subject: oggettoMime(`Contatto caldo da ${isc.origine ?? "HUB 24"}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`),
             ...corpo(layout(
               `<p style="margin:0 0 12px"><strong>Nuovo iscritto confermato che chiede di essere ricontattato.</strong></p>
 <p style="margin:0 0 6px">Nome: ${esc(isc.nome || "-")}<br>Email: ${esc(isc.email)}<br>Cellulare: ${esc(isc.telefono || "-")}<br>

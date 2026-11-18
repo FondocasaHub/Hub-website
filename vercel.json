@@ -67,7 +67,11 @@
     },
     {
       "source": "/resta-informato",
-      "destination": "/resta-informato/index.html"
+      "destination": "/resta-informato/pagina.html"
+    },
+    {
+      "source": "/resta-informato/",
+      "destination": "/resta-informato/pagina.html"
     },
     {
       "source": "/",

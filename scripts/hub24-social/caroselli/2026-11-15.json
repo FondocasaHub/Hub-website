@@ -1,0 +1,23 @@
+{
+  "numero": 4,
+  "slide": [
+    {"tipo": "gancio", "kicker": "HUB 24 · Numero 4",
+     "titolo": "Affitti a Napoli?<br>Con la Manovra la tassa può scendere al <b>5%</b>",
+     "sub": "Tre numeri della settimana per chi affitta, compra o cerca un mutuo."},
+    {"tipo": "dato", "etichetta": "Canone concordato 2027", "numero": "10% → 5%",
+     "titolo": "Cedolare dimezzata sui nuovi contratti",
+     "testo": "Su un canone di 800 € al mese (9.600 € l'anno) la cedolare passa da 960 € a <b>480 €</b>. Con inquilino under 36 scende all'<b>1%</b>: <b>96 €</b> l'anno.",
+     "nota": "Ddl di Bilancio 2027, solo contratti firmati nel 2027. È una proposta: emendamenti depositati il 17/11, voto entro il 31/12, può cambiare. Fonte: Money.it (5/11/2026)."},
+    {"tipo": "dato", "etichetta": "Negozi C1 a Napoli", "numero": "10%",
+     "titolo": "Torna la cedolare sugli affitti dei negozi",
+     "testo": "Aliquota al <b>21%</b>, ridotta al <b>10%</b> nei capoluoghi di città metropolitana come <b>Napoli</b>. Su un negozio affittato a 1.000 € al mese: <b>1.200 €</b> di imposta l'anno.",
+     "nota": "Ddl di Bilancio 2027, contratti 2027: proposta, può cambiare; requisiti da confermare nel testo finale. Fonte: Informazione Fiscale (6/11/2026)."},
+    {"tipo": "dato", "etichetta": "Mutuo variabile prima casa", "numero": "639 €",
+     "titolo": "La rata su 120.000 € in 20 anni con Tan al 2,55%",
+     "testo": "La migliore offerta variabile per la prima casa parte dal <b>2,55%</b> (Taeg 2,84%). Il fisso più basso sullo stesso importo è al <b>3,15%</b>, rata 675 €.",
+     "nota": "Simulazioni Facile.it dell'11/11/2026 (Intesa Sanpaolo variabile, BPER fisso green): condizioni da verificare con la banca."},
+    {"tipo": "chiusura", "kicker": "Gratis · ogni domenica alle 8",
+     "titolo": "Tutti i numeri della settimana su HUB 24",
+     "sub": "Manovra, mutui, affitti e prezzi di Napoli in 5 minuti."}
+  ]
+}

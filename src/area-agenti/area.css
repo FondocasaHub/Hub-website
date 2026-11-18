@@ -685,3 +685,10 @@ a { color: inherit; }
   .cp-testo { font-size: 17px; }
   .cp-azioni .aa-btn { width: 100%; }
 }
+
+/* Formazione e metodi (dal 18/11/2026): video del Marketing, uno per riquadro */
+.fm-video { display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start; }
+.fm-player { display: block; width: 100%; max-width: 640px; border-radius: 12px; background: var(--navy); }
+.fm-player.fm-verticale { max-width: 300px; aspect-ratio: 9 / 16; }
+.fm-testo { flex: 1 1 240px; min-width: 0; }
+@media (max-width: 640px) { .fm-player.fm-verticale { max-width: none; } }

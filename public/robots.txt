@@ -6,6 +6,7 @@ Disallow: /src/
 Disallow: /*.json$
 Disallow: /*.jsx$
 Disallow: /node_modules/
+Disallow: /formazione/
 
 # Crawl-delay per bot aggressivi
 User-agent: AhrefsBot

@@ -56,6 +56,17 @@
     },
     {
       "source": "/resta-informato",
+      "has": [
+        {
+          "type": "query",
+          "key": "a",
+          "value": "(?<agente>nigido|mosca|esposito|dipinto|misuraca|rausa|chiocca|cappiello|spavone|caiazzo|ausiello|margarido|lionetti|pasquariello|grimaldi|sciva|conson)"
+        }
+      ],
+      "destination": "/resta-informato/a/:agente.html"
+    },
+    {
+      "source": "/resta-informato",
       "destination": "/resta-informato/index.html"
     },
     {

@@ -6,6 +6,40 @@ import { ALIQUOTE, TIPOLOGIE, ripartisci, buyerDi, elencoMesi, intervallo, notaP
 const dataIT = (iso) => (iso ? new Date(iso).toLocaleDateString("it-IT") : "");
 const OBIETTIVO_TEAM = 410000; // piano compensi: 1 TM + 1 Senior + 2 Junior + 2 New
 const PRODUTTORI = [...Object.keys(ALIQUOTE), "buyer"];
+const MESI = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+const esc = (v) => String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+
+// Rendiconto stampabile (A4) con logo HUB in testa e piedino ufficiale nella fascia navy
+function stampaRendiconto(titolo, corpo, orizzontale = false) {
+  const base = window.location.origin;
+  const html = `<!doctype html><html lang="it"><head><meta charset="utf-8"><title>${esc(titolo)}</title>
+<style>
+@page{size:A4 ${orizzontale ? "landscape" : "portrait"};margin:12mm 12mm 26mm}
+*{box-sizing:border-box;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+body{font-family:Jost,Arial,Helvetica,sans-serif;color:#0A1628;font-size:9.5pt;margin:0}
+.top{display:flex;justify-content:space-between;align-items:center;background:#0A1628;color:#FCFDFD;padding:10px 14px;border-radius:6px}
+.top img{height:46px}.top .dx{text-align:right;font-size:8.5pt}.top .dx b{display:block;font-size:13pt;color:#C9A84C;letter-spacing:.02em}
+h1{font-size:15pt;margin:14px 0 2px}.sotto{color:#5B6577;font-size:8.5pt;margin:0 0 10px}
+h2{font-size:9pt;letter-spacing:.08em;text-transform:uppercase;color:#FCFDFD;background:#0A1628;padding:5px 8px;margin:16px 0 6px}
+table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #D9DEE7;padding:4px 6px;text-align:left;vertical-align:top}
+tr.h th{background:#F3F1EA;font-size:8.5pt}td.n,th.n{text-align:right;white-space:nowrap}td.c,th.c{text-align:center}
+tr.t td{background:#0A1628;color:#FCFDFD;font-weight:bold}tr.q td{font-size:7.8pt;color:#5B6577;border-bottom:1px solid #EEE;padding-top:0}
+small{color:#5B6577}.kpi{display:flex;gap:8px;margin:6px 0}.kpi div{flex:1;border:1px solid #D9DEE7;border-top:3px solid #C9A84C;padding:7px 9px}
+.kpi span{display:block;font-size:7.5pt;text-transform:uppercase;letter-spacing:.06em;color:#5B6577}.kpi b{font-size:13pt}
+.obj{margin:4px 0;font-size:8.5pt}
+.foot{position:fixed;left:0;right:0;bottom:-18mm;background:#0A1628;color:#FCFDFD;display:flex;justify-content:space-between;align-items:center;padding:6px 12px;font-size:7.5pt}
+.foot img{height:22px}
+</style></head><body>
+<div class="top"><img src="${base}/images/logo-hub-bianco.png" alt="HUB"><div class="dx"><b>FC Punto Hub</b>Registro incassi · documento riservato</div></div>
+<h1>${esc(titolo)}</h1><p class="sotto">Stampato il ${new Date().toLocaleDateString("it-IT")} alle ${new Date().toLocaleTimeString("it-IT", { hour: "2-digit", minute: "2-digit" })}</p>
+${corpo}
+<div class="foot"><span>FC Punto Hub Srl · Via Pietro Mascagni 35, Napoli · P.IVA 01924140096 · na.vomero@fondocasa.it</span><img src="${base}/images/immobile/piedino.png" alt="FondoCasa · weunit.it · Henia"></div>
+<script>window.onload=function(){setTimeout(function(){window.print()},500)}</script>
+</body></html>`;
+  const w = window.open("", "_blank");
+  if (!w) { alert("Il browser ha bloccato la finestra: consenti i popup per fondocasahub.com per stampare."); return; }
+  w.document.open(); w.document.write(html); w.document.close();
+}
 
 export default function Fatturato({ profilo }) {
   const isAdmin = profilo.ruolo === "admin";
@@ -41,6 +75,16 @@ export default function Fatturato({ profilo }) {
       .then(({ data }) => setAnnoRighe(data || []));
   }, [vedeRiepilogo, anno, righe]);
 
+  // Riepilogo dell'anno mese per mese (Store Manager e Amministrazione)
+  const [annoSel, setAnnoSel] = useState(anno);
+  const [annuale, setAnnuale] = useState(null);
+  useEffect(() => {
+    if (!vedeRiepilogo) return;
+    setAnnuale(null);
+    supabase.from("incassi").select("data_incasso, team, importo, quote").gte("data_incasso", `${annoSel}-01-01`).lte("data_incasso", `${annoSel}-12-31`)
+      .then(({ data }) => setAnnuale(data || []));
+  }, [vedeRiepilogo, annoSel, righe]);
+
   const elimina = async (r) => {
     if (!window.confirm(`Eliminare l'incasso di ${euro(r.importo)} del ${dataIT(r.data_incasso)} (${r.cliente})?`)) return;
     const { error } = await supabase.from("incassi").delete().eq("id", r.id);
@@ -66,6 +110,17 @@ export default function Fatturato({ profilo }) {
   };
   if (vedeRiepilogo) { lista.forEach((r) => aggiungi(r, "periodo")); (annoRighe || []).forEach((r) => aggiungi(r, "anno")); }
 
+  // Tabella mensile dell'anno scelto
+  const teamAnno = [...new Set((annuale || []).map((r) => r.team || "Senza team"))].sort();
+  const mesiAnno = Array.from({ length: 12 }, (_, m) => ({ m, op: 0, tot: 0, hub: 0, team: {} }));
+  (annuale || []).forEach((r) => {
+    const x = mesiAnno[new Date(r.data_incasso + "T12:00").getMonth()];
+    const t = r.team || "Senza team", imp = Number(r.importo);
+    x.op += 1; x.tot += imp; x.hub += quotaHub(r); x.team[t] = (x.team[t] || 0) + imp;
+  });
+  const totAnno = mesiAnno.reduce((acc, x) => ({ op: acc.op + x.op, tot: acc.tot + x.tot, hub: acc.hub + x.hub }), { op: 0, tot: 0, hub: 0 });
+  const totTeamAnno = (t) => mesiAnno.reduce((s2, x) => s2 + (x.team[t] || 0), 0);
+
   const riepilogo = {};
   if (vedeRiepilogo) lista.forEach((r) => (r.quote || []).filter((q) => !q.hub).forEach((q) => {
     const k = q.chi || `__${q.voce}`;
@@ -73,6 +128,37 @@ export default function Fatturato({ profilo }) {
     riepilogo[k].voci[q.voce] = (riepilogo[k].voci[q.voce] || 0) + Number(q.importo);
     riepilogo[k].totale += Number(q.importo);
   }));
+
+  const periodoTesto = `${mesi[mese].etichetta}${parte === "1" ? " · incassi dal 1 al 15" : parte === "2" ? " · incassi dal 16 a fine mese" : ""}`;
+  const stampaPeriodo = () => {
+    const tabTeam = Object.entries(teamTab).sort((x, y) => y[1].periodo - x[1].periodo).map(([t, v]) =>
+      `<tr><td>${esc(t)}</td><td class="c">${v.op}</td><td class="n">${euro(v.periodo)}</td><td class="c">${totale ? Math.round(v.periodo / totale * 100) + "%" : "—"}</td><td class="n">${euro(v.hub)}</td><td class="n">${euro(v.anno)}</td></tr>`).join("");
+    const tabRiep = Object.values(riepilogo).sort((x, y) => y.totale - x.totale).map((r) =>
+      `<tr><td>${esc(r.nome)}</td><td><small>${Object.entries(r.voci).map(([v, i]) => `${esc(v)} ${euro(i)}`).join(" · ")}</small></td><td class="n">${euro(r.totale)}</td></tr>`).join("");
+    const tabOp = lista.slice().sort((x, y) => x.data_incasso.localeCompare(y.data_incasso)).map((r) =>
+      `<tr><td>${dataIT(r.data_incasso)}</td><td>${esc(r.produttore_nome)}<br><small>${esc(r.team || "—")}</small></td><td>${esc(r.cliente)}${r.indirizzo ? `<br><small>${esc(r.indirizzo)}</small>` : ""}</td><td>${esc(r.lato)}</td><td class="n">${euro(r.importo)}</td></tr>
+       <tr class="q"><td></td><td colspan="4">${(r.quote || []).map((q) => `${esc(q.mancante ? "Non assegnato" : q.nome)} · ${esc(q.voce)} ${q.pct}% <b>${euro(q.importo)}</b>`).join(" &nbsp;|&nbsp; ")}</td></tr>`).join("");
+    stampaRendiconto(`Rendiconto incassi · ${periodoTesto}`, `
+      <div class="kpi"><div><span>Incassato nel periodo</span><b>${euro(totale)}</b><small>${lista.length} operazioni</small></div>
+      <div><span>Quota FC Punto Hub</span><b>${euro(hub)}</b></div><div><span>Filiera</span><b>${euro(totale - hub)}</b></div></div>
+      <h2>Fatturato per team</h2>
+      ${tabTeam ? `<table><tr class="h"><th>Team</th><th class="c">Operazioni</th><th class="n">Fatturato periodo</th><th class="c">%</th><th class="n">Quota Hub</th><th class="n">Da inizio ${anno}</th></tr>${tabTeam}
+      <tr class="t"><td>Totale store</td><td class="c">${lista.length}</td><td class="n">${euro(totale)}</td><td class="c">100%</td><td class="n">${euro(hub)}</td><td class="n">${euro(Object.values(teamTab).reduce((x, v) => x + v.anno, 0))}</td></tr></table>` : "<p>Nessun incasso nel periodo.</p>"}
+      <h2>Riepilogo importi da fatturare</h2>
+      ${tabRiep ? `<table><tr class="h"><th>Collaboratore</th><th>Voci</th><th class="n">Da fatturare</th></tr>${tabRiep}</table>` : "<p>Nessun importo nel periodo.</p>"}
+      <h2>Operazioni incassate</h2>
+      ${tabOp ? `<table><tr class="h"><th>Incasso</th><th>Collaboratore</th><th>Cliente / immobile</th><th>Lato</th><th class="n">Importo</th></tr>${tabOp}</table>` : "<p>Nessuna operazione nel periodo.</p>"}`);
+  };
+  const stampaAnno = () => {
+    const righeM = mesiAnno.map((x) => `<tr><td>${MESI[x.m]}</td><td class="c">${x.op || "—"}</td>${teamAnno.map((t) => `<td class="n">${x.team[t] ? euro(x.team[t]) : "—"}</td>`).join("")}<td class="n"><b>${x.tot ? euro(x.tot) : "—"}</b></td><td class="n">${x.hub ? euro(x.hub) : "—"}</td><td class="n">${x.tot ? euro(x.tot - x.hub) : "—"}</td></tr>`).join("");
+    stampaRendiconto(`Riepilogo annuale incassi ${annoSel}`, `
+      <div class="kpi"><div><span>Incassato ${annoSel}</span><b>${euro(totAnno.tot)}</b><small>${totAnno.op} operazioni</small></div>
+      <div><span>Quota FC Punto Hub</span><b>${euro(totAnno.hub)}</b></div><div><span>Filiera</span><b>${euro(totAnno.tot - totAnno.hub)}</b></div></div>
+      <h2>Incassi mese per mese</h2>
+      <table><tr class="h"><th>Mese</th><th class="c">Operazioni</th>${teamAnno.map((t) => `<th class="n">${esc(t)}</th>`).join("")}<th class="n">Totale</th><th class="n">Quota Hub</th><th class="n">Filiera</th></tr>${righeM}
+      <tr class="t"><td>Totale ${annoSel}</td><td class="c">${totAnno.op}</td>${teamAnno.map((t) => `<td class="n">${euro(totTeamAnno(t))}</td>`).join("")}<td class="n">${euro(totAnno.tot)}</td><td class="n">${euro(totAnno.hub)}</td><td class="n">${euro(totAnno.tot - totAnno.hub)}</td></tr></table>
+      ${teamAnno.filter((t) => t !== "Senza team").map((t) => `<p class="obj">${esc(t)}: ${euro(totTeamAnno(t))} su obiettivo ${euro(OBIETTIVO_TEAM)} · ${(totTeamAnno(t) / OBIETTIVO_TEAM * 100).toFixed(1).replace(".", ",")}%</p>`).join("")}`, true);
+  };
 
   return (
     <>
@@ -87,7 +173,10 @@ export default function Fatturato({ profilo }) {
               "Le operazioni incassate su cui maturi un compenso."}
           </p>
         </div>
-        {isAdmin && <button className="aa-btn aa-btn-pieno" onClick={() => setNuovo(!nuovo)}>{nuovo ? "Chiudi" : "+ Nuovo incasso"}</button>}
+        <div className="aa-azioni-testata">
+          {vedeRiepilogo && <button className="aa-btn" onClick={stampaPeriodo} disabled={righe === null}>Stampa rendiconto</button>}
+          {isAdmin && <button className="aa-btn aa-btn-pieno" onClick={() => setNuovo(!nuovo)}>{nuovo ? "Chiudi" : "+ Nuovo incasso"}</button>}
+        </div>
       </div>
 
       {isAdmin && nuovo && <NuovoIncasso onSalvato={() => { setNuovo(false); carica(); }} />}
@@ -150,6 +239,41 @@ export default function Fatturato({ profilo }) {
                     <td>{euro(hub)}</td>
                     <td><strong>{euro(Object.values(teamTab).reduce((x, v) => x + v.anno, 0))}</strong></td>
                     <td></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
+
+      {vedeRiepilogo && (
+        <section className="aa-card">
+          <div className="aa-riga-titolo">
+            <h2 className="aa-h2">Riepilogo annuale per mese</h2>
+            <div className="aa-azioni-testata">
+              <select value={annoSel} onChange={(e) => setAnnoSel(Number(e.target.value))}>
+                {[anno, anno - 1, anno - 2].map((y) => <option key={y} value={y}>{y}</option>)}
+              </select>
+              <button className="aa-btn" onClick={stampaAnno} disabled={annuale === null}>Stampa riepilogo {annoSel}</button>
+            </div>
+          </div>
+          {annuale === null ? <p className="aa-nota">Caricamento…</p> : (
+            <div className="aa-scorri">
+              <table className="aa-tabella">
+                <thead><tr><th>Mese</th><th>Operazioni</th>{teamAnno.map((t) => <th key={t}>{t}</th>)}<th>Totale</th><th>Quota FC Punto Hub</th><th>Filiera</th></tr></thead>
+                <tbody>
+                  {mesiAnno.map((x) => (
+                    <tr key={x.m}>
+                      <td>{MESI[x.m]}</td><td>{x.op || "—"}</td>
+                      {teamAnno.map((t) => <td key={t}>{x.team[t] ? euro(x.team[t]) : "—"}</td>)}
+                      <td><strong>{x.tot ? euro(x.tot) : "—"}</strong></td><td>{x.hub ? euro(x.hub) : "—"}</td><td>{x.tot ? euro(x.tot - x.hub) : "—"}</td>
+                    </tr>
+                  ))}
+                  <tr className="aa-riga-totale">
+                    <td><strong>Totale {annoSel}</strong></td><td>{totAnno.op}</td>
+                    {teamAnno.map((t) => <td key={t}><strong>{euro(totTeamAnno(t))}</strong></td>)}
+                    <td><strong>{euro(totAnno.tot)}</strong></td><td>{euro(totAnno.hub)}</td><td>{euro(totAnno.tot - totAnno.hub)}</td>
                   </tr>
                 </tbody>
               </table>

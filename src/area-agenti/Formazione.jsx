@@ -1,15 +1,20 @@
 import React from "react";
 import { VIDEO_FORMAZIONE } from "./formazione.js";
 
-// Area agenti › Formazione e metodi: i video del Marketing su come si lavora, uno sotto l'altro (elenco in formazione.js).
-export default function Formazione({ vai }) {
+// Area agenti › Social › Formazione e metodi: i video del Marketing su come si lavora, uno sotto l'altro (elenco in
+// formazione.js). Con «dentro» è una scheda di Social e non ha l'intestazione sua.
+export default function Formazione({ vai, dentro }) {
   return (
     <>
-      <div className="aa-intestazione">
-        <p className="aa-occhiello">Marketing</p>
-        <h1 className="aa-titolo">Formazione e metodi</h1>
-        <p className="aa-sottotitolo">Video brevi su come lavoriamo insieme. Guardali quando ti servono.</p>
-      </div>
+      {dentro ? (
+        <p className="aa-nota">Video brevi su come lavoriamo insieme. Guardali quando ti servono.</p>
+      ) : (
+        <div className="aa-intestazione">
+          <p className="aa-occhiello">Marketing</p>
+          <h1 className="aa-titolo">Formazione e metodi</h1>
+          <p className="aa-sottotitolo">Video brevi su come lavoriamo insieme. Guardali quando ti servono.</p>
+        </div>
+      )}
       {VIDEO_FORMAZIONE.map((v) => (
         <section key={v.id} id={`video-${v.id}`} className="aa-card fm-video">
           <video className={`fm-player${v.verticale ? " fm-verticale" : ""}`} src={v.video} poster={v.copertina}

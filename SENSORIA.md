@@ -139,6 +139,17 @@ prenota l'ora delle riprese e si fa mandare il copione in PDF.
   versione nuova la spunta torna da mettere. Data, versione e impronta del testo accettato restano sul server di Sensoria.
 - Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
 
+### 4.6 Social: la pagina unica del marketing (dal 18/11/2026)
+Jgio, 18/11: «I miei copioni e Formazione e metodi devono stare in Social, che sarà una pagina dove uniremo tutto», per non
+riempire la home di riquadri. **Social** ha quattro schede: **I miei copioni** (con il numero da leggere), **Immobili**
+e **Auguri festività** (i generatori di immagini e testi, invariati) e **Formazione e metodi**. In home resta un riquadro
+solo, «Social», con il bollino «N da leggere»; se ci sono copioni da leggere si apre su quella scheda.
+- Ogni scheda ha il suo indirizzo, così i link già mandati agli agenti funzionano ancora: `/area-agenti/copioni`,
+  `/area-agenti/social`, `/area-agenti/social?modo=auguri`, `/area-agenti/formazione`. La scheda di un copione
+  (`/area-agenti/copioni/<id>`) resta una pagina a sé, con «← I miei copioni» che torna alla scheda.
+- Codice: `Social.jsx` (in fondo, `SCHEDE` e `Social`); `ElencoCopioni` e `Formazione` hanno `dentro` per non ripetere
+  l'intestazione.
+
 ### 4.5 Formazione e metodi (dal 18/11/2026)
 Video brevi del Marketing su come si lavora insieme, in **Area agenti → Formazione e metodi** (`/area-agenti/formazione`),
 così non si spiegano ogni volta (Jgio, 18/11). Il primo è «Come si usano I miei copioni» (36 s); «I miei copioni» ha un

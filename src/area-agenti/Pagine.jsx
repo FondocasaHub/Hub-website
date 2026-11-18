@@ -52,13 +52,11 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "istruzioni", titolo: "Istruzioni e inserimento", testo: "Piano di inserimento, agenda e regole dello store", icona: "istruzioni" },
     { id: "crm", titolo: "CRM", testo: "Accesso a Vendilo: contatti e immobili", icona: "crm" },
     { id: "richieste", titolo: "Ingaggio Marketing", testo: "Richiedi foto, video e descrizione immobile al Marketing Hub", icona: "richieste" },
-    { id: "copioni", titolo: "I miei copioni", testo: "I video che giriamo con te: leggi cosa dirai, commenta e approva", icona: "copioni" },
-    { id: "formazione", titolo: "Formazione e metodi", testo: "Video brevi su come lavoriamo con il Marketing: il primo spiega «I miei copioni»", icona: "formazione" },
+    { id: "social", titolo: "Social", testo: "I tuoi copioni, immagini e testi pronti per immobili e auguri, video su come lavoriamo", icona: "openhouse" },
     { id: "immobili", titolo: "Immobili", testo: "Scheda di ogni incarico: check-list della procedura, numeri, Open House e report per la proprietà", icona: "valutazione" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
     { id: "incarichi-ricerca", titolo: "Incarico di ricerca", testo: "Buyer Agent: incarico in esclusiva 6 mesi con scheda Cercacasa, lavorazioni ed esiti", icona: "valutazione" },
-    { id: "social", titolo: "Social", testo: "Immobili (acquisito, open house, ribassato, venduto) e auguri delle festività: immagini e testi pronti", icona: "openhouse" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
@@ -81,9 +79,9 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
 
       <div className="aa-griglia">
         {riquadri.map((r) => (
-          <button key={r.id} className="aa-riquadro" onClick={() => vai(r.id)}>
+          <button key={r.id} className="aa-riquadro" onClick={() => vai(r.id === "social" && daLeggere > 0 ? "copioni" : r.id)}>
             <span className="aa-riquadro-icona"><Icona nome={r.icona} /></span>
-            <strong>{r.titolo}{r.id === "copioni" && daLeggere > 0 && <em className="cp-bollino">{daLeggere} da leggere</em>}</strong>
+            <strong>{r.titolo}{r.id === "social" && daLeggere > 0 && <em className="cp-bollino">{daLeggere} da leggere</em>}</strong>
             <span>{r.testo}</span>
           </button>
         ))}

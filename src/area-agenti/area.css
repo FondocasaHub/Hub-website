@@ -692,3 +692,11 @@ a { color: inherit; }
 .fm-player.fm-verticale { max-width: 300px; aspect-ratio: 9 / 16; }
 .fm-testo { flex: 1 1 240px; min-width: 0; }
 @media (max-width: 640px) { .fm-player.fm-verticale { max-width: none; } }
+
+/* Social, la pagina unica del marketing (dal 18/11/2026): sul telefono le quattro schede con il nome corto, in una riga */
+.so-schede .so-corto { display: none; }
+@media (max-width: 560px) {
+  .so-schede .so-lungo { display: none; }
+  .so-schede .so-corto { display: inline; }
+  .so-schede button { padding: 10px 7px; font-size: 14px; }
+}

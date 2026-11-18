@@ -1,4 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from "react";
+import { ElencoCopioni, quantiCopioniDaFare } from "./Copioni.jsx";
+import Formazione from "./Formazione.jsx";
 
 // Generatore Open House: immagini pronte per Facebook (evento, post, storia), Instagram (post, storia),
 // LinkedIn e TikTok, con i testi da copiare. Tutto avviene nel browser: la foto non viene caricata sul server.
@@ -696,20 +698,39 @@ function Auguri() {
   );
 }
 
-export default function Social() {
-  const [modo, setModo] = useState(() => (new URLSearchParams(window.location.search).get("modo") === "auguri" ? "auguri" : "immobili"));
+// Dal 18/11/2026 «Social» è la pagina unica del marketing (Jgio: «I miei copioni e Formazione e metodi devono stare in
+// Social, che sarà una pagina dove uniremo tutto», per non riempire la home di riquadri). Ogni scheda ha il suo indirizzo:
+// /area-agenti/copioni, /area-agenti/social (immobili), /area-agenti/social?modo=auguri, /area-agenti/formazione.
+const SCHEDE = [
+  { id: "copioni", nome: "I miei copioni", corto: "Copioni", rotta: "copioni" },
+  { id: "immobili", nome: "Immobili", corto: "Immobili", rotta: "social" },
+  { id: "auguri", nome: "Auguri festività", corto: "Auguri", rotta: "social?modo=auguri" },
+  { id: "formazione", nome: "Formazione e metodi", corto: "Formazione", rotta: "formazione" },
+];
+
+export default function Social({ vai, iniziale }) {
+  const [modo, setModo] = useState(() => iniziale || (new URLSearchParams(window.location.search).get("modo") === "auguri" ? "auguri" : "immobili"));
+  const [daLeggere, setDaLeggere] = useState(0);
+  useEffect(() => { quantiCopioniDaFare().then(setDaLeggere); }, [modo]);
+  const scegli = (s) => { setModo(s.id); if (vai) vai(s.rotta); };
   return (
     <>
       <div className="aa-intestazione">
-        <p className="aa-occhiello">Marketing · format social</p>
+        <p className="aa-occhiello">Marketing</p>
         <h1 className="aa-titolo">Social</h1>
-        <p className="aa-sottotitolo">Immagini e testi pronti per Facebook, Instagram, LinkedIn e TikTok: per ogni immobile (appena acquisito, open house, prezzo ribassato, venduto) e per gli auguri delle festività.</p>
+        <p className="aa-sottotitolo">Tutto il marketing in un posto: i tuoi copioni, immagini e testi pronti per gli immobili e gli auguri, i video su come lavoriamo.</p>
       </div>
-      <div className="aa-schede">
-        <button className={modo === "immobili" ? "attivo" : ""} onClick={() => setModo("immobili")}>Immobili</button>
-        <button className={modo === "auguri" ? "attivo" : ""} onClick={() => setModo("auguri")}>Auguri festività</button>
+      <div className="aa-schede so-schede">
+        {SCHEDE.map((s) => (
+          <button key={s.id} className={modo === s.id ? "attivo" : ""} onClick={() => scegli(s)}>
+            <span className="so-lungo">{s.nome}</span><span className="so-corto">{s.corto}</span>{s.id === "copioni" && daLeggere > 0 && <em className="cp-bollino">{daLeggere}</em>}
+          </button>
+        ))}
       </div>
-      {modo === "immobili" ? <SocialImmobili /> : <Auguri />}
+      {modo === "copioni" && <ElencoCopioni vai={vai} dentro />}
+      {modo === "immobili" && <SocialImmobili />}
+      {modo === "auguri" && <Auguri />}
+      {modo === "formazione" && <Formazione vai={vai} dentro />}
     </>
   );
 }

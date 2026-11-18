@@ -17,8 +17,7 @@ import Chirone from "./Chirone.jsx";
 import AssistenteLog from "./AssistenteLog.jsx";
 import MiaGiornata from "./MiaGiornata.jsx";
 import AppChirone from "./AppChirone.jsx";
-import { ElencoCopioni, SchedaCopione } from "./Copioni.jsx";
-import Formazione from "./Formazione.jsx";
+import { SchedaCopione } from "./Copioni.jsx";
 import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
 import { PAGINE_APERTE } from "./cancello-regole.js";
 
@@ -142,10 +141,10 @@ export default function AreaApp() {
     case "assistente-log": contenuto = isAdmin ? <AssistenteLog /> : <NonAutorizzato vai={vai} />; break;
     case "giornata": contenuto = ["agente", "manager", "admin", "credito"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "app": contenuto = <AppChirone profilo={profilo} vai={vai} />; break;
-    case "copioni": contenuto = <ElencoCopioni vai={vai} />; break;
-    case "formazione": contenuto = <Formazione vai={vai} />; break;
+    case "copioni": contenuto = <Social key="copioni" vai={vai} iniziale="copioni" />; break;
+    case "formazione": contenuto = <Social key="formazione" vai={vai} iniziale="formazione" />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
-    case "social": case "open-house": contenuto = <Social />; break;
+    case "social": case "open-house": contenuto = <Social key="social" vai={vai} />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
     case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;

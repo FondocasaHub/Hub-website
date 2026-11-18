@@ -36,7 +36,7 @@ function Stato({ testo, approvato }) {
 }
 
 /* ---------------- ELENCO ---------------- */
-export function ElencoCopioni({ vai }) {
+export function ElencoCopioni({ vai, dentro }) {
   const [dati, setDati] = useState(null);
   const [errore, setErrore] = useState("");
 
@@ -46,12 +46,17 @@ export function ElencoCopioni({ vai }) {
 
   return (
     <>
-      <div className="aa-intestazione">
-        <p className="aa-occhiello">Marketing</p>
-        <h1 className="aa-titolo">I miei copioni</h1>
-        <p className="aa-sottotitolo">I video che giriamo con te. Leggi cosa dirai, dicci se qualcosa non va e approva.</p>
-        <p className="aa-nota" style={{ marginTop: 10 }}><button className="aa-link" onClick={() => vai("formazione")}>Come si usa? Guarda il video (36 secondi)</button></p>
-      </div>
+      {dentro ? (
+        <p className="aa-nota">I video che giriamo con te: leggi cosa dirai, dicci se qualcosa non va e approva.{" "}
+          <button className="aa-link" onClick={() => vai("formazione")}>Come si usa? Guarda il video (36 secondi)</button></p>
+      ) : (
+        <div className="aa-intestazione">
+          <p className="aa-occhiello">Marketing</p>
+          <h1 className="aa-titolo">I miei copioni</h1>
+          <p className="aa-sottotitolo">I video che giriamo con te. Leggi cosa dirai, dicci se qualcosa non va e approva.</p>
+          <p className="aa-nota" style={{ marginTop: 10 }}><button className="aa-link" onClick={() => vai("formazione")}>Come si usa? Guarda il video (36 secondi)</button></p>
+        </div>
+      )}
       {errore && <p className="aa-errore">{errore}</p>}
       {!dati && !errore && <div className="aa-centro"><div className="aa-spinner" aria-label="Caricamento" /></div>}
       {dati && <Contratto documenti={dati.documenti} onAccettato={(x) => setDati({ ...dati, ...x })} />}

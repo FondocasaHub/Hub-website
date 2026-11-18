@@ -18,6 +18,7 @@ import AssistenteLog from "./AssistenteLog.jsx";
 import MiaGiornata from "./MiaGiornata.jsx";
 import AppChirone from "./AppChirone.jsx";
 import { ElencoCopioni, SchedaCopione } from "./Copioni.jsx";
+import Formazione from "./Formazione.jsx";
 import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
 import { PAGINE_APERTE } from "./cancello-regole.js";
 
@@ -142,6 +143,7 @@ export default function AreaApp() {
     case "giornata": contenuto = ["agente", "manager", "admin", "credito"].includes(profilo.ruolo) ? <MiaGiornata profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "app": contenuto = <AppChirone profilo={profilo} vai={vai} />; break;
     case "copioni": contenuto = <ElencoCopioni vai={vai} />; break;
+    case "formazione": contenuto = <Formazione vai={vai} />; break;
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;

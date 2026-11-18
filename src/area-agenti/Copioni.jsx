@@ -50,6 +50,7 @@ export function ElencoCopioni({ vai }) {
         <p className="aa-occhiello">Marketing</p>
         <h1 className="aa-titolo">I miei copioni</h1>
         <p className="aa-sottotitolo">I video che giriamo con te. Leggi cosa dirai, dicci se qualcosa non va e approva.</p>
+        <p className="aa-nota" style={{ marginTop: 10 }}><button className="aa-link" onClick={() => vai("formazione")}>Come si usa? Guarda il video (36 secondi)</button></p>
       </div>
       {errore && <p className="aa-errore">{errore}</p>}
       {!dati && !errore && <div className="aa-centro"><div className="aa-spinner" aria-label="Caricamento" /></div>}

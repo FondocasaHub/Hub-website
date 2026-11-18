@@ -139,6 +139,16 @@ prenota l'ora delle riprese e si fa mandare il copione in PDF.
   versione nuova la spunta torna da mettere. Data, versione e impronta del testo accettato restano sul server di Sensoria.
 - Nessuna tabella nuova: il server di Sensoria tiene nome ed email di chi rivede i copioni.
 
+### 4.5 Formazione e metodi (dal 18/11/2026)
+Video brevi del Marketing su come si lavora insieme, in **Area agenti → Formazione e metodi** (`/area-agenti/formazione`),
+così non si spiegano ogni volta (Jgio, 18/11). Il primo è «Come si usano I miei copioni» (36 s); «I miei copioni» ha un
+link «Come si usa? Guarda il video».
+- File: `src/area-agenti/Formazione.jsx` (la pagina), `src/area-agenti/formazione.js` (l'elenco), video e copertine in
+  `public/formazione/` (mp4 compresso con `+faststart`, circa 3 MB; `robots.txt` non li fa indicizzare).
+- **Per aggiungere un video**: il file e la copertina in `public/formazione/`, una riga in cima a `formazione.js`. Gli
+  originali stanno sul Drive SENSORIA in `02_clienti/FCpuntoHUB/Formazione e metodi/`.
+- Niente database né server: è una pagina statica dentro l'Area agenti, visibile a tutti i profili.
+
 ## 5. Confini e sicurezza
 - Sensoria non scrive mai su `main` e non tocca file fuori da quelli della sezione 3. Le eccezioni passano da una pull
   request che approvi tu.

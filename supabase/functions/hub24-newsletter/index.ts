@@ -35,6 +35,7 @@ import { SMTPClient } from "https://deno.land/x/denomailer@1.6.0/mod.ts";
 const SITO = "https://www.fondocasahub.com";
 const PAGINA = `${SITO}/hub24`;
 const MITTENTE = "HUB 24 · FondoCasa Hub <info@fondocasahub.com>";
+const CANALE = "https://whatsapp.com/channel/0029Vb9MtnQJZg4AIaaEiH1Y"; // Canale WhatsApp HUB 24 (18/11/2026)
 
 const cors = {
   "Access-Control-Allow-Origin": "*",
@@ -202,7 +203,8 @@ const htmlNumero = (n: Numero, token: string) =>
 <p style="margin:0 0 10px;font-size:24px;font-weight:bold;line-height:1.2">${esc(n.titolo)}</p>
 ${n.sommario ? `<p style="margin:0 0 14px">${esc(n.sommario)}</p>` : ""}
 <p style="margin:16px 0 20px">${bottone(`${SITO}/hub24/${n.file}`, "Leggi il numero")}${n.pdf ? bottone(`${SITO}/hub24/${n.pdf}`, "Scarica il PDF", false) : ""}</p>
-<p style="margin:0 0 12px;font-size:15px">Vuoi sapere quanto vale oggi la tua casa o quale mutuo puoi ottenere? Rispondi a questa email o scrivici su WhatsApp al 392 457 9047.</p>`,
+<p style="margin:0 0 12px;font-size:15px">Vuoi sapere quanto vale oggi la tua casa o quale mutuo puoi ottenere? Rispondi a questa email o scrivici su WhatsApp al 392 457 9047.</p>
+<p style="margin:0 0 12px;font-size:14px">HUB 24 anche su WhatsApp: <a href="${CANALE}" style="color:#0A1628;font-weight:bold">segui il canale</a>.</p>`,
     `Ricevi HUB 24 perché ti sei iscritto su fondocasahub.com/hub24. Per non riceverlo più: <a href="${PAGINA}?disiscrivi=${token}" style="color:#5E5148">disiscriviti</a>.`,
   );
 
@@ -307,7 +309,9 @@ ${n.sommario ? `<p style="margin:0 0 12px">${esc(n.sommario)}</p>` : ""}
         : "";
       const html = layout(
         `<p style="margin:0 0 12px">Ciao${isc.nome ? " " + esc(isc.nome) : ""}, benvenuto in HUB 24.</p>
-<p style="margin:0 0 12px">Da questa domenica riceverai alle 8 il settimanale dell'Hub: tassi e mutui, mercato immobiliare in Italia e a Napoli, fisco sugli affitti, tecnologia e le novità dello store.</p>${ultimo}`,
+<p style="margin:0 0 12px">Da questa domenica riceverai alle 8 il settimanale dell'Hub: tassi e mutui, mercato immobiliare in Italia e a Napoli, fisco sugli affitti, tecnologia e le novità dello store.</p>${ultimo}
+<p style="margin:16px 0 8px;font-size:15px">Preferisci WhatsApp? Segui il nostro canale: ogni domenica il nuovo numero, e nessuno vede il tuo numero.</p>
+<p style="margin:0 0 12px">${bottone(CANALE, "Segui il canale WhatsApp", false)}</p>`,
         `Per non ricevere più HUB 24: <a href="${PAGINA}?disiscrivi=${token}" style="color:#5E5148">disiscriviti</a>.`,
       );
       const s = smtp();

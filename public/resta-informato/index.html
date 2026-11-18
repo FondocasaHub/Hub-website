@@ -65,6 +65,7 @@ button:hover{filter:brightness(1.05)}
 button[disabled]{opacity:.6;cursor:wait}
 .msg{margin:12px 0 0;font-size:14.5px}
 .msg.err{color:var(--err)}
+.canale{display:block;text-align:center;margin-top:10px;padding:13px;border-radius:4px;background:#1F7A4D;color:#fff;font-weight:600;text-decoration:none}
 .alt{margin-top:12px;font-size:13.5px;color:var(--soft)}
 main section{padding-block:44px}
 main h2{font-size:24px;margin:0 0 18px}
@@ -122,6 +123,7 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
       <label class="check" for="c-off"><input id="c-off" type="checkbox"><span>Contattatemi con proposte e consulenze personalizzate su immobili, mutui, prestiti e assicurazioni. <small>Facoltativo.</small></span></label>
       <button id="invia" type="submit">Resto informato</button>
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
+      <p class="alt"><a href="https://whatsapp.com/channel/0029Vb9MtnQJZg4AIaaEiH1Y" target="_blank" rel="noopener">Oppure segui il canale WhatsApp HUB 24</a>: nessuno vede il tuo numero.</p>
       <p class="alt" id="scrivimi">Preferisci scrivermi? WhatsApp 392 457 9047.</p>
     </form>
   </div>
@@ -150,7 +152,7 @@ footer img{max-width:340px;width:100%;height:auto;margin:6px auto 14px;display:b
   var q=new URLSearchParams(location.search);
   var box=document.getElementById("box");
   function esc(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-  function esito(t,x){box.innerHTML='<div class="esito"><h2>'+esc(t)+'</h2><p>'+x+'</p><p class="alt"><a href="/hub24">Leggi l\'ultimo numero di HUB 24</a></p></div>'}
+  function esito(t,x){box.innerHTML='<div class="esito"><h2>'+esc(t)+'</h2><p>'+x+'</p><p class="alt"><a href="/hub24">Leggi l\'ultimo numero di HUB 24</a></p><p><a class="canale" href="https://whatsapp.com/channel/0029Vb9MtnQJZg4AIaaEiH1Y" target="_blank" rel="noopener">Segui anche il canale WhatsApp HUB 24</a></p></div>'}
   // Link dell'agente: /resta-informato?a=rausa — la pagina parla a nome suo e l'iscritto gli viene assegnato.
   // Tenere allineato con AGENTI in supabase/functions/hub24-newsletter/index.ts
   var AGENTI={

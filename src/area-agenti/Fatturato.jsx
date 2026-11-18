@@ -25,7 +25,7 @@ table{width:100%;border-collapse:collapse}td,th{border-bottom:1px solid #D9DEE7;
 tr.h th{background:#F3F1EA;font-size:8.5pt}td.n,th.n{text-align:right;white-space:nowrap}td.c,th.c{text-align:center}
 tr.t td{background:#0A1628;color:#FCFDFD;font-weight:bold}tr.q td{font-size:7.8pt;color:#5B6577;border-bottom:1px solid #EEE;padding-top:0}
 small{color:#5B6577}.kpi{display:flex;gap:8px;margin:6px 0}.kpi div{flex:1;border:1px solid #D9DEE7;border-top:3px solid #C9A84C;padding:7px 9px}
-.kpi span{display:block;font-size:7.5pt;text-transform:uppercase;letter-spacing:.06em;color:#5B6577}.kpi b{font-size:13pt}
+.kpi span{display:block;font-size:7.5pt;text-transform:uppercase;letter-spacing:.06em;color:#5B6577}.kpi b{font-size:13pt;display:block}.kpi small{display:block}
 .obj{margin:4px 0;font-size:8.5pt}
 .foot{position:fixed;left:0;right:0;bottom:-18mm;background:#0A1628;color:#FCFDFD;display:flex;justify-content:space-between;align-items:center;padding:6px 12px;font-size:7.5pt}
 .foot img{height:22px}

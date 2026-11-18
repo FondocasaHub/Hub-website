@@ -78,11 +78,14 @@ export default function Fatturato({ profilo }) {
   // Riepilogo dell'anno mese per mese (Store Manager e Amministrazione)
   const [annoSel, setAnnoSel] = useState(anno);
   const [annuale, setAnnuale] = useState(null);
+  const [budget, setBudget] = useState([]);
   useEffect(() => {
     if (!vedeRiepilogo) return;
     setAnnuale(null);
     supabase.from("incassi").select("data_incasso, team, importo, quote").gte("data_incasso", `${annoSel}-01-01`).lte("data_incasso", `${annoSel}-12-31`)
       .then(({ data }) => setAnnuale(data || []));
+    supabase.from("budget_incassi").select("mese, team, importo").eq("anno", annoSel)
+      .then(({ data }) => setBudget(data || []));
   }, [vedeRiepilogo, annoSel, righe]);
 
   const elimina = async (r) => {
@@ -120,6 +123,24 @@ export default function Fatturato({ profilo }) {
   });
   const totAnno = mesiAnno.reduce((acc, x) => ({ op: acc.op + x.op, tot: acc.tot + x.tot, hub: acc.hub + x.hub }), { op: 0, tot: 0, hub: 0 });
   const totTeamAnno = (t) => mesiAnno.reduce((s2, x) => s2 + (x.team[t] || 0), 0);
+  // Budget e scostamento: si confronta solo fino al mese corrente (i mesi futuri mostrano solo il budget)
+  const haBudget = budget.length > 0;
+  const bud = (m, t) => budget.filter((b) => b.mese === m + 1 && (t === undefined || b.team === t)).reduce((s2, b) => s2 + Number(b.importo), 0);
+  const oggiD = new Date();
+  const meseChiuso = (m) => annoSel < oggiD.getFullYear() || (annoSel === oggiD.getFullYear() && m <= oggiD.getMonth());
+  const ultimoMese = annoSel < oggiD.getFullYear() ? 11 : annoSel > oggiD.getFullYear() ? -1 : oggiD.getMonth();
+  const scost = (reale, b) => (b ? { eur: reale - b, pct: ((reale - b) / b) * 100 } : null);
+  const fmtScost = (sc) => (sc ? `${sc.eur >= 0 ? "+" : "−"}${euro(Math.abs(sc.eur))} (${sc.pct >= 0 ? "+" : "−"}${Math.abs(sc.pct).toFixed(1).replace(".", ",")}%)` : "—");
+  const budAnno = mesiAnno.reduce((s2, x) => s2 + bud(x.m), 0);
+  const budAlMese = mesiAnno.filter((x) => x.m <= ultimoMese).reduce((s2, x) => s2 + bud(x.m), 0);
+  const realeAlMese = mesiAnno.filter((x) => x.m <= ultimoMese).reduce((s2, x) => s2 + x.tot, 0);
+  const teamBudget = [...new Set([...budget.map((b) => b.team), ...teamAnno.filter((t) => t !== "Senza team")])].sort();
+  const righeTeamBudget = teamBudget.map((t) => {
+    const reale = mesiAnno.filter((x) => x.m <= ultimoMese).reduce((s2, x) => s2 + (x.team[t] || 0), 0);
+    const bAl = mesiAnno.filter((x) => x.m <= ultimoMese).reduce((s2, x) => s2 + bud(x.m, t), 0);
+    const bAnno = mesiAnno.reduce((s2, x) => s2 + bud(x.m, t), 0);
+    return { t, reale, bAl, bAnno, sc: scost(reale, bAl) };
+  });
 
   const riepilogo = {};
   if (vedeRiepilogo) lista.forEach((r) => (r.quote || []).filter((q) => !q.hub).forEach((q) => {
@@ -150,13 +171,14 @@ export default function Fatturato({ profilo }) {
       ${tabOp ? `<table><tr class="h"><th>Incasso</th><th>Collaboratore</th><th>Cliente / immobile</th><th>Lato</th><th class="n">Importo</th></tr>${tabOp}</table>` : "<p>Nessuna operazione nel periodo.</p>"}`);
   };
   const stampaAnno = () => {
-    const righeM = mesiAnno.map((x) => `<tr><td>${MESI[x.m]}</td><td class="c">${x.op || "—"}</td>${teamAnno.map((t) => `<td class="n">${x.team[t] ? euro(x.team[t]) : "—"}</td>`).join("")}<td class="n"><b>${x.tot ? euro(x.tot) : "—"}</b></td><td class="n">${x.hub ? euro(x.hub) : "—"}</td><td class="n">${x.tot ? euro(x.tot - x.hub) : "—"}</td></tr>`).join("");
+    const righeM = mesiAnno.map((x) => `<tr><td>${MESI[x.m]}</td><td class="c">${x.op || "—"}</td>${teamAnno.map((t) => `<td class="n">${x.team[t] ? euro(x.team[t]) : "—"}</td>`).join("")}<td class="n"><b>${x.tot ? euro(x.tot) : "—"}</b></td>${haBudget ? `<td class="n">${bud(x.m) ? euro(bud(x.m)) : "—"}</td><td class="n">${meseChiuso(x.m) ? fmtScost(scost(x.tot, bud(x.m))) : "—"}</td>` : ""}<td class="n">${x.hub ? euro(x.hub) : "—"}</td><td class="n">${x.tot ? euro(x.tot - x.hub) : "—"}</td></tr>`).join("");
     stampaRendiconto(`Riepilogo annuale incassi ${annoSel}`, `
       <div class="kpi"><div><span>Incassato ${annoSel}</span><b>${euro(totAnno.tot)}</b><small>${totAnno.op} operazioni</small></div>
       <div><span>Quota FC Punto Hub</span><b>${euro(totAnno.hub)}</b></div><div><span>Filiera</span><b>${euro(totAnno.tot - totAnno.hub)}</b></div></div>
       <h2>Incassi mese per mese</h2>
-      <table><tr class="h"><th>Mese</th><th class="c">Operazioni</th>${teamAnno.map((t) => `<th class="n">${esc(t)}</th>`).join("")}<th class="n">Totale</th><th class="n">Quota Hub</th><th class="n">Filiera</th></tr>${righeM}
-      <tr class="t"><td>Totale ${annoSel}</td><td class="c">${totAnno.op}</td>${teamAnno.map((t) => `<td class="n">${euro(totTeamAnno(t))}</td>`).join("")}<td class="n">${euro(totAnno.tot)}</td><td class="n">${euro(totAnno.hub)}</td><td class="n">${euro(totAnno.tot - totAnno.hub)}</td></tr></table>
+      <table><tr class="h"><th>Mese</th><th class="c">Operazioni</th>${teamAnno.map((t) => `<th class="n">${esc(t)}</th>`).join("")}<th class="n">Totale</th>${haBudget ? '<th class="n">Budget</th><th class="n">Scostamento</th>' : ""}<th class="n">Quota Hub</th><th class="n">Filiera</th></tr>${righeM}
+      <tr class="t"><td>Totale ${annoSel}</td><td class="c">${totAnno.op}</td>${teamAnno.map((t) => `<td class="n">${euro(totTeamAnno(t))}</td>`).join("")}<td class="n">${euro(totAnno.tot)}</td>${haBudget ? `<td class="n">${euro(budAnno)}</td><td class="n">${ultimoMese >= 0 ? fmtScost(scost(realeAlMese, budAlMese)) : "—"}</td>` : ""}<td class="n">${euro(totAnno.hub)}</td><td class="n">${euro(totAnno.tot - totAnno.hub)}</td></tr></table>
+      ${haBudget ? `<h2>Scostamento per team</h2><table><tr class="h"><th>Team</th><th class="n">Incassato</th><th class="n">Budget a oggi</th><th class="n">Scostamento</th><th class="n">Budget annuo</th></tr>${righeTeamBudget.map((r) => `<tr><td>${esc(r.t)}</td><td class="n">${euro(r.reale)}</td><td class="n">${euro(r.bAl)}</td><td class="n">${fmtScost(r.sc)}</td><td class="n">${euro(r.bAnno)}</td></tr>`).join("")}<tr class="t"><td>Totale store</td><td class="n">${euro(realeAlMese)}</td><td class="n">${euro(budAlMese)}</td><td class="n">${fmtScost(scost(realeAlMese, budAlMese))}</td><td class="n">${euro(budAnno)}</td></tr></table>` : ""}
       ${teamAnno.filter((t) => t !== "Senza team").map((t) => `<p class="obj">${esc(t)}: ${euro(totTeamAnno(t))} su obiettivo ${euro(OBIETTIVO_TEAM)} · ${(totTeamAnno(t) / OBIETTIVO_TEAM * 100).toFixed(1).replace(".", ",")}%</p>`).join("")}`, true);
   };
 
@@ -253,7 +275,7 @@ export default function Fatturato({ profilo }) {
             <h2 className="aa-h2">Riepilogo annuale per mese</h2>
             <div className="aa-azioni-testata">
               <select value={annoSel} onChange={(e) => setAnnoSel(Number(e.target.value))}>
-                {[anno, anno - 1, anno - 2].map((y) => <option key={y} value={y}>{y}</option>)}
+                {[anno + 1, anno, anno - 1, anno - 2].map((y) => <option key={y} value={y}>{y}</option>)}
               </select>
               <button className="aa-btn" onClick={stampaAnno} disabled={annuale === null}>Stampa riepilogo {annoSel}</button>
             </div>
@@ -261,23 +283,46 @@ export default function Fatturato({ profilo }) {
           {annuale === null ? <p className="aa-nota">Caricamento…</p> : (
             <div className="aa-scorri">
               <table className="aa-tabella">
-                <thead><tr><th>Mese</th><th>Operazioni</th>{teamAnno.map((t) => <th key={t}>{t}</th>)}<th>Totale</th><th>Quota FC Punto Hub</th><th>Filiera</th></tr></thead>
+                <thead><tr><th>Mese</th><th>Operazioni</th>{teamAnno.map((t) => <th key={t}>{t}</th>)}<th>Totale</th>{haBudget && <><th>Budget</th><th>Scostamento</th></>}<th>Quota FC Punto Hub</th><th>Filiera</th></tr></thead>
                 <tbody>
                   {mesiAnno.map((x) => (
                     <tr key={x.m}>
                       <td>{MESI[x.m]}</td><td>{x.op || "—"}</td>
                       {teamAnno.map((t) => <td key={t}>{x.team[t] ? euro(x.team[t]) : "—"}</td>)}
-                      <td><strong>{x.tot ? euro(x.tot) : "—"}</strong></td><td>{x.hub ? euro(x.hub) : "—"}</td><td>{x.tot ? euro(x.tot - x.hub) : "—"}</td>
+                      <td><strong>{x.tot ? euro(x.tot) : "—"}</strong></td>
+                      {haBudget && <><td>{bud(x.m) ? euro(bud(x.m)) : "—"}</td><td className={meseChiuso(x.m) && bud(x.m) ? (x.tot >= bud(x.m) ? "aa-testo-verde" : "aa-testo-rosso") : ""}>{meseChiuso(x.m) ? fmtScost(scost(x.tot, bud(x.m))) : "—"}</td></>}
+                      <td>{x.hub ? euro(x.hub) : "—"}</td><td>{x.tot ? euro(x.tot - x.hub) : "—"}</td>
                     </tr>
                   ))}
                   <tr className="aa-riga-totale">
                     <td><strong>Totale {annoSel}</strong></td><td>{totAnno.op}</td>
                     {teamAnno.map((t) => <td key={t}><strong>{euro(totTeamAnno(t))}</strong></td>)}
-                    <td><strong>{euro(totAnno.tot)}</strong></td><td>{euro(totAnno.hub)}</td><td>{euro(totAnno.tot - totAnno.hub)}</td>
+                    <td><strong>{euro(totAnno.tot)}</strong></td>
+                    {haBudget && <><td><strong>{euro(budAnno)}</strong></td><td><strong>{ultimoMese >= 0 ? fmtScost(scost(realeAlMese, budAlMese)) : "—"}</strong></td></>}
+                    <td>{euro(totAnno.hub)}</td><td>{euro(totAnno.tot - totAnno.hub)}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
+          )}
+          {!haBudget && annuale !== null && <p className="aa-nota">Budget {annoSel} non ancora caricato: quando c'è, compaiono le colonne Budget e Scostamento.</p>}
+          {haBudget && annuale !== null && (
+            <>
+              <h3 className="aa-h3">Scostamento per team {ultimoMese >= 0 && ultimoMese < 11 ? `(gennaio – ${MESI[ultimoMese].toLowerCase()})` : ""}</h3>
+              <div className="aa-scorri">
+                <table className="aa-tabella">
+                  <thead><tr><th>Team</th><th>Incassato</th><th>Budget a oggi</th><th>Scostamento</th><th>Budget annuo</th><th>Avanzamento annuo</th></tr></thead>
+                  <tbody>
+                    {righeTeamBudget.map((r) => (
+                      <tr key={r.t}><td><strong>{r.t}</strong></td><td>{euro(r.reale)}</td><td>{euro(r.bAl)}</td>
+                        <td className={r.sc ? (r.sc.eur >= 0 ? "aa-testo-verde" : "aa-testo-rosso") : ""}>{fmtScost(r.sc)}</td>
+                        <td>{euro(r.bAnno)}</td><td>{r.bAnno ? `${((totTeamAnno(r.t) / r.bAnno) * 100).toFixed(1).replace(".", ",")}%` : "—"}</td></tr>
+                    ))}
+                    <tr className="aa-riga-totale"><td><strong>Totale store</strong></td><td>{euro(realeAlMese)}</td><td>{euro(budAlMese)}</td><td><strong>{fmtScost(scost(realeAlMese, budAlMese))}</strong></td><td>{euro(budAnno)}</td><td>{budAnno ? `${((totAnno.tot / budAnno) * 100).toFixed(1).replace(".", ",")}%` : "—"}</td></tr>
+                  </tbody>
+                </table>
+              </div>
+            </>
           )}
         </section>
       )}

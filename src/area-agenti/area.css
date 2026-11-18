@@ -704,3 +704,4 @@ a { color: inherit; }
 .aa-azioni-testata select { padding: 9px 12px; border: 1px solid var(--linea); border-radius: 8px; font: inherit; background: #fff; }
 .aa-riga-titolo { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 12px; }
 .aa-riga-titolo .aa-h2 { margin: 0; }
+.aa-testo-verde { color: #1E7B46; font-weight: 600; }

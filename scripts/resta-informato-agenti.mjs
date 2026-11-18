@@ -2,13 +2,13 @@
 // WhatsApp, Facebook ecc. leggono solo i meta tag dell'HTML (non eseguono JavaScript), quindi il link
 // /resta-informato?a=rausa mostrava sempre "Nicola Nigido". Qui, dopo la build, si crea una copia della
 // pagina per ogni agente (dist/resta-informato/a/<codice>.html) con titolo e anteprima a suo nome;
-// vercel.json la serve quando c'è ?a=<codice>. L'elenco agenti è letto da AGENTI dentro la pagina stessa.
+// vercel.json la serve quando c'è ?a=<codice>. La pagina normale è pagina.html (non index.html): con index.html Vercel la serviva direttamente e ignorava la regola per agente. L'elenco agenti è letto da AGENTI dentro la pagina stessa.
 import { readFileSync, writeFileSync, mkdirSync } from "node:fs";
 
-const src = "dist/resta-informato/index.html";
+const src = "dist/resta-informato/pagina.html";
 const html = readFileSync(src, "utf8");
 const blocco = html.match(/var AGENTI=\{([\s\S]*?)\n\s*\};/);
-if (!blocco) throw new Error("AGENTI non trovato in resta-informato/index.html");
+if (!blocco) throw new Error("AGENTI non trovato in resta-informato/pagina.html");
 const agenti = [...blocco[1].matchAll(/^\s*([a-z]+):\{nome:"([^"]+)"/gm)].map((m) => ({ codice: m[1], nome: m[2] }));
 if (agenti.length < 5) throw new Error(`Trovati solo ${agenti.length} agenti`);
 

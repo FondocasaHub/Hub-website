@@ -661,6 +661,7 @@ a { color: inherit; }
 .cp-commento p { margin: 0; }
 .cp-risposta { margin-top: 6px !important; color: var(--verde); }
 .cp-attesa { color: var(--tenue); font-style: italic; }
+.cp-come-sara { border-left: 4px solid var(--gold); }
 .cp-controlla { margin: 0; padding-left: 20px; }
 .cp-controlla li { margin: 0 0 8px; line-height: 1.45; }
 .cp-approva { text-align: center; }

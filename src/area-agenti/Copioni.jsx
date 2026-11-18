@@ -164,6 +164,13 @@ export function SchedaCopione({ id, profilo, vai }) {
       {msg && <p className="aa-box-info cp-ok-msg">{msg}</p>}
       {daAccettare && documenti && <Contratto documenti={documenti} onAccettato={(x) => { setDocumenti(x.documenti); setC({ ...c, da_accettare: x.da_accettare }); }} />}
 
+      {c.come_sara && (
+        <section className="aa-card cp-come-sara">
+          <h2 className="aa-h2">Come sarà il video</h2>
+          <p style={{ margin: 0, lineHeight: 1.55, whiteSpace: "pre-line" }}>{c.come_sara}</p>
+        </section>
+      )}
+
       <section className="aa-card cp-copione">
         {c.inizio.length > 0 && (
           <>

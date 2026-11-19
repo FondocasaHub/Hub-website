@@ -6,6 +6,7 @@
 // orari e inviti: funzione supabase/functions/one-to-one.
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "./supabase";
+import PresenzeRating from "./Presenze.jsx";
 
 const INDICATORI = [
   ["contatti", "Contatti fatti"],
@@ -83,6 +84,7 @@ export default function OneToOne({ profilo }) {
     prenota && { id: "mio", nome: "Il mio One to One" },
     coach && { id: "team", nome: profilo.ruolo === "admin" ? "Tutti" : "Il mio team" },
     profilo.ruolo === "admin" && { id: "impostazioni", nome: "Orari e calendario" },
+    { id: "presenze", nome: coach ? "Presenze e rating" : "Il mio rating" },
   ].filter(Boolean);
   const [modo, setModo] = useState(schede[0]?.id);
 
@@ -90,8 +92,10 @@ export default function OneToOne({ profilo }) {
     <>
       <div className="aa-intestazione">
         <p className="aa-occhiello">Coaching</p>
-        <h1 className="aa-titolo">One to One</h1>
-        <p className="aa-sottotitolo">L'ultimo giorno lavorativo del mese, dalle 11:00. Prenota il tuo orario e compila la verifica mensile prima dell'incontro.</p>
+        <h1 className="aa-titolo">One to One e presenze</h1>
+        <p className="aa-sottotitolo">{modo === "presenze"
+          ? "Presenze a riunioni ed eventi, recensioni Google e fatturato: il rating di ogni agente."
+          : "L'ultimo giorno lavorativo del mese, dalle 11:00. Prenota il tuo orario e compila la verifica mensile prima dell'incontro."}</p>
       </div>
       {schede.length > 1 && (
         <div className="aa-schede">
@@ -101,6 +105,7 @@ export default function OneToOne({ profilo }) {
       {modo === "mio" && <MioOneToOne profilo={profilo} />}
       {modo === "team" && <Team profilo={profilo} />}
       {modo === "impostazioni" && <Impostazioni />}
+      {modo === "presenze" && <PresenzeRating profilo={profilo} />}
     </>
   );
 }

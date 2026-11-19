@@ -754,3 +754,34 @@ a { color: inherit; }
 @media (max-width: 720px) { .oo-azioni-riga { text-align: left; } }
 .oo-dati strong { color: var(--navy); font-size: 16px; font-weight: 600; letter-spacing: 0; }
 .oo-in-arrivo { margin-bottom: 20px; }
+
+/* ===== Presenze e rating (One to One e presenze) ===== */
+.pr-sottoschede { margin-top: -8px; }
+.pr-periodo { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.pr-periodo select { width: auto; }
+.pr-tabella th, .pr-tabella td { white-space: nowrap; text-align: center; }
+.pr-tabella th:nth-child(2), .pr-tabella td:nth-child(2) { text-align: left; }
+.pr-rating { font-weight: 700; color: var(--navy); }
+.pr-rating small { font-weight: 500; color: var(--tenue); }
+.pr-verde small { color: #1e7a46; }
+.pr-giallo small { color: #a87400; }
+.pr-rosso small { color: #b42318; }
+.pr-stelle { color: var(--gold); letter-spacing: 1px; }
+.pr-stelle span { opacity: 0.25; }
+.pr-azioni-sx { justify-content: flex-start; margin-bottom: 16px; }
+.pr-tutti { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; margin: 8px 0 14px; font-size: 14px; color: var(--tenue); }
+.pr-stati { display: flex; gap: 4px; flex-wrap: wrap; }
+.pr-stato { border: 1px solid var(--linea); background: #fff; border-radius: 999px; padding: 5px 11px; font-size: 13px; color: var(--tenue); cursor: pointer; }
+.pr-stato.attivo { color: #fff; border-color: transparent; }
+.pr-stato-presente.attivo { background: #1e7a46; }
+.pr-stato-ritardo.attivo { background: #a87400; }
+.pr-stato-assente.attivo { background: #b42318; }
+.pr-stato-giustificato.attivo { background: var(--navy); }
+.pr-foglio input { min-width: 140px; }
+.pr-lunedi { margin: 10px 0 4px; }
+.pr-recensione { border-left: 3px solid var(--gold); padding: 10px 14px; margin: 10px 0; background: var(--carta); border-radius: 0 10px 10px 0; }
+.pr-recensione p { margin: 6px 0 0; font-style: italic; font-size: 14px; line-height: 1.5; }
+.pr-assegna { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-top: 8px; }
+.pr-assegna select { width: auto; }
+.pr-pesi input { width: 80px !important; text-align: right; }
+.pr-obiettivo { max-width: 320px; margin-top: 16px; }

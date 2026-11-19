@@ -61,8 +61,8 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
-  riquadri.unshift({ id: "one-to-one", titolo: "One to One",
-    testo: profilo.ruolo === "admin" ? "I One to One di fine mese: orari, verifiche mensili di tutti e archivio" : "Prenota il One to One di fine mese e compila la verifica mensile; archivio delle tue schede",
+  riquadri.unshift({ id: "one-to-one", titolo: "One to One e presenze",
+    testo: ["admin", "manager"].includes(profilo.ruolo) ? "One to One di fine mese, presenze a riunioni ed eventi, recensioni e rating agenti" : "Prenota il One to One, compila la verifica mensile e guarda il tuo rating",
     icona: "onetoone" });
   if (["agente", "manager", "admin", "credito"].includes(profilo.ruolo)) {
     riquadri.unshift({ id: "giornata", titolo: "La mia giornata", testo: "Contatore contatti, piano del giorno e obiettivi personali di produttività", icona: "produttivita" });

@@ -753,3 +753,4 @@ a { color: inherit; }
 .oo-giorno-spostato { max-width: 360px; margin-bottom: 8px; }
 @media (max-width: 720px) { .oo-azioni-riga { text-align: left; } }
 .oo-dati strong { color: var(--navy); font-size: 16px; font-weight: 600; letter-spacing: 0; }
+.oo-in-arrivo { margin-bottom: 20px; }

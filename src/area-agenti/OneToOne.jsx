@@ -33,9 +33,21 @@ const formatta = (n, k) => (k === "fatturato" ? n.toLocaleString("it-IT", { maxi
 const esc = (v) => String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
 const entro24 = (iso) => new Date(iso).getTime() - Date.now() < 24 * 3600 * 1000;
 
+// Finché Nicola non ha eseguito lo SQL e pubblicato la funzione, la pagina lo dice con calma invece dell'errore tecnico.
+const IN_ARRIVO = "Il One to One si sta attivando: tra poco trovi qui gli orari da prenotare e la verifica mensile.";
+const nonAttivo = (e) => e?.message === IN_ARRIVO
+  || /PGRST20[0-9]|42P01|42883|schema cache|does not exist|Could not find|non ancora attivo/i.test(`${e?.code || ""} ${e?.message || ""}`);
+const testoErrore = (e) => (nonAttivo(e) ? IN_ARRIVO : e?.message || "Qualcosa non ha funzionato: riprova tra poco.");
+function Errore({ testo }) {
+  if (!testo) return null;
+  return testo === IN_ARRIVO ? <div className="aa-avviso oo-in-arrivo"><strong>In arrivo</strong><p>{testo}</p></div>
+    : <p className="aa-errore">{testo}</p>;
+}
+
 async function chiama(body) {
   const { data, error } = await supabase.functions.invoke("one-to-one", { body });
   if (error) {
+    if (error.context?.status === 404) throw new Error(IN_ARRIVO);   // funzione non ancora pubblicata
     let msg = "";
     try { msg = (await error.context.json()).errore; } catch { /* risposta senza testo */ }
     throw new Error(msg || "Non riesco a raggiungere il calendario dei One to One: riprova tra poco.");
@@ -105,12 +117,13 @@ function MioOneToOne({ profilo }) {
 
   useEffect(() => {
     setErrore("");
-    chiama({ azione: "slot" }).then(setGiorno).catch((e) => setErrore(e.message));
+    chiama({ azione: "slot" }).then(setGiorno).catch((e) => setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(e))));
     supabase.from("one_to_one").select("*").eq("user_id", profilo.id).order("mese", { ascending: false })
-      .then(({ data, error }) => { if (error) setErrore(error.message); setRighe(data || []); });
+      .then(({ data, error }) => { if (error) setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(error))); setRighe(data || []); });
   }, [profilo.id, ricarica]);
 
   if (righe === null) return <div className="aa-spinner" aria-label="Caricamento" />;
+  if (errore === IN_ARRIVO) return <Errore testo={errore} />;
   const mese = giorno?.mese;
   const riga = righe.find((r) => r.mese === mese) || null;
   const archivio = righe.filter((r) => r.mese !== mese);
@@ -118,7 +131,7 @@ function MioOneToOne({ profilo }) {
 
   return (
     <>
-      {errore && <p className="aa-errore">{errore}</p>}
+      <Errore testo={errore} />
       {giorno && <Prenotazione giorno={giorno} riga={riga} persona={persona} onFatto={() => setRicarica((n) => n + 1)} />}
       {mese && (
         <Scheda key={mese + (riga?.id || "")} mese={mese} riga={riga} storico={righe} persona={persona} comeCoach={false}
@@ -175,7 +188,7 @@ function Prenotazione({ giorno, riga, persona, onFatto, perCoach = false }) {
       const r = await chiama({ azione: "prenota", inizio: o.inizio, ...(perCoach ? { user_id: persona.id } : {}) });
       setEsito(r.email ? "Fatto: l'invito per il calendario arriva per email." : "Fatto. L'email con l'invito non è partita: l'orario resta comunque prenotato.");
       setSposta(false); onFatto();
-    } catch (e) { setErrore(e.message); } finally { setOccupato(false); }
+    } catch (e) { setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(e))); } finally { setOccupato(false); }
   };
   const disdici = async () => {
     if (!window.confirm("Disdici il One to One? L'appuntamento viene tolto dai calendari.")) return;
@@ -183,7 +196,7 @@ function Prenotazione({ giorno, riga, persona, onFatto, perCoach = false }) {
     try {
       await chiama({ azione: "disdici", id: riga.id, ...(perCoach ? { user_id: persona.id } : {}) });
       onFatto();
-    } catch (e) { setErrore(e.message); } finally { setOccupato(false); }
+    } catch (e) { setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(e))); } finally { setOccupato(false); }
   };
 
   const griglia = (
@@ -205,7 +218,7 @@ function Prenotazione({ giorno, riga, persona, onFatto, perCoach = false }) {
   return (
     <section className="aa-card">
       <h2 className="aa-h2">{perCoach ? "Orario" : `One to One di ${nomeMese(giorno.mese).toLowerCase()}`}</h2>
-      {errore && <p className="aa-errore">{errore}</p>}
+      <Errore testo={errore} />
       {esito && <p className="aa-nota oo-ok">{esito}</p>}
       {prenotato ? (
         <>
@@ -295,7 +308,7 @@ function Scheda({ mese, riga, storico, persona, comeCoach, onSalvata, dentro = f
         {riga && <button className="aa-link" onClick={() => stampa({ ...riga, scheda: s, semaforo, note_coach: note }, storico, persona.nome)}>Stampa PDF</button>}
       </div>
       {chiusa && <p className="aa-nota">Chiusa dal coach il {new Date(riga.coach_confermato_il).toLocaleDateString("it-IT")}{comeCoach ? ": puoi ancora correggerla." : "."}</p>}
-      {errore && <p className="aa-errore">{errore}</p>}
+      <Errore testo={errore} />
 
       <h3 className="oo-h3"><span className="aa-sezione-n">1</span>Dati</h3>
       <div className="aa-griglia-campi oo-dati">
@@ -430,10 +443,10 @@ function Team({ profilo }) {
 
   useEffect(() => {
     chiama({ azione: "slot", ...(mese ? { mese } : {}) }).then((g) => { setGiorno(g); setMese((m) => m || g.mese); })
-      .catch((e) => setErrore(e.message));
+      .catch((e) => setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(e))));
   }, [mese, ricarica]);
   useEffect(() => {
-    supabase.rpc("one_to_one_collaboratori").then(({ data, error }) => { if (error) setErrore(error.message); setPersone(data || []); });
+    supabase.rpc("one_to_one_collaboratori").then(({ data, error }) => { if (error) setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(error))); setPersone(data || []); });
   }, []);
   useEffect(() => {
     if (!mese) return;
@@ -455,7 +468,7 @@ function Team({ profilo }) {
     return out.reverse();
   }, [giorno?.mese]);
 
-  if (persone === null || !giorno) return errore ? <p className="aa-errore">{errore}</p> : <div className="aa-spinner" aria-label="Caricamento" />;
+  if (persone === null || !giorno) return errore ? <Errore testo={errore} /> : <div className="aa-spinner" aria-label="Caricamento" />;
   const perUtente = Object.fromEntries(righe.map((r) => [r.user_id, r]));
   const elenco = persone.map((p) => ({ ...p, riga: perUtente[p.user_id] }))
     .sort((a, b) => (a.riga?.inizio || "z").localeCompare(b.riga?.inizio || "z") || (a.nome || "").localeCompare(b.nome || ""));
@@ -478,7 +491,7 @@ function Team({ profilo }) {
 
   return (
     <>
-      {errore && <p className="aa-errore">{errore}</p>}
+      <Errore testo={errore} />
       <section className="aa-card">
         <div className="aa-card-testa">
           <h2 className="aa-h2">{nomeMese(mese)}</h2>
@@ -531,11 +544,11 @@ function Impostazioni() {
 
   const carica = () => {
     supabase.from("one_to_one_impostazioni").select("*").eq("id", 1).maybeSingle()
-      .then(({ data, error }) => { if (error) setErrore(error.message); setImp(data); });
-    chiama({ azione: "slot" }).then(setGiorno).catch((e) => setErrore(e.message));
+      .then(({ data, error }) => { if (error) setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(error))); setImp(data); });
+    chiama({ azione: "slot" }).then(setGiorno).catch((e) => setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(e))));
   };
   useEffect(carica, []);
-  if (!imp) return errore ? <p className="aa-errore">{errore}</p> : <div className="aa-spinner" aria-label="Caricamento" />;
+  if (!imp) return errore ? <Errore testo={errore} /> : <div className="aa-spinner" aria-label="Caricamento" />;
 
   const metti = (k, v) => setImp((x) => ({ ...x, [k]: v }));
   const chiave = giorno?.mese.slice(0, 7);
@@ -555,14 +568,14 @@ function Impostazioni() {
       giorni_spostati: imp.giorni_spostati || {}, chiusi: (imp.chiusi || []).filter((x) => new Date(x).getTime() > ora_),
     }).eq("id", 1);
     setSalvo(false);
-    if (error) return setErrore(error.message);
+    if (error) return setErrore((x) => (x === IN_ARRIVO ? x : testoErrore(error)));
     setEsito("Salvato."); carica();
   };
 
   return (
     <section className="aa-card">
       <h2 className="aa-h2">Orari e calendario</h2>
-      {errore && <p className="aa-errore">{errore}</p>}
+      <Errore testo={errore} />
       <div className="aa-griglia-campi">
         <label className="aa-campo"><span>Email del calendario dei One to One</span>
           <input type="email" value={imp.email_coach} onChange={(e) => metti("email_coach", e.target.value)} placeholder="riceve gli inviti" /></label>

@@ -30,6 +30,7 @@ const ICONE = {
   manager: "M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 16.4 6.7 19.1l1-5.8L3.5 9.2l5.9-.9z",
   copioni: "M4 6h12v12H4z M16 10l4-2v8l-4-2 M7 10h6 M7 13h4",
   formazione: "M3 5h18v14H3z M10 9l5 3-5 3z",
+  onetoone: "M8 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M16 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6z M3 20v-1a4 4 0 0 1 4-4h2 M21 20v-1a4 4 0 0 0-4-4h-2 M10 18h4",
 };
 function Icona({ nome }) {
   return (
@@ -60,6 +61,9 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
+  riquadri.unshift({ id: "one-to-one", titolo: "One to One",
+    testo: profilo.ruolo === "admin" ? "I One to One di fine mese: orari, verifiche mensili di tutti e archivio" : "Prenota il One to One di fine mese e compila la verifica mensile; archivio delle tue schede",
+    icona: "onetoone" });
   if (["agente", "manager", "admin", "credito"].includes(profilo.ruolo)) {
     riquadri.unshift({ id: "giornata", titolo: "La mia giornata", testo: "Contatore contatti, piano del giorno e obiettivi personali di produttività", icona: "produttivita" });
   }

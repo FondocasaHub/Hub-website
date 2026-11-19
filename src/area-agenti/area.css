@@ -711,3 +711,46 @@ a { color: inherit; }
 .sh-campo, .sh-scelta { min-width: 0; max-width: 100%; }
 .sh-giorni { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 6px; margin: 8px 0 4px; }
 .sh-giorni .aa-btn { flex: 0 0 auto; text-transform: capitalize; }
+
+/* One to One mensile (dal 19/11/2026, richiesta di Nicola) */
+.oo-h3 { font-size: 16px; font-weight: 600; margin: 24px 0 12px; display: flex; align-items: center; }
+.oo-scorri { overflow-x: auto; max-width: 100%; }
+.oo-numeri td:first-child { min-width: 130px; }
+.oo-numeri input { min-width: 64px !important; width: 84px !important; text-align: right; }
+.oo-numeri th { white-space: nowrap; }
+.oo-n { text-align: right; white-space: nowrap; }
+.oo-n small { color: var(--tenue); }
+.oo-meno { color: var(--rosso); }
+.oo-orario.oo-libero { background: #fff; }
+.oo-orario:disabled { opacity: 1; cursor: not-allowed; border-color: var(--linea); color: var(--tenue); background: rgba(10, 31, 61, 0.05); text-decoration: line-through; }
+.oo-orario.oo-chiuso { border-color: var(--rosso); color: var(--rosso); text-decoration: line-through; }
+.oo-ok { color: var(--verde); font-weight: 500; }
+.oo-semaforo-riga { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin: 4px 0 8px; }
+.oo-semaforo-riga select { padding: 7px 8px; border: 1px solid var(--linea); border-radius: 6px; background: #fff; }
+.oo-etichetta { font-size: 13px; font-weight: 600; color: var(--tenue); }
+.oo-semaforo { display: inline-block; font-size: 13px; font-weight: 600; padding: 3px 10px; border-radius: 999px; white-space: nowrap; }
+.oo-semaforo-verde { background: rgba(46, 107, 74, 0.12); color: var(--verde); }
+.oo-semaforo-giallo { background: rgba(193, 154, 91, 0.2); color: #7A5A22; }
+.oo-semaforo-rosso { background: rgba(166, 61, 50, 0.12); color: var(--rosso); }
+.oo-inline { margin: 0; }
+.oo-precedenti { background: var(--cream); border-left: 3px solid var(--gold); border-radius: 8px; padding: 10px 14px; margin-bottom: 14px; font-size: 14px; }
+.oo-precedenti ul { margin: 6px 0 0; padding-left: 18px; }
+.oo-voto { max-width: 110px; }
+.oo-testo { margin: 0; color: var(--navy); font-weight: 400; white-space: pre-line; font-size: 15px; }
+.oo-note { margin-top: 16px; }
+.oo-conferme { display: grid; gap: 4px; margin: 20px 0 12px; font-size: 14px; color: var(--tenue); }
+.oo-conferme p { margin: 0; }
+.oo-conferme .oo-fatta { color: var(--verde); font-weight: 600; }
+.oo-azioni-riga { white-space: nowrap; text-align: right; }
+.oo-azioni-riga .aa-link + .aa-link { margin-left: 14px; }
+.oo-dentro { background: var(--cream); }
+.oo-scheda-dentro { padding: 8px 4px; }
+.oo-team { color: var(--tenue); }
+.oo-indietro { display: inline-block; margin-bottom: 16px; }
+.oo-messaggio { background: var(--cream); border-radius: 8px; padding: 12px 14px; margin: 0 0 12px; }
+.oo-pausa { display: flex; gap: 8px; }
+.oo-pausa input { min-width: 0; flex: 1; }
+.oo-giorno-spostato { max-width: 360px; margin-bottom: 8px; }
+@media (max-width: 720px) { .oo-azioni-riga { text-align: left; } }
+.oo-dati strong { color: var(--navy); font-size: 16px; font-weight: 600; letter-spacing: 0; }
+.oo-in-arrivo { margin-bottom: 20px; }

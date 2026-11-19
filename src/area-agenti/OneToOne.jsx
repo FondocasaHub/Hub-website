@@ -22,7 +22,6 @@ const DOMANDE = [
 ];
 const SEMAFORI = { verde: "Verde · in linea", giallo: "Giallo · da recuperare", rosso: "Rosso · fuori obiettivo" };
 const MESI = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-const COLLABORATORI = ["agente", "manager", "credito"];
 
 const nomeMese = (m) => (m ? `${MESI[Number(m.slice(5, 7)) - 1]} ${m.slice(0, 4)}` : "");
 const ora = (iso) => new Date(iso).toLocaleTimeString("it-IT", { timeZone: "Europe/Rome", hour: "2-digit", minute: "2-digit" });
@@ -78,7 +77,7 @@ const statoScheda = (r) => (!r ? "da compilare" : r.coach_confermato_il ? "chius
 
 /* ================================================================ pagina */
 export default function OneToOne({ profilo }) {
-  const prenota = COLLABORATORI.includes(profilo.ruolo);
+  const prenota = profilo.ruolo !== "admin";   // tutti tranne Nicola, che li fa (anche lo staff dello store)
   const coach = ["admin", "manager"].includes(profilo.ruolo);
   const schede = [
     prenota && { id: "mio", nome: "Il mio One to One" },
@@ -102,7 +101,6 @@ export default function OneToOne({ profilo }) {
       {modo === "mio" && <MioOneToOne profilo={profilo} />}
       {modo === "team" && <Team profilo={profilo} />}
       {modo === "impostazioni" && <Impostazioni />}
-      {!modo && <section className="aa-card"><p>Il One to One è per agenti, manager e consulenti del credito.</p></section>}
     </>
   );
 }

@@ -61,10 +61,10 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
+  riquadri.unshift({ id: "one-to-one", titolo: "One to One",
+    testo: profilo.ruolo === "admin" ? "I One to One di fine mese: orari, verifiche mensili di tutti e archivio" : "Prenota il One to One di fine mese e compila la verifica mensile; archivio delle tue schede",
+    icona: "onetoone" });
   if (["agente", "manager", "admin", "credito"].includes(profilo.ruolo)) {
-    riquadri.unshift({ id: "one-to-one", titolo: "One to One",
-      testo: profilo.ruolo === "admin" ? "I One to One di fine mese: orari, verifiche mensili di tutti e archivio" : "Prenota il One to One di fine mese e compila la verifica mensile; archivio delle tue schede",
-      icona: "onetoone" });
     riquadri.unshift({ id: "giornata", titolo: "La mia giornata", testo: "Contatore contatti, piano del giorno e obiettivi personali di produttività", icona: "produttivita" });
   }
   riquadri.unshift({ id: "app", titolo: "App Chirone", testo: "Diario di oggi e Chiedi a Chirone dal telefono: installala sulla schermata Home", icona: "produttivita" });

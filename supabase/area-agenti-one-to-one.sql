@@ -158,13 +158,15 @@ $$;
 revoke execute on function public.one_to_one_occupati(timestamptz, timestamptz) from public, anon;
 grant execute on function public.one_to_one_occupati(timestamptz, timestamptz) to authenticated;
 
--- Chi deve fare il One to One: i collaboratori attivi che chi chiama può seguire (admin tutti, manager il suo team).
+-- Chi deve fare il One to One: i collaboratori attivi che chi chiama può seguire (admin tutti, manager il suo team):
+-- agenti, manager e credito sempre; lo staff dello store quando ha prenotato o compilato almeno una volta.
 create or replace function public.one_to_one_collaboratori()
 returns table (user_id uuid, nome text, email text, ruolo public.ruolo, team text)
 language sql stable security definer set search_path = public as $$
   select p.id, p.nome, p.email, p.ruolo, p.team
   from public.profiles p
-  where p.attivo and p.ruolo in ('agente','manager','credito') and p.id <> auth.uid() and public.gestisco_percorso(p.id)
+  where p.attivo and p.id <> auth.uid() and public.gestisco_percorso(p.id)
+    and (p.ruolo in ('agente','manager','credito') or exists (select 1 from public.one_to_one o where o.user_id = p.id))
   order by p.nome
 $$;
 revoke execute on function public.one_to_one_collaboratori() from public, anon;

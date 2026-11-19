@@ -248,7 +248,7 @@ export function NuovaRichiesta({ profilo, vai }) {
 
         <Sezione n="03" titolo="Shooting: quando registriamo">
           {!aMano ? (
-            <div className="aa-campo aa-campo-largo">
+            <div className="aa-campo aa-campo-largo sh-campo">
               <SceltaSlot scelto={slot} onScegli={setSlot} ricarica={giroSlot} />
               {slot && <p className="aa-info">Scelto: <strong>{testoSlot(slot)}</strong>. Lo shooting si prenota quando invii la richiesta.</p>}
               <button type="button" className="aa-link" onClick={() => { setAMano(true); setSlot(null); }}>Nessuno slot va bene? Proponi tu due date</button>

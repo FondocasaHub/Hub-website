@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "./supabase";
+import { SceltaSlot, ShootingRichiesta, chiamaShooting, testoSlot } from "./ShootingSlot.jsx";
 
 /* ============ Definizione del Modulo Ingaggio Marketing Hub ============ */
 const OPZ = {
@@ -114,6 +115,10 @@ export function NuovaRichiesta({ profilo, vai }) {
   });
   const [file, setFile] = useState({ foto: [], video: [], planimetria: [], pratica: [], relazione: [] });
   const [stato, setStato] = useState({ invio: false, msg: "", errore: "" });
+  // dal 19/11/2026 l'agente sceglie lo slot dello shooting (Sensoria); «a mano» = le due date proposte di prima
+  const [slot, setSlot] = useState(null);
+  const [aMano, setAMano] = useState(false);
+  const [giroSlot, setGiroSlot] = useState(0);
   const set = (k) => (e) => setF({ ...f, [k]: e.target.value });
   const toggle = (k, v) => setF({ ...f, [k]: f[k].includes(v) ? f[k].filter((x) => x !== v) : [...f[k], v] });
 
@@ -150,6 +155,23 @@ export function NuovaRichiesta({ profilo, vai }) {
     if (file.relazione.length === 0 && !f.relazione_geometra) return setStato({ ...stato, errore: "Allega la relazione tecnica, oppure indica che la sta preparando il geometra (sezione Allegati)." });
     if (!f.accetta_clausola) return setStato({ ...stato, errore: "Devi accettare la clausola di rimborso spese (sezione 07)." });
 
+    if (!aMano && !slot) return setStato({ ...stato, errore: "Scegli lo slot dello shooting (sezione 03), oppure proponi tu due date." });
+
+    // lo slot si prenota per primo: se nel frattempo l'ha preso un altro, l'agente ne sceglie un altro senza perdere niente
+    let prenotazione = null;
+    const libera = async () => { if (prenotazione) await chiamaShooting(`/${prenotazione.id}/disdici`, {}).catch(() => {}); };
+    if (!aMano) {
+      setStato({ invio: true, msg: "Prenotazione dello shooting…", errore: "" });
+      try {
+        const d = await chiamaShooting("/prenota", { inizio: slot.inizio, immobile: { indirizzo: f.indirizzo, zona: f.zona, codice: f.codice_annuncio,
+          accesso: f.accesso, condizioni: f.immobile_stato_foto, telefono: f.agente_cell } });
+        prenotazione = d.prenotazione;
+      } catch (err) {
+        setSlot(null); setGiroSlot((n) => n + 1);
+        return setStato({ invio: false, msg: "", errore: `Lo shooting non è prenotato: ${err.message}` });
+      }
+    }
+
     setStato({ invio: true, msg: "Caricamento allegati…", errore: "" });
     const { data: { user } } = await supabase.auth.getUser();
     const pratica = crypto.randomUUID();
@@ -160,7 +182,7 @@ export function NuovaRichiesta({ profilo, vai }) {
       setStato({ invio: true, msg: `Caricamento allegati ${i + 1} di ${tutti.length}…`, errore: "" });
       const percorso = `${user.id}/${pratica}/${cat}-${i + 1}-${nomeSicuro(x.name)}`;
       const { error } = await supabase.storage.from("richieste").upload(percorso, x, { contentType: x.type || undefined });
-      if (error) return setStato({ invio: false, msg: "", errore: `Errore nel caricamento di ${x.name}: ${error.message}` });
+      if (error) { await libera(); return setStato({ invio: false, msg: "", errore: `Errore nel caricamento di ${x.name}: ${error.message}` }); }
       allegati.push({ percorso, nome: x.name, tipo: cat, dimensione: x.size });
     }
 
@@ -171,6 +193,11 @@ export function NuovaRichiesta({ profilo, vai }) {
       prezzo: f.prezzo,
       data_richiesta: dataIT(f.data_richiesta),
       data_1: dataIT(f.data_1), data_2: dataIT(f.data_2),
+      ...(prenotazione ? {
+        data_1: dataIT(prenotazione.inizio), ora_1: `${prenotazione.ora}–${prenotazione.ora_fine}, shooting prenotato con ${prenotazione.con}`,
+        data_2: "", ora_2: "",
+        shooting: { id: prenotazione.id, inizio: prenotazione.inizio, fine: prenotazione.fine, con: prenotazione.con },
+      } : {}),
       accetta_clausola: "Letta e accettata",
       luogo_data: `${f.luogo}, ${adesso.toLocaleDateString("it-IT")}`,
       firma: `Firmato elettronicamente da ${f.agente_nome} (${profilo.email}) il ${adesso.toLocaleString("it-IT")}`,
@@ -181,7 +208,8 @@ export function NuovaRichiesta({ profilo, vai }) {
       agente_nome: f.agente_nome, agente_team: f.agente_team, agente_email: f.agente_email,
       codice_annuncio: f.codice_annuncio, indirizzo: f.indirizzo, dati, allegati,
     }).select("id").single();
-    if (error) return setStato({ invio: false, msg: "", errore: `La richiesta non è stata salvata: ${error.message}` });
+    if (error) { await libera(); return setStato({ invio: false, msg: "", errore: `La richiesta non è stata salvata: ${error.message}` }); }
+    if (prenotazione) await chiamaShooting(`/${prenotazione.id}/collega`, { richiesta: r.id }).catch(() => {});
 
     setStato({ invio: true, msg: "Invio dell'email al marketing…", errore: "" });
     const { error: errEmail } = await supabase.functions.invoke("notifica-marketing", { body: { id: r.id } });
@@ -218,11 +246,22 @@ export function NuovaRichiesta({ profilo, vai }) {
           <Campo label="Telefono proprietario">{testo("proprietario_tel", { type: "tel", inputMode: "tel" })}</Campo>
         </Sezione>
 
-        <Sezione n="03" titolo="Appuntamento proposto">
-          <Campo label="Data proposta 1">{testo("data_1", { type: "date", min: oggiISO() })}</Campo>
-          <Campo label="Orario proposta 1">{testo("ora_1", { type: "time" })}</Campo>
-          <Campo label="Data proposta 2">{testo("data_2", { type: "date", min: oggiISO() })}</Campo>
-          <Campo label="Orario proposta 2">{testo("ora_2", { type: "time" })}</Campo>
+        <Sezione n="03" titolo="Shooting: quando registriamo">
+          {!aMano ? (
+            <div className="aa-campo aa-campo-largo sh-campo">
+              <SceltaSlot scelto={slot} onScegli={setSlot} ricarica={giroSlot} />
+              {slot && <p className="aa-info">Scelto: <strong>{testoSlot(slot)}</strong>. Lo shooting si prenota quando invii la richiesta.</p>}
+              <button type="button" className="aa-link" onClick={() => { setAMano(true); setSlot(null); }}>Nessuno slot va bene? Proponi tu due date</button>
+            </div>
+          ) : (
+            <>
+              <Campo label="Data proposta 1">{testo("data_1", { type: "date", min: oggiISO() })}</Campo>
+              <Campo label="Orario proposta 1">{testo("ora_1", { type: "time" })}</Campo>
+              <Campo label="Data proposta 2">{testo("data_2", { type: "date", min: oggiISO() })}</Campo>
+              <Campo label="Orario proposta 2">{testo("ora_2", { type: "time" })}</Campo>
+              <button type="button" className="aa-link aa-campo-largo" onClick={() => setAMano(false)}>← Torna agli slot liberi</button>
+            </>
+          )}
           <Campo label="Accesso all'immobile">{scelta("accesso")}</Campo>
           <Campo label="Condizioni per lo shooting">{scelta("immobile_stato_foto")}</Campo>
         </Sezione>
@@ -394,6 +433,8 @@ export function DettaglioRichiesta({ id, vai, gestore }) {
         </section>
       )}
       {!gestore && r.nota_marketing && <p className="aa-box-info"><strong>Nota del marketing:</strong> {r.nota_marketing}</p>}
+
+      <ShootingRichiesta id={r.id} dati={d} />
 
       <section className="aa-card">
         <h2 className="aa-h2">Allegati ({(r.allegati || []).length})</h2>

@@ -171,7 +171,8 @@ export function GestioneComunicazioni({ profilo }) {
 
   const reinvia = async (c) => {
     const gia = c.email_inviata_il ? ` L'avviso è già stato inviato il ${new Date(c.email_inviata_il).toLocaleDateString("it-IT")}.` : "";
-    if (!window.confirm(`Inviare l'email di avviso per "${c.titolo}" a tutti i collaboratori dei ruoli scelti?${gia}`)) return;
+    const chi = c.destinatari?.length ? `ai ${c.destinatari.length} destinatari della comunicazione` : "a tutti i collaboratori dei ruoli scelti";
+    if (!window.confirm(`Inviare l'email di avviso per "${c.titolo}" ${chi}?${gia}`)) return;
     setStato({ invio: true, msg: "Invio email di avviso…", errore: false });
     const r = await inviaEmail(c.id, true);
     avvisa(r.errore ? `Email non inviata: ${r.errore}` : `Email inviata a ${r.inviate} collaboratori`, !!r.errore);
@@ -242,7 +243,7 @@ export function GestioneComunicazioni({ profilo }) {
               </span>
             </div>
             <div>
-              {!c.destinatari?.length && <button className="aa-link" onClick={() => reinvia(c)} disabled={stato.invio}>{c.email_inviata_il ? "Reinvia email" : "Invia email"}</button>}
+              <button className="aa-link" onClick={() => reinvia(c)} disabled={stato.invio}>{c.email_inviata_il ? "Reinvia email" : "Invia email"}</button>
               {" "}
               <button className="aa-link aa-link-rosso" onClick={() => elimina(c)}>Elimina</button>
             </div>

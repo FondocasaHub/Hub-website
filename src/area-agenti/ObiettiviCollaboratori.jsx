@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { supabase } from "./supabase";
-import { euro } from "./compensi";
 
 // Obiettivi per collaboratore (budget dei One to One) contro il reale, trimestre per trimestre.
 // Store Manager e Amministrazione vedono tutti, il Team Manager il suo team, l'agente solo sé stesso.
 const esc = (v) => String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const euro = (v) => `${Math.round(Number(v) || 0).toLocaleString("it-IT")} €`;
 const pctTxt = (x) => `${x >= 0 ? "+" : "−"}${Math.abs(x).toFixed(1).replace(".", ",")}%`;
 
 // Quota di obiettivo maturata a oggi: trimestri chiusi interi + trimestre in corso pro quota (mesi trascorsi su 3)
@@ -44,9 +44,9 @@ export default function ObiettiviCollaboratori({ profilo, stampa }) {
     const c = (coll[r.profilo] = coll[r.profilo] || { nome: r.nome, team: r.team || "Senza team", livello: r.livello });
     c[r.voce] = { ob: Number(r.obiettivo), tr: (r.trimestri || [0, 0, 0, 0]).map(Number), re: (r.reale || [0, 0, 0, 0]).map(Number),
       qd: r.quota_diretta === null || r.quota_diretta === undefined ? null : Number(r.quota_diretta), rd: (r.reale_diretto || [0, 0, 0, 0]).map(Number) };
-    if (c[r.voce].qd !== null) c.nota = `di cui diretta ${euro(c[r.voce].qd)}: solo questa entra nel totale del team`;
+    if (c[r.voce].qd !== null) c.nota = `diretta ${euro(c[r.voce].qd)} (nel totale team)`;
   });
-  const lista = Object.values(coll).sort((a, b) => a.team.localeCompare(b.team) || a.nome.localeCompare(b.nome));
+  const lista = Object.values(coll).sort((a, b) => b.team.localeCompare(a.team) || a.nome.localeCompare(b.nome));
   const teams = [...new Set(lista.map((c) => c.team))];
   const somma = (arr, voce) => {
     const out = { ob: 0, tr: [0, 0, 0, 0], re: [0, 0, 0, 0] };
@@ -81,7 +81,7 @@ export default function ObiettiviCollaboratori({ profilo, stampa }) {
   const Righe = ({ c, titolo, totale }) => (
     <>
       <tr className={totale ? "aa-riga-totale" : ""}>
-        <td rowSpan={2}><strong>{titolo}</strong>{!totale && <small className="aa-ob-liv"><br />{c.livello}</small>}{!totale && c.nota && <small><br />{c.nota}</small>}</td>
+        <td rowSpan={2}><strong>{titolo}</strong>{!totale && <small className="aa-ob-liv"><br />{(c.livello || "").replace("_", " ")}</small>}{!totale && c.nota && <small><br />{c.nota}</small>}</td>
         <td><small>Fatturato</small></td>
         {[0, 1, 2, 3].map((i) => <Cella key={i} v={c.fatturato} i={i} eur />)}
         <td className="aa-ob-cella"><strong>{c.fatturato ? euro(c.fatturato.re.reduce((s, x) => s + x, 0)) : "—"}</strong>{c.fatturato && <small> / {euro(c.fatturato.ob)}</small>}</td>

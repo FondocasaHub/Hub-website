@@ -117,11 +117,13 @@ begin new.id := 1; new.aggiornato_il := now(); new.aggiornato_da := auth.uid(); 
 create trigger rating_impostazioni_regole before update on public.rating_impostazioni
   for each row execute function public.rating_impostazioni_regole();
 
-create or replace function public.presenze_regole() returns trigger
+-- Nome proprio: «presenze_regole» è già la funzione del Cancello su giornata_presenze
+-- (area-agenti-cancello.sql). Il 19/11/2026 l'omonimia l'aveva sovrascritta e bloccato briefing e sblocchi.
+create or replace function public.presenze_eventi_regole() returns trigger
 language plpgsql security definer set search_path = public as $$
 begin new.segnato_da := auth.uid(); new.segnato_il := now(); return new; end $$;
-create trigger presenze_regole before insert or update on public.presenze
-  for each row execute function public.presenze_regole();
+create trigger presenze_eventi_regole before insert or update on public.presenze
+  for each row execute function public.presenze_eventi_regole();
 
 -- Rating del periodo per le persone che chi chiama può vedere (sé stesso; il manager il suo team; l'admin tutti).
 create or replace function public.rating_agenti(p_dal date, p_al date)

@@ -272,6 +272,60 @@ export default function Fatturato({ profilo }) {
 
       {vedeRiepilogo && (
         <section className="aa-card">
+          <h2 className="aa-h2">Riepilogo importi da fatturare</h2>
+          {Object.keys(riepilogo).length === 0 ? <p className="aa-nota">Nessun importo nel periodo.</p> : (
+            <div className="aa-scorri">
+              <table className="aa-tabella">
+                <thead><tr><th>Collaboratore</th><th>Voci</th><th>Da fatturare</th></tr></thead>
+                <tbody>
+                  {Object.values(riepilogo).sort((x, y) => y.totale - x.totale).map((r) => (
+                    <tr key={r.nome}>
+                      <td><strong className={r.nome.startsWith("Non assegnato") ? "aa-testo-rosso" : ""}>{r.nome}</strong></td>
+                      <td><small className="aa-nota">{Object.entries(r.voci).map(([v, i]) => `${v} ${euro(i)}`).join(" · ")}</small></td>
+                      <td><strong>{euro(r.totale)}</strong></td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </section>
+      )}
+
+      <section className="aa-card">
+        <h2 className="aa-h2">Operazioni incassate</h2>
+        {righe === null ? <p className="aa-nota">Caricamento…</p> : lista.length === 0 ? <p className="aa-nota">Nessuna operazione nel periodo.</p> : (
+          <div className="aa-scorri">
+            <table className="aa-tabella aa-tabella-click">
+              <thead><tr><th>Incasso</th><th>Collaboratore</th><th>Cliente / immobile</th><th>Lato</th><th>Importo</th>{!isAmm && <th>Tua quota</th>}</tr></thead>
+              <tbody>
+                {lista.map((r) => (
+                  <React.Fragment key={r.id}>
+                    <tr onClick={() => setAperta(aperta === r.id ? null : r.id)}>
+                      <td>{dataIT(r.data_incasso)}</td>
+                      <td>{r.produttore_nome}<br /><small className="aa-nota">{r.team || "—"}{r.tipologia !== "standard" ? ` · ${r.tipologia === "generica" ? "richiesta generica" : "segnalato dalla Buyer"}` : ""}</small></td>
+                      <td>{r.cliente}{r.indirizzo && <><br /><small className="aa-nota">{r.indirizzo}</small></>}</td>
+                      <td>{r.lato}</td>
+                      <td><strong>{euro(r.importo)}</strong></td>
+                      {!isAmm && <td>{mie(r) ? euro(mie(r)) : "—"}</td>}
+                    </tr>
+                    {aperta === r.id && (
+                      <tr className="aa-riga-dettaglio"><td colSpan={isAmm ? 5 : 6}>
+                        <Quote quote={vedeRiepilogo || isTM ? r.quote : (r.quote || []).filter((q) => q.chi === profilo.id)} />
+                        {r.note && <p className="aa-nota">Note: {r.note}</p>}
+                        {isAdmin && <button className="aa-link aa-link-rosso" onClick={() => elimina(r)}>Elimina incasso</button>}
+                      </td></tr>
+                    )}
+                  </React.Fragment>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
+      </section>
+
+      {vedeRiepilogo && (
+        <section className="aa-card">
           <div className="aa-riga-titolo">
             <h2 className="aa-h2">Riepilogo annuale per mese</h2>
             <div className="aa-azioni-testata">
@@ -329,60 +383,6 @@ export default function Fatturato({ profilo }) {
       )}
 
       <ObiettiviCollaboratori profilo={profilo} stampa={stampaRendiconto} />
-
-      {vedeRiepilogo && (
-        <section className="aa-card">
-          <h2 className="aa-h2">Riepilogo importi da fatturare</h2>
-          {Object.keys(riepilogo).length === 0 ? <p className="aa-nota">Nessun importo nel periodo.</p> : (
-            <div className="aa-scorri">
-              <table className="aa-tabella">
-                <thead><tr><th>Collaboratore</th><th>Voci</th><th>Da fatturare</th></tr></thead>
-                <tbody>
-                  {Object.values(riepilogo).sort((x, y) => y.totale - x.totale).map((r) => (
-                    <tr key={r.nome}>
-                      <td><strong className={r.nome.startsWith("Non assegnato") ? "aa-testo-rosso" : ""}>{r.nome}</strong></td>
-                      <td><small className="aa-nota">{Object.entries(r.voci).map(([v, i]) => `${v} ${euro(i)}`).join(" · ")}</small></td>
-                      <td><strong>{euro(r.totale)}</strong></td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          )}
-        </section>
-      )}
-
-      <section className="aa-card">
-        <h2 className="aa-h2">Operazioni incassate</h2>
-        {righe === null ? <p className="aa-nota">Caricamento…</p> : lista.length === 0 ? <p className="aa-nota">Nessuna operazione nel periodo.</p> : (
-          <div className="aa-scorri">
-            <table className="aa-tabella aa-tabella-click">
-              <thead><tr><th>Incasso</th><th>Collaboratore</th><th>Cliente / immobile</th><th>Lato</th><th>Importo</th>{!isAmm && <th>Tua quota</th>}</tr></thead>
-              <tbody>
-                {lista.map((r) => (
-                  <React.Fragment key={r.id}>
-                    <tr onClick={() => setAperta(aperta === r.id ? null : r.id)}>
-                      <td>{dataIT(r.data_incasso)}</td>
-                      <td>{r.produttore_nome}<br /><small className="aa-nota">{r.team || "—"}{r.tipologia !== "standard" ? ` · ${r.tipologia === "generica" ? "richiesta generica" : "segnalato dalla Buyer"}` : ""}</small></td>
-                      <td>{r.cliente}{r.indirizzo && <><br /><small className="aa-nota">{r.indirizzo}</small></>}</td>
-                      <td>{r.lato}</td>
-                      <td><strong>{euro(r.importo)}</strong></td>
-                      {!isAmm && <td>{mie(r) ? euro(mie(r)) : "—"}</td>}
-                    </tr>
-                    {aperta === r.id && (
-                      <tr className="aa-riga-dettaglio"><td colSpan={isAmm ? 5 : 6}>
-                        <Quote quote={vedeRiepilogo || isTM ? r.quote : (r.quote || []).filter((q) => q.chi === profilo.id)} />
-                        {r.note && <p className="aa-nota">Note: {r.note}</p>}
-                        {isAdmin && <button className="aa-link aa-link-rosso" onClick={() => elimina(r)}>Elimina incasso</button>}
-                      </td></tr>
-                    )}
-                  </React.Fragment>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </section>
     </>
   );
 }

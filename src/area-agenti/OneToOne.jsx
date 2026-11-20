@@ -84,7 +84,8 @@ export default function OneToOne({ profilo }) {
     prenota && { id: "mio", nome: "Il mio One to One" },
     coach && { id: "team", nome: profilo.ruolo === "admin" ? "Tutti" : "Il mio team" },
     profilo.ruolo === "admin" && { id: "impostazioni", nome: "Orari e calendario" },
-    { id: "presenze", nome: coach ? "Presenze e rating" : "Il mio rating" },
+    coach && { id: "presenze", nome: "Presenze" },
+    { id: "rating", nome: coach ? "Rating agenti" : "Il mio rating" },
   ].filter(Boolean);
   const [modo, setModo] = useState(schede[0]?.id);
 
@@ -94,7 +95,8 @@ export default function OneToOne({ profilo }) {
         <p className="aa-occhiello">Coaching</p>
         <h1 className="aa-titolo">One to One e presenze</h1>
         <p className="aa-sottotitolo">{modo === "presenze"
-          ? "Presenze a riunioni ed eventi, recensioni Google e fatturato: il rating di ogni agente."
+          ? "Segna le presenze a riunioni settimanali, One to One, fine mese, formazione FondoCasa, convention ed eventi Agente Strategico."
+          : modo === "rating" ? "Fatturato, recensioni Google e presenze: il rating di ogni agente."
           : "L'ultimo giorno lavorativo del mese, dalle 11:00. Prenota il tuo orario e compila la verifica mensile prima dell'incontro."}</p>
       </div>
       {schede.length > 1 && (
@@ -105,7 +107,8 @@ export default function OneToOne({ profilo }) {
       {modo === "mio" && <MioOneToOne profilo={profilo} />}
       {modo === "team" && <Team profilo={profilo} />}
       {modo === "impostazioni" && <Impostazioni />}
-      {modo === "presenze" && <PresenzeRating profilo={profilo} />}
+      {modo === "presenze" && <PresenzeRating key="presenze" profilo={profilo} sezione="presenze" />}
+      {modo === "rating" && <PresenzeRating key="rating" profilo={profilo} sezione="rating" />}
     </>
   );
 }

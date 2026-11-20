@@ -52,13 +52,16 @@ function Rating({ valore }) {
 }
 
 /* ================================================================ pagina */
-export default function PresenzeRating({ profilo }) {
+// sezione="presenze": foglio presenze di riunioni ed eventi (Store Manager e Team Manager).
+// sezione="rating": classifica, recensioni e pesi (coach) oppure «Il mio rating» (collaboratore).
+export default function PresenzeRating({ profilo, sezione = "rating" }) {
   const coach = ["admin", "manager"].includes(profilo.ruolo);
   const isAdmin = profilo.ruolo === "admin";
   const schede = coach
-    ? [{ id: "classifica", nome: "Rating" }, { id: "eventi", nome: "Inserisci presenze" }, { id: "recensioni", nome: "Recensioni" }, isAdmin && { id: "pesi", nome: "Pesi del rating" }].filter(Boolean)
+    ? [{ id: "classifica", nome: "Classifica" }, { id: "recensioni", nome: "Recensioni" }, isAdmin && { id: "pesi", nome: "Pesi del rating" }].filter(Boolean)
     : [{ id: "mio", nome: "Il mio rating" }];
   const [modo, setModo] = useState(schede[0].id);
+  if (sezione === "presenze") return coach ? <Eventi profilo={profilo} /> : <Classifica profilo={profilo} solo />;
   return (
     <>
       {schede.length > 1 && (
@@ -68,7 +71,6 @@ export default function PresenzeRating({ profilo }) {
       )}
       {modo === "mio" && <Classifica profilo={profilo} solo />}
       {modo === "classifica" && <Classifica profilo={profilo} />}
-      {modo === "eventi" && <Eventi profilo={profilo} />}
       {modo === "recensioni" && <Recensioni profilo={profilo} />}
       {modo === "pesi" && <Pesi />}
     </>

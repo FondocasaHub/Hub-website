@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { supabase, BUCKET, CARTELLE, SOTTOCARTELLE } from "./supabase";
 import { BoxComunicazioni } from "./Comunicazioni.jsx";
+import { BoxAccordo } from "./Accordi.jsx";
 import { quantiCopioniDaFare } from "./Copioni.jsx";
 import { PIANO_INSERIMENTO, AGENDA, GIORNI, ROUTINE_LISTING, OBIETTIVI_LISTING } from "./contenuti";
 
@@ -90,6 +91,8 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
           </button>
         ))}
       </div>
+
+      <BoxAccordo profilo={profilo} vai={vai} />
 
       <div className="aa-due-colonne">
       <BoxComunicazioni vai={vai} />

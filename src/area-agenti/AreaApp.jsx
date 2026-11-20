@@ -4,6 +4,7 @@ import { Accesso, NuovaPassword } from "./Accesso.jsx";
 import { Home, Documenti, Istruzioni, Crm, Produttivita, AreaManager } from "./Pagine.jsx";
 import Gestione from "./Gestione.jsx";
 import { PaginaComunicazioni } from "./Comunicazioni.jsx";
+import { PaginaAccordo, GestioneAccordi } from "./Accordi.jsx";
 import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 import Fatturato from "./Fatturato.jsx";
@@ -133,6 +134,8 @@ export default function AreaApp() {
   switch (pagina) {
     case "documenti": contenuto = <Documenti vai={vai} isManager={isManager} />; break;
     case "comunicazioni": contenuto = <PaginaComunicazioni />; break;
+    case "accordo": contenuto = <PaginaAccordo profilo={profilo} />; break;
+    case "accordi": contenuto = (isAdmin || (profilo.ruolo === "staff" && profilo.reparto === "amministrazione")) ? <GestioneAccordi profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "istruzioni": contenuto = <Istruzioni strumenti={strumenti} />; break;
     case "crm": contenuto = <Crm strumenti={crm} />; break;
     case "produttivita": contenuto = <Produttivita strumenti={produttivita} />; break;

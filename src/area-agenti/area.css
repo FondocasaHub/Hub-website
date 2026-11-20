@@ -790,3 +790,5 @@ a { color: inherit; }
 .aa-tabella-obiettivi .aa-ob-cella small { color: #5B6577; }
 .aa-tabella-obiettivi .aa-ob-riga2 td { border-bottom: 2px solid #D9DEE7; }
 .aa-tabella-obiettivi .aa-ob-liv { color: #5B6577; text-transform: capitalize; }
+.aa-tabella-obiettivi td, .aa-tabella-obiettivi th { padding-left: 8px; padding-right: 8px; }
+.aa-tabella-obiettivi .aa-ob-cella small { font-size: 12px; }

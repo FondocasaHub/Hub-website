@@ -40,7 +40,8 @@ export function BoxComunicazioni({ vai }) {
     supabase.auth.getUser().then(({ data: u }) => {
       const mio = u?.user?.id;
       supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false }).limit(40)
-        .then(({ data }) => setLista((data || []).filter((c) => !c.destinatari || c.destinatari.includes(mio)).slice(0, 20)));
+        // Le personali (un solo destinatario) degli altri non affollano la home dell'admin; quelle di gruppo sì
+        .then(({ data }) => setLista((data || []).filter((c) => !c.destinatari || c.destinatari.length > 1 || c.destinatari.includes(mio)).slice(0, 20)));
     });
   }, []);
   if (lista === null) return null;
@@ -75,6 +76,16 @@ export function BoxComunicazioni({ vai }) {
 /* ---------- Archivio ---------- */
 export function PaginaComunicazioni({ id }) {
   const [lista, setLista] = useState(null);
+  const [nomi, setNomi] = useState({});
+  useEffect(() => {
+    supabase.from("profiles").select("id, nome, email").then(({ data }) =>
+      setNomi(Object.fromEntries((data || []).map((p) => [p.id, p.nome || p.email]))));
+  }, []);
+  const riservata = (c) => {
+    if (!c.destinatari?.length) return "";
+    if (c.destinatari.length === 1) return ` · riservata a ${nomi[c.destinatari[0]] || "un collaboratore"}`;
+    return ` · riservata a ${c.destinatari.length} collaboratori`;
+  };
   useEffect(() => {
     supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false })
       .then(({ data }) => setLista(data || []));
@@ -95,7 +106,7 @@ export function PaginaComunicazioni({ id }) {
       ) : lista.map((c) => (
         <article key={c.id} id={`com-${c.id}`} className={`aa-card aa-com ${String(c.id) === String(id) ? "aa-com-attiva" : ""}`}>
           <p className="aa-occhiello">
-            {dataLunga(c.pubblicato_il)}{c.autore ? ` · ${c.autore}` : ""}
+            {dataLunga(c.pubblicato_il)}{c.autore ? ` · ${c.autore}` : ""}{riservata(c)}
             {isNuova(c.pubblicato_il) && <em className="aa-nuova">Nuova</em>}
           </p>
           <h2 className="aa-h2">{c.titolo}</h2>
@@ -112,6 +123,11 @@ const VUOTA = () => ({ titolo: "", testo: "", scade_il: "", ruoli: RUOLI.map((r)
 
 export function GestioneComunicazioni({ profilo }) {
   const [lista, setLista] = useState([]);
+  const [nomi, setNomi] = useState({});
+  useEffect(() => {
+    supabase.from("profiles").select("id, nome, email").then(({ data }) =>
+      setNomi(Object.fromEntries((data || []).map((p) => [p.id, p.nome || p.email]))));
+  }, []);
   const [nuova, setNuova] = useState(VUOTA());
   const [file, setFile] = useState([]);
   const [stato, setStato] = useState({ invio: false, msg: "", errore: false });
@@ -237,7 +253,7 @@ export function GestioneComunicazioni({ profilo }) {
               <span className="aa-nota">
                 {new Date(c.pubblicato_il).toLocaleDateString("it-IT")}
                 {c.scade_il ? ` · in evidenza fino al ${new Date(c.scade_il).toLocaleDateString("it-IT")}` : ""}
-                {c.destinatari?.length ? ` · personale (${c.destinatari.length === 1 ? "1 destinatario" : `${c.destinatari.length} destinatari`})` : ` · ${c.ruoli.join(", ")}`}
+                {c.destinatari?.length ? ` · riservata a ${c.destinatari.length === 1 ? (nomi[c.destinatari[0]] || "1 collaboratore") : `${c.destinatari.length} collaboratori`}` : ` · ${c.ruoli.join(", ")}`}
                 {c.allegati?.length ? ` · 📎 ${c.allegati.length}` : ""}
                 {c.email_inviata_il ? ` · ✉ email inviata il ${new Date(c.email_inviata_il).toLocaleDateString("it-IT")} a ${c.email_destinatari ?? "?"}` : " · ✉ email non inviata"}
               </span>

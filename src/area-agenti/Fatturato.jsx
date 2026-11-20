@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { supabase } from "./supabase";
 import { euro } from "./compensi";
+import ObiettiviCollaboratori from "./ObiettiviCollaboratori";
 import { ALIQUOTE, TIPOLOGIE, ripartisci, buyerDi, elencoMesi, intervallo, notaPagamento } from "./incassi";
 
 const dataIT = (iso) => (iso ? new Date(iso).toLocaleDateString("it-IT") : "");
@@ -326,6 +327,8 @@ export default function Fatturato({ profilo }) {
           )}
         </section>
       )}
+
+      <ObiettiviCollaboratori profilo={profilo} stampa={stampaRendiconto} />
 
       {vedeRiepilogo && (
         <section className="aa-card">

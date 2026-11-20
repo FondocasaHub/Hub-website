@@ -36,8 +36,12 @@ function Allegati({ lista }) {
 export function BoxComunicazioni({ vai }) {
   const [lista, setLista] = useState(null);
   useEffect(() => {
-    supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false }).limit(20)
-      .then(({ data }) => setLista(data || []));
+    // In home ognuno vede le comunicazioni generali e quelle riservate a sé (l'admin non vede quelle personali degli altri)
+    supabase.auth.getUser().then(({ data: u }) => {
+      const mio = u?.user?.id;
+      supabase.from("avvisi").select("*").order("pubblicato_il", { ascending: false }).limit(40)
+        .then(({ data }) => setLista((data || []).filter((c) => !c.destinatari || c.destinatari.includes(mio)).slice(0, 20)));
+    });
   }, []);
   if (lista === null) return null;
   const evidenza = lista.filter(inEvidenza).slice(0, 4);
@@ -232,13 +236,13 @@ export function GestioneComunicazioni({ profilo }) {
               <span className="aa-nota">
                 {new Date(c.pubblicato_il).toLocaleDateString("it-IT")}
                 {c.scade_il ? ` · in evidenza fino al ${new Date(c.scade_il).toLocaleDateString("it-IT")}` : ""}
-                {` · ${c.ruoli.join(", ")}`}
+                {c.destinatari?.length ? ` · personale (${c.destinatari.length === 1 ? "1 destinatario" : `${c.destinatari.length} destinatari`})` : ` · ${c.ruoli.join(", ")}`}
                 {c.allegati?.length ? ` · 📎 ${c.allegati.length}` : ""}
                 {c.email_inviata_il ? ` · ✉ email inviata il ${new Date(c.email_inviata_il).toLocaleDateString("it-IT")} a ${c.email_destinatari ?? "?"}` : " · ✉ email non inviata"}
               </span>
             </div>
             <div>
-              <button className="aa-link" onClick={() => reinvia(c)} disabled={stato.invio}>{c.email_inviata_il ? "Reinvia email" : "Invia email"}</button>
+              {!c.destinatari?.length && <button className="aa-link" onClick={() => reinvia(c)} disabled={stato.invio}>{c.email_inviata_il ? "Reinvia email" : "Invia email"}</button>}
               {" "}
               <button className="aa-link aa-link-rosso" onClick={() => elimina(c)}>Elimina</button>
             </div>

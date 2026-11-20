@@ -8,6 +8,7 @@ import { PaginaAccordo, GestioneAccordi } from "./Accordi.jsx";
 import { ElencoReport, NuovoReport, DettaglioReport } from "./Compensi.jsx";
 import { ElencoRichieste, NuovaRichiesta, DettaglioRichiesta } from "./Richieste.jsx";
 import Fatturato from "./Fatturato.jsx";
+const Jarvis = React.lazy(() => import("./Jarvis.jsx"));
 import Social from "./Social.jsx";
 import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
 import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
@@ -151,6 +152,7 @@ export default function AreaApp() {
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social key="social" vai={vai} />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
+    case "jarvis": contenuto = <NonAutorizzato vai={vai} />; break;
     case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;
     case "incarichi-ricerca": contenuto = <ElencoIncarichiRicerca profilo={profilo} vai={vai} />; break;
@@ -170,6 +172,7 @@ export default function AreaApp() {
       if (/^richieste\/\d+$/.test(pagina)) { contenuto = <DettaglioRichiesta id={pagina.split("/")[1]} vai={vai} gestore={gestoreMarketing} />; break; }
       contenuto = <Home profilo={profilo} vai={vai} isManager={isManager} vedeUtility={vedeUtility} />;
   }
+  if (pagina === "jarvis" && isAdmin) return <React.Suspense fallback={<Caricamento />}><Jarvis vai={vai} /></React.Suspense>;
   if (cancello?.bloccato && !PAGINE_APERTE.includes(pagina)) {
     contenuto = <PaginaBloccata stato={cancello} vai={vai} ricarica={ricaricaCancello} />;
   }
@@ -213,6 +216,7 @@ function Barra({ profilo, pagina, vai, esci, produttivita, isManager, isAdmin, v
   if (vedeUtility) voci.push({ id: "utility", label: "Utility" });
   voci.push({ id: "fatturato", label: "Fatturato" });
   if (isManager) voci.push({ id: "manager", label: "Area Manager" });
+  if (isAdmin) voci.push({ id: "jarvis", label: "Jarvis" });
   if (isAdmin) voci.push({ id: "gestione", label: "Gestione" });
 
   const clic = (id) => { setMenuMobile(false); setTendina(false); vai(id); };

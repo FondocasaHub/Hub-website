@@ -107,9 +107,11 @@ Deno.serve(async (req) => {
     if (c.email_inviata_il && !forza) return risposta({ ok: true, gia_inviata: true, inviate: c.email_destinatari ?? 0 });
 
     const { data: profili, error: errP } = await db.from("profiles")
-      .select("nome, email, ruolo").eq("attivo", true).in("ruolo", c.ruoli);
+      .select("id, nome, email, ruolo").eq("attivo", true).in("ruolo", c.ruoli);
     if (errP) return risposta({ errore: errP.message }, 500);
-    const destinatari = (profili ?? []).filter((p) => p.email && p.email.includes("@"));
+    // Comunicazione personale: solo ai destinatari indicati
+    const soloA: string[] | null = Array.isArray(c.destinatari) && c.destinatari.length ? c.destinatari : null;
+    const destinatari = (profili ?? []).filter((p) => p.email && p.email.includes("@") && (!soloA || soloA.includes(p.id)));
     if (!destinatari.length) return risposta({ errore: "Nessun collaboratore attivo con i ruoli scelti" }, 400);
 
     const allegati: { nome: string }[] = c.allegati ?? [];

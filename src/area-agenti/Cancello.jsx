@@ -259,6 +259,21 @@ export function CancelloTeam({ profilo }) {
   const [aperto, setAperto] = useState(null);       // id della riga espansa
   const [form, setForm] = useState(null);           // { tipo: 'compito'|'assenza'|'sblocco', user_id, ... }
   const [msg, setMsg] = useState("");
+  const formRef = useRef(null);
+  const msgRef = useRef(null);
+  // Il modulo (Assenza, Sblocca oggi, Compito) si apre in cima al pannello: con tante righe
+  // il pulsante cliccato è più in basso e il modulo resterebbe fuori dallo schermo.
+  useEffect(() => {
+    if (!form) return;
+    setMsg("");
+    if (!formRef.current) return;
+    formRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    const campo = formRef.current.querySelector("textarea, input, select");
+    if (campo) campo.focus({ preventScroll: true });
+  }, [form?.tipo, form?.user_id]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {
+    if (msg && msgRef.current) msgRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+  }, [msg]);
 
   const carica = useCallback(async () => {
     const { data, error } = await supabase.rpc("cancello_team");
@@ -299,8 +314,10 @@ export function CancelloTeam({ profilo }) {
       </div>
       <p className="aa-nota">Agenti, buyer e consulenti del credito (nuovi e veterani) confermano il briefing ogni mattina; se il giorno prima mancano diario, compiti giornalieri o compiti del percorso, l'area resta bloccata. Sblocchi e assenze restano registrati.</p>
 
+      {msg && <p className="aa-nota" ref={msgRef}>{msg}</p>}
+
       {form && (
-        <form className="mg-form" onSubmit={salva}>
+        <form className="mg-form" onSubmit={salva} ref={formRef}>
           <h3 className="aa-h3">{form.tipo === "compito" ? "Assegna un compito" : form.tipo === "assenza" ? `Assenza di ${nome(form.user_id)}` : `Sblocca oggi ${nome(form.user_id)}`}</h3>
           {form.tipo === "compito" && (
             <div className="aa-griglia-campi">
@@ -394,7 +411,6 @@ export function CancelloTeam({ profilo }) {
           </table>
         </div>
       )}
-      {msg && <p className="aa-nota">{msg}</p>}
     </section>
   );
 }

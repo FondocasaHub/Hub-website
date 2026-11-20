@@ -785,3 +785,8 @@ a { color: inherit; }
 .pr-assegna select { width: auto; }
 .pr-pesi input { width: 80px !important; text-align: right; }
 .pr-obiettivo { max-width: 320px; margin-top: 16px; }
+/* Obiettivi per collaboratore */
+.aa-tabella-obiettivi td, .aa-tabella-obiettivi th { white-space: nowrap; }
+.aa-tabella-obiettivi .aa-ob-cella small { color: #5B6577; }
+.aa-tabella-obiettivi .aa-ob-riga2 td { border-bottom: 2px solid #D9DEE7; }
+.aa-tabella-obiettivi .aa-ob-liv { color: #5B6577; text-transform: capitalize; }

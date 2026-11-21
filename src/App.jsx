@@ -2520,7 +2520,6 @@ export function Footer({ navigate, colors }) {
         <div className="gold-line" style={{ marginBottom: 30 }} />
 
         <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 14, marginBottom: 30 }}>
-          <h4 style={{ fontSize: 12, letterSpacing: 2, textTransform: "uppercase", color: GOLD, margin: 0 }}>Il nostro gruppo</h4>
           <img src="/images/loghi-partner-bianco.png" alt="Il nostro gruppo: Fondocasa, weunit.it, Henia Insurance Broker" width="620" height="45" loading="lazy" style={{ width: "100%", maxWidth: 620, height: "auto", opacity: 0.9 }} />
         </div>
 

@@ -60,6 +60,7 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
     { id: "incarichi-ricerca", titolo: "Incarico di ricerca", testo: "Buyer Agent: incarico in esclusiva 6 mesi con scheda Cercacasa, lavorazioni ed esiti", icona: "valutazione" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
+    { id: "firma", titolo: "Firma email", testo: "La tua firma HUB già pronta: copiala e incollala nella tua casella @fondocasa.it", icona: "documenti" },
   ];
   if (!vedeUtility) riquadri.splice(riquadri.findIndex((r) => r.id === "immobili"), 1);
   riquadri.unshift({ id: "one-to-one", titolo: "One to One e presenze",

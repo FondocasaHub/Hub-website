@@ -21,6 +21,7 @@ import MiaGiornata from "./MiaGiornata.jsx";
 import OneToOne from "./OneToOne.jsx";
 import AppChirone from "./AppChirone.jsx";
 import { SchedaCopione } from "./Copioni.jsx";
+import FirmaEmail from "./FirmaEmail.jsx";
 import { useCancello, BriefingMattino, PaginaBloccata, AvvisoBlocco } from "./Cancello.jsx";
 import { PAGINE_APERTE } from "./cancello-regole.js";
 
@@ -152,6 +153,7 @@ export default function AreaApp() {
     case "richieste": contenuto = <ElencoRichieste vai={vai} gestore={gestoreMarketing} />; break;
     case "social": case "open-house": contenuto = <Social key="social" vai={vai} />; break;
     case "fatturato": contenuto = <Fatturato profilo={profilo} />; break;
+    case "firma": contenuto = <FirmaEmail profilo={profilo} />; break;
     case "jarvis": contenuto = <NonAutorizzato vai={vai} />; break;
     case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;

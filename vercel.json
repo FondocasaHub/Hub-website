@@ -9,6 +9,31 @@
   },
   "redirects": [
     {
+      "source": "/Resta-informato",
+      "destination": "/resta-informato",
+      "permanent": true
+    },
+    {
+      "source": "/resta-informati",
+      "destination": "/resta-informato",
+      "permanent": true
+    },
+    {
+      "source": "/restainformato/",
+      "destination": "/resta-informato",
+      "permanent": true
+    },
+    {
+      "source": "/resta_informato",
+      "destination": "/resta-informato",
+      "permanent": true
+    },
+    {
+      "source": "/restainformato",
+      "destination": "/resta-informato",
+      "permanent": true
+    },
+    {
       "source": "/30min",
       "destination": "https://calendly.com/fondocasahub",
       "permanent": false

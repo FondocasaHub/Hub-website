@@ -361,10 +361,72 @@ P.team = {titolo:"Team Manager", node:"TEAM MGR", big:rc.colloqui, html:`
  ${T.daSeguire.map(x=>`<tr><td>${x.chi}<div class="note" style="margin:2px 0 0">${x.team}</div></td><td>${x.problema}</td><td>${x.azione}</td></tr>`).join("")}</table></div>`,
  voce:`Team manager. ${T.squadre.map(t=>`${t.nome} è al ${Math.round(t.incassato/t.obiettivo*100)} per cento dell'obiettivo, con ${t.sottoObiettivo} collaboratori sotto obiettivo`).join(". ")}. Reclutamento: ${rc.candidati} candidati, ${rc.colloqui} colloqui, ${rc.inseriti} inserito su ${rc.obiettivoMese} di obiettivo. Da seguire questa settimana: ${T.daSeguire.length} collaboratori.`};
 
+
+/* ===== Collaboratori · Sviluppo HUB · Lead e visibilità (22/11/2026) ===== */
+const nv = v => (v===null||v===undefined||v==="") ? "—" : v;
+const eurN = v => (v===null||v===undefined) ? "—" : eur(Number(v));
+const COL = D.collaboratori || {team:[]};
+const colTutti = COL.team.flatMap(t=>t.collaboratori.map(c=>({...c, team:t.nome})));
+const colAss = colTutti.filter(c=>c.assenze>0);
+const colTop = colTutti.filter(c=>c.rating!==null).sort((a,b)=>b.rating-a.rating)[0];
+P.collaboratori = {titolo:"Collaboratori", node:"COLLAB.", big:colTutti.length, html:`
+ <div class="grid">
+  ${kpi("Collaboratori attivi",colTutti.length,COL.team.map(t=>`${t.nome.replace("Team ","")} ${t.collaboratori.length}`).join(" · "))}
+  ${kpi("Assenze ultimi 7 giorni",colTutti.reduce((a,c)=>a+c.assenze,0),colAss.length?colAss.map(c=>c.nome.split(" ")[0]).join(", "):"nessuna")}
+  ${kpi("Rating più alto",colTop?colTop.rating:"—",colTop?`${colTop.nome} · ${colTop.team.replace("Team ","")}`:"")}
+  ${kpi("Domande a Chirone",colTutti.reduce((a,c)=>a+c.chirone,0),"ultimi 7 giorni")}
+ </div>
+ ${COL.team.map(t=>`
+ <h3>${t.nome} · obiettivo 2027 ${eurN(t.obFatturato)} · ${nv(t.obIncarichi)} incarichi</h3>
+ <div class="tw"><table><tr><th>Collaboratore</th><th class="r">Obiettivo 2027</th><th class="r">Inc. ob.</th><th class="r">Briefing 7gg</th><th class="r">Assenze</th><th class="r">Rating</th><th class="r">Recensioni</th><th class="r">Contatti / App. / Inc.</th><th class="r">Chirone</th></tr>
+ ${t.collaboratori.map(c=>`<tr><td>${c.nome}<div class="note" style="margin:2px 0 0">${(c.livello||"").replace("_"," ")}${c.obMutui?` · mutui ${eurN(c.obMutui)}`:""}${c.obRecensioni?` · ${c.obRecensioni} recensioni`:""}</div></td><td class="r">${eurN(c.obFatturato)}</td><td class="r">${nv(c.obIncarichi)}</td><td class="r">${c.briefing}/5</td><td class="r">${c.assenze?`<span class="pill p-15">${c.assenze}</span>`:"0"}</td><td class="r">${nv(c.rating)}</td><td class="r">${c.recensioni}${c.stelle?` · ${Number(c.stelle).toFixed(1)}★`:""}</td><td class="r">${c.contatti} / ${c.appuntamenti} / ${c.incarichi}</td><td class="r">${c.chirone}</td></tr>`).join("")}
+ </table></div>`).join("")}
+ <p class="note">Fonte: Area Agenti (obiettivi 2027 dei One to One, La mia giornata, presenze e rating del mese ${nv(COL.mese)}, Chirone). Le assenze sono conteggiate senza indicarne il motivo.</p>`,
+ voce:`Collaboratori. ${colTutti.length} attivi. Negli ultimi sette giorni ${colTutti.reduce((a,c)=>a+c.assenze,0)} assenze${colAss.length?`, di ${colAss.map(c=>c.nome.split(" ")[0]).join(" e ")}`:""}. ${colTop?`Il rating più alto del mese è di ${colTop.nome}, con ${colTop.rating}.`:""} Chirone ha ricevuto ${colTutti.reduce((a,c)=>a+c.chirone,0)} domande.`};
+
+const SVD = D.sviluppo || {categorie:[],prossimi:[],daApprovare:0,aggiornato:"—"};
+const SV=SVD.categorie, svTot=k=>SV.reduce((a,c)=>a+(c[k]||0),0);
+const chiusoLab=c=>c.tipo==="colloqui"?"inseriti":(c.nome.startsWith("Partnership")?"partnership firmate":"incarichi");
+P.sviluppo = {titolo:"Sviluppo HUB", node:"SVILUPPO", big:svTot("inviateSett"), html:`
+ <div class="grid">
+  ${kpi("Email inviate",svTot("inviateSett"),`settimana · ${svTot("inviate")} dall'inizio`)}
+  ${kpi("Risposte positive",svTot("si"),"dall'inizio")}
+  ${kpi("Appuntamenti e colloqui",svTot("svolti"),`svolti · ${svTot("fissati")} fissati`)}
+  ${kpi("Chiusi",svTot("chiusi"),"partnership firmate, inseriti, incarichi")}
+ </div>
+ <h3>Per categoria</h3>
+ <div class="tw"><table><tr><th>Categoria</th><th class="r">Email sett.</th><th class="r">Email totali</th><th class="r">Risposte SÌ</th><th class="r">Fissati</th><th class="r">Svolti</th><th class="r">Chiusi</th></tr>
+ ${SV.map(c=>`<tr><td>${c.nome}<div class="note" style="margin:2px 0 0">${c.tipo} · chiusi = ${chiusoLab(c)}</div></td><td class="r">${c.inviateSett}</td><td class="r">${c.inviate}</td><td class="r">${c.si}</td><td class="r">${c.fissati}</td><td class="r">${c.svolti}</td><td class="r">${c.chiusi}</td></tr>`).join("")}</table></div>
+ <h3>Prossimi appuntamenti e colloqui</h3>
+ ${SVD.prossimi.length?`<div class="tw"><table><tr><th>Quando</th><th>Con chi</th><th>Categoria</th></tr>${SVD.prossimi.map(p=>`<tr><td>${p.quando}</td><td>${p.chi}</td><td>${p.categoria}</td></tr>`).join("")}</table></div>`:`<p class="note">Nessun appuntamento in agenda.</p>`}
+ <p class="note">Contatti in attesa della tua approvazione nel foglio: ${SVD.daApprovare}. Fonte: foglio "Sviluppo HUB – Contatti outreach" e Vendilo · aggiornato ${SVD.aggiornato}.</p>`,
+ voce:`Sviluppo HUB. Questa settimana sono partite ${svTot("inviateSett")} email, ${svTot("inviate")} dall'inizio. Risposte positive ${svTot("si")}, appuntamenti e colloqui svolti ${svTot("svolti")}, chiusi ${svTot("chiusi")}. Ci sono ${SVD.daApprovare} contatti da approvare nel foglio.`};
+
+const LD = D.lead || {};
+const ldRows = (arr,cols) => (arr&&arr.length)?arr.map(r=>`<tr>${cols.map((k,i)=>`<td${i?' class="r"':""}>${k==="var"?(r.prev!==undefined&&r.prev!==null&&r.valore!==null?delta(r.valore,r.prev):"—"):k==="spesa"?eurN(r.spesa):nv(r[k])}</td>`).join("")}</tr>`).join(""):`<tr><td colspan="${cols.length}" class="note">In attesa del collegamento</td></tr>`;
+const ldTot = arr => (arr||[]).reduce((a,r)=>a+(Number(r.valore)||0),0);
+P.lead = {titolo:"Lead e visibilità", node:"LEAD", big:ldTot(LD.richieste), html:`
+ <div class="grid">
+  ${kpi("Richieste dai portali",ldTot(LD.richieste),"settimana")}
+  ${kpi("Email ricevute",nv(LD.email&&LD.email.ricevute),"richieste e resoconti")}
+  ${kpi("Chiamate",LD.chiamate?`${nv(LD.chiamate.entrata)} / ${nv(LD.chiamate.uscita)}`:"—","entrata / uscita")}
+  ${kpi("Views totali",ldTot(LD.views),"portali, social, Google")}
+  ${kpi("Iscritti HUB 24",nv(LD.hub24&&LD.hub24.nuoviSett),LD.hub24?`nuovi in settimana · ${LD.hub24.totale} attivi`:"")}
+ </div>
+ <h3>Richieste ricevute</h3>
+ <div class="tw"><table><tr><th>Fonte</th><th class="r">Settimana</th><th class="r">Var.</th></tr>${ldRows(LD.richieste,["fonte","valore","var"])}</table></div>
+ <h3>Views dei profili</h3>
+ <div class="tw"><table><tr><th>Canale</th><th class="r">Views</th><th class="r">Var.</th></tr>${ldRows(LD.views,["canale","valore","var"])}</table></div>
+ <h3>Campagne Ads</h3>
+ <div class="tw"><table><tr><th>Campagna</th><th class="r">Spesa</th><th class="r">Lead</th><th class="r">Costo per lead</th></tr>${ldRows(LD.ads,["nome","spesa","lead","cpl"])}</table></div>
+ ${(LD.daCollegare&&LD.daCollegare.length)?`<p class="note" style="color:var(--bad)">Da collegare: ${LD.daCollegare.join(" · ")}.</p>`:""}
+ <p class="note">Fonti: notifiche e resoconti dei portali via email, Vendilo, Meta, Google · aggiornato ${nv(LD.aggiornato)}.</p>`,
+ voce:`Lead e visibilità. ${ldTot(LD.richieste)} richieste dai portali questa settimana${LD.chiamate&&LD.chiamate.entrata!==null&&LD.chiamate.entrata!==undefined?`, ${LD.chiamate.entrata} chiamate in entrata e ${LD.chiamate.uscita} in uscita`:""}. ${(LD.daCollegare&&LD.daCollegare.length)?`Sono ancora da collegare ${LD.daCollegare.length} fonti.`:""}`};
+
 function pctWord(a,b){const p=Math.round((a-b)/b*100);return p>0?`in crescita del ${p} per cento`:p<0?`in calo del ${-p} per cento`:"stabili";}
 function eurW(n){return num(n)+" euro";}
 
-const ORDER=TV?["listing","buyer","credito"]:["team","marketing","amministrazione","listing","buyer","credito"];
+const ORDER=TV?["listing","buyer","credito"]:["team","collaboratori","marketing","lead","amministrazione","listing","buyer","credito","sviluppo"];
 
 /* tabs + panels */
 document.getElementById("tabs").innerHTML = ORDER.map(k=>`<button class="tab" data-k="${k}">${P[k].titolo}</button>`).join("");

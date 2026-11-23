@@ -344,7 +344,7 @@ export default function QuartiereLandingPage({
             <p className="q-hero-areas">Operativi anche a {alsoServesAreas.join(", ")}.</p>
           )}
           <div className="q-pills">
-            {(heroPills || ["26 anni di esperienza", "Valutazione gratuita", quartiere]).map((p, i) => (
+            {(heroPills || ["27 anni di esperienza", "Valutazione gratuita", quartiere]).map((p, i) => (
               <span key={i} className={`q-pill ${i === 0 ? "q-pill-gold" : ""}`}>{p}</span>
             ))}
           </div>
@@ -357,7 +357,7 @@ export default function QuartiereLandingPage({
         <div className="q-hero-right">
           <div className="q-stats-grid">
             {(heroStats || [
-              ["26+", "Anni di esperienza", true],
+              ["27+", "Anni di esperienza", true],
               ["3.500", "Famiglie assistite"],
               ["Gratuita", "Valutazione immobile"],
               [quartiere, "Zona di riferimento"],

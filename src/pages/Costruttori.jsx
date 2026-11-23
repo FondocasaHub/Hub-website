@@ -426,7 +426,7 @@ export default function Costruttori() {
               <div className="c-stat-num">€ 0</div>
               <div className="c-stat-lbl">Costo anticipato per il costruttore</div>
             </div>
-            {[["1,5%","Provvigione agevolata"],["100%","Success Based"],["360°","Gestione trattativa"],["26+","Anni di esperienza"]].map(([v,l]) => (
+            {[["1,5%","Provvigione agevolata"],["100%","Success Based"],["360°","Gestione trattativa"],["27+","Anni di esperienza"]].map(([v,l]) => (
               <div key={l} className="c-stat">
                 <div className="c-stat-num">{v}</div>
                 <div className="c-stat-lbl">{l}</div>

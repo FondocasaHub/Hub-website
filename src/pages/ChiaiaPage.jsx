@@ -70,7 +70,7 @@ export default function ChiaiaPage({ navigate, colors }) {
           più ricercate della città, con valori tra <strong>4.000 e 7.000 €/mq</strong> per le posizioni più pregiate.
         </p>
         <p style={{ fontSize: 16, lineHeight: 1.9, marginBottom: 20 }}>
-          HUB segue compravendite a Chiaia con la stessa professionalità che porta avanti da 26 anni al Vomero.
+          HUB segue compravendite a Chiaia con la stessa professionalità che porta avanti da 27 anni al Vomero.
           Il modello integrato immobiliare + mutuo + assicurazione garantisce al cliente un percorso completo
           e privo di sorprese, dalla visita al rogito.
         </p>

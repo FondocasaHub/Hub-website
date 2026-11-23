@@ -267,10 +267,12 @@ export default function ValutaIlTuoImmobile() {
         <meta property="og:url" content={canonicalUrl} />
         <meta property="og:title" content="Valuta il Tuo Immobile Gratis a Napoli | FondoCasa Hub" />
         <meta property="og:description" content="Scopri il valore del tuo immobile a Napoli in pochi minuti: rispondi a 5 domande e ricevi una stima reale entro 24 ore. Inizia la valutazione gratuita." />
+        <meta property="og:image" content="https://www.fondocasahub.com/og-image.jpg" />
         <meta property="og:locale" content="it_IT" />
         <meta property="og:site_name" content="FondoCasa Hub" />
 
         <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:image" content="https://www.fondocasahub.com/og-image.jpg" />
         <meta name="twitter:title" content="Valuta il Tuo Immobile Gratis a Napoli | FondoCasa Hub" />
         <meta name="twitter:description" content="Scopri il valore del tuo immobile a Napoli in pochi minuti: rispondi a 5 domande e ricevi una stima reale entro 24 ore. Inizia la valutazione gratuita." />
 

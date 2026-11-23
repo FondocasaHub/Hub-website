@@ -13,8 +13,8 @@ export default function AgenziaImmobiliarePosillipoNapoli() {
       slug="posillipo"
       heroEyebrow="Agenzia Immobiliare a Napoli, Posillipo"
       heroTitle={<>Agenzia immobiliare a Napoli,<br/>zona <span className="accent">Posillipo</span>.</>}
-      heroSubtitle="Compra o vendi casa a Posillipo con un'agenzia con 26 anni di esperienza su Napoli e riservatezza nella gestione degli immobili di pregio. Valutazione gratuita e servizio integrato."
-      heroPills={["26 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
+      heroSubtitle="Compra o vendi casa a Posillipo con un'agenzia con 27 anni di esperienza su Napoli e riservatezza nella gestione degli immobili di pregio. Valutazione gratuita e servizio integrato."
+      heroPills={["27 anni di esperienza", "Valutazione gratuita", "Via Pietro Mascagni 35"]}
       alsoServesAreas={["Vomero", "Chiaia", "Fuorigrotta", "Arenella", "Colli Aminei"]}
       nearbyAreas={[
         { name: "Chiaia", slug: "chiaia" },
@@ -25,8 +25,8 @@ export default function AgenziaImmobiliarePosillipoNapoli() {
       whyUsPoints={[
         {
           icon: "🏠",
-          title: "26 anni sul mercato di Napoli",
-          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo anche le compravendite di pregio a Posillipo, con un metodo collaudato in 26 anni.",
+          title: "27 anni sul mercato di Napoli",
+          desc: "Dalla sede di Via Pietro Mascagni 35 seguiamo anche le compravendite di pregio a Posillipo, con un metodo collaudato in 27 anni.",
         },
         {
           icon: "📊",
@@ -78,7 +78,7 @@ export default function AgenziaImmobiliarePosillipoNapoli() {
       ]}
       seo={{
         title: "Agenzia Immobiliare a Napoli, Posillipo | FondoCasa Hub",
-        description: "Compra o vendi casa a Napoli, zona Posillipo, con FondoCasa Hub: 26 anni di esperienza in vendite di pregio. Richiedi una valutazione gratuita e riservata.",
+        description: "Compra o vendi casa a Napoli, zona Posillipo, con FondoCasa Hub: 27 anni di esperienza in vendite di pregio. Richiedi una valutazione gratuita e riservata.",
       }}
     />
   );

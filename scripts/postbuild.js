@@ -12,7 +12,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PAGE_META = {
   'chi-siamo': {
     title: 'Team Immobiliare Vomero Napoli | FondoCasa Hub',
-    desc: 'Scopri il team FondoCasa Hub: 26 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.',
+    desc: 'Scopri il team FondoCasa Hub: 27 anni di esperienza tra immobiliare, mutui e assicurazioni al Vomero di Napoli. Contattaci per un servizio su misura.',
     canonical: 'https://www.fondocasahub.com/chi-siamo'
   },
   'il-nostro-metodo': {
@@ -52,7 +52,7 @@ const PAGE_META = {
   },
   'vomero': {
     title: 'Agenzia Immobiliare Vomero Napoli | FondoCasa Hub',
-    desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 26 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.',
+    desc: 'Compra o vendi casa al Vomero con FondoCasa Hub: 27 anni di esperienza nel quartiere, valutazioni gratuite e consulenza su mutuo e assicurazione. Contattaci.',
     canonical: 'https://www.fondocasahub.com/vomero'
   },
   'posillipo': {
@@ -77,7 +77,7 @@ const PAGE_META = {
   },
   'vendi-casa-vomero': {
     title: 'Vendi Casa al Vomero Napoli | FondoCasa Hub',
-    desc: 'Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 26 anni di esperienza nel quartiere. Contattaci.',
+    desc: 'Vuoi vendere casa al Vomero? FondoCasa Hub offre valutazione gratuita e un piano di marketing dedicato, con 27 anni di esperienza nel quartiere. Contattaci.',
     canonical: 'https://www.fondocasahub.com/vendi-casa-vomero'
   },
   'aste-immobiliari-napoli': {
@@ -92,7 +92,7 @@ const PAGE_META = {
   },
   'consulente-mutuo-napoli': {
     title: 'Consulente Mutuo Napoli | FondoCasa Hub',
-    desc: 'Confronta il mutuo migliore a Napoli con WeUnit (OAM M28): prequalifica gratuita tra oltre 20 banche, delibera media in 20 giorni. Prima casa, under 36, surroga e altro.',
+    desc: 'Confronta il miglior mutuo a Napoli con WeUnit (OAM M28): prequalifica gratuita tra oltre 20 banche, delibera media in 20 giorni. Prima casa, under 36, surroga.',
     canonical: 'https://www.fondocasahub.com/consulente-mutuo-napoli'
   },
   'partner-weunit': {

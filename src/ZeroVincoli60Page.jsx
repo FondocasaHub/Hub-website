@@ -420,7 +420,7 @@ export default function ZeroVincoli60Page({ navigate, colors }) {
           gap: 24,
         }}>
           {[
-            { value: '26 anni', label: 'di esperienza' },
+            { value: '27 anni', label: 'di esperienza' },
             { value: '3.500', label: 'famiglie servite' },
             { value: '60 giorni', label: 'per decidere' },
             { value: '0 €', label: 'di penale' },

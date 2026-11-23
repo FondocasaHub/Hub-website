@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "postbuild": "node scripts/postbuild.js && node scripts/prerender-ssr-pages.mjs && node scripts/resta-informato-agenti.mjs",
+    "postbuild": "node scripts/postbuild.js && node scripts/prerender-ssr-pages.mjs && node scripts/resta-informato-agenti.mjs && node scripts/enrich-static-pages.mjs",
     "preview": "vite preview"
   },
   "dependencies": {

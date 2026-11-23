@@ -250,7 +250,7 @@ export default function PartnerWeUnit() {
           <div className="pw-why">
             <div><h3>Un solo interlocutore</h3><p>Immobiliare, credito e assicurazione nello stesso store: il cliente resta con te e con noi dall'inizio al rogito.</p></div>
             <div><h3>Il mutuo resta in WeUnit</h3><p>Nessuna sovrapposizione: la parte creditizia la continui a seguire tu, l'Hub si occupa della vendita.</p></div>
-            <div><h3>Un metodo già rodato</h3><p>Incarichi in esclusiva, marketing dedicato a ogni immobile e un team con oltre 26 anni di esperienza a Napoli.</p></div>
+            <div><h3>Un metodo già rodato</h3><p>Incarichi in esclusiva, marketing dedicato a ogni immobile e un team con oltre 27 anni di esperienza a Napoli.</p></div>
           </div>
         </section>
       </div>

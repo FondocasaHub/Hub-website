@@ -64,3 +64,7 @@ create policy "accordi pdf: modifica lo store manager" on storage.objects
   for update to authenticated using (bucket_id = 'accordi' and public.sono_admin());
 create policy "accordi pdf: elimina lo store manager" on storage.objects
   for delete to authenticated using (bucket_id = 'accordi' and public.sono_admin());
+
+-- 23/11/2026: alla firma si salva anche la fotografia del budget concordato (fatturato e incarichi per trimestre)
+alter table public.accordi add column if not exists budget_firmato jsonb;
+-- firma_accordo aggiornata in produzione (migration accordi_budget_firmato): imposta budget_firmato da budget_collaboratori.

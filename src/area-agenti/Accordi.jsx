@@ -13,6 +13,53 @@ const nomeSicuro = (n) => n.normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^
 const STATI = { da_firmare: "da firmare", firmato: "firmato", annullato: "annullato" };
 const classeStato = (s) => `aa-stato ${s === "firmato" ? "aa-stato-completata" : s === "annullato" ? "aa-stato-respinta" : "aa-stato-in-lavorazione"}`;
 
+const eur = (v) => `${Math.round(Number(v) || 0).toLocaleString("it-IT")} €`;
+const VOCI = { mutui: "Mutui erogati", prestiti: "Prestiti personali", cessioni_quinto: "Cessioni del quinto", recensioni: "Recensioni" };
+// Righe del budget in forma leggibile: fatturato e incarichi per trimestre, poi le altre voci
+function leggiBudget(righe) {
+  const r = righe || [];
+  const fatt = r.find((x) => x.voce === "fatturato" && x.ambito === "personale");
+  const inc = r.find((x) => x.voce === "incarichi" && x.ambito === "personale");
+  const altre = r.filter((x) => !["fatturato", "incarichi"].includes(x.voce)).map((x) => ({
+    etichetta: `${VOCI[x.voce] || x.voce}${x.ambito === "store" ? " (obiettivo store coordinato)" : ""}`,
+    valore: x.voce === "recensioni" ? `almeno ${Number(x.importo)}` : eur(x.importo),
+  }));
+  return { fatt, inc, altre };
+}
+function budgetHtml(righe, anno) {
+  const { fatt, inc, altre } = leggiBudget(righe);
+  if (!fatt && !inc) return "";
+  const q = (x, i, e) => (x?.trimestri ? (e ? eur(x.trimestri[i]) : String(x.trimestri[i])) : "—");
+  return `<h2>Budget ${anno} sottoscritto</h2><table class="bud"><tr><th></th><th>1° trim.</th><th>2° trim.</th><th>3° trim.</th><th>4° trim.</th><th>Anno</th></tr>
+${fatt ? `<tr><td>Fatturato</td>${[0, 1, 2, 3].map((i) => `<td>${q(fatt, i, true)}</td>`).join("")}<td><b>${eur(fatt.importo)}</b></td></tr>` : ""}
+${inc ? `<tr><td>Incarichi</td>${[0, 1, 2, 3].map((i) => `<td>${q(inc, i)}</td>`).join("")}<td><b>${Number(inc.importo)}</b></td></tr>` : ""}
+</table>
+${fatt?.quota_diretta ? `<p>Di cui attività diretta ${eur(fatt.quota_diretta)} e attività sul team ${eur(fatt.importo - fatt.quota_diretta)}.</p>` : ""}
+${altre.length ? `<p>${altre.map((x) => `${esc(x.etichetta)}: <b>${esc(x.valore)}</b>`).join(" · ")}</p>` : ""}
+${fatt?.premio_pct ? `<p>Premio di risultato: ${Number(fatt.premio_pct)}% del fatturato ${anno} al raggiungimento dell'obiettivo (${eur(fatt.importo * fatt.premio_pct / 100)}), pagato entro il 31/12/${anno}.</p>` : ""}`;
+}
+
+function TabellaBudget({ righe, anno }) {
+  const { fatt, inc, altre } = leggiBudget(righe);
+  if (!fatt && !inc) return <p className="aa-nota">Budget {anno} non ancora caricato: chiedi allo Store Manager prima di firmare.</p>;
+  const q = (x, i, e) => (x?.trimestri ? (e ? eur(x.trimestri[i]) : x.trimestri[i]) : "—");
+  return (
+    <div className="aa-accordo-budget">
+      <h3 className="aa-h3">Il tuo budget {anno}, come concordato nel One to One</h3>
+      <div className="aa-scorri"><table className="aa-tabella">
+        <thead><tr><th></th><th>1° trim.</th><th>2° trim.</th><th>3° trim.</th><th>4° trim.</th><th>Anno</th></tr></thead>
+        <tbody>
+          {fatt && <tr><td><strong>Fatturato</strong></td>{[0, 1, 2, 3].map((i) => <td key={i}>{q(fatt, i, true)}</td>)}<td><strong>{eur(fatt.importo)}</strong></td></tr>}
+          {inc && <tr><td><strong>Incarichi</strong></td>{[0, 1, 2, 3].map((i) => <td key={i}>{q(inc, i)}</td>)}<td><strong>{Number(inc.importo)}</strong></td></tr>}
+        </tbody>
+      </table></div>
+      {fatt?.quota_diretta ? <p className="aa-nota">Di cui attività diretta {eur(fatt.quota_diretta)} e attività sul team {eur(fatt.importo - fatt.quota_diretta)}.</p> : null}
+      {altre.length > 0 && <p className="aa-nota">{altre.map((x) => `${x.etichetta}: ${x.valore}`).join(" · ")}</p>}
+      {fatt?.premio_pct ? <p className="aa-nota">Premio di risultato: {Number(fatt.premio_pct)}% del fatturato {anno} al raggiungimento dell'obiettivo ({eur(fatt.importo * fatt.premio_pct / 100)}), pagato entro il 31/12/{anno}.</p> : null}
+    </div>
+  );
+}
+
 async function apriPdf(percorso) {
   const finestra = window.open("", "_blank");
   const { data, error } = await supabase.storage.from(BUCKET).createSignedUrl(percorso, 600);
@@ -25,22 +72,34 @@ async function sha256(file) {
   return [...new Uint8Array(buf)].map((b) => b.toString(16).padStart(2, "0")).join("");
 }
 
-function stampaAttestato(a, nomeCollaboratore) {
+// Scarica il PDF dell'accordo sul dispositivo
+async function scaricaPdf(a, nome) {
+  const file = `Accordo_${a.anno}_${nomeSicuro(nome || "collaboratore")}.pdf`;
+  const { data, error } = await supabase.storage.from(BUCKET).createSignedUrl(a.file_path, 600, { download: file });
+  if (error || !data) { alert("Non riesco a scaricare il PDF: " + (error?.message || "riprova")); return; }
+  const link = document.createElement("a"); link.href = data.signedUrl; link.download = file;
+  document.body.appendChild(link); link.click(); link.remove();
+}
+
+// Stampa (o salva in PDF) budget e accordo: con i dati della firma se firmato, altrimenti come riepilogo da firmare
+function stampaAttestato(a, nomeCollaboratore, budgetCorrente) {
+  const firmato = a.stato === "firmato";
   const w = window.open("", "_blank");
   if (!w) return;
-  w.document.write(`<!doctype html><html lang="it"><head><meta charset="utf-8"><title>Attestato di firma — ${esc(a.titolo)}</title>
+  w.document.write(`<!doctype html><html lang="it"><head><meta charset="utf-8"><title>${firmato ? "Attestato di firma" : "Budget da firmare"} — ${esc(nomeCollaboratore || "")} — ${esc(a.titolo)}</title>
 <link href="https://fonts.googleapis.com/css2?family=Jost:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>@page{size:A4;margin:0}body{margin:0;font-family:Jost,Arial,sans-serif;color:#0A1628}
 .testa{background:#0A1628;padding:22px 36px;display:flex;justify-content:space-between;align-items:center}.testa img{height:44px}
 .testa span{color:#C9A84C;font-size:12px;letter-spacing:.12em;text-transform:uppercase}
 main{padding:34px 40px}h1{font-size:24px;margin:0 0 6px}h2{color:#C9A84C;font-size:14px;letter-spacing:.08em;text-transform:uppercase;margin:26px 0 8px}
 p{line-height:1.55;font-size:14px}table{width:100%;border-collapse:collapse;font-size:13px}td{padding:8px 10px;border-bottom:1px solid #E3E6EC;vertical-align:top}
-td:first-child{color:#5B6577;width:34%}.hash{font-family:monospace;font-size:11px;word-break:break-all}
+td:first-child{color:#5B6577;width:34%}.bud td,.bud th{text-align:right;width:auto}.bud td:first-child,.bud th:first-child{text-align:left;width:auto}.bud th{background:#0A1628;color:#FCFDFD;font-weight:500;padding:6px 8px;font-size:12px}.hash{font-family:monospace;font-size:11px;word-break:break-all}
 .piede{position:fixed;bottom:0;left:0;right:0;background:#0A1628;color:#FCFDFD;padding:14px 36px;font-size:10px;display:flex;justify-content:space-between;align-items:center}
 .piede img{height:22px}</style></head><body>
-<div class="testa"><img src="${location.origin}/images/logo-hub-bianco.png" alt="FC Punto Hub"><span>Attestato di firma elettronica</span></div>
+<div class="testa"><img src="${location.origin}/images/logo-hub-bianco.png" alt="FC Punto Hub"><span>${firmato ? "Attestato di firma elettronica" : "Budget e accordo da firmare"}</span></div>
 <main><h1>${esc(a.titolo)}</h1>
-<p>Si attesta che l'accordo indicato è stato letto e accettato integralmente con firma elettronica semplice nell'Area Agenti di FC Punto Hub (fondocasahub.com), con accesso personale del collaboratore.</p>
+<p style="margin-top:0"><strong>${esc(nomeCollaboratore || "")}</strong></p>
+${firmato ? `<p>Si attesta che l'accordo indicato è stato letto e accettato integralmente con firma elettronica semplice nell'Area Agenti di FC Punto Hub (fondocasahub.com), con accesso personale del collaboratore.</p>
 <h2>Dati della firma</h2><table>
 <tr><td>Collaboratore</td><td><strong>${esc(nomeCollaboratore || a.firma_nome)}</strong></td></tr>
 <tr><td>Nome e cognome digitato</td><td>${esc(a.firma_nome)}</td></tr>
@@ -50,9 +109,10 @@ td:first-child{color:#5B6577;width:34%}.hash{font-family:monospace;font-size:11p
 <tr><td>Documento</td><td>${esc(a.file_path.split("/").pop())}</td></tr>
 <tr><td>Impronta SHA-256 del PDF</td><td class="hash">${esc(a.file_sha256)}</td></tr>
 <tr><td>Caricato da / il</td><td>${esc(a.creato_da || "FC Punto Hub")} · ${esc(dataOra(a.creato_il))}</td></tr>
-</table>
-<h2>Dichiarazione</h2><p>"Dichiaro di aver letto l'accordo e di accettarlo integralmente, articolo per articolo (Artt. 1–8), compresi l'obiettivo e le condizioni del premio di risultato."</p>
-<p>L'impronta SHA-256 identifica in modo univoco il PDF firmato: qualsiasi modifica al file ne cambierebbe il valore.</p></main>
+</table>` : `<p>Riepilogo del budget concordato. L'accordo si firma online nell'Area Agenti › Accordi.</p>`}
+${budgetHtml(a.budget_firmato || budgetCorrente, a.anno)}
+${firmato ? `<h2>Dichiarazione</h2><p>"Dichiaro di aver letto l'accordo e di accettarlo integralmente, articolo per articolo (Artt. 1–8), e di sottoscrivere il budget ${a.anno} indicato, con fatturato e incarichi per trimestre e le condizioni del premio di risultato."</p>
+<p>L'impronta SHA-256 identifica in modo univoco il PDF firmato: qualsiasi modifica al file ne cambierebbe il valore.</p>` : `<h2>Firma</h2><p>Stato: da firmare.</p>`}</main>
 <div class="piede"><span>FC PUNTO HUB S.R.L. · Via Pietro Mascagni 35, 80128 Napoli · P.IVA 01924140096</span><img src="${location.origin}/images/immobile/piedino.png" alt=""></div>
 <script>window.onload=()=>setTimeout(()=>window.print(),400)</script></body></html>`);
   w.document.close();
@@ -101,8 +161,8 @@ export function PaginaAccordo({ profilo }) {
     <>
       <div className="aa-intestazione">
         <p className="aa-occhiello">Il mio accordo</p>
-        <h1 className="aa-titolo">Accordo di collaborazione</h1>
-        <p className="aa-sottotitolo">Leggi il PDF, poi firmalo qui con nome e cognome. La firma vale come accettazione integrale dell'accordo.</p>
+        <h1 className="aa-titolo">Accordo e budget 2027</h1>
+        <p className="aa-sottotitolo">Controlla il tuo budget 2027 e leggi il PDF dell'accordo, poi firma qui con nome e cognome. La firma vale come accettazione integrale dell'accordo e del budget.</p>
       </div>
       {righe === null ? <p className="aa-nota">Caricamento…</p> : righe.length === 0 ? (
         <section className="aa-card"><p className="aa-nota">Non hai accordi da firmare.</p></section>
@@ -113,6 +173,7 @@ export function PaginaAccordo({ profilo }) {
 
 function SchedaFirma({ a, profilo, onFirmato }) {
   const [url, setUrl] = useState(null);
+  const [budget, setBudget] = useState(null);
   const [letto, setLetto] = useState(false);
   const [nome, setNome] = useState("");
   const [stato, setStato] = useState({ invio: false, errore: "" });
@@ -120,7 +181,10 @@ function SchedaFirma({ a, profilo, onFirmato }) {
 
   useEffect(() => {
     supabase.storage.from(BUCKET).createSignedUrl(a.file_path, 3600).then(({ data }) => setUrl(data?.signedUrl || null));
-  }, [a.file_path]);
+    if (a.budget_firmato) setBudget(a.budget_firmato);
+    else supabase.from("budget_collaboratori").select("voce, ambito, importo, trimestri, quota_diretta, premio_pct")
+      .eq("anno", a.anno).eq("profilo", a.profilo).then(({ data }) => setBudget(data || []));
+  }, [a.file_path, a.anno, a.profilo, a.budget_firmato]);
 
   const firma = async (e) => {
     e.preventDefault();
@@ -139,8 +203,10 @@ function SchedaFirma({ a, profilo, onFirmato }) {
       </div>
       <div className="aa-azioni-testata">
         <button className="aa-btn" onClick={() => apriPdf(a.file_path)}>Apri il PDF</button>
-        {a.stato === "firmato" && <button className="aa-btn" onClick={() => stampaAttestato(a, atteso)}>Stampa attestato di firma</button>}
+        <button className="aa-btn" onClick={() => scaricaPdf(a, atteso)}>Salva il PDF</button>
+        <button className="aa-btn" onClick={() => stampaAttestato(a, atteso, budget)}>{a.stato === "firmato" ? "Stampa budget e attestato di firma" : "Stampa il budget"}</button>
       </div>
+      {budget && <TabellaBudget righe={budget} anno={a.anno} />}
       {url && <iframe className="aa-accordo-pdf" src={url} title={a.titolo} />}
 
       {a.stato === "firmato" ? (
@@ -149,7 +215,7 @@ function SchedaFirma({ a, profilo, onFirmato }) {
         <form className="aa-accordo-firma" onSubmit={firma}>
           <label className="aa-check">
             <input type="checkbox" checked={letto} onChange={(e) => setLetto(e.target.checked)} />
-            <span>Dichiaro di aver letto l'accordo e di accettarlo integralmente, articolo per articolo (Artt. 1–8), compresi l'obiettivo e le condizioni del premio di risultato.</span>
+            <span>Dichiaro di aver letto l'accordo e di accettarlo integralmente, articolo per articolo (Artt. 1–8), e di sottoscrivere il budget {a.anno} qui sopra, con fatturato e incarichi per trimestre e le condizioni del premio di risultato.</span>
           </label>
           <label>Firma: scrivi nome e cognome ({atteso})
             <input type="text" value={nome} onChange={(e) => setNome(e.target.value)} placeholder={atteso} autoComplete="name" />

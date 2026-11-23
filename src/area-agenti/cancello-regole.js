@@ -13,7 +13,7 @@ export const soggettoCancello = (p) => Boolean(p && RUOLI_CANCELLO.includes(p.ru
 
 // Con il blocco restano aperti: La mia giornata (compiti e diario), Istruzioni (manuali), CRM (Vendilo), Documenti (deciso da Nicola il 7/11),
 // strumenti di Produttività (servono per i compiti) e Chirone.
-export const PAGINE_APERTE = ["giornata", "app", "istruzioni", "crm", "documenti", "produttivita", "accordo"];
+export const PAGINE_APERTE = ["giornata", "app", "istruzioni", "crm", "documenti", "produttivita", "accordo", "accordi"];
 
 export const ORIGINI = { coaching: "Compito del coaching", manager: "Compito del Team Manager", chirone: "Compito di Chirone" };
 export const ASSENZE = { ferie: "Ferie", malattia: "Malattia", permesso: "Permesso", altro: "Altra assenza giustificata" };

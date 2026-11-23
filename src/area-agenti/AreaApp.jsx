@@ -137,7 +137,8 @@ export default function AreaApp() {
     case "documenti": contenuto = <Documenti vai={vai} isManager={isManager} />; break;
     case "comunicazioni": contenuto = <PaginaComunicazioni />; break;
     case "accordo": contenuto = <PaginaAccordo profilo={profilo} />; break;
-    case "accordi": contenuto = (isAdmin || (profilo.ruolo === "staff" && profilo.reparto === "amministrazione")) ? <GestioneAccordi profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
+    // Stesso indirizzo per tutti: SM e Amministrazione vedono la gestione, il collaboratore il suo accordo da firmare
+    case "accordi": contenuto = (isAdmin || (profilo.ruolo === "staff" && profilo.reparto === "amministrazione")) ? <GestioneAccordi profilo={profilo} /> : <PaginaAccordo profilo={profilo} />; break;
     case "istruzioni": contenuto = <Istruzioni strumenti={strumenti} />; break;
     case "crm": contenuto = <Crm strumenti={crm} />; break;
     case "produttivita": contenuto = <Produttivita strumenti={produttivita} />; break;

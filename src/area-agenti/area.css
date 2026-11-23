@@ -802,3 +802,5 @@ a { color: inherit; }
 .aa-accordo-firma label.aa-check { flex-direction: row; align-items: flex-start; gap: 10px; font-weight: 400; line-height: 1.45; }
 .aa-accordo-firma label.aa-check input { margin-top: 4px; width: 18px; height: 18px; flex: none; }
 @media (max-width: 700px) { .aa-accordo-pdf { height: 60vh; } }
+.aa-accordo-budget { background: #F7F4EC; border: 1px solid #E6DFD2; border-radius: 8px; padding: 14px 16px; margin: 14px 0; }
+.aa-accordo-budget .aa-tabella td, .aa-accordo-budget .aa-tabella th { white-space: nowrap; }

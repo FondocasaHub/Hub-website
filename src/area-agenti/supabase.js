@@ -35,6 +35,7 @@ export const CARTELLE = [
 // solo il primo livello del percorso).
 export const SOTTOCARTELLE = {
   "02-agenti": [
+    { id: "LISTING AGENT", nome: "LISTING AGENT", descr: "Revisione prezzo di vendita e rinnovo incarico, modulistica venditori" },
     { id: "BUYER AGENT", nome: "BUYER AGENT", descr: "Incarichi di ricerca in esclusiva e modulistica acquirenti" },
   ],
 };

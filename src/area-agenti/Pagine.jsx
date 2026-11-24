@@ -58,6 +58,7 @@ export function Home({ profilo, vai, isManager, vedeUtility }) {
     { id: "immobili", titolo: "Immobili", testo: "Scheda di ogni incarico: check-list della procedura, numeri, Open House e report per la proprietà", icona: "valutazione" },
     { id: "compensi", titolo: "Report compensi", testo: "Invia il report provvigioni con la pro-forma all'Amministrazione", icona: "compensi" },
     { id: "valutazioni", titolo: "Valutazione immobile", testo: "Compila online la scheda di valutazione: superfici, domande al proprietario, prezzi e PDF", icona: "valutazione" },
+    { id: "revisione-prezzo", titolo: "Revisione prezzo", testo: "Listing Agent: riduzione del prezzo e rinnovo della scadenza dell'incarico, da stampare e far firmare", icona: "valutazione" },
     { id: "incarichi-ricerca", titolo: "Incarico di ricerca", testo: "Buyer Agent: incarico in esclusiva 6 mesi con scheda Cercacasa, lavorazioni ed esiti", icona: "valutazione" },
     { id: "produttivita", titolo: "Produttività", testo: "Valutazioni, portali, firma digitale, posta", icona: "produttivita" },
     { id: "firma", titolo: "Firma email", testo: "La tua firma HUB già pronta: copiala e incollala nella tua casella @fondocasa.it", icona: "documenti" },
@@ -226,6 +227,16 @@ const LinkValutazione = ({ vai }) => (
   </button>
 );
 
+const LinkRevisionePrezzo = ({ vai }) => (
+  <button className="aa-card aa-cartella-link" onClick={() => vai("revisione-prezzo")}>
+    <div>
+      <h2 className="aa-h2">Revisione prezzo di vendita · online</h2>
+      <p className="aa-nota">Listing Agent: riduzione del prezzo e rinnovo della scadenza dell'incarico. Compilalo con il proprietario, stampalo o salvalo in PDF</p>
+    </div>
+    <span className="aa-link">Apri →</span>
+  </button>
+);
+
 const LinkInserimento = ({ vai }) => (
   <button className="aa-card aa-cartella-link" onClick={() => vai("inserimenti")}>
     <div>
@@ -257,6 +268,7 @@ export function Documenti({ vai, isManager }) {
       {cartelle === null ? <p className="aa-nota">Caricamento…</p> : cartelle.map((c) => (
         <React.Fragment key={c.id}>
           <Cartella cartella={c} vai={vai} />
+          {c.id === "02-agenti" && <LinkRevisionePrezzo vai={vai} />}
           {c.id === "02-agenti" && <LinkValutazione vai={vai} />}
           {c.id === "04-manager" && isManager && <LinkInserimento vai={vai} />}
         </React.Fragment>

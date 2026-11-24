@@ -14,7 +14,7 @@
   </url>
   <url>
     <loc>https://www.fondocasahub.com/blog</loc>
-    <lastmod>2026-11-17</lastmod>
+    <lastmod>2026-11-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -49,6 +49,12 @@
     <priority>0.5</priority>
   </url>
   <!-- Blog Articles -->
+  <url>
+    <loc>https://www.fondocasahub.com/blog/condono-edilizio-2027-manovra-napoli</loc>
+    <lastmod>2026-11-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
   <url>
     <loc>https://www.fondocasahub.com/blog/cedolare-secca-5-canone-concordato-2027-napoli</loc>
     <lastmod>2026-11-17</lastmod>

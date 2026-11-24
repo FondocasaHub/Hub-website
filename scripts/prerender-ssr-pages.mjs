@@ -63,7 +63,7 @@ export const SSR_PAGES = [
   { slug: 'comincia', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'contatti', contentOnly: true, expectTypes: ['RealEstateAgent'] },
   { slug: 'lavora-con-noi', contentOnly: true, expectTypes: ['RealEstateAgent'] },
-  // Blog: l'elenco e i 14 articoli, ognuno col proprio BlogPosting
+  // Blog: l'elenco e i 15 articoli, ognuno col proprio BlogPosting
   { slug: 'blog', contentOnly: true, expectTypes: ['Blog'] },
   { slug: 'blog-come-vendere-casa-napoli-guida-completa', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-tasse-costi-vendita-casa-napoli-2026', contentOnly: true, expectTypes: ['BlogPosting'] },
@@ -79,6 +79,7 @@ export const SSR_PAGES = [
   { slug: 'blog-zero-vincoli-60-prorogata-31-dicembre-2026', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli', contentOnly: true, expectTypes: ['BlogPosting'] },
   { slug: 'blog-cedolare-secca-5-canone-concordato-2027-napoli', contentOnly: true, expectTypes: ['BlogPosting', 'FAQPage'] },
+  { slug: 'blog-condono-edilizio-2027-manovra-napoli', contentOnly: true, expectTypes: ['BlogPosting', 'FAQPage'] },
 
 ];
 

@@ -196,6 +196,13 @@ const PAGE_META = {
     canonical: 'https://www.fondocasahub.com/blog/cedolare-secca-5-canone-concordato-2027-napoli',
     image: 'https://www.fondocasahub.com/images/blog/cedolare-secca-5-canone-concordato-2027-napoli.jpg',
     imageAlt: 'Copertina: cedolare secca al 5% sul canone concordato 2027, cosa cambia a Napoli'
+  },
+  'blog-condono-edilizio-2027-manovra-napoli': {
+    title: 'Condono edilizio 2027: cosa cambia a Napoli',
+    desc: 'Condono edilizio nella Manovra 2027: pratiche pendenti, riapertura del 2003 e piccole difformità. Cosa è solo proposta e cosa vale oggi per chi vende a Napoli.',
+    canonical: 'https://www.fondocasahub.com/blog/condono-edilizio-2027-manovra-napoli',
+    image: 'https://www.fondocasahub.com/images/blog/condono-edilizio-2027-manovra-napoli.jpg',
+    imageAlt: 'Copertina: condono edilizio 2027 nella Manovra, cosa cambia per chi vende casa a Napoli'
   }
 };
 

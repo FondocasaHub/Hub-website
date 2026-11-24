@@ -78,6 +78,7 @@ const PAGES = {
   "blog-zero-vincoli-60-prorogata-31-dicembre-2026": BlogPage,
   "blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli": BlogPage,
   "blog-cedolare-secca-5-canone-concordato-2027-napoli": BlogPage,
+  "blog-condono-edilizio-2027-manovra-napoli": BlogPage,
 };
 
 // navigate() e' gestito da App.jsx lato client: in prerender e' un no-op,
@@ -105,6 +106,7 @@ const CON_FOOTER = new Set([
   'blog-zero-vincoli-60-prorogata-31-dicembre-2026',
   'blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli',
   'blog-cedolare-secca-5-canone-concordato-2027-napoli',
+  'blog-condono-edilizio-2027-manovra-napoli',
 ]);
 const PAGE_PROPS = {
   "vomero": { navigate: noop, colors: COLORS },
@@ -138,6 +140,7 @@ const PAGE_PROPS = {
   "blog-zero-vincoli-60-prorogata-31-dicembre-2026": { navigate: noop, colors: COLORS, initialSlug: "zero-vincoli-60-prorogata-31-dicembre-2026" },
   "blog-bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli": { navigate: noop, colors: COLORS, initialSlug: "bce-ferma-tassi-ottobre-2026-cosa-cambia-mutui-napoli" },
   "blog-cedolare-secca-5-canone-concordato-2027-napoli": { navigate: noop, colors: COLORS, initialSlug: "cedolare-secca-5-canone-concordato-2027-napoli" },
+  "blog-condono-edilizio-2027-manovra-napoli": { navigate: noop, colors: COLORS, initialSlug: "condono-edilizio-2027-manovra-napoli" },
 };
 
 export function renderSsrPage(slug) {

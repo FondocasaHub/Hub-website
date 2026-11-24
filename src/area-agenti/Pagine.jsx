@@ -168,6 +168,15 @@ function Sottocartella({ madre, sotto, vai }) {
       </button>
       {aperta && (
         <div className="aa-sottocartella-corpo">
+          {sotto.id === "LISTING AGENT" && (
+            <button className="aa-card aa-cartella-link" onClick={() => vai("revisione-prezzo")}>
+              <div>
+                <h2 className="aa-h2">Revisione prezzo di vendita · online</h2>
+                <p className="aa-nota">Riduzione del prezzo e rinnovo della scadenza dell'incarico: compilalo con il proprietario, stampalo o salvalo in PDF</p>
+              </div>
+              <span className="aa-link">Apri →</span>
+            </button>
+          )}
           {sotto.id === "BUYER AGENT" && (
             <button className="aa-card aa-cartella-link" onClick={() => vai("incarichi-ricerca")}>
               <div>

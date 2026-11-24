@@ -14,6 +14,7 @@ import { ElencoInserimenti, SchedaInserimento } from "./Inserimenti.jsx";
 import { ElencoValutazioni, SchedaValutazione } from "./Valutazioni.jsx";
 import Utility from "./Utility.jsx";
 import { ElencoIncarichiRicerca, SchedaIncaricoRicerca } from "./IncarichiRicerca.jsx";
+import RevisionePrezzo from "./RevisionePrezzo.jsx";
 import { ElencoImmobili, SchedaImmobile, PaginaReport } from "./Immobili.jsx";
 import Chirone from "./Chirone.jsx";
 import AssistenteLog from "./AssistenteLog.jsx";
@@ -158,6 +159,7 @@ export default function AreaApp() {
     case "jarvis": contenuto = <NonAutorizzato vai={vai} />; break;
     case "utility": contenuto = vedeUtility ? <Utility profilo={profilo} /> : <NonAutorizzato vai={vai} />; break;
     case "valutazioni": contenuto = <ElencoValutazioni profilo={profilo} vai={vai} />; break;
+    case "revisione-prezzo": contenuto = <RevisionePrezzo profilo={profilo} vai={vai} />; break;
     case "incarichi-ricerca": contenuto = <ElencoIncarichiRicerca profilo={profilo} vai={vai} />; break;
     case "immobili": contenuto = vedeUtility ? <ElencoImmobili profilo={profilo} vai={vai} /> : <NonAutorizzato vai={vai} />; break;
     case "compensi": contenuto = <ElencoReport profilo={profilo} vai={vai} />; break;

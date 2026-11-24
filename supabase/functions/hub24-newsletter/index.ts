@@ -158,11 +158,13 @@ const oggettoMime = (testo: string) => {
 
 // Pagina /resta-informato (17/11/2026)
 const NOTIFICHE = "na.vomero@fondocasa.it";
-const INTERESSI = ["vendere", "comprare", "mutuo", "prestito", "investire", "affittare"];
-const INTERESSI_CALDI = ["vendere", "mutuo", "prestito"];
+const INTERESSI = ["vendere", "comprare", "mutuo", "prestito", "investire", "affittare", "aste"];
+const INTERESSI_CALDI = ["vendere", "mutuo", "prestito", "aste"];
+// Chi sceglie le aste viene segnalato anche al responsabile aste (24/11/2026)
+const RESP_ASTE = "dipinto";
 const ETICHETTE: Record<string, string> = {
   vendere: "Vendere un immobile", comprare: "Comprare casa", mutuo: "Mutuo", prestito: "Prestito",
-  investire: "Investimenti immobiliari", affittare: "Affittare / mettere a reddito",
+  investire: "Investimenti immobiliari", affittare: "Affittare / mettere a reddito", aste: "Aste immobiliari",
 };
 // Agenti con link personale /resta-informato?a=<codice> (17/11/2026). Tenere allineato con la pagina.
 // L'iscritto resta all'agente che l'ha portato per primo; l'avviso dei contatti caldi va a lui e all'ufficio.
@@ -287,7 +289,7 @@ Deno.serve(async (req) => {
           const s0 = smtp();
           await s0.send({
             from: MITTENTE,
-            to: AGENTI[isc.agente]?.email ? [NOTIFICHE, AGENTI[isc.agente].email] : NOTIFICHE,
+            to: [...new Set([NOTIFICHE, AGENTI[isc.agente]?.email, caldi.includes("aste") ? AGENTI[RESP_ASTE].email : ""].filter(Boolean) as string[])],
             subject: oggettoMime(`Contatto caldo${AGENTI[isc.agente] ? " di " + AGENTI[isc.agente].nome : ""}: ${caldi.map((i: string) => ETICHETTE[i]).join(", ")}`),
             ...corpo(layout(
               `<p style="margin:0 0 12px"><strong>Nuovo iscritto confermato che chiede di essere ricontattato.</strong></p>

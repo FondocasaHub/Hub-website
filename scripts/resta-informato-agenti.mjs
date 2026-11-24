@@ -4,6 +4,7 @@
 // pagina per ogni agente (dist/resta-informato/a/<codice>.html) con titolo e anteprima a suo nome;
 // vercel.json la serve quando c'è ?a=<codice>. La pagina normale è pagina.html (non index.html): con index.html Vercel la serviva direttamente e ignorava la regola per agente. L'elenco agenti è letto da AGENTI dentro la pagina stessa.
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from "node:fs";
+import { createHash } from "node:crypto";
 
 const src = "dist/resta-informato/pagina.html";
 const html = readFileSync(src, "utf8");
@@ -23,7 +24,10 @@ for (const { codice, nome } of agenti) {
     .replace(/(<meta property="og:url" content=")[^"]*(")/, `$1https://www.fondocasahub.com/resta-informato?a=${codice}$2`)
     // Immagine di anteprima con nome e foto dell'agente (public/resta-informato/og-<codice>.jpg, 1200x630)
     .replace(/(<meta property="og:image" content=")[^"]*(")/, (m, a, b) =>
-      existsSync(`dist/resta-informato/og-${codice}.jpg`) ? `${a}https://www.fondocasahub.com/resta-informato/og-${codice}.jpg${b}` : m);
+      existsSync(`dist/resta-informato/og-${codice}.jpg`)
+        // ?v=<hash>: se l'immagine cambia, WhatsApp non riusa quella vecchia in memoria
+        ? `${a}https://www.fondocasahub.com/resta-informato/og-${codice}.jpg?v=${createHash("md5").update(readFileSync(`dist/resta-informato/og-${codice}.jpg`)).digest("hex").slice(0, 8)}${b}`
+        : m);
   if (!out.includes(`· ${n}, FC Punto Hub`)) throw new Error(`Anteprima non sostituita per ${codice}`);
   writeFileSync(`dist/resta-informato/a/${codice}.html`, out);
 }

@@ -1,0 +1,23 @@
+{
+  "numero": 5,
+  "slide": [
+    {"tipo": "gancio", "kicker": "HUB 24 · Numero 5",
+     "titolo": "Casa a Napoli: affitti <b>+8%</b>, sconti all'<b>8%</b>",
+     "sub": "Tre numeri della settimana per chi vende, compra, affitta o cerca un mutuo."},
+    {"tipo": "dato", "etichetta": "Napoli · ottobre 2026", "numero": "+8,2%",
+     "titolo": "Gli affitti corrono, i prezzi quasi fermi",
+     "testo": "Affitto medio <b>15,77 €/mq</b> al mese: per 80 mq circa <b>1.260 €</b>. In vendita <b>3.044 €/mq</b> (+1,2%), al Vomero-Arenella <b>4.436 €/mq</b>.",
+     "nota": "Immobiliare.it, prezzi richiesti a ottobre 2026, variazioni su ottobre 2025 (verificato il 25/11/2026)."},
+    {"tipo": "dato", "etichetta": "Trattative · III trimestre 2026", "numero": "8%",
+     "titolo": "Lo sconto medio sul prezzo chiesto",
+     "testo": "Su una casa chiesta 400.000 € sono circa <b>32.000 €</b> (era il 7%). Si vende in circa <b>5 mesi</b> e il <b>69%</b> degli acquisti è con mutuo.",
+     "nota": "Banca d'Italia, sondaggio congiunturale tra le agenzie immobiliari, III trimestre 2026 (pubblicato il 18/11/2026). Dato nazionale."},
+    {"tipo": "dato", "etichetta": "Mutuo 160.000 € · 30 anni", "numero": "729 → 645 €",
+     "titolo": "Quanto vale scegliere bene il mutuo",
+     "testo": "Al Tan medio del fisso (<b>3,62%</b>) la rata è 729 €. Con il miglior variabile (<b>2,65%</b>) scende a <b>645 €</b>; con il miglior fisso (3,13%, under 36) a 686 €.",
+     "nota": "Tan medi MutuiOnline al 31/10/2026; offerte Facile.it del 17/11/2026 (Banco Desio; Intesa Sanpaolo giovani, fino al 30/11). Rate calcolate, condizioni da verificare con la banca. Il variabile sale se la BCE alza i tassi."},
+    {"tipo": "chiusura", "kicker": "Gratis · ogni domenica alle 8",
+     "titolo": "Tutti i numeri della settimana su HUB 24",
+     "sub": "Manovra, mutui, affitti e prezzi di Napoli in 5 minuti."}
+  ]
+}

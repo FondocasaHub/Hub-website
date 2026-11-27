@@ -1,5 +1,15 @@
 [
   {
+    "codice": "SH-11",
+    "slug": "SH-11_parco-desiree-curti",
+    "titolo": "Parco Desirée: 16 appartamenti nuovi in costruzione",
+    "zona": "Curti (CE) · via Aurora",
+    "prezzo": 220000,
+    "foto": "SH-11_parco-desiree-curti/img/giorno-fronte.webp",
+    "data": "2026-11-27",
+    "stato": "disponibile"
+  },
+  {
     "codice": "SH-7",
     "slug": "SH-7_diaz-portici",
     "titolo": "90 m² a Portici, da ristrutturare",

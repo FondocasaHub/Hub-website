@@ -1,0 +1,230 @@
+/* Parco Desirée · bozza 2: un solo racconto. Notte blu, corten, luce calda; font FC */
+:root {
+  --notte: #0B1120;
+  --notte-90: rgba(11, 17, 32, .9);
+  --corten: #A5532C;
+  --luce: #F2D7A2;
+  --pietra: #EEE9E1;
+  --inchiostro: #1B2030;
+  --grigio: #8A8F9C;
+  --filo: rgba(242, 215, 162, .3);
+  --serif: 'Instrument Serif', Georgia, serif;
+  --sans: 'Inter Tight', system-ui, sans-serif;
+  --curva: cubic-bezier(.16, 1, .3, 1);
+  --margine: clamp(16px, 5vw, 72px);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--notte); color: var(--pietra); font: 400 17px/1.6 var(--sans); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
+img { display: block; max-width: 100%; }
+em { font: italic 400 1.08em var(--serif); color: var(--luce); letter-spacing: 0; }
+h1, h2 { margin: 0; font-weight: 600; letter-spacing: -.025em; }
+h2 { font-size: clamp(34px, 5.4vw, 68px); line-height: 1.04; margin: .25em 0 .5em; }
+.etichetta { display: block; font: 600 11px/1 var(--sans); letter-spacing: .34em; text-transform: uppercase; color: var(--luce); }
+.intro { max-width: 46ch; color: rgba(238, 233, 225, .75); font-size: 18px; margin: 0 0 32px; }
+.nota { font-size: 13px; color: var(--grigio); margin-top: 20px; }
+
+/* bozza */
+.v { display: none; }
+.bozza .v { display: inline; color: #FFB547; font-size: .85em; }
+.avviso-bozza { display: none; }
+.bozza .avviso-bozza { display: block; position: fixed; left: 12px; bottom: 12px; z-index: 30; background: #FFB547; color: #1B2030; font: 600 12px var(--sans); padding: 7px 11px; border-radius: 8px; }
+.bozza .avviso-bozza .v { color: inherit; }
+
+/* barra */
+.barra { position: fixed; inset: 0 0 auto; z-index: 20; display: flex; justify-content: space-between; align-items: center; padding: 14px var(--margine); transition: background .4s; }
+.barra.piena { background: var(--notte-90); backdrop-filter: blur(8px); }
+.marchio { color: var(--pietra); text-decoration: none; font: 600 18px var(--sans); }
+.marchio i { font: italic 400 22px var(--serif); color: var(--luce); }
+.barra-cta, .bottone { display: inline-block; color: var(--notte); background: var(--luce); padding: 12px 22px; border-radius: 999px; font: 600 14px var(--sans); text-decoration: none; border: 0; cursor: pointer; transition: transform .35s var(--curva), background .35s; }
+.barra-cta:hover, .bottone:hover { transform: translateY(-2px); background: #fff; }
+.bottone.secondario { background: transparent; color: var(--luce); border: 1.5px solid var(--filo); }
+
+/* 1. il racconto */
+#storia { height: 1000vh; position: relative; }
+.soglia { position: absolute; inset: 0; background: var(--pietra); opacity: 0; pointer-events: none; }
+.palco { position: sticky; top: 0; height: 100vh; height: 100svh; overflow: hidden; }
+#tela { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.render { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; pointer-events: none; }
+#render-notte { object-position: 62% 50%; }
+.velo { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(rgba(11, 17, 32, .55), rgba(11, 17, 32, 0) 28%, rgba(11, 17, 32, 0) 55%, rgba(11, 17, 32, .85)); }
+.stanze { position: absolute; inset: 0; pointer-events: none; opacity: 0; }
+.stanze span { position: absolute; left: 0; top: 0; white-space: nowrap; font: 600 10px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--luce); }
+.didascalia { position: absolute; left: var(--margine); bottom: 13vh; max-width: 30ch; opacity: 0; visibility: hidden; will-change: opacity, transform; }
+.didascalia p { margin: 8px 0 0; color: rgba(238, 233, 225, .82); }
+.didascalia .grande { font: 600 clamp(30px, 4.4vw, 56px)/1.05 var(--sans); letter-spacing: -.02em; color: var(--pietra); margin: 12px 0 4px; }
+.didascalia.centro { left: var(--margine); right: var(--margine); text-align: center; max-width: none; }
+.didascalia.centro h1, .didascalia.centro h2 { font-size: clamp(54px, 10vw, 150px); line-height: .92; margin: .15em 0 .1em; }
+.didascalia.centro h1 em, .didascalia.centro h2 em { font-size: 1.1em; }
+.didascalia.centro p { font-size: clamp(17px, 1.8vw, 21px); }
+.didascalia.centro .grande { font-size: clamp(48px, 8vw, 120px); line-height: 1; }
+.didascalia.centro .bottone { margin-top: 26px; }
+.didascalia.centro:not(.finale) { bottom: auto; top: 50%; margin-top: -1em; }
+.didascalia.basso { bottom: 13vh; }
+.scorri { position: absolute; left: 50%; bottom: 20px; transform: translateX(-50%); font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: rgba(238, 233, 225, .6); transition: opacity .4s; }
+.scorri::after { content: ''; display: block; width: 1px; height: 28px; margin: 8px auto 0; background: var(--luce); animation: scendi 1.8s var(--curva) infinite; transform-origin: top; }
+.scorso .scorri { opacity: 0; }
+@keyframes scendi { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); opacity: 1; } 100% { opacity: 0; } }
+.nota-render { position: absolute; right: var(--margine); bottom: 16px; font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: rgba(238, 233, 225, .45); }
+/* senza WebGL: si vede il render di sera */
+.senza-3d #render-notte { opacity: 1; }
+
+/* 2. dentro casa */
+#casa { height: 330vh; position: relative; background: var(--pietra); }
+.palco.chiaro { background: var(--pietra); }
+.quadro, .vista, .confronto, .lato { position: absolute; inset: 0; }
+.quadro { overflow: hidden; background: #ddd6cc; }
+.vista img, .lato img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vista img { opacity: 0; transition: opacity .6s var(--curva); }
+.vista img.su { opacity: 1; }
+.confronto { cursor: ew-resize; touch-action: pan-y; z-index: 2; }
+.confronto[hidden] { display: none; }
+.lato.destro { clip-path: inset(0 0 0 50%); }
+.maniglia { position: absolute; top: 0; bottom: 0; left: 50%; width: 48px; margin-left: -24px; display: grid; place-items: center; z-index: 3; pointer-events: none; }
+.maniglia::before { content: ''; position: absolute; top: 0; bottom: 0; left: 23px; width: 3px; background: #fff; box-shadow: 0 0 14px rgba(0, 0, 0, .4); }
+.maniglia span { position: relative; width: 48px; height: 48px; border-radius: 50%; background: #fff; box-shadow: 0 4px 18px rgba(0, 0, 0, .35); }
+.maniglia span::before, .maniglia span::after { content: ''; position: absolute; top: 18px; border: 6px solid transparent; }
+.maniglia span::before { left: 7px; border-right-color: var(--inchiostro); }
+.maniglia span::after { right: 7px; border-left-color: var(--inchiostro); }
+.maniglia:focus-visible span { outline: 3px solid var(--corten); }
+.suggerimento { position: absolute; top: calc(50% + 34px); white-space: nowrap; font: 600 12px var(--sans); color: #fff; background: rgba(11, 17, 32, .7); padding: 5px 10px; border-radius: 999px; }
+.suggerimento[hidden] { display: none; }
+.cartellino { position: absolute; bottom: 110px; z-index: 4; font: 600 14px var(--sans); color: var(--inchiostro); background: #fff; border: 0; border-radius: 999px; padding: 10px 16px; cursor: pointer; box-shadow: 0 4px 16px rgba(0, 0, 0, .25); }
+.cartellino[hidden] { display: none; }
+.cartellino.sinistra { left: var(--margine); }
+.cartellino.destra { right: var(--margine); }
+.testa-casa { position: absolute; left: var(--margine); top: 84px; z-index: 3; color: #fff; text-shadow: 0 2px 18px rgba(0, 0, 0, .45); transition: opacity .4s; pointer-events: none; }
+.testa-casa .etichetta { color: #fff; }
+.titolo-casa { font: 600 clamp(30px, 4.2vw, 54px)/1.05 var(--sans); letter-spacing: -.02em; margin: 10px 0 0; }
+.titolo-casa em { color: #fff; }
+.confrontando .testa-casa { opacity: 0; }
+.stanze-casa { position: absolute; right: var(--margine); top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 8px; z-index: 3; }
+.stanze-casa button { font: 600 12px var(--sans); letter-spacing: .14em; text-transform: uppercase; color: #fff; background: rgba(11, 17, 32, .35); backdrop-filter: blur(6px); border: 1px solid rgba(255, 255, 255, .35); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+.stanze-casa button[aria-selected="true"] { background: #fff; color: var(--inchiostro); }
+.comandi { position: absolute; left: 50%; bottom: 28px; transform: translateX(-50%); display: flex; gap: 10px; align-items: center; z-index: 3; max-width: calc(100% - 24px); }
+.stili { display: flex; gap: 4px; padding: 5px; border-radius: 999px; background: rgba(255, 255, 255, .94); box-shadow: 0 8px 30px rgba(0, 0, 0, .2); }
+.stili button { font: 600 14px var(--sans); color: var(--inchiostro); background: transparent; border: 0; border-radius: 999px; padding: 11px 18px; cursor: pointer; white-space: nowrap; transition: background .3s; }
+.stili button[aria-checked="true"] { background: var(--inchiostro); color: #fff; }
+.confrontando .stili { display: none; }
+.tasto-confronta { font: 600 14px var(--sans); color: #fff; background: var(--corten); border: 0; border-radius: 999px; padding: 15px 22px; cursor: pointer; box-shadow: 0 8px 30px rgba(0, 0, 0, .2); white-space: nowrap; }
+.tasto-confronta span { font-size: 16px; margin-right: 4px; }
+.nota-casa { position: absolute; right: var(--margine); top: 76px; margin: 0; z-index: 3; font-size: 11px; color: rgba(255, 255, 255, .85); text-shadow: 0 1px 6px rgba(0, 0, 0, .5); max-width: 40ch; text-align: right; }
+
+/* 3. il cantiere dal vivo */
+#oggi { height: 320vh; position: relative; background: var(--notte); }
+#volo { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.testi-oggi { position: absolute; left: var(--margine); bottom: 13vh; max-width: 34ch; z-index: 2; }
+.data-oggi { font: 600 clamp(40px, 6vw, 84px)/1 var(--sans); letter-spacing: -.02em; margin: 12px 0 10px; }
+.frase-oggi { font-size: clamp(17px, 1.8vw, 22px); color: rgba(238, 233, 225, .9); margin: 0; min-height: 3em; }
+#foto { padding-bottom: 60px; }
+.striscia { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 10px; margin: 0 calc(-1 * var(--margine)); padding-left: var(--margine); padding-right: var(--margine); scrollbar-width: thin; }
+.striscia figure { flex: none; width: min(78vw, 520px); margin: 0; scroll-snap-align: start; }
+.striscia img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 8px; }
+.striscia figcaption { font-size: 13px; color: var(--grigio); margin-top: 8px; }
+.striscia .prossimo div { aspect-ratio: 4 / 3; border: 1px dashed var(--filo); border-radius: 8px; display: grid; place-items: center; text-align: center; font: 600 22px var(--sans); }
+
+/* 6. com'è fatta */
+.voci { list-style: none; padding: 0; margin: 36px 0 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0 48px; max-width: 1100px; }
+.voci li { padding: 18px 0; border-top: 1px solid rgba(27, 32, 48, .14); display: grid; gap: 4px; }
+.voci b { font: 600 18px var(--sans); }
+.voci span { color: #4A4F5C; font-size: 15px; }
+
+/* 3. fuori, di giorno e di sera */
+#fine { height: 260vh; position: relative; }
+#fine .didascalia { visibility: visible; }
+
+/* sezioni */
+.sezione { padding: clamp(88px, 12vw, 160px) var(--margine); }
+.stretta { max-width: 900px; }
+.chiara { background: var(--pietra); color: var(--inchiostro); }
+.chiara .etichetta, .chiara em { color: var(--corten); }
+.chiara .nota { color: #6B6F7A; }
+
+/* 2. piani */
+.scelta { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: end; max-width: 1100px; }
+.palazzi { display: flex; gap: clamp(20px, 5vw, 64px); align-items: flex-end; }
+.palazzo { flex: 1; max-width: 300px; }
+.piano { display: grid; grid-template-columns: 34px 1fr 1fr; gap: 8px; margin-bottom: 8px; align-items: center; }
+.num { font: italic 400 20px var(--serif); color: var(--grigio); }
+.interno { height: 62px; border: 1.5px solid var(--filo); border-radius: 6px; background: rgba(242, 215, 162, .04); color: var(--pietra); font: 600 16px var(--sans); cursor: pointer; transition: all .3s var(--curva); }
+.interno:hover { border-color: var(--luce); transform: translateY(-2px); }
+.interno.scelto { background: var(--luce); color: var(--notte); border-color: var(--luce); }
+.interno.opzionato { border-color: var(--corten); }
+.interno.venduto { opacity: .3; cursor: default; }
+.livello { display: flex; width: 100%; height: 64px; justify-content: space-between; align-items: center; padding: 0 20px; margin-bottom: 8px; }
+.livello span { font: 600 16px var(--sans); }
+.livello b { font: italic 400 24px var(--serif); color: var(--luce); }
+.livello.scelto span, .livello.scelto b { color: var(--notte); }
+.livello:hover { transform: none; }
+.palazzo { max-width: 460px; width: 100%; }
+.base { margin: 10px 0 0 42px; padding-top: 10px; border-top: 1.5px solid var(--filo); font: 600 11px var(--sans); letter-spacing: .26em; text-transform: uppercase; color: var(--grigio); }
+.scheda { border: 1.5px solid var(--filo); border-radius: 12px; padding: 28px; background: rgba(242, 215, 162, .04); }
+.titolo-scheda { font: 600 34px/1 var(--sans); margin: 14px 0 6px; }
+.prezzo-scheda { font: italic 400 34px/1.1 var(--serif); color: var(--luce); margin: 0 0 18px; }
+.scheda ul { list-style: none; padding: 0; margin: 0 0 18px; color: rgba(238, 233, 225, .8); font-size: 15px; }
+.scheda li { padding: 7px 0; border-top: 1px solid rgba(242, 215, 162, .14); }
+.stato { font: 600 12px var(--sans); letter-spacing: .2em; text-transform: uppercase; color: var(--luce); margin: 0 0 18px; }
+
+/* 3. finiture */
+.finiture { display: grid; grid-template-columns: 1fr 260px; gap: 28px; align-items: start; }
+.foto-finitura { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: clamp(280px, 38vw, 540px) 150px; gap: 10px; }
+.foto-finitura img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; opacity: 0; transition: opacity .7s var(--curva); }
+.foto-finitura img.su { opacity: 1; }
+.foto-finitura img:first-child { grid-column: span 3; }
+.campioni { display: flex; flex-direction: column; gap: 12px; }
+.campioni button { display: flex; align-items: center; gap: 14px; padding: 10px; border-radius: 12px; border: 1.5px solid rgba(27, 32, 48, .15); background: #fff; font: italic 400 22px var(--serif); color: var(--inchiostro); cursor: pointer; text-align: left; transition: all .3s var(--curva); }
+.campioni i { width: 56px; height: 56px; border-radius: 8px; background-size: cover; background-position: 50% 85%; flex: none; }
+.campioni button[aria-selected="true"] { border-color: var(--inchiostro); box-shadow: 0 0 0 1.5px var(--inchiostro); }
+
+/* 5. modulo */
+#modulo { max-width: 760px; }
+.campi { display: grid; grid-template-columns: 1fr 1fr; gap: 18px 24px; }
+#modulo label { display: flex; flex-direction: column; gap: 6px; font: 600 13px var(--sans); color: #4A4F5C; }
+#modulo input, #modulo select { font: 400 16px var(--sans); padding: 13px 14px; border: 1.5px solid rgba(27, 32, 48, .18); border-radius: 8px; background: #fff; color: var(--inchiostro); }
+#modulo input:focus, #modulo select:focus { outline: 2px solid var(--corten); outline-offset: 1px; }
+#modulo .consenso { flex-direction: row; align-items: center; gap: 10px; margin: 24px 0; font-weight: 500; }
+#modulo .consenso a { color: var(--corten); }
+#modulo .bottone { background: var(--inchiostro); color: var(--pietra); font-size: 16px; padding: 15px 28px; }
+.nascosto { position: absolute; left: -9999px; }
+.esito { font-weight: 600; color: var(--corten); }
+
+/* piede */
+.piede { padding: 56px var(--margine) 80px; font-size: 14px; color: var(--grigio); }
+.piede p { margin: 4px 0; }
+.piede a { color: var(--luce); }
+.piede .marchio { display: block; margin-bottom: 14px; }
+.piede .piccolo { font-size: 12px; margin-top: 18px; }
+
+/* telefono */
+@media (max-width: 900px) {
+  .scelta { grid-template-columns: 1fr; gap: 28px; }
+  .interno { height: 52px; }
+  .campi { grid-template-columns: 1fr; gap: 16px; }
+  .didascalia { bottom: 16vh; }
+  .barra-cta { padding: 10px 14px; font-size: 13px; }
+  .voci { grid-template-columns: 1fr; }
+  /* dentro casa sul telefono: niente scroll legato, un riquadro 4:5 e i comandi sotto */
+  #casa { height: auto; }
+  .palco.chiaro { position: relative; height: auto; display: flex; flex-direction: column; gap: 14px; padding: 92px 16px 48px; overflow: visible; }
+  .testa-casa { position: static; color: var(--inchiostro); text-shadow: none; }
+  .testa-casa .etichetta { color: var(--corten); }
+  .titolo-casa em { color: var(--corten); }
+  .confrontando .testa-casa { opacity: 1; }
+  .stanze-casa { position: static; transform: none; flex-direction: row; gap: 6px; }
+  .stanze-casa button { flex: 1; color: var(--inchiostro); background: transparent; border-color: rgba(27, 32, 48, .2); backdrop-filter: none; padding: 10px 6px; font-size: 11px; }
+  .stanze-casa button[aria-selected="true"] { background: var(--inchiostro); color: #fff; border-color: var(--inchiostro); }
+  .quadro { position: relative; inset: auto; aspect-ratio: 4 / 5; border-radius: 14px; box-shadow: 0 10px 30px rgba(27, 32, 48, .15); }
+  .cartellino { bottom: 12px; font-size: 13px; padding: 9px 13px; }
+  .cartellino.sinistra { left: 12px; }
+  .cartellino.destra { right: 12px; }
+  .comandi { position: static; transform: none; flex-direction: column; max-width: none; gap: 10px; }
+  .stili { width: 100%; box-shadow: none; border: 1.5px solid rgba(27, 32, 48, .15); background: #fff; }
+  .stili button { flex: 1; padding: 12px 6px; font-size: 14px; }
+  .confrontando .stili { display: none; }
+  .tasto-confronta { width: 100%; padding: 15px; box-shadow: none; }
+  .nota-casa { position: static; display: block; color: #6B6F7A; text-shadow: none; text-align: left; max-width: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .scorri::after { animation: none; }
+}

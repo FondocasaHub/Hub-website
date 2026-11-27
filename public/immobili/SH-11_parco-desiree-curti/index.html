@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<base href="/immobili/SH-11_parco-desiree-curti/">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="index, follow">
+<title>Parco Desirée · Curti</title>
+<meta name="description" content="16 appartamenti nuovi a Curti, via Aurora. Da 220.000 €, box e posto auto inclusi.">
+<link rel="stylesheet" href="font/font.css">
+<link rel="stylesheet" href="style.css">
+<link rel="modulepreload" href="vendor/three.module.min.js">
+<link rel="canonical" href="https://www.fondocasahub.com/immobili/SH-11_parco-desiree-curti/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parco Desirée · Curti">
+<meta property="og:description" content="16 appartamenti nuovi a Curti, via Aurora. Da 220.000 €, box e posto auto inclusi.">
+<meta property="og:url" content="https://www.fondocasahub.com/immobili/SH-11_parco-desiree-curti/">
+<meta property="og:image" content="https://www.fondocasahub.com/immobili/SH-11_parco-desiree-curti/img/giorno-fronte.webp">
+<script type="text/javascript" src="https://embeds.iubenda.com/widgets/be5222a0-c9b4-4227-9bfc-f8251d8daaa6.js"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{'ad_storage':'denied','ad_user_data':'denied','ad_personalization':'denied','analytics_storage':'denied','wait_for_update':500});</script>
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-NBFS2FNQ');</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-18237592158"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-18237592158');</script>
+</head>
+<body>
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NBFS2FNQ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+<header class="barra">
+  <a class="marchio" href="#storia">Parco <i>Desirée</i></a>
+  <a class="barra-cta" href="#contatto">Prenota una visita</a>
+</header>
+
+<!-- 1. il racconto: la pianta si disegna, i muri si alzano, i piani si impilano, si entra in casa -->
+<section id="storia" aria-label="Il palazzo si costruisce dalla pianta">
+  <div class="palco">
+    <canvas id="tela" aria-hidden="true"></canvas>
+    <div id="stanze" class="stanze" aria-hidden="true"></div>
+    <div id="soglia" class="soglia"></div>
+    <div class="velo"></div>
+
+    <div class="didascalia centro" data-da="0" data-a=".08">
+      <span class="etichetta">Curti · via Aurora</span>
+      <h1>Parco <em>Desirée</em></h1>
+      <p>Tutto parte da un disegno.</p>
+    </div>
+    <div class="didascalia" data-da=".2" data-a=".37">
+      <span class="etichetta">La casa</span>
+      <p class="grande">Tre lati di luce.</p>
+      <p>Ogni appartamento ha la tripla esposizione e i balconi su più lati.</p>
+    </div>
+    <div class="didascalia" data-da=".4" data-a=".6">
+      <span class="etichetta">I piani</span>
+      <p class="grande" id="piano-testo">1° piano</p>
+      <p>Box auto e posto auto inclusi.</p>
+    </div>
+    <div class="didascalia" data-da=".6" data-a=".7">
+      <span class="etichetta">Il complesso</span>
+      <p class="grande">16 appartamenti. <em>Classe AA.</em></p>
+      <p>E un parco comune con area verde.</p>
+    </div>
+    <div class="didascalia centro" data-da=".7" data-a=".8">
+      <p class="grande">Ora <em>entra.</em></p>
+    </div>
+    <span class="scorri" aria-hidden="true">Scorri</span>
+    <span class="nota-render">Modello indicativo</span>
+  </div>
+</section>
+
+<!-- 2. dentro casa: stessa stanza, tre stili da confrontare -->
+<section id="casa" aria-label="Dentro casa">
+  <div class="palco chiaro">
+    <div class="testa-casa">
+      <span class="etichetta">Dentro casa</span>
+      <p class="titolo-casa">Scegli <em>il tuo stile.</em></p>
+    </div>
+    <div class="stanze-casa" id="stanze-casa" role="tablist" aria-label="Stanze"></div>
+    <div class="quadro" id="quadro">
+      <div class="vista" id="vista"></div>
+      <div class="confronto" id="confronto" hidden>
+        <div class="lato destro" id="lato-destro"></div>
+        <div class="maniglia" id="maniglia" role="slider" tabindex="0" aria-label="Sposta il confronto" aria-valuemin="0" aria-valuemax="100" aria-valuenow="50"><span></span><b class="suggerimento" id="suggerimento">Trascina</b></div>
+      </div>
+      <button class="cartellino sinistra" id="cartellino-sinistro" data-cambia="stile" hidden></button>
+      <button class="cartellino destra" id="cartellino-destro" data-cambia="altro" hidden></button>
+    </div>
+    <div class="comandi">
+      <div class="stili" id="stili" role="radiogroup" aria-label="Stile"></div>
+      <button class="tasto-confronta" id="tasto-confronta" aria-pressed="false"><span>⇆</span> Confronta due stili</button>
+    </div>
+    <p class="nota-casa">Render illustrativi. Gli stili Parquet e Pietra chiara sono creati con l'IA. Arredi non inclusi.</p>
+  </div>
+</section>
+
+<!-- 3. il cantiere vero: volo del drone legato allo scroll e foto -->
+<section id="oggi" aria-label="Il cantiere dal vivo">
+  <div class="palco">
+    <canvas id="volo" aria-label="Volo del drone sul cantiere, 17 luglio 2026" role="img"></canvas>
+    <div class="velo"></div>
+    <div class="testi-oggi">
+      <span class="etichetta">Il cantiere dal vivo · drone</span>
+      <p class="data-oggi">17 luglio <em>2026</em></p>
+      <p class="frase-oggi" id="frase-oggi">Non è un render. È il cantiere vero.</p>
+    </div>
+    <span class="nota-render">Video reale, nessuna modifica</span>
+  </div>
+</section>
+
+<section id="foto" class="sezione" aria-label="Foto del cantiere">
+  <span class="etichetta">Foto vere</span>
+  <h2>Lo vedi crescere, <em>mese dopo mese.</em></h2>
+  <p class="intro">Ogni mese voliamo sul cantiere dalle stesse posizioni. Qui trovi tutto, dal primo volo alle chiavi.</p>
+  <div class="striscia" id="striscia">
+    <figure><img loading="lazy" src="img/cantiere-fronte-m.webp" alt="I due palazzi con i ponteggi visti dalla strada"><figcaption>17 luglio 2026 · la struttura è completa</figcaption></figure>
+    <figure><img loading="lazy" src="img/cantiere-zenitale-m.webp" alt="Il cantiere visto dall'alto"><figcaption>17 luglio 2026 · dall'alto</figcaption></figure>
+    <figure><img loading="lazy" src="img/cantiere-corte-m.webp" alt="La corte interna in costruzione con la gru"><figcaption>17 luglio 2026 · la corte</figcaption></figure>
+    <figure><img loading="lazy" src="img/cantiere-lato-m.webp" alt="Il lato dei palazzi verso i campi"><figcaption>17 luglio 2026 · il lato</figcaption></figure>
+    <figure class="prossimo"><div>Prossimo volo<br><em>in arrivo</em></div><figcaption>Il diario continua</figcaption></figure>
+  </div>
+</section>
+
+<!-- 4. fuori, di giorno e di sera -->
+<section id="fine" aria-label="Parco Desirée di giorno e di sera">
+  <div class="palco">
+    <img id="render-giorno" class="render" src="img/giorno-fronte.webp" alt="Parco Desirée di giorno (render)">
+    <img id="render-notte" class="render" src="img/notte-facciata.webp" alt="Parco Desirée di sera (render)">
+    <div class="velo"></div>
+    <div class="didascalia basso" id="cosi">
+      <p class="grande">Così sarà.</p>
+    </div>
+    <div class="didascalia centro finale" id="finale">
+      <span class="etichetta">Il cantiere è in corso</span>
+      <h2>Parco <em>Desirée</em></h2>
+      <p>Da 220.000 €, box e posto auto inclusi.</p>
+      <a class="bottone" href="#piani">Scegli il tuo piano</a>
+    </div>
+    <span class="nota-render">Render illustrativi</span>
+  </div>
+</section>
+
+<!-- 5. scegli il piano -->
+<section id="piani" class="sezione">
+  <span class="etichetta">Scegli il piano</span>
+  <h2>Più sali, <em>più vedi.</em></h2>
+  <p class="intro">Tocca un piano: ti diciamo subito il prezzo. Oggi gli appartamenti sono tutti liberi.</p>
+  <div class="scelta">
+    <div class="palazzi" id="palazzi"></div>
+    <aside class="scheda" id="scheda" aria-live="polite"></aside>
+  </div>
+  <p class="nota">Prezzi indicativi comunicati dal costruttore, salvo disponibilità. Imposte, spese e condizioni di vendita si verificano in agenzia: fanno fede il contratto preliminare e il capitolato.</p>
+</section>
+
+<!-- 6. com'è fatta: dal capitolato -->
+<section id="capitolato" class="sezione chiara">
+  <span class="etichetta">Com'è fatta</span>
+  <h2>Quello che non vedi <em>conta di più.</em></h2>
+  <ul class="voci" id="voci"></ul>
+  <p class="nota">Dal capitolato opere e finiture di PSG Immobiliare srl. Il costruttore può sostituire materiali e fornitori con altri di pari qualità (capitolato, p. 12). Il capitolato completo te lo mandiamo su richiesta.</p>
+</section>
+
+<!-- 7. mutuo -->
+<section id="mutuo" class="sezione stretta">
+  <span class="etichetta">Il mutuo</span>
+  <h2>Il mutuo <em>lo facciamo in agenzia.</em></h2>
+  <p class="intro">In agenzia c'è la consulenza del credito: confrontiamo più banche e ti diciamo quanto puoi avere, prima di scegliere la casa. La prima consulenza è gratuita.</p>
+  <p class="nota">Mediazione creditizia di WeUnit, iscritta all'OAM (M28). La concessione del mutuo è soggetta all'approvazione della banca.</p>
+  <a class="bottone secondario" href="#contatto">Parla con un consulente</a>
+</section>
+
+<!-- 8. contatto -->
+<section id="contatto" class="sezione chiara">
+  <span class="etichetta">Visita il cantiere</span>
+  <h2>Prenota <em>una visita.</em></h2>
+  <form id="modulo" name="parco-desiree" method="POST">
+    <input type="hidden" name="codice" value="SH-11">
+    <input type="hidden" name="immobile" value="SH-11_parco-desiree-curti">
+    <input type="hidden" name="titolo_pagina" value="Parco Desirée, via Aurora, Curti · 16 appartamenti nuovi">
+    <input type="hidden" name="stato" value="disponibile">
+    <input type="hidden" name="utm_source">
+    <input type="hidden" name="utm_medium">
+    <input type="hidden" name="utm_campaign">
+    <input type="hidden" name="utm_content">
+    <input type="hidden" name="utm_term">
+    <input type="hidden" name="fonte" id="fonte">
+    <p class="nascosto"><label>Non compilare <input name="indirizzo-web" tabindex="-1" autocomplete="off"></label></p>
+    <div class="campi">
+      <label>Nome e cognome<input name="nome" required autocomplete="name"></label>
+      <label>Telefono<input name="telefono" type="tel" required autocomplete="tel"></label>
+      <label>Email (facoltativa)<input name="email" type="email" autocomplete="email"></label>
+      <label>Piano<select name="appartamento" id="scelta-app"><option value="">Ancora non so</option></select></label>
+      <label>Stile preferito<select name="stile" id="scelta-stile"><option value="">Ancora non so</option></select></label>
+      <label>Ti serve un mutuo?<select name="mutuo"><option value="">Scegli</option><option>Sì</option><option>No</option><option>Non lo so</option></select></label>
+    </div>
+    <label class="consenso"><input type="checkbox" name="capitolato" value="sì"> Mandatemi anche il capitolato completo</label>
+    <label class="consenso"><input type="checkbox" required> Ho letto l'<a href="/privacy" target="_blank">informativa privacy</a></label>
+    <button class="bottone" type="submit">Prenota la visita</button>
+    <p class="esito" id="esito" role="status"></p>
+  </form>
+</section>
+
+<footer class="piede">
+  <p class="marchio">Parco <i>Desirée</i></p>
+  <p>Curti (CE), via Aurora · <a href="https://www.google.com/maps/search/?api=1&query=Via+Aurora+Curti+CE" target="_blank" rel="noopener">Mappa</a></p>
+  <p>Costruttore: <b id="costruttore"></b> · Commercializzazione: <b>FCpuntoHUB</b>, via Pietro Mascagni 35, Napoli</p>
+  <p>FC PUNTO HUB SRL · P.IVA 01924140096 · lun–ven 9–19 · sab 9:30–13</p>
+  <p class="piccolo">Il modello 3D e la divisione in palazzi sono indicativi; esterni e interni sono render illustrativi e gli stili Parquet e Pietra chiara sono creati con l'IA; arredi non inclusi. Il video e le foto del cantiere sono reali (drone, 17 luglio 2026). Classe energetica di progetto indicata dal costruttore: i dati dell'APE si chiedono in agenzia. <a href="/privacy">Privacy</a> · <a href="/cookie">Cookie</a></p>
+</footer>
+
+<script src="dati.js"></script>
+<script src="main.js"></script>
+<script type="module" src="scena.js"></script>
+</body>
+</html>
